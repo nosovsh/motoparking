@@ -18,7 +18,7 @@ var RouteHandler = Router.RouteHandler;
 var Routes = (
   <Route handler={App}>
     <DefaultRoute name="Default" handler={Default}/>
-    <Route name="Parking" path="/parking" handler={Parking}/>
+    <Route name="Parking" path="/p/:id" handler={Parking}/>
   </Route>
 );
 
