@@ -14,12 +14,14 @@ var RouteHandler = Router.RouteHandler;
 
 
 var Application = React.createClass({
-	render: function() {
-		return <div>
-			1react11sdt123d
-			<Map/>
-			<RouteHandler/>
-		</div>;
-	}
+    render: function () {
+        return (
+            <div>
+                <Map/>
+                <RouteHandler/>
+            </div>
+        );
+    }
 });
+
 module.exports = Application;

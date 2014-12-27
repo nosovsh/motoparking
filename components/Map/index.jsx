@@ -4,7 +4,6 @@ require("./style.css");
 var L = require("leaflet");
 L.Icon.Default.imagePath = 'path-to-your-leaflet-images-folder'
 require("leaflet/dist/leaflet.css");
-window.console.log(require("./images/layers.png"));
 
 var $ = require("jquery");
 

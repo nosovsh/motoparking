@@ -12,6 +12,7 @@ app.get("/*", function (req, res) {
     res.end("<!DOCTYPE html>\n"+
 "<html>\n" +
 "  <head>\n" +
+"    <meta charset='utf-8'/>\n" +
 "    <title>Hello React</title>\n" +
 "  </head>\n" +
 "  <body>\n" +

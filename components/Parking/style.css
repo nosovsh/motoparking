@@ -1,0 +1,16 @@
+.sidebar__wrapper {
+    position: absolute;
+    width: 0;
+    top: 72px;
+    bottom: 40px;
+    right: 16px;
+    z-index: 200;
+}
+
+.sidebar__content {
+    position: relative;
+    width: 332px;
+    margin-left: -332px;
+    box-shadow: 0 2px 3px 1px rgba(0, 0, 0, .2);
+    background-color: #FFF;
+}

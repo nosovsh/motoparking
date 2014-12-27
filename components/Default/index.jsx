@@ -12,11 +12,11 @@ var Link = Router.Link;
 var RouteHandler = Router.RouteHandler;
 
 
-var Application = React.createClass({
+var Default = React.createClass({
 	render: function() {
 		return <div>
-			default
 		</div>;
 	}
 });
-module.exports = Application;
+
+module.exports = Default;
