@@ -25,6 +25,10 @@ module.exports = {
       // Pass *.jsx files through jsx-loader transform
       { test: /\.jsx$/, loaders: ['react-hot', 'jsx'] },
       { test: /\.css$/, loader: "style!css" },
+      { test: /\.png$/, loader: "file" },
+      { test: /\.jpg$/, loader: "file" },
+      //{	test: "png|jpg|jpeg|gif|svg", loader: "url-loader?limit=10000",}
+
     ]
   },
   plugins: [
