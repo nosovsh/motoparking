@@ -4,6 +4,7 @@ require("./style.css");
 var L = require("leaflet");
 L.Icon.Default.imagePath = 'path-to-your-leaflet-images-folder'
 require("leaflet/dist/leaflet.css");
+var flux = require("../../fluxy")
 
 var $ = require("jquery");
 
@@ -31,7 +32,7 @@ var Map = React.createClass({
 		}
 	},
     componentDidMount: function() {
-        var map = this.map = L.map(this.getDOMNode(), {
+        this.map = L.map(this.getDOMNode(), {
 			center: [55.7522200, 37.6155600],
 			zoom: 12,
             minZoom: 2,
@@ -45,10 +46,11 @@ var Map = React.createClass({
                 id: 'trashgenerator.ih4locjo'})
             ],
 
-            attributionControl: false,
+            attributionControl: false
         });
-		var marker = L.marker([55.7522200, 37.6155600], {icon: icon}).on('click', this.onMarkerClick.bind(this, 1)).addTo(map);
-		var marker = L.marker([55.7622200, 37.6155600], {icon: icon}).on('click', this.onMarkerClick.bind(this, 2)).addTo(map);
+        flux.store("ParkingStore").on("loadParkingListSuccess", this._parkingListLoaded);
+        flux.actions.loadParkingList();
+
     },
     componentWillUnmount: function() {
         this.map = null;
@@ -60,9 +62,14 @@ var Map = React.createClass({
     },
 	onMarkerClick: function (id) {
 		this.transitionTo("Parking", {"id": id});
-	}
+	},
+
+    _parkingListLoaded: function() {
+        var store = flux.store("ParkingStore");
+        _.forEach(store.parkingList, function (parking) {
+            L.marker(parking.latLng, {icon: icon}).on('click', this.onMarkerClick.bind(this, parking.id)).addTo(this.map);
+        }.bind(this));
+    }
 });
-
-
 
 module.exports = Map;

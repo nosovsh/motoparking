@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "css-loader": "^0.9.0",
+    "fluxxor": "^1.5.1",
     "jquery": "^2.1.3",
     "leaflet": "^0.7.3",
     "react": "^0.12.2",
