@@ -20,15 +20,22 @@ var Navigation = require('react-router/modules/mixins/Navigation');
 var icon = L.icon({
     iconUrl: require("leaflet/dist/images/marker-icon.png"),
     iconSize:     [25, 41], // size of the icon
-    iconAnchor:   [25, 41], // point of the icon which will correspond to marker's location
+    iconAnchor:   [25, 41] // point of the icon which will correspond to marker's location
+});
+
+var activeIcon = L.icon({
+    iconUrl: require("leaflet/dist/images/marker-icon.png"),
+    iconSize:     [35, 46], // size of the icon
+    iconAnchor:   [35, 46] // point of the icon which will correspond to marker's location
 });
 
 var Map = React.createClass({
 	mixins: [Navigation],
 	getInitialState: function() {
+        this.parkingMarkers = {};
 		return {
 			width: $(window).width(),
-			height: $(window).height(),
+			height: $(window).height()
 		}
 	},
     componentDidMount: function() {
@@ -48,7 +55,10 @@ var Map = React.createClass({
 
             attributionControl: false
         });
-        flux.store("ParkingStore").on("loadParkingListSuccess", this._parkingListLoaded);
+        flux.store("ParkingStore")
+            .on("loadParkingListSuccess", this._loadParkingListSuccess)
+            .on("loadCurrentParking", this._loadCurrentParking)
+            .on("unselectCurrentParking", this._unselectCurrentParking)
         flux.actions.loadParkingList();
 
     },
@@ -64,11 +74,29 @@ var Map = React.createClass({
 		this.transitionTo("Parking", {"id": id});
 	},
 
-    _parkingListLoaded: function() {
+    _loadParkingListSuccess: function() {
         var store = flux.store("ParkingStore");
         _.forEach(store.parkingList, function (parking) {
-            L.marker(parking.latLng, {icon: icon}).on('click', this.onMarkerClick.bind(this, parking.id)).addTo(this.map);
+            var ic = store.currentParkingId && parking.id == store.currentParkingId ? activeIcon : icon
+            this.parkingMarkers[parking.id] = L.marker(parking.latLng, {icon: ic}).on('click', this.onMarkerClick.bind(this, parking.id)).addTo(this.map);
         }.bind(this));
+        console.log(this.parkingMarkers)
+    },
+
+    _loadCurrentParking: function () {
+        var store = flux.store("ParkingStore");
+        _.map(this.parkingMarkers, function (marker, parkingId) {
+            marker.setIcon(icon);
+        });
+        if (this.parkingMarkers[store.currentParkingId]) {
+            this.parkingMarkers[store.currentParkingId].setIcon(activeIcon);
+        }
+    },
+
+    _unselectCurrentParking: function() {
+        _.map(this.parkingMarkers, function (marker, parkingId) {
+            marker.setIcon(icon);
+        });
     }
 });
 

@@ -12,6 +12,10 @@ var ParkingActions = {
     })
   },
 
+  unselectCurrentParking: function () {
+        this.dispatch(ParkingConstants.UNSELECT_CURRENT_PARKING, {});
+  },
+
   loadParkingList: function() {
     this.dispatch(ParkingConstants.LOAD_PARKING_LIST, {});
 

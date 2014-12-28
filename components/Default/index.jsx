@@ -11,11 +11,17 @@ var DefaultRoute = Router.DefaultRoute;
 var Link = Router.Link;
 var RouteHandler = Router.RouteHandler;
 
+var flux = require("../../fluxy")
+
 
 var Default = React.createClass({
 	render: function() {
 		return <div>
 		</div>;
+	},
+	componentDidMount: function() {
+		// TODO: move somewhere
+		flux.actions.unselectCurrentParking();
 	}
 });
 

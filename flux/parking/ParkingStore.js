@@ -15,6 +15,8 @@ var ParkingStore = Fluxxor.createStore({
             ParkingConstants.LOAD_CURRENT_PARKING_SUCCESS, this.onLoadCurrentParkingSuccess,
             ParkingConstants.LOAD_CURRENT_PARKING_FAIL, this.onLoadCurrentParkingFail,
 
+            ParkingConstants.UNSELECT_CURRENT_PARKING, this.onUnselectCurrentParking,
+
             ParkingConstants.LOAD_PARKING_LIST, this.onLoadParkingList,
             ParkingConstants.LOAD_PARKING_LIST_SUCCESS, this.onLoadParkingListSuccess,
             ParkingConstants.LOAD_PARKING_LIST_FAIL, this.onLoadParkingListFail
@@ -25,6 +27,7 @@ var ParkingStore = Fluxxor.createStore({
         this.loading = true;
         this.currentParkingId = payload.parkingId;
         this.emit("change");
+        this.emit("loadCurrentParking");
     },
 
     onLoadCurrentParkingSuccess: function (payload) {
@@ -39,6 +42,12 @@ var ParkingStore = Fluxxor.createStore({
         this.loading = false;
         this.error = payload.error;
         this.emit("change");
+    },
+
+    onUnselectCurrentParking: function () {
+        this.currentParkingId = null;
+        this.emit("change");
+        this.emit("unselectCurrentParking");
     },
 
     onLoadParkingList: function (payload) {
