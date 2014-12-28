@@ -31,11 +31,12 @@ var ParkingStore = Fluxxor.createStore({
     },
 
     onLoadCurrentParkingSuccess: function (payload) {
-        this.loading = false;
-        this.error = null;
-
-        this.currentParking = payload.parking;
-        this.emit("change");
+        if (payload.parking.id == this.currentParkingId) {
+            this.loading = false;
+            this.error = null;
+            this.currentParking = payload.parking;
+            this.emit("change");
+        }
     },
 
     onLoadCurrentParkingFail: function (payload) {

@@ -5,6 +5,7 @@ var ParkingClient = {
   loadParking: function(parkingId, success, failure) {
     setTimeout(function() {
       success({
+        id: parkingId,
         title: "Парковка " + parkingId
       });
     }, 1000);
