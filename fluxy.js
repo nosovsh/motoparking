@@ -1,12 +1,17 @@
 var Fluxxor = require("fluxxor");
 var ParkingStore = require("./flux/parking/ParkingStore");
+var OpinionStore = require("./flux/opinion/OpinionStore");
 var ParkingActions = require("./flux/parking/ParkingActions");
+var OpinionActions = require("./flux/opinion/OpinionActions");
 
 var stores = {
-  ParkingStore: new ParkingStore()
+  ParkingStore: new ParkingStore(),
+  OpinionStore: new OpinionStore()
 };
 
-var flux = new Fluxxor.Flux(stores, ParkingActions);
+var actions = _.extend(ParkingActions, OpinionActions)
+
+var flux = new Fluxxor.Flux(stores, actions);
 
 window.flux = flux;
 
