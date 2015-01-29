@@ -22,9 +22,9 @@ app.get("/*", function (req, res) {
 "</html>");
 });
 
-app.listen(port, function () {
-    console.log("Server listening on port " + port);
-});
+//app.listen(port, function () {
+//    console.log("Server listening on port " + port);
+//});
 
 new WebpackDevServer(webpack(config), {
   publicPath: config.output.publicPath,

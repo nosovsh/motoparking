@@ -1,30 +1,25 @@
 var _ = require("lodash"),
-    Faker = require("Faker");
+    Faker = require("Faker"),
+    $ = require("jquery");
 
 var ParkingClient = {
   loadParking: function(parkingId, success, failure) {
-    setTimeout(function() {
-      success({
-        id: parkingId,
-        title: "Парковка " + parkingId
-      });
-    }, 1000);
+    $.ajax({
+      dataType: "json",
+      url: "http://127.0.0.1:5000/api/parkings/" + parkingId,
+      data: {},
+      success: success
+    });
   },
 
   loadParkingList: function(params, success, failure) {
-    setTimeout(function() {
-      success([{
-          latLng: [55.7522200, 37.6155600],
-          id: 1
-        }, {
-          latLng: [55.7622200, 37.6155600],
-          id: 2
-        }, {
-          latLng: [55.7722200, 37.6155600],
-          id: 3
-      }
-      ]);
-    }, 1000);
+    $.ajax({
+      dataType: "json",
+      url: "http://127.0.0.1:5000/api/parkings/",
+      data: params,
+      success: function(ret){success(ret['data'])}
+    });
+
   }
 };
 

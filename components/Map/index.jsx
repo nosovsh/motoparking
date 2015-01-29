@@ -78,7 +78,7 @@ var Map = React.createClass({
         var store = flux.store("ParkingStore");
         _.forEach(store.parkingList, function (parking) {
             var ic = store.currentParkingId && parking.id == store.currentParkingId ? activeIcon : icon
-            this.parkingMarkers[parking.id] = L.marker(parking.latLng, {icon: ic}).on('click', this.onMarkerClick.bind(this, parking.id)).addTo(this.map);
+            this.parkingMarkers[parking.id] = L.marker(parking.latLng.coordinates, {icon: ic}).on('click', this.onMarkerClick.bind(this, parking.id)).addTo(this.map);
         }.bind(this));
         console.log(this.parkingMarkers)
     },
