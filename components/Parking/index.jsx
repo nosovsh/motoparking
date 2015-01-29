@@ -5,6 +5,7 @@ var flux = require("../../fluxy")
 require("./style.css");
 var _each = require("lodash").forEach;
 var Comment = require("../Comment");
+var StatusCover = require("../StatusCover");
 
 var Parking = React.createClass({
     mixins: [Router.State],
@@ -30,6 +31,7 @@ var Parking = React.createClass({
         return (
             <div className="sidebar__wrapper">
                 <div className="sidebar__content">
+                    <StatusCover status={ this.state.currentParking.status } />
                     Parking: { this.getParams().id }
                     <br/>
                     { this.state.loading ? <div>Loading...</div> : <div> {this.state.currentParking.title}</div> }

@@ -82,7 +82,7 @@ def create_user():
 class Parking(db.Document):
     title = db.StringField()
     lat_lng = db.PointField()
-    status = db.IntField()
+    status = db.IntField(default=0)
     user = db.ReferenceField(User)
 
 # Parking(title="Парковка 1", lat_lng=[55.7622200, 37.6155600], ).save()
@@ -140,7 +140,7 @@ class UserResource(Resource):
 @api.register(name='parkings', url='/api/parkings/')
 class ParkingView(ResourceView):
     resource = ParkingResource
-    methods = [methods.Create, methods.Fetch, methods.List, methods.Delete]
+    methods = [methods.Create, methods.Fetch, methods.List, methods.Delete, methods.Update]
 
 
 @api.register(name='opinions', url='/api/opinions/')
