@@ -2,9 +2,9 @@ var React = require("react");
 
 require("./style.css");
 var L = require("leaflet");
-L.Icon.Default.imagePath = 'path-to-your-leaflet-images-folder'
+L.Icon.Default.imagePath = 'path-to-your-leaflet-images-folder';
 require("leaflet/dist/leaflet.css");
-var flux = require("../../fluxy")
+var flux = require("../../fluxy");
 
 var $ = require("jquery");
 
@@ -17,22 +17,42 @@ var Link = Router.Link;
 var RouteHandler = Router.RouteHandler;
 var Navigation = require('react-router/modules/mixins/Navigation');
 
-var icon = L.icon({
-    iconUrl: require("leaflet/dist/images/marker-icon.png"),
-    iconSize:     [25, 41], // size of the icon
-    iconAnchor:   [25, 41] // point of the icon which will correspond to marker's location
-});
+var images = {
+    0: "marker-mot.svg",
+    1: "marker-mot.svg",
+    2: "marker-mot.svg",
+    3: "marker-mot-crossed.svg",
+    4: "marker-mot.svg"
+};
+var activeImages = {
+    0: "marker-mot-active.svg",
+    1: "marker-mot-active.svg",
+    2: "marker-mot-active.svg",
+    3: "marker-mot-crossed-active.svg",
+    4: "marker-mot-active.svg"
+};
 
-var activeIcon = L.icon({
-    iconUrl: require("leaflet/dist/images/marker-icon.png"),
-    iconSize:     [35, 46], // size of the icon
-    iconAnchor:   [35, 46] // point of the icon which will correspond to marker's location
-});
+var getIcon = function(status) {
+    return L.icon({
+        iconUrl: require("./images/" + images[status]),
+        iconSize:     [39, 42], // size of the icon
+        iconAnchor:   [39, 42] // point of the icon which will correspond to marker's location
+    });
+};
+
+var getActiveIcon = function(status) {
+    return L.icon({
+        iconUrl: require("./images/" + activeImages[status]),
+        iconSize:     [39, 42], // size of the icon
+        iconAnchor:   [39, 42] // point of the icon which will correspond to marker's location
+    });
+};
 
 var Map = React.createClass({
 	mixins: [Navigation],
 	getInitialState: function() {
         this.parkingMarkers = {};
+        this.parkings = {};
 		return {
 			width: $(window).width(),
 			height: $(window).height()
@@ -77,8 +97,9 @@ var Map = React.createClass({
     _loadParkingListSuccess: function() {
         var store = flux.store("ParkingStore");
         _.forEach(store.parkingList, function (parking) {
-            var ic = store.currentParkingId && parking.id == store.currentParkingId ? activeIcon : icon
+            var ic = store.currentParkingId && parking.id == store.currentParkingId ? getActiveIcon(parking.status) : getIcon(parking.status)
             this.parkingMarkers[parking.id] = L.marker(parking.latLng.coordinates, {icon: ic}).on('click', this.onMarkerClick.bind(this, parking.id)).addTo(this.map);
+            this.parkings[parking.id] = parking;
         }.bind(this));
         console.log(this.parkingMarkers)
     },
@@ -86,17 +107,18 @@ var Map = React.createClass({
     _loadCurrentParking: function () {
         var store = flux.store("ParkingStore");
         _.map(this.parkingMarkers, function (marker, parkingId) {
-            marker.setIcon(icon);
-        });
+            marker.setIcon(getIcon(this.parkings[parkingId].status));
+        }.bind(this));
         if (this.parkingMarkers[store.currentParkingId]) {
-            this.parkingMarkers[store.currentParkingId].setIcon(activeIcon);
+            this.parkingMarkers[store.currentParkingId].setIcon(getActiveIcon(this.parkings[store.currentParkingId].status));
         }
     },
 
     _unselectCurrentParking: function() {
+        var store = flux.store("ParkingStore");
         _.map(this.parkingMarkers, function (marker, parkingId) {
-            marker.setIcon(icon);
-        });
+            marker.setIcon(getIcon(this.parkings[parkingId].status));
+        }.bind(this));
     }
 });
 

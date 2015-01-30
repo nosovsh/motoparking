@@ -16,7 +16,7 @@
 }
 
 .status-cover__3 {
-
+    background: #D84B6C;
 }
 
 .status-cover__4 {
@@ -25,6 +25,26 @@
 
 .status-cover__icon {
     height: 130px;
+    background-position-x: center;
+    background-position-y: center;
+    background-repeat: no-repeat;
+}
+
+.status-cover__icon__0 {
+}
+
+.status-cover__icon__1 {
+}
+
+.status-cover__icon__2 {
+}
+
+.status-cover__icon__3 {
+    background-image: url("images/mot-crossed.png");
+}
+
+.status-cover__icon__4 {
+    background-image: url("images/mot.png");
 }
 
 .status-cover__text {

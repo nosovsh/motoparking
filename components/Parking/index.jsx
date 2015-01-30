@@ -32,9 +32,9 @@ var Parking = React.createClass({
             <div className="sidebar__wrapper">
                 <div className="sidebar__content">
                     <StatusCover status={ this.state.currentParking.status } />
-                    Parking: { this.getParams().id }
+
                     <br/>
-                    { this.state.loading ? <div>Loading...</div> : <div> {this.state.currentParking.title}</div> }
+                    { this.state.loading ? <div>Loading...</div> : <div /> }
                     <br/>
                     <form onSubmit={this.handlePostComment}>
                       <input type="text" value={this.state.newCommentText}
