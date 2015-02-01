@@ -1,5 +1,6 @@
 var Fluxxor = require("fluxxor"),
     ParkingConstants = require("./ParkingConstants"),
+    OpinionConstants = require("../opinion/OpinionConstants"),
     _ = require("lodash");
 
 var ParkingStore = Fluxxor.createStore({
@@ -8,7 +9,6 @@ var ParkingStore = Fluxxor.createStore({
         this.error = null;
         this.parkingList = [];
         this.currentParkingId = null;
-        this.currentParking = {};
 
         this.bindActions(
             ParkingConstants.LOAD_CURRENT_PARKING, this.onLoadCurrentParking,
@@ -19,7 +19,11 @@ var ParkingStore = Fluxxor.createStore({
 
             ParkingConstants.LOAD_PARKING_LIST, this.onLoadParkingList,
             ParkingConstants.LOAD_PARKING_LIST_SUCCESS, this.onLoadParkingListSuccess,
-            ParkingConstants.LOAD_PARKING_LIST_FAIL, this.onLoadParkingListFail
+            ParkingConstants.LOAD_PARKING_LIST_FAIL, this.onLoadParkingListFail,
+
+            OpinionConstants.POST_OPINION, this.onPostOpinion
+            //OpinionConstants.POST_OPINION_SUCCESS, this.onPostOpinionSuccess,
+            //OpinionConstants.POST_OPINION_FAIL, this.onPostOpinionFail
         );
     },
 
@@ -34,7 +38,7 @@ var ParkingStore = Fluxxor.createStore({
         if (payload.parking.id == this.currentParkingId) {
             this.loading = false;
             this.error = null;
-            this.currentParking = payload.parking;
+            this.updateParking(payload.parking);
             this.emit("change");
         }
     },
@@ -69,6 +73,33 @@ var ParkingStore = Fluxxor.createStore({
         this.loading = false;
         this.error = payload.error;
         this.emit("change");
+    },
+
+    onPostOpinion: function (payload) {
+        var parking = this.getParking(payload.opinion.parking);
+        var newParking = _.merge(parking, {myOpinion: payload.opinion});
+        this.updateParking(newParking);
+        this.emit("change");
+    },
+
+    getParking: function (id) {
+        return _.find(this.parkingList, function(parking) {
+            return parking.id == id
+        }.bind(this))
+    },
+
+    updateParking: function (newParking) {
+        _.map(this.parkingList, function(parking, i) {
+            if(parking.id == newParking.id){
+                this.parkingList[i] = newParking
+            }
+        }.bind(this))
+    },
+
+    getCurrentParking: function () {
+        return _.find(this.parkingList, function(parking) {
+            return parking.id == this.currentParkingId
+        }.bind(this)) || {};
     }
 });
 

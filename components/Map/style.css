@@ -1,6 +1,16 @@
 .map {
+    /*left: 0;*/
+    /*top:0;*/
+    /*z-index: -1000;*/
+    /*position: absolute;*/
+
+    height: 100%;
+    width: 100%;
     left: 0;
-    top:0;
-    z-index: -1000;
     position: absolute;
+    top: 0;
 }
+
+html { height: 100% }
+body { height: 100%; margin: 0px; padding: 0px }
+body > div { width: 100%; height: 100% }

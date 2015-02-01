@@ -1,0 +1,21 @@
+.my-opinion {
+    background: #FFFFFF;
+    border: 1px solid #979797;
+    border-radius: 5px;
+    margin: 12px;
+}
+
+.my-opinion__row {
+    padding: 17px 20px;
+    border-bottom: 1px solid #979797;;
+}
+
+.my-opinion__row:last-child {
+    border-bottom: none;
+}
+
+.my-opinion__row__text {
+    font-size: 16px;
+    line-height: 22px;
+    color: #4D4D4D;
+}

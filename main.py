@@ -15,6 +15,7 @@ from flask.ext.security import Security, MongoEngineUserDatastore, \
 from flask_security.forms import RegisterForm
 import wtforms
 
+from pro_resource import ProResource
 
 # config
 
@@ -91,17 +92,19 @@ class Parking(db.Document):
 class Opinion(db.Document):
     parking = db.ReferenceField(Parking)
     user = db.ReferenceField(User)
-    is_secure = db.IntField()
-    is_moto = db.IntField()
+    is_secure = db.StringField()
+    is_moto = db.StringField()
 
 
 # resources
 
 
-class ParkingResource(Resource):
+class ParkingResource(ProResource):
     document = Parking
+    fields = ["status", "lat_lng", "user", "id", "title", "my_opinion", ]
     rename_fields = {
         'lat_lng': 'latLng',
+        'my_opinion': 'myOpinion',
     }
 
     def create_object(self, data=None, save=True, parent_resources=None):
@@ -111,22 +114,32 @@ class ParkingResource(Resource):
             self._save(obj)
         return obj
 
+    def get_object(self, pk):
+        obj = super(ParkingResource, self).get_object(pk=pk)
+        opinions = Opinion.objects(parking=obj.pk, user=current_user._get_current_object().pk)
+        obj.my_opinion = OpinionResource().serialize(opinions[0]) if opinions else None
+        return obj
 
-class OpinionResource(Resource):
+
+class OpinionResource(ProResource):
     document = Opinion
     filters = {
         'parkingId': [ops.Exact],
     }
     rename_fields = {
         'parking_id': 'parkingId',
+        'is_secure': 'isSecure',
+        'is_moto': 'isMoto',
     }
-    readonly_fields = ["id", "userId"]
+    readonly_fields = ["id", "user"]
 
     def create_object(self, data=None, save=True, parent_resources=None):
-        obj = super(OpinionResource, self).create_object(data, save=False, parent_resources=parent_resources)
-        obj.user = current_user._get_current_object()
-        if save:
-            self._save(obj)
+        data = data or self.data
+        try:
+            obj = Opinion.objects.get(parking=data["parking"], user=current_user._get_current_object())
+        except Opinion.DoesNotExist:
+            obj = Opinion(parking=data["parking"], user=current_user._get_current_object())
+        obj = self.update_object(obj, data, save, parent_resources=parent_resources)
         return obj
 
 
@@ -144,9 +157,9 @@ class ParkingView(ResourceView):
 
 
 @api.register(name='opinions', url='/api/opinions/')
-class CheckpointView(ResourceView):
+class OpinionsView(ResourceView):
     resource = OpinionResource
-    methods = [methods.Create, methods.Fetch, methods.List, methods.Delete]
+    methods = [methods.Create, methods.Fetch, methods.List, methods.Delete, methods.Update]
 
 
 @api.register(name='users', url='/api/users/')

@@ -86,8 +86,9 @@ var Map = React.createClass({
         this.map = null;
     },
     render: function() {
+        // style={{width:this.state.width, height: this.state.height}}
         return (
-            <div className='map' style={{width:this.state.width, height: this.state.height}}></div>
+            <div className='map'></div>
         );
     },
 	onMarkerClick: function (id) {
@@ -97,7 +98,7 @@ var Map = React.createClass({
     _loadParkingListSuccess: function() {
         var store = flux.store("ParkingStore");
         _.forEach(store.parkingList, function (parking) {
-            var ic = store.currentParkingId && parking.id == store.currentParkingId ? getActiveIcon(parking.status) : getIcon(parking.status)
+            var ic = store.currentParkingId && parking.id == store.currentParkingId ? getActiveIcon(parking.status) : getIcon(parking.status);
             this.parkingMarkers[parking.id] = L.marker(parking.latLng.coordinates, {icon: ic}).on('click', this.onMarkerClick.bind(this, parking.id)).addTo(this.map);
             this.parkings[parking.id] = parking;
         }.bind(this));

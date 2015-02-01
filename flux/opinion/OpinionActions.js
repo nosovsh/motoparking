@@ -14,7 +14,6 @@ var OpinionActions = {
   },
   postOpinion: function(opinion) {
     opinion = _.merge({}, opinion);
-    opinion.tempId = _.uniqueId() + "b";
     opinion.status = 'SAVING';
     this.dispatch(OpinionConstants.POST_OPINION, {opinion: opinion});
 

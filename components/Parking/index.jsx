@@ -6,6 +6,7 @@ require("./style.css");
 var _each = require("lodash").forEach;
 var Comment = require("../Comment");
 var StatusCover = require("../StatusCover");
+var MyOpinion = require("../MyOpinion");
 
 var Parking = React.createClass({
     mixins: [Router.State],
@@ -18,7 +19,7 @@ var Parking = React.createClass({
             loading: store.loading,
             error: store.error,
             words: _.values(store.words),
-            currentParking: store.currentParking,
+            currentParking: store.getCurrentParking(),
             currentParkingId: store.currentParkingId,
             currentParkingOpinions: opinionStore.opinionsByParking[this.getParams().id] ? opinionStore.opinionsByParking[this.getParams().id] : []
         };
@@ -33,7 +34,8 @@ var Parking = React.createClass({
                 <div className="sidebar__content">
                     <StatusCover status={ this.state.currentParking.status } />
 
-                    <br/>
+                    <MyOpinion parking={ this.state.currentParking }/>
+
                     { this.state.loading ? <div>Loading...</div> : <div /> }
                     <br/>
                     <form onSubmit={this.handlePostComment}>
@@ -94,7 +96,7 @@ var Parking = React.createClass({
             this.setState({
                 loading: store.loading,
                 error: store.error,
-                currentParking: store.currentParking,
+                currentParking: store.getCurrentParking(),
                 currentParkingId: store.currentParkingId,
                 currentParkingOpinions: opinionStore.opinionsByParking[this.getParams().id] ? opinionStore.opinionsByParking[this.getParams().id] : []
             });

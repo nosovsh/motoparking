@@ -1,5 +1,10 @@
 body {
 	background: white;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    color: #4D4D4D;
+}
+p {
+    margin:0 0 17px 0;
 }
 
 .application {
