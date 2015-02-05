@@ -9,6 +9,7 @@ var ParkingStore = Fluxxor.createStore({
         this.error = null;
         this.parkingList = [];
         this.currentParkingId = null;
+        this.editingLocation = false;
 
         this.bindActions(
             ParkingConstants.LOAD_CURRENT_PARKING, this.onLoadCurrentParking,
@@ -20,6 +21,10 @@ var ParkingStore = Fluxxor.createStore({
             ParkingConstants.LOAD_PARKING_LIST, this.onLoadParkingList,
             ParkingConstants.LOAD_PARKING_LIST_SUCCESS, this.onLoadParkingListSuccess,
             ParkingConstants.LOAD_PARKING_LIST_FAIL, this.onLoadParkingListFail,
+
+            ParkingConstants.EDIT_LOCATION, this.onEditLocation,
+            ParkingConstants.EDIT_LOCATION_DONE, this.onEditLocationDone,
+            ParkingConstants.EDIT_LOCATION_CANCEL, this.onEditLocationCancel,
 
             OpinionConstants.POST_OPINION, this.onPostOpinion
             //OpinionConstants.POST_OPINION_SUCCESS, this.onPostOpinionSuccess,
@@ -80,6 +85,24 @@ var ParkingStore = Fluxxor.createStore({
         var newParking = _.merge(parking, {myOpinion: payload.opinion});
         this.updateParking(newParking);
         this.emit("change");
+    },
+
+    onEditLocation: function () {
+        this.editingLocation = true;
+        this.emit("change");
+        this.emit("editLocation");
+    },
+
+    onEditLocationDone: function () {
+        this.editingLocation = false;
+        this.emit("change");
+        this.emit("editLocationDone");
+    },
+
+    onEditLocationCancel: function () {
+        this.editingLocation = false;
+        this.emit("change");
+        this.emit("editLocationCancel");
     },
 
     getParking: function (id) {

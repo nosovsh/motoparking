@@ -10,3 +10,7 @@ npm install --save react-router
 
 npm install webpack-dev-server -g
 npm install webpack -g
+
+
+node server.js
+python main.py

@@ -75,9 +75,9 @@ security = Security(app, user_datastore,
          register_form=ExtendedRegisterForm)
 
 # Create a user to test with
-@app.before_first_request
-def create_user():
-    user_datastore.create_user(email='matt@nobien.net', password='123456')
+# @app.before_first_request
+# def create_user():
+#     user_datastore.create_user(email='matt@nobien.net', password='123456')
 
 
 class Parking(db.Document):

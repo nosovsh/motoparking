@@ -1,41 +1,37 @@
-var React = require("react");
+var React = require("react/addons"),
+    Fluxxor = require("fluxxor");
+
+require("./style.css");
+
 var Router = require('react-router');
 var Link = Router.Link;
-var flux = require("../../fluxy")
-require("./style.css");
-var _each = require("lodash").forEach;
+
+var FluxMixin = Fluxxor.FluxMixin(React),
+    StoreWatchMixin = Fluxxor.StoreWatchMixin;
+
 var Comment = require("../Comment");
 var StatusCover = require("../StatusCover");
 var MyOpinion = require("../MyOpinion");
 
 var Parking = React.createClass({
-    mixins: [Router.State],
-
-    getInitialState: function () {
-        var store = flux.store("ParkingStore");
-        var opinionStore = flux.store("OpinionStore");
-
-        return {
-            loading: store.loading,
-            error: store.error,
-            words: _.values(store.words),
-            currentParking: store.getCurrentParking(),
-            currentParkingId: store.currentParkingId,
-            currentParkingOpinions: opinionStore.opinionsByParking[this.getParams().id] ? opinionStore.opinionsByParking[this.getParams().id] : []
-        };
-    },
+    mixins: [Router.State, FluxMixin, StoreWatchMixin("ParkingStore")],
 
     render: function () {
         var comments = this.state.currentParkingOpinions.map(function (opinion) {
            return <Comment key={ opinion.tempId || opinion.id } opinion={ opinion } />
         });
+
+        var sidebarWrapperClasses = {
+            'sidebar__wrapper': true,
+            'sidebar__wrapper__hidden': this.state.editingLocation
+        };
+
         return (
-            <div className="sidebar__wrapper">
+            <div className={ React.addons.classSet(sidebarWrapperClasses) }>
                 <div className="sidebar__content">
                     <StatusCover status={ this.state.currentParking.status } />
 
                     <MyOpinion parking={ this.state.currentParking }/>
-
                     { this.state.loading ? <div>Loading...</div> : <div /> }
                     <br/>
                     <form onSubmit={this.handlePostComment}>
@@ -61,46 +57,32 @@ var Parking = React.createClass({
     handlePostComment: function (e) {
         e.preventDefault();
         if (this.state.newCommentText.trim()) {
-            flux.actions.postOpinion({comment: this.state.newCommentText, parkingId: this.getParams().id});
+            this.getFlux().actions.postOpinion({comment: this.state.newCommentText, parkingId: this.getParams().id});
             this.setState({newCommentText: ""});
         }
     },
     componentDidMount: function () {
-        var storeNames = ["ParkingStore", "OpinionStore"];
-        _each(storeNames, function (store) {
-            flux.store(store).on("change", this._setStateFromFlux);
-        }, this);
-
-        flux.actions.loadCurrentParking(this.getParams().id);
-        flux.actions.loadOpinions(this.getParams().id);
-
-    },
-
-    componentWillUnmount: function () {
-        var storeNames = ["ParkingStore", "OpinionStore"];
-        _each(storeNames, function (store) {
-            flux.store(store).removeListener("change", this._setStateFromFlux);
-        }, this);
+        this.getFlux().actions.loadCurrentParking(this.getParams().id);
+        this.getFlux().actions.loadOpinions(this.getParams().id);
     },
 
     componentWillReceiveProps: function (nextProps) {
-        flux.actions.loadCurrentParking(this.getParams().id);
-        flux.actions.loadOpinions(this.getParams().id);
+        this.getFlux().actions.loadCurrentParking(this.getParams().id);
+        this.getFlux().actions.loadOpinions(this.getParams().id);
     },
 
-    _setStateFromFlux: function () {
-        if (this.isMounted()) {
-            var store = flux.store("ParkingStore");
-            var opinionStore = flux.store("OpinionStore");
+    getStateFromFlux: function () {
+        var store = this.getFlux().store("ParkingStore");
+        var opinionStore = this.getFlux().store("OpinionStore");
 
-            this.setState({
-                loading: store.loading,
-                error: store.error,
-                currentParking: store.getCurrentParking(),
-                currentParkingId: store.currentParkingId,
-                currentParkingOpinions: opinionStore.opinionsByParking[this.getParams().id] ? opinionStore.opinionsByParking[this.getParams().id] : []
-            });
-        }
+        return {
+            loading: store.loading,
+            error: store.error,
+            currentParking: store.getCurrentParking(),
+            currentParkingId: store.currentParkingId,
+            currentParkingOpinions: opinionStore.opinionsByParking[this.getParams().id] ? opinionStore.opinionsByParking[this.getParams().id] : [],
+            editingLocation: store.editingLocation
+        };
     }
 
 });

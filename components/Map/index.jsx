@@ -1,10 +1,10 @@
-var React = require("react");
+var React = require("react"),
+    Fluxxor = require("fluxxor");
 
 require("./style.css");
 var L = require("leaflet");
 L.Icon.Default.imagePath = 'path-to-your-leaflet-images-folder';
 require("leaflet/dist/leaflet.css");
-var flux = require("../../fluxy");
 
 var $ = require("jquery");
 
@@ -16,6 +16,9 @@ var DefaultRoute = Router.DefaultRoute;
 var Link = Router.Link;
 var RouteHandler = Router.RouteHandler;
 var Navigation = require('react-router/modules/mixins/Navigation');
+
+var FluxMixin = Fluxxor.FluxMixin(React),
+    StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
 var images = {
     0: "marker-mot.svg",
@@ -49,7 +52,7 @@ var getActiveIcon = function(status) {
 };
 
 var Map = React.createClass({
-	mixins: [Navigation],
+	mixins: [Navigation, FluxMixin],
 	getInitialState: function() {
         this.parkingMarkers = {};
         this.parkings = {};
@@ -75,11 +78,11 @@ var Map = React.createClass({
 
             attributionControl: false
         });
-        flux.store("ParkingStore")
+        this.getFlux().store("ParkingStore")
             .on("loadParkingListSuccess", this._loadParkingListSuccess)
             .on("loadCurrentParking", this._loadCurrentParking)
-            .on("unselectCurrentParking", this._unselectCurrentParking)
-        flux.actions.loadParkingList();
+            .on("unselectCurrentParking", this._unselectCurrentParking);
+        this.getFlux().actions.loadParkingList();
 
     },
     componentWillUnmount: function() {
@@ -96,7 +99,7 @@ var Map = React.createClass({
 	},
 
     _loadParkingListSuccess: function() {
-        var store = flux.store("ParkingStore");
+        var store = this.getFlux().store("ParkingStore");
         _.forEach(store.parkingList, function (parking) {
             var ic = store.currentParkingId && parking.id == store.currentParkingId ? getActiveIcon(parking.status) : getIcon(parking.status);
             this.parkingMarkers[parking.id] = L.marker(parking.latLng.coordinates, {icon: ic}).on('click', this.onMarkerClick.bind(this, parking.id)).addTo(this.map);
@@ -106,7 +109,7 @@ var Map = React.createClass({
     },
 
     _loadCurrentParking: function () {
-        var store = flux.store("ParkingStore");
+        var store = this.getFlux().store("ParkingStore");
         _.map(this.parkingMarkers, function (marker, parkingId) {
             marker.setIcon(getIcon(this.parkings[parkingId].status));
         }.bind(this));
@@ -116,7 +119,7 @@ var Map = React.createClass({
     },
 
     _unselectCurrentParking: function() {
-        var store = flux.store("ParkingStore");
+        var store = this.getFlux().store("ParkingStore");
         _.map(this.parkingMarkers, function (marker, parkingId) {
             marker.setIcon(getIcon(this.parkings[parkingId].status));
         }.bind(this));

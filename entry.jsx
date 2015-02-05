@@ -11,7 +11,9 @@ var RouteHandler = Router.RouteHandler;
 
 window.React = React; // For chrome dev tool support
 
+var flux = require("./fluxy");
+
 Router.run(routes, Router.HistoryLocation, function (Handler) {
-  React.render(<Handler/>, document.body);
+  React.render(<Handler flux={flux}/>, document.body);
 });
 

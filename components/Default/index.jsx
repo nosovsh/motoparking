@@ -1,28 +1,21 @@
-var React = require("react");
+var React = require("react"),
+    Fluxxor = require("fluxxor");
 
 require("./style.css");
 
-
-// Require React-Router
-var Router = require('react-router');
-var Route = Router.Route;
-var NotFoundRoute = Router.NotFoundRoute;
-var DefaultRoute = Router.DefaultRoute;
-var Link = Router.Link;
-var RouteHandler = Router.RouteHandler;
-
-var flux = require("../../fluxy")
-
+var FluxMixin = Fluxxor.FluxMixin(React),
+    StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
 var Default = React.createClass({
-	render: function() {
-		return <div>
-		</div>;
-	},
-	componentDidMount: function() {
-		// TODO: move somewhere
-		flux.actions.unselectCurrentParking();
-	}
+    mixins: [FluxMixin],
+    render: function () {
+        return <div>
+        </div>;
+    },
+    componentDidMount: function () {
+        // TODO: move somewhere
+        this.getFlux().actions.unselectCurrentParking();
+    }
 });
 
 module.exports = Default;
