@@ -67,6 +67,7 @@ var Map = React.createClass({
 			zoom: 12,
             minZoom: 2,
             maxZoom: 20,
+            zoomControl: false,
             layers: [
                 L.tileLayer(
                     'https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png',
@@ -163,7 +164,8 @@ var Map = React.createClass({
         this.parkingMarkers[store.currentParkingId] = L.marker(oldMarker.getLatLng(), {
             icon: getActiveIcon(this.parkings[store.currentParkingId].status),
             draggable: false
-        }).addTo(this.map);
+        }).on('click', this.onMarkerClick.bind(this, store.currentParkingId))
+            .addTo(this.map);
 
         this.map.removeLayer(oldMarker);
     },
@@ -181,7 +183,8 @@ var Map = React.createClass({
         this.parkingMarkers[store.currentParkingId] = L.marker(store.getCurrentParking().latLng.coordinates, {
             icon: getActiveIcon(this.parkings[store.currentParkingId].status),
             draggable: false
-        }).addTo(this.map);
+        }).on('click', this.onMarkerClick.bind(this, store.currentParkingId))
+            .addTo(this.map);
 
         this.map.removeLayer(oldMarker);
     }
