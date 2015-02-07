@@ -1,5 +1,7 @@
 var ParkingConstants = require("./ParkingConstants");
 var ParkingClient = require("./ParkingClient");
+var OpinionConstants = require("../opinion/OpinionConstants");
+var OpinionClient = require("../opinion/OpinionClient");
 
 var ParkingActions = {
   loadCurrentParking: function(parkingId) {
@@ -30,12 +32,30 @@ var ParkingActions = {
     this.dispatch(ParkingConstants.EDIT_LOCATION, {});
   },
 
-  editLocationDone: function () {
+  editLocationDone: function (opinion) {
+    /* TODO:
+    1. действия над Opininon в  ParkingActions
+    2. передается целый opinion, а надо только координаты
+    3. Почти такой же код, как при просто сохранении Opinion*/
     this.dispatch(ParkingConstants.EDIT_LOCATION_DONE, {});
+
+    opinion = _.merge({}, opinion);
+    opinion.status = 'SAVING';
+    this.dispatch(OpinionConstants.POST_LOCATION, {opinion: opinion});
+
+    OpinionClient.postOpinion(opinion, function (opinion) {
+      this.dispatch(OpinionConstants.POST_LOCATION_SUCCESS, {opinion: opinion})
+    }.bind(this), function(error) {
+      this.dispatch(OpinionConstants.POST_LOCATION_FAIL, {opinion: opinion, error: error});
+    })
   },
 
   editLocationCancel: function () {
     this.dispatch(ParkingConstants.EDIT_LOCATION_CANCEL, {});
+  },
+
+  changeCurrentParkingTemporaryPosition: function (latLng) {
+    this.dispatch(ParkingConstants.CHANGE_CURRENT_PARKING_TEMPORARY_POSITION, {latLng: latLng});
   }
 };
 

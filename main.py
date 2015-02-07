@@ -92,6 +92,7 @@ class Parking(db.Document):
 class Opinion(db.Document):
     parking = db.ReferenceField(Parking)
     user = db.ReferenceField(User)
+    lat_lng = db.PointField()
     is_secure = db.StringField()
     is_moto = db.StringField()
 
@@ -128,6 +129,7 @@ class OpinionResource(ProResource):
     }
     rename_fields = {
         'parking_id': 'parkingId',
+        'lat_lng': 'latLng',
         'is_secure': 'isSecure',
         'is_moto': 'isMoto',
     }

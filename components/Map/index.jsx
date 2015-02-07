@@ -81,7 +81,10 @@ var Map = React.createClass({
         this.getFlux().store("ParkingStore")
             .on("loadParkingListSuccess", this._loadParkingListSuccess)
             .on("loadCurrentParking", this._loadCurrentParking)
-            .on("unselectCurrentParking", this._unselectCurrentParking);
+            .on("unselectCurrentParking", this._unselectCurrentParking)
+            .on("editLocation", this._editLocation)
+            .on("editLocationCancel", this._editLocationCancel)
+            .on("editLocationDone", this._editLocationDone)
         this.getFlux().actions.loadParkingList();
 
     },
@@ -123,6 +126,46 @@ var Map = React.createClass({
         _.map(this.parkingMarkers, function (marker, parkingId) {
             marker.setIcon(getIcon(this.parkings[parkingId].status));
         }.bind(this));
+    },
+
+    /**
+     * make current marker parking draggable. update store, when dragged
+     * @private
+     */
+    _editLocation: function() {
+        var store = this.getFlux().store("ParkingStore");
+
+        var oldMarker = this.parkingMarkers[store.currentParkingId];
+
+        this.parkingMarkers[store.currentParkingId] = L.marker(oldMarker.getLatLng(), {
+            icon: getActiveIcon(this.parkings[store.currentParkingId].status),
+            draggable: true
+        }).addTo(this.map);
+
+        this.parkingMarkers[store.currentParkingId].on('dragend', function (e) {
+            this.getFlux().actions.changeCurrentParkingTemporaryPosition(
+                this.parkingMarkers[store.currentParkingId].getLatLng()
+            );
+        }.bind(this));
+
+        this.map.removeLayer(oldMarker);
+    },
+
+    /**
+     * make current parking marking not draggable
+     * @private
+     */
+    _editLocationDone: function() {
+        var store = this.getFlux().store("ParkingStore");
+
+        var oldMarker = this.parkingMarkers[store.currentParkingId];
+
+        this.parkingMarkers[store.currentParkingId] = L.marker(oldMarker.getLatLng(), {
+            icon: getActiveIcon(this.parkings[store.currentParkingId].status),
+            draggable: false
+        }).addTo(this.map);
+
+        this.map.removeLayer(oldMarker);
     }
 });
 
