@@ -137,13 +137,26 @@ class OpinionResource(ProResource):
 
     def create_object(self, data=None, save=True, parent_resources=None):
         data = data or self.data
-        try:
-            obj = Opinion.objects.get(parking=data["parking"], user=current_user._get_current_object())
-        except Opinion.DoesNotExist:
-            obj = Opinion(parking=data["parking"], user=current_user._get_current_object())
-        obj = self.update_object(obj, data, save, parent_resources=parent_resources)
-        return obj
+        if not data["parking"]:
+            parking = Parking()
+        else:
+            parking = Parking.objects.get(pk=data["parking"])
 
+        try:
+            opinion = Opinion.objects.get(parking=parking, user=current_user._get_current_object())
+        except Opinion.DoesNotExist:
+            opinion = Opinion(parking=parking, user=current_user._get_current_object())
+        opinion = self.update_object(opinion, data, save, parent_resources=parent_resources)
+
+        fill_parking(parking, opinion)
+        parking.save()
+
+        return opinion
+
+
+def fill_parking(parking, opinion):
+    if opinion.lat_lng:
+        parking.lat_lng = opinion.lat_lng
 
 class UserResource(Resource):
     document = User
