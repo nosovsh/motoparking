@@ -166,6 +166,24 @@ var Map = React.createClass({
         }).addTo(this.map);
 
         this.map.removeLayer(oldMarker);
+    },
+
+    /**
+     * make current parking marking not draggable
+     * TODO: same as _editLocationDone
+     * @private
+     */
+    _editLocationCancel: function() {
+        var store = this.getFlux().store("ParkingStore");
+
+        var oldMarker = this.parkingMarkers[store.currentParkingId];
+
+        this.parkingMarkers[store.currentParkingId] = L.marker(store.getCurrentParking().latLng.coordinates, {
+            icon: getActiveIcon(this.parkings[store.currentParkingId].status),
+            draggable: false
+        }).addTo(this.map);
+
+        this.map.removeLayer(oldMarker);
     }
 });
 
