@@ -1,6 +1,5 @@
 var React = require("react/addons"),
-    Fluxxor = require("fluxxor"),
-    _ = require("lodash");
+    Fluxxor = require("fluxxor");
 
 require("./style.css");
 

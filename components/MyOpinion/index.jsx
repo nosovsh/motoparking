@@ -1,9 +1,13 @@
 var React = require("react"),
-    Fluxxor = require("fluxxor");
+    Fluxxor = require("fluxxor"),
+    _ = require("lodash");
 
 require("./style.css");
 
-var Button = require("../Button");
+var Button = require("../Button"),
+    IsMotoQuestion = require("../IsMotoQuestion"),
+    IsSecureQuestion = require("../IsSecureQuestion");
+
 
 var FluxMixin = Fluxxor.FluxMixin(React),
     StoreWatchMixin = Fluxxor.StoreWatchMixin;
@@ -98,6 +102,12 @@ var MyOpinionNotExists = React.createClass({
         onWantToChangeOpinion: React.PropTypes.func.isRequired,
         hasIntro: React.PropTypes.bool.isRequired
     },
+    getInitialState: function () {
+        return {
+            tmpOpinion: _.extend({parking: this.props.parking.id}, this.props.parking.myOpinion)
+        }
+    },
+
     render: function () {
         var intro = (
             <p>Ты что то знаешь об этом месте? Помоги мотобратьям, поделись информацией!
@@ -105,25 +115,37 @@ var MyOpinionNotExists = React.createClass({
         );
 
         return (
-            <div className="my-opinion__row">
-                <div className="my-opinion__row__text">
-                    { this.props.parking.myOpinion ? "" : intro }
-                    <p>Здесь есть охраняемая парковка?</p>
+            <div>
+                <div className="my-opinion__row">
+                    <IsSecureQuestion value={ this.state.tmpOpinion.isSecure } callback={ this.isSecureCallback }/>
                 </div>
-                <Button text="Да" callback={ this.isSecureCallback.bind(this, "yes") }/>
-                <Button text="Нет" callback={ this.isSecureCallback.bind(this, "no") }/>
-                <Button text="Не знаю" callback={ this.isSecureCallback.bind(this, "maybe") }/>
+                { this.state.tmpOpinion.isSecure == "yes" ?
+                    <div className="my-opinion__row">
+                        <IsMotoQuestion value={ this.state.tmpOpinion.isMoto } callback={ this.isMotoCallback }/>
+                    </div> : <div />
+                    }
             </div>
+
         )
     },
     isSecureCallback: function (value) {
-        this.props.onWantToChangeOpinion(false)
+        var tmpOpinion = _.extend({}, this.state.tmpOpinion, {isSecure: value});
+        console.log("111")
+        this.setState({
+            tmpOpinion: tmpOpinion
+        });
         if (value == "no" || value == "maybe") {
-            this.getFlux().actions.postOpinion({
-                parking: this.props.parking.id,
-                isSecure: value
-            });
+            this.getFlux().actions.postOpinion(tmpOpinion);
+            this.props.onWantToChangeOpinion(false);
         }
+    },
+    isMotoCallback: function (value) {
+        var tmpOpinion = _.extend({}, this.state.tmpOpinion, {isMoto: value});
+        this.setState({
+            tmpOpinion: tmpOpinion
+        });
+        this.getFlux().actions.postOpinion(tmpOpinion);
+        this.props.onWantToChangeOpinion(false);
     }
 });
 
