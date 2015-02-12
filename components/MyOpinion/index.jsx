@@ -130,14 +130,15 @@ var MyOpinionNotExists = React.createClass({
     },
     isSecureCallback: function (value) {
         var tmpOpinion = _.extend({}, this.state.tmpOpinion, {isSecure: value});
-        console.log("111")
-        this.setState({
-            tmpOpinion: tmpOpinion
-        });
+        console.log("111");
         if (value == "no" || value == "maybe") {
+            tmpOpinion.isMoto = null;
             this.getFlux().actions.postOpinion(tmpOpinion);
             this.props.onWantToChangeOpinion(false);
         }
+        this.setState({
+            tmpOpinion: tmpOpinion
+        });
     },
     isMotoCallback: function (value) {
         var tmpOpinion = _.extend({}, this.state.tmpOpinion, {isMoto: value});

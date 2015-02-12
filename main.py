@@ -147,6 +147,8 @@ class OpinionResource(ProResource):
             opinion = Opinion.objects.get(parking=parking, user=current_user._get_current_object())
         except Opinion.DoesNotExist:
             opinion = Opinion(parking=parking, user=current_user._get_current_object())
+        except Opinion.OperationError:
+            pass
         opinion = self.update_object(opinion, data, save, parent_resources=parent_resources)
 
         fill_parking(parking, opinion)
