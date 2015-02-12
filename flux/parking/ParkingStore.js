@@ -11,6 +11,9 @@ var ParkingStore = Fluxxor.createStore({
         this.currentParkingId = null;
         this.editingLocation = false;
         this.currentParkingTemporaryPosition = null;
+        this.newParkingEditingLocation = false;
+        this.newParkingEditInfo = false;
+        this.newParking = {};
 
         this.bindActions(
             ParkingConstants.LOAD_CURRENT_PARKING, this.onLoadCurrentParking,
@@ -31,7 +34,16 @@ var ParkingStore = Fluxxor.createStore({
             //OpinionConstants.POST_OPINION_SUCCESS, this.onPostOpinionSuccess,
             //OpinionConstants.POST_OPINION_FAIL, this.onPostOpinionFail
 
-            ParkingConstants.CHANGE_CURRENT_PARKING_TEMPORARY_POSITION, this.onChangeCurrentParkingTemporaryPosition
+            ParkingConstants.CHANGE_CURRENT_PARKING_TEMPORARY_POSITION, this.onChangeCurrentParkingTemporaryPosition,
+
+            ParkingConstants.NEW_PARKING_EDIT_LOCATION, this.onNewParkingEditLocation,
+            ParkingConstants.NEW_PARKING_EDIT_LOCATION_CANCEL, this.onNewParkingEditLocationCancel,
+
+            ParkingConstants.NEW_PARKING_EDIT_INFO, this.onNewParkingEditInfo,
+            ParkingConstants.NEW_PARKING_EDIT_INFO_CANCEL, this.onNewParkingEditInfoCancel,
+
+            ParkingConstants.NEW_PARKING_UPDATE_DATA, this.onNewParkingUpdateData,
+            ParkingConstants.SAVE_NEW_PARKING_SUCCESS, this.onSaveNewParkingSuccess
         );
     },
 
@@ -43,12 +55,14 @@ var ParkingStore = Fluxxor.createStore({
     },
 
     onLoadCurrentParkingSuccess: function (payload) {
+        this.updateParking(payload.parking);
+
         if (payload.parking.id == this.currentParkingId) {
             this.loading = false;
             this.error = null;
-            this.updateParking(payload.parking);
-            this.emit("change");
         }
+        this.emit("change");
+        this.emit("loadCurrentParkingSuccess")
     },
 
     onLoadCurrentParkingFail: function (payload) {
@@ -114,18 +128,74 @@ var ParkingStore = Fluxxor.createStore({
         this.emit("change");
     },
 
+    onNewParkingEditLocation: function (payload) {
+        this.newParkingEditInfo = false;
+        this.newParkingEditingLocation = true;
+        this.emit("change");
+        this.emit("newParkingEditingLocation");
+    },
+
+    onNewParkingEditLocationCancel: function (payload) {
+        this.newParkingEditingLocation = false;
+        this.newParking = {};
+        this.emit("change");
+        this.emit("newParkingEditingLocationCancel");
+    },
+
+    onNewParkingEditInfo: function (payload) {
+        this.newParkingEditingLocation = false;
+        this.newParkingEditInfo = true;
+        this.emit("change");
+        this.emit("newParkingEditInfo");
+    },
+
+    onNewParkingEditInfoCancel: function (payload) {
+        this.newParkingEditInfo = false;
+        this.newParking = {};
+        this.emit("change");
+        this.emit("newParkingEditInfoCancel");
+    },
+
+    onNewParkingUpdateData: function (payload) {
+        this.newParking = _.extend({}, this.newParking, payload.data);
+        this.emit("change");
+    },
+
+    onSaveNewParkingSuccess: function (payload) {
+        this.newParking = {};
+        this.newParkingEditInfo = false;
+        this.currentParkingId = payload.opinion.parking; // TODO: do it not throws currentParkingId
+        // this.updateParking(payload.parking);
+        this.emit("change");
+        this.emit("saveNewParkingSuccess");
+    },
+
+
+
+
+
     getParking: function (id) {
         return _.find(this.parkingList, function(parking) {
             return parking.id == id
         }.bind(this))
     },
 
+    /**
+     * update parking data in list or add new
+     * @param newParking
+     */
     updateParking: function (newParking) {
+        var updated = false;
         _.map(this.parkingList, function(parking, i) {
             if(parking.id == newParking.id){
-                this.parkingList[i] = newParking
+                this.parkingList[i] = newParking;
+                updated = true;
             }
-        }.bind(this))
+        }.bind(this));
+
+        if (!updated) {
+            this.parkingList.push(newParking)
+        }
     },
 
     getCurrentParking: function () {

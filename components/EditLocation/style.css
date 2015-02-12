@@ -7,7 +7,7 @@
 
 .edit_location__content {
     position: relative;
-    width: 231px;
+    width: 332px;
     margin-left: -50%;
     box-shadow: 0 2px 3px 1px rgba(0, 0, 0, .2);
     background-color: #FFF;
@@ -15,5 +15,4 @@
     max-height: 100%;
     overflow-y: scroll;
 
-    padding: 17px 20px;
 }

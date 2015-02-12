@@ -1,0 +1,23 @@
+.controls__wrapper {
+    position: absolute;
+    width: 0;
+    z-index: 200;
+
+    top: 16px;
+    left: 16px;
+}
+
+.controls__content {
+    position: relative;
+    width: 332px;
+}
+
+.control-btn {
+	width: 40px;
+	height: 40px;
+	border: 1px solid #979797;
+	border-radius: 20px;
+	line-height: 34px;
+	text-align: center;
+	cursor: pointer;
+}

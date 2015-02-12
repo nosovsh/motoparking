@@ -13,25 +13,20 @@ var Button = require("../Button");
 
 var EditLocation = React.createClass({
 
-    mixins: [Router.State, FluxMixin, StoreWatchMixin("ParkingStore")],
+    mixins: [Router.State, FluxMixin],
 
     render: function () {
-        return this.state.editingLocation ? (
+        return (
             <div className="edit_location__wrapper">
                 <div className="edit_location__content">
-                    <p>Подвиньте маркер парковки</p>
-                    <Button text="Отмена" callback={ this.onEditLocationCancel }/>
-                    <Button text="Сохранить" callback={ this.onEditLocationDone }/>
+                    <div className="my-opinion__row">
+                        <p>Подвиньте маркер парковки</p>
+                        <Button text="Отмена" callback={ this.onEditLocationCancel }/>
+                        <Button text="Сохранить" callback={ this.onEditLocationDone }/>
+                    </div>
                 </div>
             </div>
-        ) : <div></div>
-    },
-
-    getStateFromFlux: function () {
-        var flux = this.getFlux();
-        return {
-            "editingLocation": flux.store("ParkingStore").editingLocation
-        }
+        )
     },
 
     onEditLocationDone: function () {

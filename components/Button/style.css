@@ -10,7 +10,7 @@
     cursor: pointer;
 }
 
-.button:hover, .button:active {
+.button:hover, .button:active, .button__selected {
     background-color: #4D4D4D;
     color: #fff;
 }

@@ -56,6 +56,36 @@ var ParkingActions = {
 
   changeCurrentParkingTemporaryPosition: function (latLng) {
     this.dispatch(ParkingConstants.CHANGE_CURRENT_PARKING_TEMPORARY_POSITION, {latLng: latLng});
+  },
+
+  newParkingEditLocation: function () {
+    this.dispatch(ParkingConstants.NEW_PARKING_EDIT_LOCATION, {});
+  },
+
+  newParkingEditLocationCancel: function () {
+    this.dispatch(ParkingConstants.NEW_PARKING_EDIT_LOCATION_CANCEL, {});
+  },
+
+  newParkingEditInfo: function () {
+    this.dispatch(ParkingConstants.NEW_PARKING_EDIT_INFO, {});
+  },
+
+  onNewParkingEditInfoCancel: function () {
+    this.dispatch(ParkingConstants.NEW_PARKING_EDIT_INFO_CANCEL, {});
+  },
+
+  newParkingUpdateData: function (data) {
+    this.dispatch(ParkingConstants.NEW_PARKING_UPDATE_DATA, {data: data});
+  },
+
+  saveNewParking: function (opinion) {
+    this.dispatch(ParkingConstants.SAVE_NEW_PARKING, {opinion: opinion});
+
+    OpinionClient.postOpinion(opinion, function (opinion) {
+      this.dispatch(ParkingConstants.SAVE_NEW_PARKING_SUCCESS, {opinion: opinion})
+    }.bind(this), function(error) {
+      this.dispatch(OpinionConstants.SAVE_NEW_PARKING_FAIL, {opinion: opinion, error: error});
+    })
   }
 };
 

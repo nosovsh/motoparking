@@ -137,8 +137,9 @@ class OpinionResource(ProResource):
 
     def create_object(self, data=None, save=True, parent_resources=None):
         data = data or self.data
-        if not data["parking"]:
+        if "parking" not in data:
             parking = Parking()
+            parking.save()
         else:
             parking = Parking.objects.get(pk=data["parking"])
 

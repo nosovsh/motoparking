@@ -9,6 +9,10 @@ var OpinionClient = {
     },
 
     postOpinion: function (opinion, success, failure) {
+        if (opinion.latLng) {
+            opinion.latLng = opinion.latLng.coordinates
+        }
+
         $.ajax({
             type: "POST",
             //dataType: "json",

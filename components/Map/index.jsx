@@ -27,6 +27,7 @@ var images = {
     3: "marker-mot-crossed.svg",
     4: "marker-mot.svg"
 };
+
 var activeImages = {
     0: "marker-mot-active.svg",
     1: "marker-mot-active.svg",
@@ -34,6 +35,7 @@ var activeImages = {
     3: "marker-mot-crossed-active.svg",
     4: "marker-mot-active.svg"
 };
+var activeImageUndefined = 'marker-undefined.svg';
 
 var getIcon = function(status) {
     return L.icon({
@@ -44,8 +46,12 @@ var getIcon = function(status) {
 };
 
 var getActiveIcon = function(status) {
+    if (status == null)
+        var image = "./images/" +  activeImageUndefined;
+    else
+        image = "./images/" + activeImages[status];
     return L.icon({
-        iconUrl: require("./images/" + activeImages[status]),
+        iconUrl: require(image),
         iconSize:     [39, 42], // size of the icon
         iconAnchor:   [39, 42] // point of the icon which will correspond to marker's location
     });
@@ -56,6 +62,7 @@ var Map = React.createClass({
 	getInitialState: function() {
         this.parkingMarkers = {};
         this.parkings = {};
+        this.newParkingMarker = null;
 		return {
 			width: $(window).width(),
 			height: $(window).height()
@@ -81,11 +88,16 @@ var Map = React.createClass({
         });
         this.getFlux().store("ParkingStore")
             .on("loadParkingListSuccess", this._loadParkingListSuccess)
-            .on("loadCurrentParking", this._loadCurrentParking)
+            .on("loadCurrentParkingSuccess", this._loadCurrentParkingSuccess)
             .on("unselectCurrentParking", this._unselectCurrentParking)
             .on("editLocation", this._editLocation)
             .on("editLocationCancel", this._editLocationCancel)
             .on("editLocationDone", this._editLocationDone)
+            .on("newParkingEditingLocation", this._newParkingEditingLocation)
+            .on("newParkingEditingLocationCancel", this._newParkingEditingLocationCancel)
+            .on("newParkingEditInfo", this._newParkingEditInfo)
+            .on("newParkingEditInfoCancel", this._newParkingEditInfoCancel)
+            .on("saveNewParkingSuccess", this._saveNewParkingSuccess)
         this.getFlux().actions.loadParkingList();
 
     },
@@ -107,26 +119,22 @@ var Map = React.createClass({
         _.forEach(store.parkingList, function (parking) {
             var ic = store.currentParkingId && parking.id == store.currentParkingId ? getActiveIcon(parking.status) : getIcon(parking.status);
             this.parkingMarkers[parking.id] = L.marker(parking.latLng.coordinates, {icon: ic}).on('click', this.onMarkerClick.bind(this, parking.id)).addTo(this.map);
-            this.parkings[parking.id] = parking;
         }.bind(this));
         console.log(this.parkingMarkers)
     },
 
-    _loadCurrentParking: function () {
+    _loadCurrentParkingSuccess: function () {
         var store = this.getFlux().store("ParkingStore");
         _.map(this.parkingMarkers, function (marker, parkingId) {
-            marker.setIcon(getIcon(this.parkings[parkingId].status));
+            marker.setIcon(getIcon(store.getParking(parkingId).status));
         }.bind(this));
         if (this.parkingMarkers[store.currentParkingId]) {
-            this.parkingMarkers[store.currentParkingId].setIcon(getActiveIcon(this.parkings[store.currentParkingId].status));
+            this.parkingMarkers[store.currentParkingId].setIcon(getActiveIcon(store.getCurrentParking().status));
         }
     },
 
     _unselectCurrentParking: function() {
-        var store = this.getFlux().store("ParkingStore");
-        _.map(this.parkingMarkers, function (marker, parkingId) {
-            marker.setIcon(getIcon(this.parkings[parkingId].status));
-        }.bind(this));
+        this._unselectAllMarkers()
     },
 
     /**
@@ -139,7 +147,7 @@ var Map = React.createClass({
         var oldMarker = this.parkingMarkers[store.currentParkingId];
 
         this.parkingMarkers[store.currentParkingId] = L.marker(oldMarker.getLatLng(), {
-            icon: getActiveIcon(this.parkings[store.currentParkingId].status),
+            icon: getActiveIcon(store.getCurrentParking().status),
             draggable: true
         }).addTo(this.map);
 
@@ -162,7 +170,7 @@ var Map = React.createClass({
         var oldMarker = this.parkingMarkers[store.currentParkingId];
 
         this.parkingMarkers[store.currentParkingId] = L.marker(oldMarker.getLatLng(), {
-            icon: getActiveIcon(this.parkings[store.currentParkingId].status),
+            icon: getActiveIcon(store.getCurrentParking().status),
             draggable: false
         }).on('click', this.onMarkerClick.bind(this, store.currentParkingId))
             .addTo(this.map);
@@ -181,12 +189,95 @@ var Map = React.createClass({
         var oldMarker = this.parkingMarkers[store.currentParkingId];
 
         this.parkingMarkers[store.currentParkingId] = L.marker(store.getCurrentParking().latLng.coordinates, {
-            icon: getActiveIcon(this.parkings[store.currentParkingId].status),
+            icon: getActiveIcon(store.getCurrentParking().status),
             draggable: false
         }).on('click', this.onMarkerClick.bind(this, store.currentParkingId))
             .addTo(this.map);
 
         this.map.removeLayer(oldMarker);
+    },
+    /**
+     * Create draggable marker for new parking at map center. Update store, when dragged
+     * @private
+     */
+    _newParkingEditingLocation: function() {
+        var store = this.getFlux().store("ParkingStore");
+
+        this._unselectAllMarkers();
+
+        console.log("111")
+        if (!store.newParking.latLng) {
+            var initialMarkerPosition = this.map.getCenter();
+
+            this.newParkingMarker = L.marker(initialMarkerPosition, {
+                icon: getActiveIcon(),
+                draggable: true
+            }).addTo(this.map);
+
+            setTimeout(function () {
+                this.getFlux().actions.newParkingUpdateData({
+                    latLng: {
+                        type: "Point",
+                        coordinates: [this.newParkingMarker.getLatLng().lat, this.newParkingMarker.getLatLng().lng]
+                    }
+                });
+            }.bind(this), 0)
+        } else {
+        }
+
+        this.newParkingMarker.dragging.enable();
+
+        this.newParkingMarker.on('dragend', function (e) {
+            this.getFlux().actions.newParkingUpdateData({
+                latLng: {
+                    type: "Point",
+                    coordinates: [this.newParkingMarker.getLatLng().lat, this.newParkingMarker.getLatLng().lng]
+                }
+            });
+        }.bind(this));
+
+    },
+
+    _newParkingEditingLocationCancel: function () {
+        this.map.removeLayer(this.newParkingMarker);
+        this.newParkingMarker = null;
+    },
+
+    /**
+     * Make new parking marker not draggable
+     * @private
+     */
+    _newParkingEditInfo: function() {
+        var store = this.getFlux().store("ParkingStore");
+
+        this.map.removeLayer(this.newParkingMarker);
+
+        this.newParkingMarker = L.marker(store.newParking.latLng.coordinates, {
+            icon: getActiveIcon(),
+            draggable: false
+        }).addTo(this.map);
+
+    },
+
+    _newParkingEditInfoCancel: function () {
+        this.map.removeLayer(this.newParkingMarker);
+        this.newParkingMarker = null;
+    },
+
+
+    _saveNewParkingSuccess: function() {
+        var store = this.getFlux().store("ParkingStore");
+        this.parkingMarkers[store.currentParkingId] = this.newParkingMarker; // TODO: do it not throws currentParkingId
+        this.transitionTo("Parking", {"id": store.currentParkingId})
+    },
+
+
+    _unselectAllMarkers: function () {
+        var store = this.getFlux().store("ParkingStore");
+
+        _.map(this.parkingMarkers, function (marker, parkingId) {
+            marker.setIcon(getIcon(store.getParking(parkingId).status));
+        }.bind(this));
     }
 });
 

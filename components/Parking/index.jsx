@@ -23,7 +23,7 @@ var Parking = React.createClass({
 
         var sidebarWrapperClasses = {
             'sidebar__wrapper': true,
-            'sidebar__wrapper__hidden': this.state.editingLocation
+            'sidebar__wrapper__hidden': this.state.editingLocation || this.state.newParkingEditingLocation || this.state.newParkingEditInfo
         };
 
         return (
@@ -63,12 +63,12 @@ var Parking = React.createClass({
     },
     componentDidMount: function () {
         this.getFlux().actions.loadCurrentParking(this.getParams().id);
-        this.getFlux().actions.loadOpinions(this.getParams().id);
+        //this.getFlux().actions.loadOpinions(this.getParams().id);
     },
 
     componentWillReceiveProps: function (nextProps) {
         this.getFlux().actions.loadCurrentParking(this.getParams().id);
-        this.getFlux().actions.loadOpinions(this.getParams().id);
+        //this.getFlux().actions.loadOpinions(this.getParams().id);
     },
 
     getStateFromFlux: function () {
@@ -81,7 +81,9 @@ var Parking = React.createClass({
             currentParking: store.getCurrentParking(),
             currentParkingId: store.currentParkingId,
             currentParkingOpinions: opinionStore.opinionsByParking[this.getParams().id] ? opinionStore.opinionsByParking[this.getParams().id] : [],
-            editingLocation: store.editingLocation
+            editingLocation: store.editingLocation,
+            newParkingEditingLocation: store.newParkingEditingLocation,
+            newParkingEditInfo: store.newParkingEditInfo
         };
     }
 
