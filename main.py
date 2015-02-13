@@ -81,9 +81,9 @@ security = Security(app, user_datastore,
 
 
 class Parking(db.Document):
-    title = db.StringField()
     lat_lng = db.PointField()
-    status = db.IntField(default=0)
+    is_secure = db.StringField()
+    is_moto = db.StringField()
     user = db.ReferenceField(User)
 
 # Parking(title="Парковка 1", lat_lng=[55.7622200, 37.6155600], ).save()
@@ -102,9 +102,11 @@ class Opinion(db.Document):
 
 class ParkingResource(ProResource):
     document = Parking
-    fields = ["status", "lat_lng", "user", "id", "title", "my_opinion", ]
+    fields = ["id", "lat_lng", "is_secure", "is_moto", "user", "my_opinion", ]
     rename_fields = {
         'lat_lng': 'latLng',
+        'is_secure': 'isSecure',
+        'is_moto': 'isMoto',
         'my_opinion': 'myOpinion',
     }
 
@@ -158,8 +160,12 @@ class OpinionResource(ProResource):
 
 
 def fill_parking(parking, opinion):
+    parking.is_moto = opinion.is_moto
+    parking.is_secure = opinion.is_secure
+
     if opinion.lat_lng:
         parking.lat_lng = opinion.lat_lng
+
 
 class UserResource(Resource):
     document = User

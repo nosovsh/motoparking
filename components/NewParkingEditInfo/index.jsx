@@ -61,7 +61,7 @@ var NewParkingEditInfo = React.createClass({
 
     onIsMotoQuestionCallback: function (value) {
         var store = this.getFlux().store("ParkingStore");
-        this.getFlux().actions.newParkingUpdateData({isMoto: value});
+        this.getFlux().actions.newParkingUpdateData({isSecure: "yes", isMoto: value});
     },
 
     onEditLocation: function () {
