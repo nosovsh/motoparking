@@ -29,7 +29,7 @@ var Parking = React.createClass({
         return (
             <div className={ React.addons.classSet(sidebarWrapperClasses) }>
                 <div className="sidebar__content">
-                    <StatusCover status={ this.state.currentParking.status } />
+                    <StatusCover isSecure={ this.state.currentParking.isSecure }  isMoto={ this.state.currentParking.isMoto }/>
 
                     <MyOpinion parking={ this.state.currentParking }/>
                     { this.state.loading ? <div>Loading...</div> : <div /> }

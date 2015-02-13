@@ -3,23 +3,23 @@
     height: 210px;
 }
 
-.status-cover__0 {
+.status-cover_is-secure_maybe {
     background: #4D4D4D;
 }
 
-.status-cover__1 {
-
+.status-cover_is-secure_no {
+    background: #4D4D4D;
 }
 
-.status-cover__2 {
-
+.status-cover_is-secure_yes_is-moto_maybe {
+    background: #4D4D4D;
 }
 
-.status-cover__3 {
+.status-cover_is-secure_yes_is-moto_no {
     background: #D84B6C;
 }
 
-.status-cover__4 {
+.status-cover_is-secure_yes_is-moto_yes {
     background: #3AB7AA;
 }
 
@@ -30,20 +30,25 @@
     background-repeat: no-repeat;
 }
 
-.status-cover__icon__0 {
+
+
+.status-cover__icon_is-secure_maybe {
+    background: #4D4D4D;
 }
 
-.status-cover__icon__1 {
+.status-cover__icon_is-secure_no {
+    background: #4D4D4D;
 }
 
-.status-cover__icon__2 {
+.status-cover__icon_is-secure_yes_is-moto_maybe {
+    background: #4D4D4D;
 }
 
-.status-cover__icon__3 {
+.status-cover__icon_is-secure_yes_is-moto_no {
     background-image: url("images/mot-crossed.png");
 }
 
-.status-cover__icon__4 {
+.status-cover__icon_is-secure_yes_is-moto_yes {
     background-image: url("images/mot.png");
 }
 

@@ -3,36 +3,39 @@ var React = require("react/addons");
 require("./style.css");
 
 var texts = {
-    0: "Мы совсем ничего не знаем об этом месте",
-    1: "Здесь нет охраняемой парковки",
-    2: "Здесь есть охраняемая парковка, <br/ >но неизвестно можно остваить мотоцикл или нет",
-    3: "Здесь есть охраняемая парковка, <br/ >но мотоциклы не пускают. ",
-    4: "Здесь есть охраняемая парковка.<br />Можно оставить мотоцикл на ночь."
+    "is-secure_maybe": "Мы совсем ничего не знаем об этом месте",
+    "is-secure_no": "Здесь нет охраняемой парковки",
+    "is-secure_yes_is-moto_maybe": "Здесь есть охраняемая парковка, <br/ >но неизвестно можно оставить мотоцикл или нет",
+    "is-secure_yes_is-moto_no": "Здесь есть охраняемая парковка, <br/ >но мотоциклы не пускают. ",
+    "is-secure_yes_is-moto_yes": "Здесь есть охраняемая парковка.<br />Можно оставить мотоцикл на ночь."
 };
 
 var StatusCover = React.createClass({
     propTypes: {
-        status: React.PropTypes.number.isRequired
+        isSecure: React.PropTypes.string,
+        isSoto: React.PropTypes.string
     },
     render: function () {
+        var name = 'is-secure_' + this.props.isSecure +
+            (this.props.isMoto ? '_is-moto_' + this.props.isMoto : "");
         var cx = React.addons.classSet;
 
-        var name = 'status-cover__' + this.props.status;
-        var classes = {
+        var coverClassName = "status-cover_" + name;
+        var coverClasses = {
             'status-cover': true
         };
-        classes[name] = true;
+        coverClasses[coverClassName] = true;
 
-        var iconName = 'status-cover__icon__' + this.props.status;
+        var iconClassName = "status-cover__icon_" + name;
         var iconClasses = {
             'status-cover__icon': true
         };
-        iconClasses[iconName] = true;
+        iconClasses[iconClassName] = true;
 
         return (
-            <div className={ cx(classes) }>
+            <div className={ cx(coverClasses) }>
                 <div className={ cx(iconClasses) }></div>
-                <div className="status-cover__text" dangerouslySetInnerHTML={{__html: texts[this.props.status]}}>
+                <div className="status-cover__text" dangerouslySetInnerHTML={{__html: texts[name]}}>
                 </div>
             </div>
         );

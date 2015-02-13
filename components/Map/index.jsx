@@ -21,37 +21,38 @@ var FluxMixin = Fluxxor.FluxMixin(React),
     StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
 var images = {
-    0: "marker-mot.svg",
-    1: "marker-mot.svg",
-    2: "marker-mot.svg",
-    3: "marker-mot-crossed.svg",
-    4: "marker-mot.svg"
+    "is-secure_maybe": require("./images/marker-mot.svg"),
+    "is-secure_no": require("./images/marker-mot.svg"),
+    "is-secure_yes_is-moto_maybe": require("./images/marker-mot.svg"),
+    "is-secure_yes_is-moto_no": require("./images/marker-mot-crossed.svg"),
+    "is-secure_yes_is-moto_yes": require("./images/marker-mot.svg")
 };
 
 var activeImages = {
-    0: "marker-mot-active.svg",
-    1: "marker-mot-active.svg",
-    2: "marker-mot-active.svg",
-    3: "marker-mot-crossed-active.svg",
-    4: "marker-mot-active.svg"
+    "": require("./images/marker-undefined.svg"),
+    "is-secure_maybe": require("./images/marker-mot-active.svg"),
+    "is-secure_no": require("./images/marker-mot-active.svg"),
+    "is-secure_yes_is-moto_maybe": require("./images/marker-mot-active.svg"),
+    "is-secure_yes_is-moto_no": require("./images/marker-mot-crossed-active.svg"),
+    "is-secure_yes_is-moto_yes": require("./images/marker-mot-active.svg")
 };
-var activeImageUndefined = 'marker-undefined.svg';
 
-var getIcon = function(status) {
+var getStatusName = function (isSecure, isMoto) {
+    return (isSecure ? 'is-secure_' + isSecure : "") +
+            (isMoto ? '_is-moto_' + isMoto : "");
+}
+
+var getIcon = function(is_secure, is_moto) {
     return L.icon({
-        iconUrl: require("./images/" + images[status]),
+        iconUrl: images[getStatusName(is_secure, is_moto)],
         iconSize:     [39, 42], // size of the icon
         iconAnchor:   [39, 42] // point of the icon which will correspond to marker's location
     });
 };
 
-var getActiveIcon = function(status) {
-    if (status == null)
-        var image = "./images/" +  activeImageUndefined;
-    else
-        image = "./images/" + activeImages[status];
+var getActiveIcon = function(is_secure, is_moto) {
     return L.icon({
-        iconUrl: require(image),
+        iconUrl: activeImages[getStatusName(is_secure, is_moto)],
         iconSize:     [39, 42], // size of the icon
         iconAnchor:   [39, 42] // point of the icon which will correspond to marker's location
     });
@@ -117,7 +118,7 @@ var Map = React.createClass({
     _loadParkingListSuccess: function() {
         var store = this.getFlux().store("ParkingStore");
         _.forEach(store.parkingList, function (parking) {
-            var ic = store.currentParkingId && parking.id == store.currentParkingId ? getActiveIcon(parking.status) : getIcon(parking.status);
+            var ic = store.currentParkingId && parking.id == store.currentParkingId ? getActiveIcon(parking.isSecure, parking.isMoto) : getIcon(parking.isSecure, parking.isMoto);
             this.parkingMarkers[parking.id] = L.marker(parking.latLng.coordinates, {icon: ic}).on('click', this.onMarkerClick.bind(this, parking.id)).addTo(this.map);
         }.bind(this));
         console.log(this.parkingMarkers)
@@ -126,10 +127,10 @@ var Map = React.createClass({
     _loadCurrentParkingSuccess: function () {
         var store = this.getFlux().store("ParkingStore");
         _.map(this.parkingMarkers, function (marker, parkingId) {
-            marker.setIcon(getIcon(store.getParking(parkingId).status));
+            marker.setIcon(getIcon(store.getParking(parkingId).isSecure, store.getParking(parkingId).isMoto));
         }.bind(this));
         if (this.parkingMarkers[store.currentParkingId]) {
-            this.parkingMarkers[store.currentParkingId].setIcon(getActiveIcon(store.getCurrentParking().status));
+            this.parkingMarkers[store.currentParkingId].setIcon(getActiveIcon(store.getCurrentParking().isSecure, store.getCurrentParking().isMoto));
         }
     },
 
@@ -147,7 +148,7 @@ var Map = React.createClass({
         var oldMarker = this.parkingMarkers[store.currentParkingId];
 
         this.parkingMarkers[store.currentParkingId] = L.marker(oldMarker.getLatLng(), {
-            icon: getActiveIcon(store.getCurrentParking().status),
+            icon: getActiveIcon(store.getCurrentParking().isSecure, store.getCurrentParking().isMoto),
             draggable: true
         }).addTo(this.map);
 
@@ -170,7 +171,7 @@ var Map = React.createClass({
         var oldMarker = this.parkingMarkers[store.currentParkingId];
 
         this.parkingMarkers[store.currentParkingId] = L.marker(oldMarker.getLatLng(), {
-            icon: getActiveIcon(store.getCurrentParking().status),
+            icon: getActiveIcon(store.getCurrentParking().isSecure, store.getCurrentParking().isMoto),
             draggable: false
         }).on('click', this.onMarkerClick.bind(this, store.currentParkingId))
             .addTo(this.map);
@@ -189,7 +190,7 @@ var Map = React.createClass({
         var oldMarker = this.parkingMarkers[store.currentParkingId];
 
         this.parkingMarkers[store.currentParkingId] = L.marker(store.getCurrentParking().latLng.coordinates, {
-            icon: getActiveIcon(store.getCurrentParking().status),
+            icon: getActiveIcon(store.getCurrentParking().isSecure, store.getCurrentParking().isMoto),
             draggable: false
         }).on('click', this.onMarkerClick.bind(this, store.currentParkingId))
             .addTo(this.map);
@@ -276,7 +277,7 @@ var Map = React.createClass({
         var store = this.getFlux().store("ParkingStore");
 
         _.map(this.parkingMarkers, function (marker, parkingId) {
-            marker.setIcon(getIcon(store.getParking(parkingId).status));
+            marker.setIcon(getIcon(store.getParking(parkingId).isSecure, store.getParking(parkingId).isMoto));
         }.bind(this));
     }
 });

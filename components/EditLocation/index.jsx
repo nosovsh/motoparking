@@ -32,7 +32,10 @@ var EditLocation = React.createClass({
     onEditLocationDone: function () {
         var store = this.getFlux().store("ParkingStore");
         var myOpinion = store.getMyOpinionOfCurrentParking();
-        myOpinion.latLng = [store.currentParkingTemporaryPosition.lat, store.currentParkingTemporaryPosition.lng];
+        myOpinion.latLng = {
+            type: "Point",
+            coordinates: [store.currentParkingTemporaryPosition.lat, store.currentParkingTemporaryPosition.lng]
+        };
         this.getFlux().actions.editLocationDone(myOpinion)
     },
 
