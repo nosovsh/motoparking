@@ -31,7 +31,7 @@ var ParkingStore = Fluxxor.createStore({
             ParkingConstants.EDIT_LOCATION_CANCEL, this.onEditLocationCancel,
 
             OpinionConstants.POST_OPINION, this.onPostOpinion,
-            //OpinionConstants.POST_OPINION_SUCCESS, this.onPostOpinionSuccess,
+            OpinionConstants.POST_OPINION_SUCCESS, this.onPostOpinionSuccess,
             //OpinionConstants.POST_OPINION_FAIL, this.onPostOpinionFail
 
             ParkingConstants.CHANGE_CURRENT_PARKING_TEMPORARY_POSITION, this.onChangeCurrentParkingTemporaryPosition,
@@ -101,6 +101,12 @@ var ParkingStore = Fluxxor.createStore({
         var parking = this.getParking(payload.opinion.parking);
         var newParking = _.merge(parking, {myOpinion: payload.opinion});
         this.updateParking(newParking);
+        this.emit("change");
+    },
+
+    onPostOpinionSuccess: function (payload) {
+        // TODO: надо подгружать не текущую парковку а просто парковку
+        this.flux.actions.loadCurrentParking(payload.opinion.parking);
         this.emit("change");
     },
 
