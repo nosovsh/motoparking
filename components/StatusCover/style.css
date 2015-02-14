@@ -8,7 +8,7 @@
 }
 
 .status-cover_is-secure_no {
-    background: #4D4D4D;
+    background: #A3A2A2;
 }
 
 .status-cover_is-secure_yes_is-moto_maybe {
@@ -33,15 +33,18 @@
 
 
 .status-cover__icon_is-secure_maybe {
-    background: #4D4D4D;
+    background-image: url("images/mot-no.svg");
+    background-size: 32px 104px;
 }
 
 .status-cover__icon_is-secure_no {
-    background: #4D4D4D;
+    background-image: url("images/mot-no.svg");
+    background-size: 32px 104px;
 }
 
 .status-cover__icon_is-secure_yes_is-moto_maybe {
-    background: #4D4D4D;
+    background-image: url("images/mot-maybe.svg");
+    background-size: 63px 132px;
 }
 
 .status-cover__icon_is-secure_yes_is-moto_no {

@@ -22,8 +22,8 @@ var FluxMixin = Fluxxor.FluxMixin(React),
 
 var images = {
     "is-secure_maybe": require("./images/marker-mot.svg"),
-    "is-secure_no": require("./images/marker-mot.svg"),
-    "is-secure_yes_is-moto_maybe": require("./images/marker-mot.svg"),
+    "is-secure_no": require("./images/marker-mot-no.svg"),
+    "is-secure_yes_is-moto_maybe": require("./images/marker-mot-maybe.svg"),
     "is-secure_yes_is-moto_no": require("./images/marker-mot-crossed.svg"),
     "is-secure_yes_is-moto_yes": require("./images/marker-mot.svg")
 };
@@ -31,8 +31,8 @@ var images = {
 var activeImages = {
     "": require("./images/marker-undefined.svg"),
     "is-secure_maybe": require("./images/marker-mot-active.svg"),
-    "is-secure_no": require("./images/marker-mot-active.svg"),
-    "is-secure_yes_is-moto_maybe": require("./images/marker-mot-active.svg"),
+    "is-secure_no": require("./images/marker-mot-no-active.svg"),
+    "is-secure_yes_is-moto_maybe": require("./images/marker-mot-maybe-active.svg"),
     "is-secure_yes_is-moto_no": require("./images/marker-mot-crossed-active.svg"),
     "is-secure_yes_is-moto_yes": require("./images/marker-mot-active.svg")
 };

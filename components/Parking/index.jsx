@@ -3,23 +3,20 @@ var React = require("react/addons"),
 
 require("./style.css");
 
-var Router = require('react-router');
-var Link = Router.Link;
+var Router = require('react-router'),
+    Link = Router.Link;
 
 var FluxMixin = Fluxxor.FluxMixin(React),
     StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
-var Comment = require("../Comment");
-var StatusCover = require("../StatusCover");
-var MyOpinion = require("../MyOpinion");
+var StatusCover = require("../StatusCover"),
+    MyOpinion = require("../MyOpinion");
+
 
 var Parking = React.createClass({
     mixins: [Router.State, FluxMixin, StoreWatchMixin("ParkingStore")],
 
     render: function () {
-        var comments = this.state.currentParkingOpinions.map(function (opinion) {
-           return <Comment key={ opinion.tempId || opinion.id } opinion={ opinion } />
-        });
 
         var sidebarWrapperClasses = {
             'sidebar__wrapper': true,
@@ -34,12 +31,6 @@ var Parking = React.createClass({
                     <MyOpinion parking={ this.state.currentParking }/>
                     { this.state.loading ? <div>Loading...</div> : <div /> }
                     <br/>
-                    <form onSubmit={this.handlePostComment}>
-                      <input type="text" value={this.state.newCommentText}
-                             onChange={this.handleNewCommentTextChange} />
-                      <input type="submit" value="Add" />
-                    </form>
-                    { comments }
 
                     <Link to="Default">закрыть</Link>
                     <br />
@@ -50,17 +41,6 @@ var Parking = React.createClass({
         )
     },
 
-    handleNewCommentTextChange: function (e) {
-        this.setState({newCommentText: e.target.value});
-    },
-
-    handlePostComment: function (e) {
-        e.preventDefault();
-        if (this.state.newCommentText.trim()) {
-            this.getFlux().actions.postOpinion({comment: this.state.newCommentText, parkingId: this.getParams().id});
-            this.setState({newCommentText: ""});
-        }
-    },
     componentDidMount: function () {
         this.getFlux().actions.loadCurrentParking(this.getParams().id);
         //this.getFlux().actions.loadOpinions(this.getParams().id);
