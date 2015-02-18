@@ -10,7 +10,8 @@ var FluxMixin = Fluxxor.FluxMixin(React),
     StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
 var StatusCover = require("../StatusCover"),
-    MyOpinion = require("../MyOpinion");
+    MyOpinion = require("../MyOpinion"),
+    Icon = require("../Icon");
 
 
 var Parking = React.createClass({
@@ -26,16 +27,13 @@ var Parking = React.createClass({
         return (
             <div className={ React.addons.classSet(sidebarWrapperClasses) }>
                 <div className="sidebar__content">
+                    <Link to="Default"><div className="close-wrapper"><Icon name="close" /></div></Link>
+
                     <StatusCover isSecure={ this.state.currentParking.isSecure }  isMoto={ this.state.currentParking.isMoto }/>
 
                     <MyOpinion parking={ this.state.currentParking }/>
                     { this.state.loading ? <div>Loading...</div> : <div /> }
                     <br/>
-
-                    <Link to="Default">закрыть</Link>
-                    <br />
-                    <br />
-
                 </div>
             </div>
         )

@@ -5,6 +5,8 @@ require("./style.css");
 
 var FluxMixin = Fluxxor.FluxMixin(React);
 
+var Icon = require("../Icon");
+
 
 var Controls = React.createClass({
     mixins: [FluxMixin],
@@ -12,7 +14,12 @@ var Controls = React.createClass({
         return (
             <div className="controls__wrapper">
                 <div className="controls__content">
-                    <div className="control-btn" onClick={ this.newParkingEditLocation }>+</div>
+                    <div className="control-btn control-btn_icon_true" onClick={ this.newParkingEditLocation }>
+                        <Icon name="user" />
+                    </div>
+                    <div className="control-btn" onClick={ this.newParkingEditLocation }>
+                        <Icon name="add"/> Добавить парковку
+                    </div>
                 </div>
             </div>
         );

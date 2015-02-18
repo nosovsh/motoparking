@@ -13,11 +13,38 @@
 }
 
 .control-btn {
-	width: 40px;
-	height: 40px;
-	border: 1px solid #979797;
-	border-radius: 20px;
-	line-height: 34px;
-	text-align: center;
-	cursor: pointer;
+    line-height: 35px;
+    text-align: center;
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    height: 38px;
+    padding: 0 16px;
+    outline: 0;
+    color: #ffffff;
+    background: rgba(77, 77, 77, 0.76);
+    font-size: 15px;
+    text-decoration: none;
+    vertical-align: bottom;
+    white-space: nowrap;
+    text-rendering: auto;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    box-sizing: border-box;
+    border-radius: 999em;
+    font-style: normal;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    margin-right: 8px;
+}
+
+.control-btn:hover, .control-btn:active {
+    background: rgba(77, 77, 77, 1);
+}
+
+.control-btn_icon_true {
+    width: 38px;
+    padding: 0 9px;
 }
