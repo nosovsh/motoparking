@@ -107,7 +107,9 @@ var ParkingStore = Fluxxor.createStore({
 
     onPostOpinionSuccess: function (payload) {
         // TODO: надо подгружать не текущую парковку а просто парковку
-        this.flux.actions.loadCurrentParking(payload.opinion.parking);
+        setTimeout(function () {
+            this.flux.actions.loadCurrentParking(payload.opinion.parking);
+        }.bind(this), 0);
         this.emit("change");
     },
 
