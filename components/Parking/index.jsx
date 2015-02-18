@@ -31,8 +31,7 @@ var Parking = React.createClass({
 
                     <StatusCover isSecure={ this.state.currentParking.isSecure }  isMoto={ this.state.currentParking.isMoto }/>
 
-                    <MyOpinion parking={ this.state.currentParking }/>
-                    { this.state.loading ? <div>Loading...</div> : <div /> }
+                    { this.state.currentParking.isFullParkingLoaded ? <MyOpinion parking={ this.state.currentParking }/> : <div>Loading...</div> }
                     <br/>
                 </div>
             </div>

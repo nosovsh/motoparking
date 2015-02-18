@@ -5,7 +5,7 @@ var OpinionClient = require("../opinion/OpinionClient");
 
 var ParkingActions = {
   loadCurrentParking: function(parkingId) {
-    setTimeout(function(){this.dispatch(ParkingConstants.LOAD_CURRENT_PARKING, {parkingId: parkingId})}.bind(this), 0);
+    this.dispatch(ParkingConstants.LOAD_CURRENT_PARKING, {parkingId: parkingId});
 
     ParkingClient.loadParking(parkingId, function (parking){
       this.dispatch(ParkingConstants.LOAD_CURRENT_PARKING_SUCCESS, {parking: parking})

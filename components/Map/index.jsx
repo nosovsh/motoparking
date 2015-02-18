@@ -89,7 +89,7 @@ var Map = React.createClass({
         });
         this.getFlux().store("ParkingStore")
             .on("loadParkingListSuccess", this._loadParkingListSuccess)
-            .on("loadCurrentParkingSuccess", this._loadCurrentParkingSuccess)
+            .on("loadCurrentParking", this._loadCurrentParking)
             .on("unselectCurrentParking", this._unselectCurrentParking)
             .on("editLocation", this._editLocation)
             .on("editLocationCancel", this._editLocationCancel)
@@ -124,7 +124,7 @@ var Map = React.createClass({
         console.log(this.parkingMarkers)
     },
 
-    _loadCurrentParkingSuccess: function () {
+    _loadCurrentParking: function () {
         var store = this.getFlux().store("ParkingStore");
         _.map(this.parkingMarkers, function (marker, parkingId) {
             marker.setIcon(getIcon(store.getParking(parkingId).isSecure, store.getParking(parkingId).isMoto));

@@ -55,7 +55,8 @@ var ParkingStore = Fluxxor.createStore({
     },
 
     onLoadCurrentParkingSuccess: function (payload) {
-        this.updateParking(payload.parking);
+        var parking = _.extend({}, payload.parking, {isFullParkingLoaded: true});
+        this.updateParking(parking);
 
         if (payload.parking.id == this.currentParkingId) {
             this.loading = false;
