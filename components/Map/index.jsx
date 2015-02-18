@@ -118,7 +118,12 @@ var Map = React.createClass({
     _loadParkingListSuccess: function() {
         var store = this.getFlux().store("ParkingStore");
         _.forEach(store.parkingList, function (parking) {
-            var ic = store.currentParkingId && parking.id == store.currentParkingId ? getActiveIcon(parking.isSecure, parking.isMoto) : getIcon(parking.isSecure, parking.isMoto);
+            if (store.currentParkingId && parking.id == store.currentParkingId) {
+                var ic = getActiveIcon(parking.isSecure, parking.isMoto);
+                this.map.panTo(parking.latLng.coordinates);
+            } else {
+                ic = getIcon(parking.isSecure, parking.isMoto);
+            }
             this.parkingMarkers[parking.id] = L.marker(parking.latLng.coordinates, {icon: ic}).on('click', this.onMarkerClick.bind(this, parking.id)).addTo(this.map);
         }.bind(this));
         console.log(this.parkingMarkers)
@@ -131,6 +136,7 @@ var Map = React.createClass({
         }.bind(this));
         if (this.parkingMarkers[store.currentParkingId]) {
             this.parkingMarkers[store.currentParkingId].setIcon(getActiveIcon(store.getCurrentParking().isSecure, store.getCurrentParking().isMoto));
+            this.map.panTo(this.parkingMarkers[store.currentParkingId].getLatLng());
         }
     },
 
@@ -158,6 +164,8 @@ var Map = React.createClass({
             );
         }.bind(this));
 
+        this.map.panTo(oldMarker.getLatLng());
+
         this.map.removeLayer(oldMarker);
     },
 
@@ -177,6 +185,8 @@ var Map = React.createClass({
             .addTo(this.map);
 
         this.map.removeLayer(oldMarker);
+
+        this.map.panTo(oldMarker.getLatLng());
     },
 
     /**
@@ -196,6 +206,8 @@ var Map = React.createClass({
             .addTo(this.map);
 
         this.map.removeLayer(oldMarker);
+
+        this.map.panTo(store.getCurrentParking().latLng.coordinates);
     },
     /**
      * Create draggable marker for new parking at map center. Update store, when dragged
@@ -206,7 +218,6 @@ var Map = React.createClass({
 
         this._unselectAllMarkers();
 
-        console.log("111")
         if (!store.newParking.latLng) {
             var initialMarkerPosition = this.map.getCenter();
 
@@ -242,6 +253,9 @@ var Map = React.createClass({
     _newParkingEditingLocationCancel: function () {
         this.map.removeLayer(this.newParkingMarker);
         this.newParkingMarker = null;
+        setTimeout(function() {
+            this.transitionTo("Default")
+        }.bind(this), 0);
     },
 
     /**
@@ -263,13 +277,20 @@ var Map = React.createClass({
     _newParkingEditInfoCancel: function () {
         this.map.removeLayer(this.newParkingMarker);
         this.newParkingMarker = null;
+        setTimeout(function() {
+            this.transitionTo("Default")
+        }.bind(this), 0);
     },
 
 
     _saveNewParkingSuccess: function() {
         var store = this.getFlux().store("ParkingStore");
         this.parkingMarkers[store.currentParkingId] = this.newParkingMarker; // TODO: do it not throws currentParkingId
-        this.transitionTo("Parking", {"id": store.currentParkingId})
+        this.newParkingMarker.on("click", this.onMarkerClick.bind(this, store.currentParkingId));
+        this.newParkingMarker = null;
+        setTimeout(function() {
+            this.transitionTo("Parking", {"id": store.currentParkingId})
+        }.bind(this), 0);
     },
 
 

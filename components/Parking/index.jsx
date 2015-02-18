@@ -21,7 +21,7 @@ var Parking = React.createClass({
 
         var sidebarWrapperClasses = {
             'sidebar__wrapper': true,
-            'sidebar__wrapper__hidden': this.state.editingLocation || this.state.newParkingEditingLocation || this.state.newParkingEditInfo
+            'sidebar__wrapper__hidden': this.state.editingLocation
         };
 
         return (
@@ -58,9 +58,7 @@ var Parking = React.createClass({
             currentParking: store.getCurrentParking(),
             currentParkingId: store.currentParkingId,
             currentParkingOpinions: opinionStore.opinionsByParking[this.getParams().id] ? opinionStore.opinionsByParking[this.getParams().id] : [],
-            editingLocation: store.editingLocation,
-            newParkingEditingLocation: store.newParkingEditingLocation,
-            newParkingEditInfo: store.newParkingEditInfo
+            editingLocation: store.editingLocation
         };
     }
 

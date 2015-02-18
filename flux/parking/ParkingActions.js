@@ -37,7 +37,7 @@ var ParkingActions = {
     1. действия над Opininon в  ParkingActions
     2. передается целый opinion, а надо только координаты
     3. Почти такой же код, как при просто сохранении Opinion*/
-    this.dispatch(ParkingConstants.EDIT_LOCATION_DONE, {});
+    this.dispatch(ParkingConstants.EDIT_LOCATION_DONE, {opinion: opinion});
 
     opinion = _.merge({}, opinion);
     opinion.status = 'SAVING';

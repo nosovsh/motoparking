@@ -9,8 +9,6 @@ var Map = require('../Map'),
     NewParkingEditInfo = require('../NewParkingEditInfo'),
     NewParkingEditLocation = require('../NewParkingEditLocation');
 
-var FluxMixin = Fluxxor.FluxMixin(React);
-
 
 // Require React-Router
 var Router = require('react-router');
@@ -29,8 +27,6 @@ var InnerApplication = React.createClass({
             <div>
                 <Controls />
                 { this.state.editingLocation ? <EditLocation /> : <div /> }
-                { this.state.newParkingEditingLocation ? <NewParkingEditLocation /> : <div /> }
-                { this.state.newParkingEditInfo ? <NewParkingEditInfo /> : <div /> }
             </div>
         );
     },

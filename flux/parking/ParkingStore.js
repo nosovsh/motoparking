@@ -117,8 +117,12 @@ var ParkingStore = Fluxxor.createStore({
         this.emit("editLocation");
     },
 
-    onEditLocationDone: function () {
+    onEditLocationDone: function (payload) {
         this.editingLocation = false;
+        var parking = this.getParking(payload.opinion.parking);
+        parking.latLng = payload.opinion.latLng;
+        this.currentParkingTemporaryPosition = null;
+        this.updateParking(parking);
         this.emit("change");
         this.emit("editLocationDone");
     },
@@ -169,10 +173,12 @@ var ParkingStore = Fluxxor.createStore({
     },
 
     onSaveNewParkingSuccess: function (payload) {
-        this.newParking = {};
+        console.log("wwwww")
         this.newParkingEditInfo = false;
         this.currentParkingId = payload.opinion.parking; // TODO: do it not throws currentParkingId
-        // this.updateParking(payload.parking);
+        this.newParking.id = payload.opinion.parking;
+        this.updateParking(this.newParking);
+        this.newParking = {};
         this.emit("change");
         this.emit("saveNewParkingSuccess");
     },
