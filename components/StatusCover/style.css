@@ -1,6 +1,7 @@
 .status-cover {
     width: 100%;
     height: 210px;
+    -webkit-transition: all .5s ease;
 }
 
 .status-cover_is-secure_maybe {

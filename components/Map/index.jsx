@@ -167,6 +167,12 @@ var Map = React.createClass({
         this.map.panTo(oldMarker.getLatLng());
 
         this.map.removeLayer(oldMarker);
+
+        setTimeout(function () {
+            this.getFlux().actions.changeCurrentParkingTemporaryPosition(
+                this.parkingMarkers[store.currentParkingId].getLatLng()
+            );
+        }.bind(this), 0)
     },
 
     /**

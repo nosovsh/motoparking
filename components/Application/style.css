@@ -3,15 +3,12 @@ body {
     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
     color: #4D4D4D;
 }
+
 p {
     margin:0 0 17px 0;
 }
 
-.application {
-	opacity: 1;
-}
-
-.application.loading {
-	opacity: 0.2;
-	transition: opacity 600ms;
+.one-more-wrapper {
+    display: block;
+    height: 100%;
 }

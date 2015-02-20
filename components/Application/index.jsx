@@ -1,5 +1,6 @@
-var React = require("react"),
-    Fluxxor = require("fluxxor");
+var React = require("react/addons"),
+    Fluxxor = require("fluxxor"),
+    CSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 require("./style.css");
 
@@ -26,7 +27,6 @@ var InnerApplication = React.createClass({
         return (
             <div>
                 <Controls />
-                { this.state.editingLocation ? <EditLocation /> : <div /> }
             </div>
         );
     },
@@ -35,22 +35,24 @@ var InnerApplication = React.createClass({
         var store = this.getFlux().store("ParkingStore");
 
         return {
-            editingLocation: store.editingLocation,
-            newParkingEditingLocation: store.newParkingEditingLocation,
-            newParkingEditInfo: store.newParkingEditInfo
         };
     }
 });
 
 
 var Application = React.createClass({
-    mixins: [FluxMixin],
+    mixins: [FluxMixin,  Router.State ],
     render: function () {
+        var name = this.getRoutes().reverse()[0].name;
         return (
             <div>
                 <Map/>
                 <InnerApplication />
-                <RouteHandler/>
+                <CSSTransitionGroup transitionName="page" className="one-more-wrapper">
+
+                    <RouteHandler key={name} />
+                </CSSTransitionGroup>
+
             </div>
         );
     }

@@ -17,14 +17,10 @@ var NewParkingEditLocation = React.createClass({
 
     render: function () {
         return (
-            <div className="edit_location__wrapper">
-                <div className="edit_location__content">
-                    <div className="my-opinion__row">
-                        <p>Подвиньте маркер парковки</p>
-                        <Button text="Отмена" callback={ this.onNewParkingEditLocationCancel }/>
-                        <Button text="Продолжить" callback={ this.onNewParkingEditInfo }/>
-                    </div>
-                </div>
+            <div className="my-opinion__row">
+                <p>Подвиньте маркер парковки</p>
+                <Button text="Отмена" callback={ this.onNewParkingEditLocationCancel }/>
+                <Button text="Продолжить" callback={ this.onNewParkingEditInfo } />
             </div>
         )
     },

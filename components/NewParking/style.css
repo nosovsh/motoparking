@@ -1,21 +1,83 @@
-.button {
-    border: 1px solid #4D4D4D;
-    border-radius: 5px;
-    display: inline-block;
-    padding: 9px 20px;
-    margin-right: 14px;
+.new-parking {
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, 0);
 
-    font-size: 16px;
-    line-height: 22px;
-    cursor: pointer;
+    background: #FFF;
+    width: 332px;
 }
 
-.button:hover, .button:active, .button__selected {
-    background-color: #4D4D4D;
-    color: #fff;
+@-webkit-keyframes fadeOutDown {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        top: 100%;
+
+    }
 }
 
-.button:last-child {
-    margin-right: 0;
+@keyframes fadeOutDown {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        top: 100%;
+
+    }
 }
 
+@-webkit-keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        top: 100%;
+    }
+
+    100% {
+        opacity: 1;
+        top: 50%;
+    }
+}
+
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        top: 100%;
+    }
+
+    100% {
+        opacity: 1;
+        top: 50%;
+    }
+}
+
+.new-parking.page-enter {
+    -webkit-animation-duration: 0.2s;
+    animation-duration: 0.2s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-name: fadeInDown;
+    animation-name: fadeInDown;
+}
+
+.new-parking.page-enter.page-enter-active {
+    opacity: 1;
+}
+
+.new-parking.page-leave {
+    opacity: 1;
+}
+
+.new-parking.page-leave.page-leave-active {
+    -webkit-animation-name: fadeOutDown;
+    animation-name: fadeOutDown;
+    -webkit-animation-duration: 0.2s;
+    animation-duration: 0.2s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}

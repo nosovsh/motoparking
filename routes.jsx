@@ -18,9 +18,9 @@ var RouteHandler = Router.RouteHandler;
 
 var Routes = (
   <Route handler={ App }>
-    <DefaultRoute name="Default" handler={ Default }/>
-    <Route name="Parking" path="/p/:id" handler={ Parking }/>
-    <Route name="NewParking" path="/add" handler={ NewParking }/>
+    <DefaultRoute name="Default" handler={ Default } addHandlerKey={true} />
+    <Route name="Parking" path="/p/:id" handler={ Parking } addHandlerKey={true} />
+    <Route name="NewParking" path="/add" handler={ NewParking } addHandlerKey={true} />
   </Route>
 );
 

@@ -8,6 +8,8 @@
     font-size: 16px;
     line-height: 22px;
     cursor: pointer;
+
+    -webkit-transition: all 0.2s ease;
 }
 
 .button:hover, .button:active, .button__selected {

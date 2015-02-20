@@ -16,7 +16,7 @@ var NewParking = React.createClass({
 
     render: function () {
         return (
-            <div>
+            <div className="new-parking">
                 { this.state.newParkingEditingLocation ? <NewParkingEditLocation /> : <div /> }
                 { this.state.newParkingEditInfo ? <NewParkingEditInfo /> : <div /> }
             </div>
@@ -24,11 +24,11 @@ var NewParking = React.createClass({
     },
 
     componentDidMount: function () {
-        this.getFlux().actions.newParkingEditLocation();
+        this.getFlux().actions.newParking();
     },
 
     componentWillReceiveProps: function (nextProps) {
-        this.getFlux().actions.newParkingEditLocation();
+        this.getFlux().actions.newParking();
     },
 
     getStateFromFlux: function () {

@@ -12,8 +12,7 @@ var Default = React.createClass({
         return <div>
         </div>;
     },
-    componentDidMount: function () {
-        // TODO: move somewhere
+    componentWillReceiveProps: function () {
         this.getFlux().actions.unselectCurrentParking();
     }
 });

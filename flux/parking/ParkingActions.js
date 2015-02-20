@@ -58,6 +58,10 @@ var ParkingActions = {
     this.dispatch(ParkingConstants.CHANGE_CURRENT_PARKING_TEMPORARY_POSITION, {latLng: latLng});
   },
 
+  newParking: function () {
+    this.dispatch(ParkingConstants.NEW_PARKING, {});
+  },
+
   newParkingEditLocation: function () {
     this.dispatch(ParkingConstants.NEW_PARKING_EDIT_LOCATION, {});
   },

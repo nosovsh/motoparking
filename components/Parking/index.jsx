@@ -1,5 +1,6 @@
 var React = require("react/addons"),
-    Fluxxor = require("fluxxor");
+    Fluxxor = require("fluxxor"),
+    CSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 require("./style.css");
 
@@ -11,6 +12,7 @@ var FluxMixin = Fluxxor.FluxMixin(React),
 
 var StatusCover = require("../StatusCover"),
     MyOpinion = require("../MyOpinion"),
+    EditLocation = require("../EditLocation"),
     Icon = require("../Icon");
 
 
@@ -18,24 +20,31 @@ var Parking = React.createClass({
     mixins: [Router.State, FluxMixin, StoreWatchMixin("ParkingStore")],
 
     render: function () {
-
-        var sidebarWrapperClasses = {
-            'sidebar__wrapper': true,
-            'sidebar__wrapper__hidden': this.state.editingLocation
-        };
-
-        return (
-            <div className={ React.addons.classSet(sidebarWrapperClasses) }>
-                <div className="sidebar__content">
-                    <Link to="Default"><div className="close-wrapper"><Icon name="close" /></div></Link>
-
-                    <StatusCover isSecure={ this.state.currentParking.isSecure }  isMoto={ this.state.currentParking.isMoto }/>
-
-                    { this.state.currentParking.isFullParkingLoaded ? <MyOpinion parking={ this.state.currentParking }/> : <div>Loading...</div> }
-                    <br/>
+        if (this.state.editingLocation) {
+            return (
+                <div className="edit-location">
+                    <EditLocation />
                 </div>
-            </div>
-        )
+            )
+        } else {
+            return (
+                <div className="sidebar__wrapper">
+                    <div className="sidebar__content">
+                        <Link to="Default">
+                            <div className="close-wrapper">
+                                <Icon name="close" />
+                            </div>
+                        </Link>
+
+                        <StatusCover isSecure={ this.state.currentParking.isSecure }  isMoto={ this.state.currentParking.isMoto }/>
+
+                        { this.state.currentParking.isFullParkingLoaded ?
+                            <MyOpinion parking={ this.state.currentParking }/> :
+                            <div className="loading">Loading...</div> }
+                    </div>
+                </div>
+            )
+        }
     },
 
     componentDidMount: function () {
