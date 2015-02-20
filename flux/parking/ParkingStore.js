@@ -171,7 +171,6 @@ var ParkingStore = Fluxxor.createStore({
     },
 
     onNewParkingEditInfoCancel: function (payload) {
-        console.log("1111")
         this.emit("change");
         this.emit("newParkingEditInfoCancel");
     },
@@ -182,7 +181,6 @@ var ParkingStore = Fluxxor.createStore({
     },
 
     onSaveNewParkingSuccess: function (payload) {
-        console.log("wwwww")
         this.newParkingEditInfo = false;
         this.currentParkingId = payload.opinion.parking; // TODO: do it not throws currentParkingId
         this.newParking.id = payload.opinion.parking;
