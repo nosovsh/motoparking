@@ -52,102 +52,132 @@
     width: 332px;
 }
 
-
-@-webkit-keyframes fadeOutDown {
-  0% {
-    opacity: 1;
-    top: 50%;
-  }
-
-  100% {
-    opacity: 0;
-    top: 100%;
-  }
-}
-
-@keyframes fadeOutDown {
-  0% {
-    opacity: 1;
-    top: 50%;
-  }
-
-  100% {
-    opacity: 0;
-    top: 100%;
-  }
-}
-
 @-webkit-keyframes fadeInRight {
-  0% {
-    opacity: 0;
-      right: -301px;
-  }
+    0% {
+        right: -333px;
+    }
 
-  100% {
-    opacity: 1;
-    right: 16px;
-  }
+    100% {
+        right: 16px;
+    }
 }
 
 @keyframes fadeInRight {
-  0% {
-    opacity: 0;
-      right: -301px;
-  }
+    0% {
+        right: -333px;
+    }
 
-  100% {
-    opacity: 1;
-    right: 16px;
-  }
+    100% {
+        right: 16px;
+    }
 }
 
 @-webkit-keyframes fadeOutRight {
-  0% {
-    opacity: 1;
-  }
+    0% {
+    }
 
-  100% {
-    opacity: 0;
-      right: -301px;
-  }
+    100% {
+        right: -333px;
+    }
 }
 
 @keyframes fadeOutRight {
-  0% {
-    opacity: 1;
-  }
+    0% {
+    }
 
-  100% {
-    opacity: 0;
-      right: -301px;
-  }
+    100% {
+        right: -333px;
+    }
+}
+
+@media only screen and (max-device-width: 480px) {
+
+    @-webkit-keyframes fadeInRight {
+        0% {
+            transform: translateX(100%);
+        }
+
+        100% {
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes fadeInRight {
+        0% {
+            transform: translateX(100%);
+        }
+
+        100% {
+            transform: translateX(0);
+        }
+    }
+
+    @-webkit-keyframes fadeOutRight {
+        0% {
+        }
+
+        100% {
+            transform: translateX(100%);
+        }
+    }
+
+    @keyframes fadeOutRight {
+        0% {
+        }
+
+        100% {
+            transform: translateX(100%);
+        }
+    }
+
 }
 
 .sidebar__wrapper.page-enter {
 
-
-  -webkit-animation-duration: 0.2s;
-          animation-duration: 0.2s;
-  -webkit-animation-fill-mode: both;
-          animation-fill-mode: both;
-  -webkit-animation-name: fadeInRight;
-          animation-name: fadeInRight;
+    -webkit-animation-duration: .2s;
+    animation-duration: .2s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-name: fadeInRight;
+    animation-name: fadeInRight;
 }
 
-
 .sidebar__wrapper.page-enter.page-enter-active {
-  opacity: 1;
+    opacity: 1;
 }
 
 .sidebar__wrapper.page-leave {
- opacity: 1;
+    opacity: 1;
 }
 
 .sidebar__wrapper.page-leave.page-leave-active {
-  -webkit-animation-name: fadeOutRight;
-          animation-name: fadeOutRight;
-  -webkit-animation-duration: 0.2s;
-          animation-duration: 0.2s;
-  -webkit-animation-fill-mode: both;
-          animation-fill-mode: both;
+    -webkit-animation-name: fadeOutRight;
+    animation-name: fadeOutRight;
+    -webkit-animation-duration: .2s;
+    animation-duration: .2s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+@media only screen and (max-device-width: 480px) {
+    .sidebar__wrapper {
+        position: absolute;
+        z-index: 200;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        width: 100%;
+    }
+
+    .sidebar__content {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        margin-left: 0;
+        box-shadow: 0 2px 3px 1px rgba(0, 0, 0, .2);
+        background-color: #FFF;
+        max-height: 100%;
+        overflow-y: scroll;
+    }
 }

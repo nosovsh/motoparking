@@ -2,6 +2,7 @@ var React = require("react/addons"),
     Fluxxor = require("fluxxor"),
     CSSTransitionGroup = React.addons.CSSTransitionGroup;
 
+require("normalize.css/normalize.css");
 require("./style.css");
 
 var Map = require('../Map'),
