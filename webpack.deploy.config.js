@@ -6,7 +6,7 @@ config["entry"] = [
 config["output"] = {
     path: __dirname + '/static/build/',
     filename: 'bundle.js',
-    publicPath: '/static/build/bundle.js'
+    publicPath: '/static/build/'
 };
 
 config["module"] = {
