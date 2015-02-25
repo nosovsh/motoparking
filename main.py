@@ -110,12 +110,11 @@ class Opinion(db.Document):
 
 class ParkingResource(ProResource):
     document = Parking
-    fields = ["id", "lat_lng", "is_secure", "is_moto", "user", "my_opinion", ]
+    fields = ["id", "lat_lng", "is_secure", "is_moto", "user", ]
     rename_fields = {
         'lat_lng': 'latLng',
         'is_secure': 'isSecure',
         'is_moto': 'isMoto',
-        'my_opinion': 'myOpinion',
     }
 
     def create_object(self, data=None, save=True, parent_resources=None):
