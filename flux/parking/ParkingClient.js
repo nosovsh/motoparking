@@ -1,5 +1,4 @@
 var _ = require("lodash"),
-    Faker = require("Faker"),
     $ = require("jquery");
 
 var ParkingClient = {
