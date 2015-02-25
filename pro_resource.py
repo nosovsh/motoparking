@@ -61,7 +61,7 @@ class ProResource(Resource):
         # @TODO this should rename form fields otherwise in a resource you could say "model_id" and in a form still have to use "model".
         print "3333"
         print self.data
-        for k, v in self._rename_fields.iteritems():
+        for k, v in self.rename_fields.iteritems():
             if self.data.has_key(v):
                 self.data[k] = self.data[v]
                 del self.data[v]
