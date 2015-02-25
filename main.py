@@ -147,22 +147,30 @@ class OpinionResource(ProResource):
 
     def create_object(self, data=None, save=True, parent_resources=None):
         data = data or self.data
+        print "11111"
+        print data
         if "parking" not in data:
             parking = Parking()
             parking.save()
         else:
             parking = Parking.objects.get(pk=data["parking"])
-
+        print parking.lat_lng
         try:
             opinion = Opinion.objects.get(parking=parking, user=current_user._get_current_object())
         except Opinion.DoesNotExist:
             opinion = Opinion(parking=parking, user=current_user._get_current_object())
         except Opinion.OperationError:
             pass
+        print opinion.lat_lng
         opinion = self.update_object(opinion, data, save, parent_resources=parent_resources)
+        print opinion.lat_lng
 
         fill_parking(parking, opinion)
+        print opinion.lat_lng
+        print parking.lat_lng
         parking.save()
+        print parking.lat_lng
+
 
         return opinion
 
