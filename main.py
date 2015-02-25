@@ -119,6 +119,12 @@ class ParkingResource(ProResource):
     }
 
     def create_object(self, data=None, save=True, parent_resources=None):
+        print "222"
+
+        print data
+        print self.data
+        print self._rename_fields
+
         obj = super(ParkingResource, self).create_object(data, save=False, parent_resources=parent_resources)
         obj.user = current_user._get_current_object()
         if save:
@@ -127,8 +133,8 @@ class ParkingResource(ProResource):
 
     def get_object(self, pk):
         obj = super(ParkingResource, self).get_object(pk=pk)
-        opinions = Opinion.objects(parking=obj.pk, user=current_user._get_current_object().pk)
-        obj.my_opinion = OpinionResource().serialize(opinions[0]) if opinions else None
+        # opinions = Opinion.objects(parking=obj.pk, user=current_user._get_current_object().pk)
+        # obj.my_opinion = OpinionResource().serialize(opinions[0]) if opinions else None
         return obj
 
 
