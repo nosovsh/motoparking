@@ -7,7 +7,6 @@ module.exports = {
     'webpack-dev-server/client?http://localhost:3005',
     'webpack/hot/only-dev-server',
     './entry.jsx',
-
   ],
 
   output: {

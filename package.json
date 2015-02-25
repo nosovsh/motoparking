@@ -12,10 +12,10 @@
     "react": "^0.12.2",
     "react-router": "^0.11.6",
     "style-loader": "^0.8.2",
-    "webpack": "^1.4.14"
+    "webpack": "^1.4.14",
+    "jsx-loader": "^0.12.2"
   },
   "devDependencies": {
-    "jsx-loader": "^0.12.2",
     "react-hot-loader": "^1.0.4",
     "webpack": "^1.4.14",
     "webpack-dev-server": "^1.7.0"
