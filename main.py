@@ -27,7 +27,7 @@ if os.environ.get('PROD_MONGODB'):
         'db': MONGOLAB_URI[MONGOLAB_URI.rfind("/")+1:],
         'host': MONGOLAB_URI
     }
-    app.config['DEBUG'] = True
+    app.config['DEBUG'] = False
 else:
     app.config['MONGODB_SETTINGS'] = {
         'db': 'motoparking',
