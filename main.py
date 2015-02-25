@@ -21,11 +21,16 @@ from pro_resource import ProResource
 
 
 app = Flask(__name__)
-app.config.update(
-    MONGODB_HOST = 'localhost',
-    MONGODB_PORT = '27017',
-    MONGODB_DB = 'motoparking',
-)
+if os.environ.get('MONGOLAB_URI'):
+    app.config['MONGODB_SETTINGS'] = {
+        'host': os.environ.get('MONGOLAB_URI')
+    }
+else:
+    app.config.update(
+        MONGODB_HOST = 'localhost',
+        MONGODB_PORT = '27017',
+        MONGODB_DB = 'motoparking',
+    )
 app.config['DEBUG'] = True
 app.config['SECRET_KEY'] = 'super-secret'
 app.config['SECURITY_PASSWORD_HASH'] = 'pbkdf2_sha512'
