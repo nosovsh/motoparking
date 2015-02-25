@@ -21,8 +21,8 @@ from pro_resource import ProResource
 
 
 app = Flask(__name__)
-if os.environ.get('MONGOLAB_URI'):
-    MONGOLAB_URI = os.environ.get('MONGOLAB_URI')
+if os.environ.get('PROD_MONGODB'):
+    MONGOLAB_URI = os.environ.get('PROD_MONGODB')
     app.config['MONGODB_SETTINGS'] = {
         'db': MONGOLAB_URI[MONGOLAB_URI.rfind("/")+1:],
         'host': MONGOLAB_URI
