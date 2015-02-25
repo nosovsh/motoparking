@@ -11,8 +11,6 @@ config["output"] = {
 
 config["module"] = {
     loaders: [
-        // Pass *.jsx files through jsx-loader transform
-        {test: /\.jsx$/, loaders: ['jsx']},
         {test: /\.css$/, loader: "style!css"},
         {test: /\.png$/, loader: "file"},
         {test: /\.jpg$/, loader: "file"},
