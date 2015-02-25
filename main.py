@@ -152,13 +152,17 @@ class OpinionResource(ProResource):
         if "parking" not in data:
             parking = Parking()
             parking.save()
+            print "new parking"
         else:
             parking = Parking.objects.get(pk=data["parking"])
+            print "old parking"
         print parking.lat_lng
         try:
             opinion = Opinion.objects.get(parking=parking, user=current_user._get_current_object())
+            print "old o"
         except Opinion.DoesNotExist:
             opinion = Opinion(parking=parking, user=current_user._get_current_object())
+            print "new o"
         except Opinion.OperationError:
             pass
         print opinion.lat_lng
