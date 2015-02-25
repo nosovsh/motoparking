@@ -27,13 +27,14 @@ if os.environ.get('PROD_MONGODB'):
         'db': MONGOLAB_URI[MONGOLAB_URI.rfind("/")+1:],
         'host': MONGOLAB_URI
     }
+    app.config['DEBUG'] = True
 else:
     app.config['MONGODB_SETTINGS'] = {
         'db': 'motoparking',
         'host': 'mongodb://localhost:27017/motoparking'
     }
+    app.config['DEBUG'] = True
 
-app.config['DEBUG'] = True
 app.config['SECRET_KEY'] = 'super-secret'
 app.config['SECURITY_PASSWORD_HASH'] = 'pbkdf2_sha512'
 app.config['SECURITY_PASSWORD_SALT'] = 'ytdjf.jk,upo8etsgdf,asdf34ttgewgq3g[q[epqogqjg;'
@@ -74,12 +75,12 @@ class User(db.Document, UserMixin):
 user_datastore = MongoEngineUserDatastore(db, User, Role)
 
 
-class ExtendedRegisterForm(RegisterForm):
-    name = wtforms.TextField('Name', [wtforms.validators.Required()])
+# class ExtendedRegisterForm(RegisterForm):
+#     name = wtforms.TextField('Name', [wtforms.validators.Required()])
 
 
-security = Security(app, user_datastore,
-         register_form=ExtendedRegisterForm)
+security = Security(app, user_datastore)
+         # register_form=ExtendedRegisterForm)
 
 # Create a user to test with
 # @app.before_first_request
@@ -204,9 +205,12 @@ class UserView(ResourceView):
 
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
+@login_required
 def catch_all(path):
     """Catch all"""
-    return render_template('index.html', current_user_json_str=user_json(current_user))
+    return render_template('index.html',
+                           current_user_json_str=user_json(current_user),
+                           debug=app.config['DEBUG'])
 
 
 # utils
