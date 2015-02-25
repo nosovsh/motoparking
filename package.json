@@ -22,7 +22,7 @@
   },
   "scripts": {
     "dev": "node_modules/.bin/supervisor --ignore build/ -e jsx server & node hotLoadServer.js",
-    "build": "node_modules/.bin/webpack"
+    "prepublish": "node_modules/.bin/webpack --config webpack.deploy.config"
   },
   "author": "",
   "license": "ISC"
