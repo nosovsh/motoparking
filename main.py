@@ -22,22 +22,17 @@ from pro_resource import ProResource
 
 app = Flask(__name__)
 if os.environ.get('MONGOLAB_URI'):
+    MONGOLAB_URI = os.environ.get('MONGOLAB_URI')
     app.config['MONGODB_SETTINGS'] = {
-                'db': 'heroku_app34332092',
-
-        'host': os.environ.get('MONGOLAB_URI')
+        'db': MONGOLAB_URI[MONGOLAB_URI.rfind("/")+1:],
+        'host': MONGOLAB_URI
     }
 else:
     app.config['MONGODB_SETTINGS'] = {
         'db': 'motoparking',
-        'host': 'mongodb://root:@localhost:27017/motoparking'
+        'host': 'mongodb://localhost:27017/motoparking'
     }
 
-    app.config.update(
-        MONGODB_HOST = 'localhost',
-        MONGODB_PORT = '27017',
-        MONGODB_DB = 'motoparking',
-    )
 app.config['DEBUG'] = True
 app.config['SECRET_KEY'] = 'super-secret'
 app.config['SECURITY_PASSWORD_HASH'] = 'pbkdf2_sha512'
