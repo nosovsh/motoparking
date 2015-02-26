@@ -110,20 +110,15 @@ class Opinion(db.Document):
 
 class ParkingResource(ProResource):
     document = Parking
-    fields = ["id", "lat_lng", "is_secure", "is_moto", "user", ]
+    fields = ["id", "lat_lng", "is_secure", "is_moto", "user", "my_opinion", ]
     rename_fields = {
         'lat_lng': 'latLng',
         'is_secure': 'isSecure',
         'is_moto': 'isMoto',
+        'my_opinion': 'myOpinion',
     }
 
     def create_object(self, data=None, save=True, parent_resources=None):
-        print "222"
-
-        print data
-        print self.data
-        print self._rename_fields
-
         obj = super(ParkingResource, self).create_object(data, save=False, parent_resources=parent_resources)
         obj.user = current_user._get_current_object()
         if save:
@@ -132,8 +127,8 @@ class ParkingResource(ProResource):
 
     def get_object(self, pk):
         obj = super(ParkingResource, self).get_object(pk=pk)
-        # opinions = Opinion.objects(parking=obj.pk, user=current_user._get_current_object().pk)
-        # obj.my_opinion = OpinionResource().serialize(opinions[0]) if opinions else None
+        opinions = Opinion.objects(parking=obj.pk, user=current_user._get_current_object().pk)
+        obj.my_opinion = OpinionResource().serialize(opinions[0]) if opinions else None
         return obj
 
 
@@ -152,34 +147,22 @@ class OpinionResource(ProResource):
 
     def create_object(self, data=None, save=True, parent_resources=None):
         data = data or self.data
-        print "11111"
-        print data
         if "parking" not in data:
             parking = Parking()
             parking.save()
-            print "new parking"
         else:
             parking = Parking.objects.get(pk=data["parking"])
-            print "old parking"
-        print parking.lat_lng
+
         try:
             opinion = Opinion.objects.get(parking=parking, user=current_user._get_current_object())
-            print "old o"
         except Opinion.DoesNotExist:
             opinion = Opinion(parking=parking, user=current_user._get_current_object())
-            print "new o"
         except Opinion.OperationError:
             pass
-        print opinion.lat_lng
         opinion = self.update_object(opinion, data, save, parent_resources=parent_resources)
-        print opinion.lat_lng
 
         fill_parking(parking, opinion)
-        print opinion.lat_lng
-        print parking.lat_lng
         parking.save()
-        print parking.lat_lng
-
 
         return opinion
 

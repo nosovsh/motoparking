@@ -1,4 +1,7 @@
+import json
 import mongoengine
+from flask import request
+from flask.ext.mongorest.exceptions import ValidationError
 from bson.dbref import DBRef
 from mongoengine.fields import EmbeddedDocumentField, ListField, ReferenceField
 
@@ -59,14 +62,10 @@ class ProResource(Resource):
 
     def validate_request(self, obj=None):
         # @TODO this should rename form fields otherwise in a resource you could say "model_id" and in a form still have to use "model".
-        print "3333"
-        print self.data
-        for k, v in self.rename_fields.iteritems():
+        for k, v in self.rename_fields.iteritems(): # _rename_fields => rename_fields
             if self.data.has_key(v):
                 self.data[k] = self.data[v]
                 del self.data[v]
-
-        print self.data
 
         if self.form:
             from werkzeug.datastructures import MultiDict
