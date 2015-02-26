@@ -9,9 +9,10 @@
     <body>
         <div id='content'></div>
         {% if debug %}
-            <script src='http://localhost:3005/build/bundle.js'></script>
+            <script src='http://localhost:3005/build/main.js'></script>
         {% else %}
-            <script src='/static/build/bundle.js'></script>
+            <script src='/static/build/main.js'></script>
+            <link rel="stylesheet" href="/static/app/main.css" />
         {% endif %}
     </body>
 </html>

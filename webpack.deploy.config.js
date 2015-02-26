@@ -1,19 +1,24 @@
 var config = require("./webpack.config");
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 config["entry"] = [
     './entry.jsx',
 ];
 config["output"] = {
     path: __dirname + '/static/build/',
-    filename: 'bundle.js',
-    publicPath: '/static/build/'
+    filename: '[name].js',
+    publicPath: '/static/build/',
+    chunkFilename: "[id].js"
 };
 
 config["module"] = {
     loaders: [
         // Pass *.jsx files through jsx-loader transform
         {test: /\.jsx$/, loaders: ['jsx']},
-        {test: /\.css$/, loader: "style!css"},
+            {
+                test: /\.css$/,
+                loader: ExtractTextPlugin.extract("style-loader", "css-loader")
+            },
         {test: /\.png$/, loader: "file"},
         {test: /\.jpg$/, loader: "file"},
         {test: /\.(ttf|eot|svg|woff|ttf)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader"}
@@ -21,6 +26,8 @@ config["module"] = {
 
     ]
 };
-config["plugins"] = [];
+config["plugins"] = [
+        new ExtractTextPlugin("[name].css")
+];
 
 module.exports = config;
