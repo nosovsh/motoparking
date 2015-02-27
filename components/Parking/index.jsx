@@ -41,6 +41,27 @@ var Parking = React.createClass({
 
                         { this.state.currentParking.isFullParkingLoaded ? (
                             <div>
+                                <div className="Prices">
+                                    <div className="Prices__Price">
+                                        <div className="Prices__Price__Label">
+                                            День
+                                        </div>
+                                        <div className="Prices__Price__Value">
+                                            70<Icon name="rouble" fontSize="14px" />
+                                        </div>
+                                    </div>
+
+                                    <div className="Prices__Price">
+
+                                        <div className="Prices__Price__Label">
+                                            Месяц
+                                        </div>
+                                        <div className="Prices__Price__Value">
+                                            3500<Icon name="rouble" />
+                                        </div>
+                                    </div>
+
+                                </div>
                                 <Photo url="/static/test-garaj.jpg" />
                                 <MyOpinion parking={ this.state.currentParking }/>
                             </div>) :

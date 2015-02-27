@@ -52,6 +52,30 @@
     width: 332px;
 }
 
+.Prices {
+    display: table;
+    content: " ";
+    width: 100%;
+    padding: 17px 13px;
+}
+
+.Prices__Price {
+    width: 50%;
+    float: left;
+    position: relative;
+    text-align: center;
+}
+
+.Prices__Price__Label {
+    color: rgba(77, 77, 77, 0.7);
+    font-size: 19px;
+}
+
+.Prices__Price__Value {
+    font-size: 29px;
+    padding-left: 17px;
+}
+
 @-webkit-keyframes fadeInRight {
     0% {
         right: -333px;

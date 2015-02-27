@@ -12,7 +12,7 @@ var Photo = React.createClass({
             Photo: true
         };
         var style = {
-            "background-image": "url('" + this.props.url + "')"
+            "backgroundImage": "url('" + this.props.url + "')"
         };
         return (
             <div style={ style } className={ React.addons.classSet(classes) } />
