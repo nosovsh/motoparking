@@ -13,7 +13,8 @@ var FluxMixin = Fluxxor.FluxMixin(React),
 var StatusCover = require("../StatusCover"),
     MyOpinion = require("../MyOpinion"),
     EditLocation = require("../EditLocation"),
-    Icon = require("../Icon");
+    Icon = require("../Icon"),
+    Photo = require("../Photo");
 
 
 var Parking = React.createClass({
@@ -38,8 +39,11 @@ var Parking = React.createClass({
 
                         <StatusCover isSecure={ this.state.currentParking.isSecure }  isMoto={ this.state.currentParking.isMoto }/>
 
-                        { this.state.currentParking.isFullParkingLoaded ?
-                            <MyOpinion parking={ this.state.currentParking }/> :
+                        { this.state.currentParking.isFullParkingLoaded ? (
+                            <div>
+                                <Photo url="/static/test-garaj.jpg" />
+                                <MyOpinion parking={ this.state.currentParking }/>
+                            </div>) :
                             <div className="loading">Loading...</div> }
                     </div>
                 </div>
