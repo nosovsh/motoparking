@@ -47,7 +47,7 @@ var Parking = React.createClass({
                                             День
                                         </div>
                                         <div className="Prices__Price__Value">
-                                            70<Icon name="rouble" fontSize="14px" />
+                                            70<Icon name="rouble" style={ {fontSize: "14px"} } />
                                         </div>
                                     </div>
 
@@ -57,12 +57,17 @@ var Parking = React.createClass({
                                             Месяц
                                         </div>
                                         <div className="Prices__Price__Value">
-                                            3500<Icon name="rouble" />
+                                            3500<Icon name="rouble" style={ {fontSize: "14px"} } />
                                         </div>
                                     </div>
 
                                 </div>
                                 <Photo url="/static/test-garaj.jpg" />
+                                <div className="InfoRow">
+                                    ул. Ленина д. 6, владение 17
+                                <Icon name="edit" style={ {float: "right", cursor: "pointer"} } onClick={ this.editLocation }/>
+                                </div>
+
                                 <MyOpinion parking={ this.state.currentParking }/>
                             </div>) :
                             <div className="loading">Loading...</div> }
@@ -94,6 +99,9 @@ var Parking = React.createClass({
             currentParkingOpinions: opinionStore.opinionsByParking[this.getParams().id] ? opinionStore.opinionsByParking[this.getParams().id] : [],
             editingLocation: store.editingLocation
         };
+    },
+    editLocation: function () {
+        this.getFlux().actions.editLocation();
     }
 
 });

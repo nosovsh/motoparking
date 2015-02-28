@@ -86,9 +86,6 @@ var MyOpinionExists = React.createClass({
                     </div>
                     <Button text="Изменить своё мнение" callback={this.props.onWantToChangeOpinion.bind(null, true)}/>
                 </div>
-                <ChangeLocationControl parking={ this.props.parking }/>
-                <AddPhotoControl parking={ this.props.parking }/>
-                <AddCommentControl parking={ this.props.parking }/>
             </div>
         )
 
