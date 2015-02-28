@@ -1,0 +1,30 @@
+.Comment {
+    display: table;
+    margin: 0;
+    padding: 14px 11px 14px 11px;
+    border-bottom: 1px solid #E5E5E5;
+    width: 100%;
+}
+
+.Comment:last-child {
+    border-bottom: none;
+}
+
+.Comment__AvatarWrapper {
+    float: left;
+    width: 65px;
+}
+
+.Comment__Data {
+    margin-left: 65px;
+}
+
+.Comment__Username {
+    font-size: 1.2em;
+}
+
+.Comment__Date {
+    opacity: 0.7;
+    font-size: 0.8em;
+    line-height: 1.4em;
+}

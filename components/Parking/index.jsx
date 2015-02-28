@@ -14,13 +14,43 @@ var StatusCover = require("../StatusCover"),
     MyOpinion = require("../MyOpinion"),
     EditLocation = require("../EditLocation"),
     Icon = require("../Icon"),
-    Photo = require("../Photo");
+    Photo = require("../Photo"),
+    Comments = require("../Comments");
 
 
 var Parking = React.createClass({
     mixins: [Router.State, FluxMixin, StoreWatchMixin("ParkingStore")],
 
     render: function () {
+        var fakeComments = [
+            {
+                user: {
+                    _id:"u1",
+                    name: "Гоша Шиков",
+                    pictureUrl: "/static/test/picture-gosha.png"
+                },
+                _id: "1",
+                text: "Как оказалось ночью сюда попасть нельзя :( Пришлось искать другое место"
+            },
+            {
+                user: {
+                    _id:"u2",
+                    name: "Мирослав Шашек",
+                    pictureUrl: "/static/test/picture-miroslav1.png"
+                },
+                _id: "2",
+                text: "Ворота закрываются на ночь и охранники как ни странно не пьяные (обычно)"
+            },
+            {
+                user: {
+                    _id:"u3",
+                    name: "Джонни",
+                    pictureUrl: "/static/test/picture-jonny.png"
+                },
+                _id: "3",
+                text: "Всегда ставлю здесь свою Веспу, когда к бабушке заезжаю"
+            }
+        ];
         if (this.state.editingLocation) {
             return (
                 <div className="edit-location">
@@ -62,13 +92,15 @@ var Parking = React.createClass({
                                     </div>
 
                                 </div>
-                                <Photo url="/static/test-garaj.jpg" />
+                                <Photo url="/static/test/garaj.jpg" />
                                 <div className="InfoRow">
                                     ул. Ленина д. 6, владение 17
                                 <Icon name="edit" style={ {float: "right", cursor: "pointer"} } onClick={ this.editLocation }/>
                                 </div>
 
                                 <MyOpinion parking={ this.state.currentParking }/>
+
+                                <Comments comments={ fakeComments } />
                             </div>) :
                             <div className="loading">Loading...</div> }
                     </div>
