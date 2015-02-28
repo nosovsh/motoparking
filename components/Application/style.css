@@ -17,3 +17,7 @@ p {
 * {
     box-sizing: border-box;
 }
+
+:focus {
+    outline: none
+}

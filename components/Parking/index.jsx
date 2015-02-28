@@ -49,6 +49,24 @@ var Parking = React.createClass({
                 },
                 _id: "3",
                 text: "Всегда ставлю здесь свою Веспу, когда к бабушке заезжаю"
+            },
+            {
+                user: {
+                    _id:"u4",
+                    name: "Джонни",
+                    pictureUrl: "/static/test/picture-jonny.png"
+                },
+                _id: "4",
+                text: "Всегда ставлю здесь свою Веспу, когда к бабушке заезжаю"
+            },
+            {
+                user: {
+                    _id:"u5",
+                    name: "Джонни",
+                    pictureUrl: "/static/test/picture-jonny.png"
+                },
+                _id: "5",
+                text: "Всегда ставлю здесь свою Веспу, когда к бабушке заезжаю"
             }
         ];
         if (this.state.editingLocation) {

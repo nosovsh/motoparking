@@ -3,7 +3,8 @@ var React = require("react/addons"),
 
 require("./style.css");
 
-var Comment = require("../Comment");
+var Comment = require("../Comment"),
+    CommentForm = require("../CommentForm");
 
 var Comments = React.createClass({
     propTypes: {
@@ -14,9 +15,10 @@ var Comments = React.createClass({
             return <Comment comment={ comment }  key={ comment._id }/>
         });
         return (
-            <div className="Comments">
-                { commentsComponents }
-            </div>
+                <div className="Comments">
+                    <CommentForm />
+                    { commentsComponents }
+                </div>
         )
     }
 });
