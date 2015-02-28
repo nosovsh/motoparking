@@ -25,15 +25,6 @@ var Parking = React.createClass({
         var fakeComments = [
             {
                 user: {
-                    _id:"u1",
-                    name: "Гоша Шиков",
-                    pictureUrl: "/static/test/picture-gosha.png"
-                },
-                _id: "1",
-                text: "Как оказалось ночью сюда попасть нельзя :( Пришлось искать другое место"
-            },
-            {
-                user: {
                     _id:"u2",
                     name: "Мирослав Шашек",
                     pictureUrl: "/static/test/picture-miroslav1.png"
@@ -67,7 +58,16 @@ var Parking = React.createClass({
                 },
                 _id: "5",
                 text: "Всегда ставлю здесь свою Веспу, когда к бабушке заезжаю"
-            }
+            },
+            {
+                user: {
+                    _id:"u1",
+                    name: "Гоша Шиков",
+                    pictureUrl: "/static/test/picture-gosha.png"
+                },
+                _id: "1",
+                text: "Как оказалось ночью сюда попасть нельзя :( Пришлось искать другое место"
+            },
         ];
         if (this.state.editingLocation) {
             return (
