@@ -9,7 +9,7 @@
 
 .controls__content {
     position: relative;
-    width: 250px;
+    width: 300px;
 
 }
 
@@ -24,7 +24,6 @@
     outline: 0;
     color: #ffffff;
     background: rgba(77, 77, 77, 0.76);
-    font-size: 15px;
     text-decoration: none;
     vertical-align: bottom;
     white-space: nowrap;
