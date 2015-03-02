@@ -1,0 +1,13 @@
+.AvatarList {
+    position: relative;
+    height: 53px;
+    margin-top: 17px;
+    cursor: pointer;
+}
+
+.AvatarList__Object {
+    position: absolute;
+    left: 50%;
+    margin-left: -26px;
+    -webkit-transition: all .5s ease;
+}

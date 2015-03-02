@@ -28,7 +28,7 @@
     position: absolute;
     top: 10px;
     right: 10px;
-    color: rgba(255, 255, 255, .4);
+    color: rgba(255, 255, 255, 1);
     cursor: pointer;
 }
 

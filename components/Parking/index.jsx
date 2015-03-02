@@ -15,7 +15,8 @@ var StatusCover = require("../StatusCover"),
     EditLocation = require("../EditLocation"),
     Icon = require("../Icon"),
     Photo = require("../Photo"),
-    Comments = require("../Comments");
+    Comments = require("../Comments"),
+    AvatarList = require("../AvatarList");
 
 
 var Parking = React.createClass({
@@ -25,7 +26,7 @@ var Parking = React.createClass({
         var fakeComments = [
             {
                 user: {
-                    _id:"u2",
+                    _id: "u2",
                     name: "Мирослав Шашек",
                     pictureUrl: "/static/test/picture-miroslav1.png"
                 },
@@ -34,7 +35,7 @@ var Parking = React.createClass({
             },
             {
                 user: {
-                    _id:"u3",
+                    _id: "u3",
                     name: "Джонни",
                     pictureUrl: "/static/test/picture-jonny.png"
                 },
@@ -43,7 +44,7 @@ var Parking = React.createClass({
             },
             {
                 user: {
-                    _id:"u4",
+                    _id: "u4",
                     name: "Джонни",
                     pictureUrl: "/static/test/picture-jonny.png"
                 },
@@ -52,7 +53,7 @@ var Parking = React.createClass({
             },
             {
                 user: {
-                    _id:"u5",
+                    _id: "u5",
                     name: "Джонни",
                     pictureUrl: "/static/test/picture-jonny.png"
                 },
@@ -61,13 +62,30 @@ var Parking = React.createClass({
             },
             {
                 user: {
-                    _id:"u1",
+                    _id: "u1",
                     name: "Гоша Шиков",
                     pictureUrl: "/static/test/picture-gosha.png"
                 },
                 _id: "1",
                 text: "Как оказалось ночью сюда попасть нельзя :( Пришлось искать другое место"
             },
+        ];
+        var fakeUsers = [
+            {
+                _id: "u2",
+                name: "Мирослав Шашек",
+                pictureUrl: "/static/test/picture-miroslav1.png"
+            },
+            {
+                _id: "u3",
+                name: "Джонни",
+                pictureUrl: "/static/test/picture-jonny.png"
+            },
+            {
+                _id: "u1",
+                name: "Гоша Шиков",
+                pictureUrl: "/static/test/picture-gosha.png"
+            }
         ];
         if (this.state.editingLocation) {
             return (
@@ -89,13 +107,15 @@ var Parking = React.createClass({
 
                         { this.state.currentParking.isFullParkingLoaded ? (
                             <div>
+                                <AvatarList users={ fakeUsers } />
                                 <div className="Prices">
                                     <div className="Prices__Price">
                                         <div className="Prices__Price__Label">
                                             День
                                         </div>
                                         <div className="Prices__Price__Value">
-                                            70<Icon name="rouble" style={ {fontSize: "14px"} } />
+                                            70
+                                            <Icon name="rouble" style={ {fontSize: "14px"} } />
                                         </div>
                                     </div>
 
@@ -105,7 +125,8 @@ var Parking = React.createClass({
                                             Месяц
                                         </div>
                                         <div className="Prices__Price__Value">
-                                            3500<Icon name="rouble" style={ {fontSize: "14px"} } />
+                                            3500
+                                            <Icon name="rouble" style={ {fontSize: "14px"} } />
                                         </div>
                                     </div>
 
@@ -113,7 +134,10 @@ var Parking = React.createClass({
                                 <Photo url="/static/test/garaj.jpg" />
                                 <div className="InfoRow">
                                     ул. Ленина д. 6, владение 17
-                                <Icon name="edit" style={ {float: "right", cursor: "pointer"} } onClick={ this.editLocation }/>
+                                    <Icon name="edit" style={ {
+                                        float: "right",
+                                        cursor: "pointer"
+                                    } } onClick={ this.editLocation }/>
                                 </div>
 
                                 <MyOpinion parking={ this.state.currentParking }/>
