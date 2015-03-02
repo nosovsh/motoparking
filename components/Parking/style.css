@@ -46,7 +46,7 @@
     position: relative;
     left: 50%;
     top: 50%;
-    transform: translate(-50%, 0);
+    -webkit-transform: translate(-50%, 0);
 
     background: #FFF;
     width: 332px;

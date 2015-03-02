@@ -44,31 +44,13 @@ var Parking = React.createClass({
             },
             {
                 user: {
-                    _id: "u4",
-                    name: "Джонни",
-                    pictureUrl: "/static/test/picture-jonny.png"
-                },
-                _id: "4",
-                text: "Всегда ставлю здесь свою Веспу, когда к бабушке заезжаю"
-            },
-            {
-                user: {
-                    _id: "u5",
-                    name: "Джонни",
-                    pictureUrl: "/static/test/picture-jonny.png"
-                },
-                _id: "5",
-                text: "Всегда ставлю здесь свою Веспу, когда к бабушке заезжаю"
-            },
-            {
-                user: {
                     _id: "u1",
                     name: "Гоша Шиков",
                     pictureUrl: "/static/test/picture-gosha.png"
                 },
                 _id: "1",
                 text: "Как оказалось ночью сюда попасть нельзя :( Пришлось искать другое место"
-            },
+            }
         ];
         var fakeUsers = [
             {
