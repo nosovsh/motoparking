@@ -12,7 +12,7 @@ var CommentForm = React.createClass({
         var currentUser = {
             _id: "u1",
             name: "Гоша Шиков",
-            pictureUrl: "/static/test/picture-gosha.png"
+            pictureUrl: "/static/test/picture-nosov.jpg"
         };
         return (
             <div className="Comment">

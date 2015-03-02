@@ -9,9 +9,7 @@ var Avatar = React.createClass({
     },
     render: function () {
         return (
-            <div className="Avatar" key={ this.props.user._id }>
-                <img src={ this.props.user.pictureUrl } />
-            </div>
+            <img className="Avatar" src={ this.props.user.pictureUrl } />
         );
     }
 });

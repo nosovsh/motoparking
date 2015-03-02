@@ -28,7 +28,7 @@ var Parking = React.createClass({
                 user: {
                     _id: "u2",
                     name: "Мирослав Шашек",
-                    pictureUrl: "/static/test/picture-miroslav1.png"
+                    pictureUrl: "/static/test/picture-nosov.jpg"
                 },
                 _id: "2",
                 text: "Ворота закрываются на ночь и охранники как ни странно не пьяные (обычно)"
@@ -75,6 +75,11 @@ var Parking = React.createClass({
                 _id: "u2",
                 name: "Мирослав Шашек",
                 pictureUrl: "/static/test/picture-miroslav1.png"
+            },
+            {
+                _id: "u5",
+                name: "Александр Носов",
+                pictureUrl: "/static/test/picture-nosov.jpg"
             },
             {
                 _id: "u3",
