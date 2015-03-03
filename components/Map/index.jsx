@@ -49,6 +49,11 @@ var getIcon = function(is_secure, is_moto) {
         iconAnchor:   [39, 42] // point of the icon which will correspond to marker's location
     });
 };
+var resizeIcon = L.icon({
+    iconUrl: require("./images/marker-resize.svg"),
+    iconSize: [39, 42], // size of the icon
+    iconAnchor: [39, 42] // point of the icon which will correspond to marker's location
+});
 
 var getActiveIcon = function(is_secure, is_moto) {
     return L.icon({
@@ -154,7 +159,7 @@ var Map = React.createClass({
         var oldMarker = this.parkingMarkers[store.currentParkingId];
 
         this.parkingMarkers[store.currentParkingId] = L.marker(oldMarker.getLatLng(), {
-            icon: getActiveIcon(store.getCurrentParking().isSecure, store.getCurrentParking().isMoto),
+            icon: resizeIcon,
             draggable: true
         }).addTo(this.map);
 
@@ -228,7 +233,7 @@ var Map = React.createClass({
             var initialMarkerPosition = this.map.getCenter();
 
             this.newParkingMarker = L.marker(initialMarkerPosition, {
-                icon: getActiveIcon(),
+                icon: resizeIcon,
                 draggable: true
             }).addTo(this.map);
 
