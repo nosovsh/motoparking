@@ -47,6 +47,8 @@
     left: 50%;
     top: 50%;
     -webkit-transform: translate(-50%, 0);
+    margin-top: 20px;
+
 
     background: #FFF;
     width: 332px;

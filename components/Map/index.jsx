@@ -46,20 +46,20 @@ var getIcon = function(is_secure, is_moto) {
     return L.icon({
         iconUrl: images[getStatusName(is_secure, is_moto)],
         iconSize:     [39, 42], // size of the icon
-        iconAnchor:   [39, 42] // point of the icon which will correspond to marker's location
+        iconAnchor:   [19, 41] // point of the icon which will correspond to marker's location
     });
 };
 var resizeIcon = L.icon({
     iconUrl: require("./images/marker-resize.svg"),
-    iconSize: [39, 42], // size of the icon
-    iconAnchor: [39, 42] // point of the icon which will correspond to marker's location
+    iconSize: [48, 52], // size of the icon
+    iconAnchor: [24, 51] // point of the icon which will correspond to marker's location
 });
 
 var getActiveIcon = function(is_secure, is_moto) {
     return L.icon({
         iconUrl: activeImages[getStatusName(is_secure, is_moto)],
-        iconSize:     [39, 42], // size of the icon
-        iconAnchor:   [39, 42] // point of the icon which will correspond to marker's location
+        iconSize:     [48, 52], // size of the icon
+        iconAnchor:   [24, 51] // point of the icon which will correspond to marker's location
     });
 };
 
