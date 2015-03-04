@@ -9,7 +9,8 @@ var Link = Router.Link;
 var FluxMixin = Fluxxor.FluxMixin(React),
     StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
-var Button = require("../Button");
+var ButtonRow = require("../ButtonRow"),
+    Icon = require("../Icon");
 
 var EditLocation = React.createClass({
 
@@ -17,10 +18,14 @@ var EditLocation = React.createClass({
 
     render: function () {
         return (
-            <div className="my-opinion__row">
-                <p>Подвиньте маркер парковки</p>
-                <Button text="Отмена" callback={ this.onEditLocationCancel }/>
-                <Button text="Сохранить" callback={ this.onEditLocationDone }/>
+            <div>
+                <div className="close-wrapper">
+                    <Icon name="close" onClick={ this.onEditLocationCancel }/>
+                </div>
+                <div className="my-opinion__row">
+                    Передвиньте парковку, если она расположена неточно.
+                </div>
+                <ButtonRow text="Сохранить" callback={ this.onEditLocationDone }/>
             </div>
         )
     },
