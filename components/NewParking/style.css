@@ -3,6 +3,7 @@
     left: 50%;
     top: 50%;
     -webkit-transform: translate(-50%, 0);
+    -webkit-border-radius: 15px;
     margin-top: 20px;
 
 

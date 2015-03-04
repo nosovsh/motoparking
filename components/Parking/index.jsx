@@ -84,7 +84,7 @@ var Parking = React.createClass({
             return (
                 <div className="sidebar__wrapper">
                     <div className="sidebar__content">
-                        <Link to="Default">
+                        <Link to="Default" style={ {color: "#FFF" } }>
                             <div className="close-wrapper">
                                 <Icon name="close" />
                             </div>

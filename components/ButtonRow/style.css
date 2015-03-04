@@ -1,0 +1,13 @@
+.ButtonRow {
+    padding: 17px 20px;
+    text-align: center;
+    cursor: pointer;
+    -webkit-transition: all 0.2s ease;
+    -webkit-border-radius: 0 0 15px 15px;
+
+}
+
+.ButtonRow:hover, .ButtonRow:active, .ButtonRow__selected {
+    background-color: #4D4D4D;
+    color: #fff;
+}

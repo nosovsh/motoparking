@@ -4,11 +4,16 @@ var React = require("react/addons"),
 
 require("./style.css");
 
-var NewParkingEditInfo = require('../NewParkingEditInfo'),
-    NewParkingEditLocation = require('../NewParkingEditLocation');
+var Button = require("../Button"),
+    IsMotoQuestion = require("../IsMotoQuestion"),
+    ButtonRow = require("../ButtonRow"),
+    Icon = require("../Icon");
 
 var FluxMixin = Fluxxor.FluxMixin(React),
     StoreWatchMixin = Fluxxor.StoreWatchMixin;
+
+var Router = require('react-router'),
+    Link = Router.Link;
 
 
 var NewParking = React.createClass({
@@ -17,8 +22,23 @@ var NewParking = React.createClass({
     render: function () {
         return (
             <div className="new-parking">
-                { this.state.newParkingEditingLocation ? <NewParkingEditLocation /> : <div /> }
-                { this.state.newParkingEditInfo ? <NewParkingEditInfo /> : <div /> }
+
+                <Link to="Default">
+                    <div className="close-wrapper">
+                        <Icon name="close" />
+                    </div>
+                </Link>
+
+                <div className="my-opinion__row">
+                    <p>Вы добавляете парковку, на которой есть охранник.</p>
+                    <IsMotoQuestion
+                        callback={ this.onIsMotoQuestionCallback }
+                        value={ this.state.newParking.isMoto }
+                        text="Скажите, на неё пускают мотоциклы?"/>
+                </div>
+
+                <ButtonRow text="Создать парковку" callback={ this.onNewParkingDone } />
+
             </div>
         )
     },
@@ -36,8 +56,18 @@ var NewParking = React.createClass({
 
         return {
             newParkingEditingLocation: store.newParkingEditingLocation,
-            newParkingEditInfo: store.newParkingEditInfo
+            newParkingEditInfo: store.newParkingEditInfo,
+            newParking: store.newParking
         };
+    },
+
+    onIsMotoQuestionCallback: function (value) {
+        this.getFlux().actions.newParkingUpdateData({isSecure: "yes", isMoto: value});
+    },
+
+    onNewParkingDone: function () {
+        var store = this.getFlux().store("ParkingStore");
+        this.getFlux().actions.saveNewParking(store.newParking)
     }
 });
 

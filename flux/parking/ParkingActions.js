@@ -62,22 +62,6 @@ var ParkingActions = {
     this.dispatch(ParkingConstants.NEW_PARKING, {});
   },
 
-  newParkingEditLocation: function () {
-    this.dispatch(ParkingConstants.NEW_PARKING_EDIT_LOCATION, {});
-  },
-
-  newParkingEditLocationCancel: function () {
-    this.dispatch(ParkingConstants.NEW_PARKING_EDIT_LOCATION_CANCEL, {});
-  },
-
-  newParkingEditInfo: function () {
-    this.dispatch(ParkingConstants.NEW_PARKING_EDIT_INFO, {});
-  },
-
-  onNewParkingEditInfoCancel: function () {
-    this.dispatch(ParkingConstants.NEW_PARKING_EDIT_INFO_CANCEL, {});
-  },
-
   newParkingUpdateData: function (data) {
     this.dispatch(ParkingConstants.NEW_PARKING_UPDATE_DATA, {data: data});
   },
@@ -93,4 +77,4 @@ var ParkingActions = {
   }
 };
 
-module.exports = ParkingActions
+module.exports = ParkingActions;

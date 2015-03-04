@@ -99,8 +99,7 @@ var Map = React.createClass({
             .on("editLocation", this._editLocation)
             .on("editLocationCancel", this._editLocationCancel)
             .on("editLocationDone", this._editLocationDone)
-            .on("newParkingEditingLocation", this._newParkingEditingLocation)
-            .on("newParkingEditingLocationCancel", this._newParkingEditingLocationCancel)
+            .on("newParking", this._newParking)
             .on("newParkingEditInfo", this._newParkingEditInfo)
             .on("newParkingEditInfoCancel", this._newParkingEditInfoCancel)
             .on("saveNewParkingSuccess", this._saveNewParkingSuccess)
@@ -136,9 +135,9 @@ var Map = React.createClass({
 
     _loadCurrentParking: function () {
         var store = this.getFlux().store("ParkingStore");
-        _.map(this.parkingMarkers, function (marker, parkingId) {
-            marker.setIcon(getIcon(store.getParking(parkingId).isSecure, store.getParking(parkingId).isMoto));
-        }.bind(this));
+
+        this._unselectAllMarkers();
+
         if (this.parkingMarkers[store.currentParkingId]) {
             this.parkingMarkers[store.currentParkingId].setIcon(getActiveIcon(store.getCurrentParking().isSecure, store.getCurrentParking().isMoto));
             this.map.panTo(this.parkingMarkers[store.currentParkingId].getLatLng());
@@ -224,7 +223,7 @@ var Map = React.createClass({
      * Create draggable marker for new parking at map center. Update store, when dragged
      * @private
      */
-    _newParkingEditingLocation: function() {
+    _newParking: function() {
         var store = this.getFlux().store("ParkingStore");
 
         this._unselectAllMarkers();
@@ -261,44 +260,17 @@ var Map = React.createClass({
 
     },
 
-    _newParkingEditingLocationCancel: function () {
-        this.map.removeLayer(this.newParkingMarker);
-        this.newParkingMarker = null;
-        setTimeout(function() {
-            this.transitionTo("Default")
-        }.bind(this), 0);
-    },
-
-    /**
-     * Make new parking marker not draggable
-     * @private
-     */
-    _newParkingEditInfo: function() {
-        var store = this.getFlux().store("ParkingStore");
-
-        this.map.removeLayer(this.newParkingMarker);
-
-        this.newParkingMarker = L.marker(store.newParking.latLng.coordinates, {
-            icon: getActiveIcon(),
-            draggable: false
-        }).addTo(this.map);
-
-    },
-
-    _newParkingEditInfoCancel: function () {
-        this.map.removeLayer(this.newParkingMarker);
-        this.newParkingMarker = null;
-        setTimeout(function() {
-            this.transitionTo("Default")
-        }.bind(this), 0);
-    },
-
-
     _saveNewParkingSuccess: function() {
         var store = this.getFlux().store("ParkingStore");
-        this.parkingMarkers[store.currentParkingId] = this.newParkingMarker; // TODO: do it not throws currentParkingId
-        this.newParkingMarker.on("click", this.onMarkerClick.bind(this, store.currentParkingId));
+
+        this.map.removeLayer(this.newParkingMarker);
         this.newParkingMarker = null;
+
+        this.parkingMarkers[store.currentParkingId] = L.marker(store.getParking(store.currentParkingId).latLng.coordinates, {
+            icon: resizeIcon,
+            draggable: false
+        }).on("click", this.onMarkerClick.bind(this, store.currentParkingId))
+            .addTo(this.map); // TODO: do it not throws currentParkingId
         setTimeout(function() {
             this.transitionTo("Parking", {"id": store.currentParkingId})
         }.bind(this), 0);
@@ -309,8 +281,15 @@ var Map = React.createClass({
         var store = this.getFlux().store("ParkingStore");
 
         _.map(this.parkingMarkers, function (marker, parkingId) {
-            marker.setIcon(getIcon(store.getParking(parkingId).isSecure, store.getParking(parkingId).isMoto));
+            marker
+                .setIcon(getIcon(store.getParking(parkingId).isSecure, store.getParking(parkingId).isMoto))
+                .dragging.disable();
         }.bind(this));
+
+        if (this.newParkingMarker) {
+            this.map.removeLayer(this.newParkingMarker);
+            this.newParkingMarker = null;
+        }
     }
 });
 

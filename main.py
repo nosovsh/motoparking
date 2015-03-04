@@ -90,8 +90,8 @@ security = Security(app, user_datastore)
 
 class Parking(db.Document):
     lat_lng = db.PointField()
-    is_secure = db.StringField()
-    is_moto = db.StringField()
+    is_secure = db.StringField(default="yes")
+    is_moto = db.StringField(default="maybe")
     user = db.ReferenceField(User)
 
 # Parking(title="Парковка 1", lat_lng=[55.7622200, 37.6155600], ).save()
@@ -101,8 +101,8 @@ class Opinion(db.Document):
     parking = db.ReferenceField(Parking)
     user = db.ReferenceField(User)
     lat_lng = db.PointField()
-    is_secure = db.StringField()
-    is_moto = db.StringField()
+    is_secure = db.StringField(default="yes")
+    is_moto = db.StringField(default="maybe")
 
 
 # resources

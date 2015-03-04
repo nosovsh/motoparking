@@ -37,11 +37,6 @@ var ParkingStore = Fluxxor.createStore({
             ParkingConstants.CHANGE_CURRENT_PARKING_TEMPORARY_POSITION, this.onChangeCurrentParkingTemporaryPosition,
 
             ParkingConstants.NEW_PARKING, this.onNewParking,
-            ParkingConstants.NEW_PARKING_EDIT_LOCATION, this.onNewParkingEditLocation,
-            ParkingConstants.NEW_PARKING_EDIT_LOCATION_CANCEL, this.onNewParkingEditLocationCancel,
-
-            ParkingConstants.NEW_PARKING_EDIT_INFO, this.onNewParkingEditInfo,
-            ParkingConstants.NEW_PARKING_EDIT_INFO_CANCEL, this.onNewParkingEditInfoCancel,
 
             ParkingConstants.NEW_PARKING_UPDATE_DATA, this.onNewParkingUpdateData,
             ParkingConstants.SAVE_NEW_PARKING_SUCCESS, this.onSaveNewParkingSuccess
@@ -147,32 +142,7 @@ var ParkingStore = Fluxxor.createStore({
         this.newParkingEditingLocation = true;
         this.newParking = {};
         this.emit("change");
-        this.emit("newParkingEditingLocation");
-    },
-
-    onNewParkingEditLocation: function (payload) {
-        this.newParkingEditInfo = false;
-        this.newParkingEditingLocation = true;
-        this.emit("change");
-        this.emit("newParkingEditingLocation");
-    },
-
-    onNewParkingEditLocationCancel: function (payload) {
-        this.newParking = {};
-        this.emit("change");
-        this.emit("newParkingEditingLocationCancel");
-    },
-
-    onNewParkingEditInfo: function (payload) {
-        this.newParkingEditingLocation = false;
-        this.newParkingEditInfo = true;
-        this.emit("change");
-        this.emit("newParkingEditInfo");
-    },
-
-    onNewParkingEditInfoCancel: function (payload) {
-        this.emit("change");
-        this.emit("newParkingEditInfoCancel");
+        this.emit("newParking");
     },
 
     onNewParkingUpdateData: function (payload) {
@@ -184,7 +154,7 @@ var ParkingStore = Fluxxor.createStore({
         this.newParkingEditInfo = false;
         this.currentParkingId = payload.opinion.parking; // TODO: do it not throws currentParkingId
         this.newParking.id = payload.opinion.parking;
-        this.updateParking(this.newParking);
+        this.updateParking(_.extend({}, this.newParking, {"isMoto": payload.opinion.isMoto, "isSecure": payload.opinion.isSecure}));
         this.newParking = {};
         this.emit("change");
         this.emit("saveNewParkingSuccess");

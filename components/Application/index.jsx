@@ -6,10 +6,7 @@ require("normalize.css/normalize.css");
 require("./style.css");
 
 var Map = require('../Map'),
-    EditLocation = require('../EditLocation'),
-    Controls = require('../Controls'),
-    NewParkingEditInfo = require('../NewParkingEditInfo'),
-    NewParkingEditLocation = require('../NewParkingEditLocation');
+    Controls = require('../Controls');
 
 
 // Require React-Router
