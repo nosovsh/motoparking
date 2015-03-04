@@ -21,8 +21,8 @@ var FluxMixin = Fluxxor.FluxMixin(React),
     StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
 var images = {
-    "is-secure_maybe": require("./images/marker-mot.svg"),
-    "is-secure_no": require("./images/marker-mot-no.svg"),
+    "is-secure_maybe_is-moto_maybe": require("./images/marker-mot.svg"),
+    "is-secure_no_is-moto_maybe": require("./images/marker-mot-no.svg"),
     "is-secure_yes_is-moto_maybe": require("./images/marker-mot-maybe.svg"),
     "is-secure_yes_is-moto_no": require("./images/marker-mot-crossed.svg"),
     "is-secure_yes_is-moto_yes": require("./images/marker-mot.svg")
@@ -30,8 +30,8 @@ var images = {
 
 var activeImages = {
     "": require("./images/marker-undefined.svg"),
-    "is-secure_maybe": require("./images/marker-mot-active.svg"),
-    "is-secure_no": require("./images/marker-mot-no-active.svg"),
+    "is-secure_maybe_is-moto_maybe": require("./images/marker-mot-active.svg"),
+    "is-secure_no_is-moto_maybe": require("./images/marker-mot-no-active.svg"),
     "is-secure_yes_is-moto_maybe": require("./images/marker-mot-maybe-active.svg"),
     "is-secure_yes_is-moto_no": require("./images/marker-mot-crossed-active.svg"),
     "is-secure_yes_is-moto_yes": require("./images/marker-mot-active.svg")
@@ -100,8 +100,6 @@ var Map = React.createClass({
             .on("editLocationCancel", this._editLocationCancel)
             .on("editLocationDone", this._editLocationDone)
             .on("newParking", this._newParking)
-            .on("newParkingEditInfo", this._newParkingEditInfo)
-            .on("newParkingEditInfoCancel", this._newParkingEditInfoCancel)
             .on("saveNewParkingSuccess", this._saveNewParkingSuccess)
         this.getFlux().actions.loadParkingList();
 

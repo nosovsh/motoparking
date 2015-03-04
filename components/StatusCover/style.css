@@ -4,11 +4,11 @@
     -webkit-transition: all .5s ease;
 }
 
-.status-cover_is-secure_maybe {
+.status-cover_is-secure_maybe_is-moto_maybe {
     background: #4D4D4D;
 }
 
-.status-cover_is-secure_no {
+.status-cover_is-secure_no_is-moto_maybe {
     background: #A3A2A2;
 }
 
@@ -33,12 +33,12 @@
 
 
 
-.status-cover__icon_is-secure_maybe {
+.status-cover__icon_is-secure_maybe_is-moto_maybe {
     background-image: url("images/mot-no.svg");
     background-size: 32px 104px;
 }
 
-.status-cover__icon_is-secure_no {
+.status-cover__icon_is-secure_no_is-moto_maybe {
     background-image: url("images/mot-no.svg");
     background-size: 32px 104px;
 }

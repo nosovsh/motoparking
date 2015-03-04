@@ -11,7 +11,7 @@ from flask.ext.mongorest.resources import Resource
 from flask.ext.mongorest import operators as ops
 from flask.ext.mongorest import methods
 from flask.ext.security import Security, MongoEngineUserDatastore, \
-    UserMixin, RoleMixin, login_required
+    UserMixin, RoleMixin, login_required, user_registered
 from flask_security.forms import RegisterForm
 import wtforms
 
@@ -87,6 +87,11 @@ security = Security(app, user_datastore)
 # def create_user():
 #     user_datastore.create_user(email='matt@nobien.net', password='123456')
 
+@user_registered.connect_via(app)
+def when_template_rendered(*args, **kwargs):
+    user = kwargs['user']
+    user.active = False
+    user.save()
 
 class Parking(db.Document):
     lat_lng = db.PointField()

@@ -30,11 +30,11 @@ var NewParking = React.createClass({
                 </Link>
 
                 <div className="my-opinion__row">
-                    <p>Вы добавляете парковку, на которой есть охранник.</p>
+                    <p>Вы добавляете охраняемую парковку.</p>
                     <IsMotoQuestion
                         callback={ this.onIsMotoQuestionCallback }
                         value={ this.state.newParking.isMoto }
-                        text="Скажите, на неё пускают мотоциклы?"/>
+                        text="На неё пускают мотоциклы?"/>
                 </div>
 
                 <ButtonRow text="Создать парковку" callback={ this.onNewParkingDone } />
