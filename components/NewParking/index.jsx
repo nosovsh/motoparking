@@ -67,7 +67,7 @@ var NewParking = React.createClass({
                         </div>
                     </div> : null }
 
-                <ButtonRow text="Создать парковку" callback={ this.onNewParkingDone } />
+                <ButtonRow callback={ this.onNewParkingDone }><Icon name="rocket"/>Создать парковку</ButtonRow>
 
             </div>
         )

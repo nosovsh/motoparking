@@ -5,7 +5,6 @@ require("./style.css");
 
 var ButtonRow = React.createClass({
     propTypes: {
-        text: React.PropTypes.string.isRequired,
         selected: React.PropTypes.bool
     },
     render: function () {
@@ -14,7 +13,7 @@ var ButtonRow = React.createClass({
             ButtonRow__selected: this.props.selected
         };
         return (
-            <div className={ React.addons.classSet(classes) } onClick={ this.props.callback }>{ this.props.text }</div>
+            <div className={ React.addons.classSet(classes) } onClick={ this.props.callback }>{ this.props.children }</div>
         )
     }
 });
