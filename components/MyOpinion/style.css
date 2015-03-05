@@ -1,7 +1,7 @@
 .my-opinion {
     background: #FFFFFF;
     border: 1px solid #979797;
-    border-radius: 5px;
+    -webkit-border-radius: 6px;
     margin: 12px;
 }
 

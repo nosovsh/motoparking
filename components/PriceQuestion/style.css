@@ -1,0 +1,22 @@
+.button {
+    border: 1px solid #4D4D4D;
+    border-radius: 5px;
+    display: inline-block;
+    padding: 9px 20px;
+    margin-right: 14px;
+
+    line-height: 22px;
+    cursor: pointer;
+
+    -webkit-transition: all 0.2s ease;
+}
+
+.button:hover, .button:active, .button__selected {
+    background-color: #4D4D4D;
+    color: #fff;
+}
+
+.button:last-child {
+    margin-right: 0;
+}
+

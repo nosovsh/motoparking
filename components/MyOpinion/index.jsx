@@ -6,13 +6,29 @@ require("./style.css");
 
 var Button = require("../Button"),
     IsMotoQuestion = require("../IsMotoQuestion"),
-    IsSecureQuestion = require("../IsSecureQuestion");
+    IsSecureQuestion = require("../IsSecureQuestion"),
+    ButtonRow = require("../ButtonRow"),
+    Icon = require("../Icon"),
+    PriceQuestion = require("../PriceQuestion");
 
 
 var FluxMixin = Fluxxor.FluxMixin(React),
     StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
 
+var texts = {
+    "is-secure_maybe_is-moto_maybe": "Вы отметили, что не знаете что здесь. Если узнаете – обязательно сообщите.",
+    "is-secure_no_is-moto_maybe": "Вы отметили, что здесь нет охраняемой парковки.",
+    "is-secure_yes_is-moto_maybe": "Вы отметили, что здесь есть охраняемая парковка и что не знаете пускают туда мотоциклы или нет.",
+    "is-secure_yes_is-moto_no": "Вы отметили, что здесь есть охраняемая парковка, но мотоциклы туда не пускают.",
+    "is-secure_yes_is-moto_yes": "Вы отметили, что здесь есть охраняемая парковка на которую пускают мотоциклы."
+};
+
+
+var getStatusName = function (isSecure, isMoto) {
+    return (isSecure ? 'is-secure_' + isSecure : "") +
+        (isMoto ? '_is-moto_' + isMoto : "");
+};
 
 var MyOpinionExists = React.createClass({
     propTypes: {
@@ -20,23 +36,17 @@ var MyOpinionExists = React.createClass({
         onWantToChangeOpinion: React.PropTypes.func.isRequired
     },
     render: function () {
-        if (this.props.parking.myOpinion.isSecure == "yes") {
-            var text = "Вы отметили, что здесь есть охраняемая парковка"
-        } else if (this.props.parking.myOpinion.isSecure == "no") {
-            text = "Вы отметили, что здесь нет охраняемой парковки"
-        } else {
-            text = "Вы отметили, что не знаете что здесь. Если узнаете – обязательно сообщите."
-        }
-        // <p>Спасибо! Кто-то теперь быстрее найдет безопасную мотопарковку. Этот мир стал чуточку лучше.</p>
+        var text = texts[getStatusName(this.props.parking.myOpinion.isSecure, this.props.parking.myOpinion.isMoto)];
+
         return (
             <div>
                 <div className="my-opinion__row">
-                    <div className="my-opinion__row__text">
-
-                        <p>{ text }</p>
-                    </div>
-                    <Button text="Изменить своё мнение" callback={this.props.onWantToChangeOpinion.bind(null, true)}/>
+                    { text }
                 </div>
+                <ButtonRow callback={ this.props.onWantToChangeOpinion.bind(null, true) }>
+                    <Icon name="edit"/>
+                         { "Что то поменялось?" }
+                </ButtonRow>
             </div>
         )
 
@@ -57,11 +67,6 @@ var MyOpinionNotExists = React.createClass({
     },
 
     render: function () {
-        var intro = (
-            <p>Ты что то знаешь об этом месте&#63; Помоги мотобратьям, поделись информацией!
-                Только совместными усилиями мы сможем изменить этот мир!</p>
-        );
-
         return (
             <div>
                 <div className="my-opinion__row">
@@ -70,15 +75,34 @@ var MyOpinionNotExists = React.createClass({
                 { this.state.tmpOpinion.isSecure == "yes" ?
                     <div className="my-opinion__row">
                         <IsMotoQuestion value={ this.state.tmpOpinion.isMoto } callback={ this.isMotoCallback }/>
-                    </div> : <div />
+                    </div> : null
                     }
+                 { this.state.tmpOpinion.isMoto == "yes" ?
+                     <div className="my-opinion__row">
+
+                         <PriceQuestion
+                             pricePerDay={ this.state.tmpOpinion.pricePerDay }
+                             pricePerMonth={ this.state.tmpOpinion.pricePerMonth }
+                             callback={ this.onPriceChange } />
+                     </div> : null }
+
+                 { this.state.tmpOpinion.isMoto == "yes" ?
+                     <ButtonRow callback={ this.onSave }>
+                         <Icon name="rocket"/>
+                         Сохранить
+                     </ButtonRow> : null }
+
             </div>
 
         )
+
+        var intro = (
+            <p>Ты что то знаешь об этом месте&#63; Помоги мотобратьям, поделись информацией!
+                Только совместными усилиями мы сможем изменить этот мир!</p>
+        );
     },
     isSecureCallback: function (value) {
         var tmpOpinion = _.extend({}, this.state.tmpOpinion, {isSecure: value});
-        console.log("111");
         if (value == "no" || value == "maybe") {
             tmpOpinion.isMoto = null;
             this.getFlux().actions.postOpinion(tmpOpinion);
@@ -90,10 +114,21 @@ var MyOpinionNotExists = React.createClass({
     },
     isMotoCallback: function (value) {
         var tmpOpinion = _.extend({}, this.state.tmpOpinion, {isMoto: value});
+        if (value == "no" || value == "maybe") {
+            this.getFlux().actions.postOpinion(tmpOpinion);
+            this.props.onWantToChangeOpinion(false);
+        }
         this.setState({
             tmpOpinion: tmpOpinion
         });
-        this.getFlux().actions.postOpinion(tmpOpinion);
+    },
+    onPriceChange: function (dictWithPrices) {
+        this.setState({
+            tmpOpinion: _.extend({}, this.state.tmpOpinion, dictWithPrices)
+        });
+    },
+    onSave: function () {
+        this.getFlux().actions.postOpinion(this.state.tmpOpinion);
         this.props.onWantToChangeOpinion(false);
     }
 });

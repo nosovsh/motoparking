@@ -3,7 +3,7 @@
     text-align: center;
     cursor: pointer;
     -webkit-transition: all 0.2s ease;
-    -webkit-border-radius: 0 0 15px 15px;
+    -webkit-border-radius: 0 0 5px 5px;
     font-size: 1.1em;
 }
 
