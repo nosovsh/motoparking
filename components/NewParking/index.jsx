@@ -37,7 +37,7 @@ var NewParking = React.createClass({
                         value={ this.state.newParking.isMoto }
                         text="На неё пускают мотоциклы?"/>
                 </div>
-
+                { this.state.newParking.isMoto=="yes" ?
                 <div className="my-opinion__row">
 
                     <div className="PricesEditing">
@@ -65,7 +65,7 @@ var NewParking = React.createClass({
                         </div>
 
                     </div>
-                </div>
+                </div> : null }
 
                 <ButtonRow text="Создать парковку" callback={ this.onNewParkingDone } />
 

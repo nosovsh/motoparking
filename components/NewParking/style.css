@@ -1,7 +1,7 @@
 .new-parking {
     position: relative;
     left: 50%;
-    top: 50%;
+    top: 35%;
     -webkit-transform: translate(-50%, 0);
     -webkit-border-radius: 15px;
     /*margin-top: 20px;*/
