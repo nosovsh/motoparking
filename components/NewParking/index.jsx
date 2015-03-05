@@ -7,6 +7,7 @@ require("./style.css");
 var Button = require("../Button"),
     IsMotoQuestion = require("../IsMotoQuestion"),
     ButtonRow = require("../ButtonRow"),
+    TextInput = require("../TextInput"),
     Icon = require("../Icon");
 
 var FluxMixin = Fluxxor.FluxMixin(React),
@@ -35,6 +36,35 @@ var NewParking = React.createClass({
                         callback={ this.onIsMotoQuestionCallback }
                         value={ this.state.newParking.isMoto }
                         text="На неё пускают мотоциклы?"/>
+                </div>
+
+                <div className="my-opinion__row">
+
+                    <div className="PricesEditing">
+                        <div className="PricesEditing__Price">
+                            <div className="PricesEditing__Price__Label">
+                                День
+                            </div>
+                            <div className="PricesEditing__Price__Value">
+                                <TextInput/>
+
+                                <Icon name="rouble" style={ {fontSize: "14px"} } />
+                            </div>
+                        </div>
+
+                        <div className="PricesEditing__Price">
+
+                            <div className="PricesEditing__Price__Label">
+                                Месяц
+                            </div>
+                            <div className="PricesEditing__Price__Value">
+                                <TextInput/>
+
+                                <Icon name="rouble" style={ {fontSize: "14px"} } />
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
 
                 <ButtonRow text="Создать парковку" callback={ this.onNewParkingDone } />

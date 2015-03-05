@@ -4,7 +4,7 @@
     top: 50%;
     -webkit-transform: translate(-50%, 0);
     -webkit-border-radius: 15px;
-    margin-top: 20px;
+    /*margin-top: 20px;*/
 
 
     background: #FFF;
@@ -83,4 +83,31 @@
     animation-duration: 0.2s;
     -webkit-animation-fill-mode: both;
     animation-fill-mode: both;
+}
+
+
+
+
+.PricesEditing {
+    display: table;
+    content: " ";
+    width: 100%;
+    font-family: "HelveticaNeue-Thin", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+
+}
+
+.PricesEditing__Price {
+    width: 50%;
+    float: left;
+    position: relative;
+    text-align: center;
+}
+
+.PricesEditing__Price__Label {
+    font-size: 19px;
+}
+
+.PricesEditing__Price__Value {
+    font-size: 29px;
+    padding-left: 17px;
 }
