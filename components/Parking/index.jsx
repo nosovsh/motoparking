@@ -95,34 +95,37 @@ var Parking = React.createClass({
                         { this.state.currentParking.isFullParkingLoaded ? (
                             <div>
                                 <AvatarList users={ fakeUsers } />
-                                <div className="Prices">
-                                    <div className="Prices__Price">
-                                        <div className="Prices__Price__Label">
-                                            День
-                                        </div>
-                                        <div className="Prices__Price__Value">
-                                            { this.state.currentParking.pricePerDay ?
-                                                <div>
-                                                    { this.state.currentParking.pricePerDay }<Icon name="rouble" additionalClasses={ ["Rouble"] } />
-                                                </div> : "–" }
 
-                                        </div>
-                                    </div>
+                                { this.state.currentParking.isMoto == "yes" ?
+                                    <div className="Prices">
+                                        <div className="Prices__Price">
+                                            <div className="Prices__Price__Label">
+                                                День
+                                            </div>
+                                            <div className="Prices__Price__Value">
+                                                { this.state.currentParking.pricePerDay ?
+                                                    <div>
+                                                        { this.state.currentParking.pricePerDay }<Icon name="rouble" additionalClasses={ ["Rouble"] } />
+                                                    </div> : "–" }
 
-                                    <div className="Prices__Price">
-
-                                        <div className="Prices__Price__Label">
-                                            Месяц
+                                            </div>
                                         </div>
-                                        <div className="Prices__Price__Value">
-                                            { this.state.currentParking.pricePerMonth ?
-                                                <div>
-                                                    { this.state.currentParking.pricePerMonth }<Icon name="rouble" additionalClasses={ ["Rouble"] } />
-                                                </div> : "–" }
-                                        </div>
-                                    </div>
 
-                                </div>
+                                        <div className="Prices__Price">
+
+                                            <div className="Prices__Price__Label">
+                                                Месяц
+                                            </div>
+                                            <div className="Prices__Price__Value">
+                                                { this.state.currentParking.pricePerMonth ?
+                                                    <div>
+                                                        { this.state.currentParking.pricePerMonth }<Icon name="rouble" additionalClasses={ ["Rouble"] } />
+                                                    </div> : "–" }
+                                            </div>
+                                        </div>
+
+                                    </div> : null }
+
                                 <Photo url="/static/test/garaj.jpg" />
                                 <div className="InfoRow">
                                     ул. Ленина д. 6, владение 17

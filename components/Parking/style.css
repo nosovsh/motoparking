@@ -47,7 +47,7 @@
     display: table;
     content: " ";
     width: 100%;
-    padding: 17px 13px 17px 11px;
+    padding: 17px 13px 0 11px;
     font-family: "HelveticaNeue-Thin", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 
 }
