@@ -46,6 +46,7 @@ var ParkingStore = Fluxxor.createStore({
     onLoadCurrentParking: function (payload) {
         this.loading = true;
         this.currentParkingId = payload.parkingId;
+        this.editingLocation = false;
         this.emit("change");
         this.emit("loadCurrentParking");
     },
