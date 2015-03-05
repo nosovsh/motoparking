@@ -101,8 +101,11 @@ var Parking = React.createClass({
                                             День
                                         </div>
                                         <div className="Prices__Price__Value">
-                                            70
-                                            <Icon name="rouble" style={ {fontSize: "14px"} } />
+                                            { this.state.currentParking.pricePerDay ?
+                                                <div>
+                                                    { this.state.currentParking.pricePerDay }<Icon name="rouble" additionalClasses={ ["Rouble"] } />
+                                                </div> : "–" }
+
                                         </div>
                                     </div>
 
@@ -112,8 +115,10 @@ var Parking = React.createClass({
                                             Месяц
                                         </div>
                                         <div className="Prices__Price__Value">
-                                            3500
-                                            <Icon name="rouble" style={ {fontSize: "14px"} } />
+                                            { this.state.currentParking.pricePerMonth ?
+                                                <div>
+                                                    { this.state.currentParking.pricePerMonth }<Icon name="rouble" additionalClasses={ ["Rouble"] } />
+                                                </div> : "–" }
                                         </div>
                                     </div>
 

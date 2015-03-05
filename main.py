@@ -97,6 +97,8 @@ class Parking(db.Document):
     lat_lng = db.PointField()
     is_secure = db.StringField(default="yes")
     is_moto = db.StringField(default="maybe")
+    price_per_day = db.IntField()
+    price_per_month = db.IntField()
     user = db.ReferenceField(User)
 
 # Parking(title="Парковка 1", lat_lng=[55.7622200, 37.6155600], ).save()
@@ -108,6 +110,8 @@ class Opinion(db.Document):
     lat_lng = db.PointField()
     is_secure = db.StringField(default="yes")
     is_moto = db.StringField(default="maybe")
+    price_per_day = db.IntField()
+    price_per_month = db.IntField()
 
 
 # resources
@@ -115,12 +119,14 @@ class Opinion(db.Document):
 
 class ParkingResource(ProResource):
     document = Parking
-    fields = ["id", "lat_lng", "is_secure", "is_moto", "user", "my_opinion", ]
+    fields = ["id", "lat_lng", "is_secure", "is_moto", "user", "my_opinion", "price_per_day", "price_per_month", ]
     rename_fields = {
         'lat_lng': 'latLng',
         'is_secure': 'isSecure',
         'is_moto': 'isMoto',
         'my_opinion': 'myOpinion',
+        'price_per_day': 'pricePerDay',
+        'price_per_month': 'pricePerMonth'
     }
 
     def create_object(self, data=None, save=True, parent_resources=None):
@@ -147,6 +153,8 @@ class OpinionResource(ProResource):
         'lat_lng': 'latLng',
         'is_secure': 'isSecure',
         'is_moto': 'isMoto',
+        'price_per_day': 'pricePerDay',
+        'price_per_month': 'pricePerMonth'
     }
     readonly_fields = ["id", "user"]
 
@@ -175,6 +183,8 @@ class OpinionResource(ProResource):
 def fill_parking(parking, opinion):
     parking.is_moto = opinion.is_moto
     parking.is_secure = opinion.is_secure
+    parking.price_per_day = opinion.price_per_day
+    parking.price_per_month = opinion.price_per_month
 
     if opinion.lat_lng:
         parking.lat_lng = opinion.lat_lng

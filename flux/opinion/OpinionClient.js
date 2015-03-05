@@ -12,6 +12,9 @@ var OpinionClient = {
         if (opinion.latLng) {
             opinion = _.extend({}, opinion, {latLng: opinion.latLng.coordinates});
         }
+        // to prevent empty string
+        opinion.pricePerDay = parseInt(opinion.pricePerDay)
+        opinion.pricePerMonth = parseInt(opinion.pricePerMonth)
 
         $.ajax({
             type: "POST",

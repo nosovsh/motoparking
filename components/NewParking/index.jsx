@@ -37,35 +37,35 @@ var NewParking = React.createClass({
                         value={ this.state.newParking.isMoto }
                         text="На неё пускают мотоциклы?"/>
                 </div>
-                { this.state.newParking.isMoto=="yes" ?
-                <div className="my-opinion__row">
+                { this.state.newParking.isMoto == "yes" ?
+                    <div className="my-opinion__row">
 
-                    <div className="PricesEditing">
-                        <div className="PricesEditing__Price">
-                            <div className="PricesEditing__Price__Label">
-                                День
-                            </div>
-                            <div className="PricesEditing__Price__Value">
-                                <TextInput/>
+                        <div className="PricesEditing">
+                            <div className="PricesEditing__Price">
+                                <div className="PricesEditing__Price__Label">
+                                    День
+                                </div>
+                                <div className="PricesEditing__Price__Value">
+                                    <TextInput onChange={ this.onPricePerDayChange } value={ this.state.newParking.pricePerDay }/>
 
-                                <Icon name="rouble" style={ {fontSize: "14px"} } />
+                                    <Icon name="rouble"  additionalClasses={ ["Rouble"] } />
+                                </div>
                             </div>
+
+                            <div className="PricesEditing__Price">
+
+                                <div className="PricesEditing__Price__Label">
+                                    Месяц
+                                </div>
+                                <div className="PricesEditing__Price__Value">
+                                    <TextInput onChange={ this.onPricePerMonthChange } value={ this.state.newParking.pricePerMonth }/>
+
+                                    <Icon name="rouble"  additionalClasses={ ["Rouble"] } />
+                                </div>
+                            </div>
+
                         </div>
-
-                        <div className="PricesEditing__Price">
-
-                            <div className="PricesEditing__Price__Label">
-                                Месяц
-                            </div>
-                            <div className="PricesEditing__Price__Value">
-                                <TextInput/>
-
-                                <Icon name="rouble" style={ {fontSize: "14px"} } />
-                            </div>
-                        </div>
-
-                    </div>
-                </div> : null }
+                    </div> : null }
 
                 <ButtonRow text="Создать парковку" callback={ this.onNewParkingDone } />
 
@@ -98,6 +98,18 @@ var NewParking = React.createClass({
     onNewParkingDone: function () {
         var store = this.getFlux().store("ParkingStore");
         this.getFlux().actions.saveNewParking(store.newParking)
+    },
+
+    onPricePerDayChange: function (e) {
+        var price = parseInt(e.target.value);
+        price = isNaN(price) ? "" : price;
+        this.getFlux().actions.newParkingUpdateData({pricePerDay: price});
+    },
+
+    onPricePerMonthChange: function (e) {
+        var price = parseInt(e.target.value);
+        price = isNaN(price) ? "" : price;
+        this.getFlux().actions.newParkingUpdateData({pricePerMonth: price});
     }
 });
 

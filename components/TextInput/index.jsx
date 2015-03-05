@@ -15,7 +15,7 @@ var TextInput = React.createClass({
             button__selected: this.props.selected
         };
         return (
-            <input type="text" className={ React.addons.classSet(classes) } placeholder="Не знаю"/>
+            <input type="text" className={ React.addons.classSet(classes) } placeholder="Не знаю" { ...this.props }/>
         )
     }
 });
