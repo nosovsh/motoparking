@@ -13,55 +13,6 @@ var FluxMixin = Fluxxor.FluxMixin(React),
     StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
 
-var ChangeLocationControl = React.createClass({
-    propTypes: {
-        parking: React.PropTypes.object.isRequired
-    },
-    render: function () {
-        return (
-            <div className="my-opinion__row">
-                <div className="my-opinion__row__text" onClick={ this.editLocation }>
-                    Изменить местоположение
-                </div>
-            </div>
-        )
-    },
-    editLocation: function () {
-        flux.actions.editLocation();
-    }
-});
-
-var AddPhotoControl = React.createClass({
-    propTypes: {
-        parking: React.PropTypes.object.isRequired
-    },
-    render: function () {
-        return (
-            <div className="my-opinion__row">
-                <div className="my-opinion__row__text">
-                    Добавить фото
-                </div>
-            </div>
-        )
-
-    }
-
-});
-
-var AddCommentControl = React.createClass({
-    propTypes: {
-        parking: React.PropTypes.object.isRequired
-    },
-    render: function () {
-        return (
-            <div className="my-opinion__row">
-                <div className="my-opinion__row__text">
-                    Добавить комментарий
-                </div>
-            </div>
-        )
-    }
-});
 
 var MyOpinionExists = React.createClass({
     propTypes: {

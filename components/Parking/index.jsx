@@ -106,7 +106,7 @@ var Parking = React.createClass({
                                                 { this.state.currentParking.pricePerDay ?
                                                     <div>
                                                         { this.state.currentParking.pricePerDay }<Icon name="rouble" additionalClasses={ ["Rouble"] } />
-                                                    </div> : "–" }
+                                                    </div> : "?" }
 
                                             </div>
                                         </div>
@@ -120,7 +120,7 @@ var Parking = React.createClass({
                                                 { this.state.currentParking.pricePerMonth ?
                                                     <div>
                                                         { this.state.currentParking.pricePerMonth }<Icon name="rouble" additionalClasses={ ["Rouble"] } />
-                                                    </div> : "–" }
+                                                    </div> : "?" }
                                             </div>
                                         </div>
 
