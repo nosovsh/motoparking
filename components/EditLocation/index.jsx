@@ -25,7 +25,7 @@ var EditLocation = React.createClass({
                 <div className="my-opinion__row">
                     Передвиньте парковку, если она расположена неточно.
                 </div>
-                <ButtonRow callback={ this.onEditLocationDone }><Icon name="thumbup" />Сохранить</ButtonRow>
+                <ButtonRow callback={ this.onEditLocationDone }><Icon name="thumbup" />Так лучше</ButtonRow>
             </div>
         )
     },

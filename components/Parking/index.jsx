@@ -100,7 +100,7 @@ var Parking = React.createClass({
                                     <div className="Prices">
                                         <div className="Prices__Price">
                                             <div className="Prices__Price__Label">
-                                                День
+                                                Сутки
                                             </div>
                                             <div className="Prices__Price__Value">
                                                 { this.state.currentParking.pricePerDay ?

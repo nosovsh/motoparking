@@ -17,7 +17,7 @@ var PriceQuestion = React.createClass({
             <div className="PricesEditing">
                 <div className="PricesEditing__Price">
                     <div className="PricesEditing__Price__Label">
-                        День
+                        Сутки
                     </div>
                     <div className="PricesEditing__Price__Value">
                         <TextInput onChange={ this.onPricePerDayChange } value={ this.props.pricePerDay } />

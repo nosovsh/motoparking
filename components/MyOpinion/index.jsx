@@ -27,7 +27,7 @@ var texts = {
 
 var getStatusName = function (isSecure, isMoto) {
     return (isSecure ? 'is-secure_' + isSecure : "") +
-        (isMoto ? '_is-moto_' + isMoto : "");
+        (isMoto ? '_is-moto_' + isMoto : "_is-moto_maybe");
 };
 
 var MyOpinionExists = React.createClass({
@@ -42,6 +42,10 @@ var MyOpinionExists = React.createClass({
             <div>
                 <div className="my-opinion__row">
                     { text }
+                    { this.props.parking.myOpinion.pricePerDay ?
+                        <div>Цена за сутки: { this.props.parking.myOpinion.pricePerDay } рублей.</div> : null }
+                    { this.props.parking.myOpinion.pricePerMonth ?
+                        <div>Цена за месяц: { this.props.parking.myOpinion.pricePerMonth } рублей.</div> : null }
                 </div>
                 <ButtonRow callback={ this.props.onWantToChangeOpinion.bind(null, true) }>
                     <Icon name="edit"/>
@@ -104,9 +108,13 @@ var MyOpinionNotExists = React.createClass({
     isSecureCallback: function (value) {
         var tmpOpinion = _.extend({}, this.state.tmpOpinion, {isSecure: value});
         if (value == "no" || value == "maybe") {
-            tmpOpinion.isMoto = null;
+            tmpOpinion.isMoto = "maybe";
+            tmpOpinion.pricePerDay = null;
+            tmpOpinion.pricePerMonth = null;
             this.getFlux().actions.postOpinion(tmpOpinion);
             this.props.onWantToChangeOpinion(false);
+        } else {
+            tmpOpinion.isMoto = null;
         }
         this.setState({
             tmpOpinion: tmpOpinion
@@ -115,6 +123,8 @@ var MyOpinionNotExists = React.createClass({
     isMotoCallback: function (value) {
         var tmpOpinion = _.extend({}, this.state.tmpOpinion, {isMoto: value});
         if (value == "no" || value == "maybe") {
+            tmpOpinion.pricePerDay = null;
+            tmpOpinion.pricePerMonth = null;
             this.getFlux().actions.postOpinion(tmpOpinion);
             this.props.onWantToChangeOpinion(false);
         }
