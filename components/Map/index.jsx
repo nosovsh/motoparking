@@ -227,7 +227,17 @@ var Map = React.createClass({
         this._unselectAllMarkers();
 
         if (!store.newParking.latLng) {
-            var initialMarkerPosition = this.map.getCenter();
+        console.log("1111")
+
+
+            // set point 100 pixels higher than center
+            var currentCenter = this.map.getCenter(),
+                targetPoint = this.map.project(currentCenter).subtract([0, -100]),
+                targetLatLng = this.map.unproject(targetPoint);
+            //var initialMarkerPosition = this.map.getCenter();
+            console.log(targetLatLng);
+            this.map.panTo(targetLatLng);
+            var initialMarkerPosition = currentCenter;
 
             this.newParkingMarker = L.marker(initialMarkerPosition, {
                 icon: resizeIcon,

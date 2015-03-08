@@ -1,11 +1,10 @@
 .new-parking {
-    position: relative;
+    position: absolute;
     left: 50%;
     top: 35%;
     -webkit-transform: translate(-50%, 0);
     -webkit-border-radius: 5px;
     /*margin-top: 20px;*/
-
 
     background: #FFF;
     width: 332px;
@@ -59,6 +58,37 @@
     }
 }
 
+@media only screen and (max-device-height: 640px) {
+
+    @-webkit-keyframes fadeInDown {
+        0% {
+            opacity: 0;
+            bottom: -30%;
+        }
+
+        100% {
+            opacity: 1;
+            bottom: 10px;
+        }
+    }
+
+    @keyframes fadeInDown {
+        0% {
+            opacity: 0;
+            bottom: -30%;
+        }
+
+        100% {
+            opacity: 1;
+            bottom: 10px;
+        }
+    }
+    .new-parking {
+        bottom: 10px;
+        top: initial;
+    }
+}
+
 .new-parking.page-enter {
     -webkit-animation-duration: 0.2s;
     animation-duration: 0.2s;
@@ -83,30 +113,4 @@
     animation-duration: 0.2s;
     -webkit-animation-fill-mode: both;
     animation-fill-mode: both;
-}
-
-
-
-
-.PricesEditing {
-    display: table;
-    content: " ";
-    width: 100%;
-    font-family: "HelveticaNeue-Thin", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-
-}
-
-.PricesEditing__Price {
-    width: 50%;
-    float: left;
-    position: relative;
-    text-align: center;
-}
-
-.PricesEditing__Price__Label {
-    font-size: 19px;
-}
-
-.PricesEditing__Price__Value {
-    font-size: 29px;
 }

@@ -20,3 +20,25 @@
     margin-right: 0;
 }
 
+.PricesEditing {
+    display: table;
+    content: " ";
+    width: 100%;
+    font-family: "HelveticaNeue-Thin", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+
+}
+
+.PricesEditing__Price {
+    width: 50%;
+    float: left;
+    position: relative;
+    text-align: center;
+}
+
+.PricesEditing__Price__Label {
+    font-size: 19px;
+}
+
+.PricesEditing__Price__Value {
+    font-size: 29px;
+}
