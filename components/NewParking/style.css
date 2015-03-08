@@ -109,6 +109,8 @@
 .new-parking.page-leave {
 }
 
+
+
 .new-parking.page-leave.page-leave-active {
     -webkit-animation-name: fadeOutDown;
     animation-name: fadeOutDown;
@@ -116,4 +118,10 @@
     animation-duration: 0.2s;
     -webkit-animation-fill-mode: both;
     animation-fill-mode: both;
+}
+
+@media only screen and (max-device-width: 335px) {
+    .new-parking {
+        width: 100%;
+    }
 }

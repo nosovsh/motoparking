@@ -43,12 +43,17 @@
     width: 332px;
 }
 
+@media only screen and (max-device-width: 335px) {
+    .edit-location {
+        width: 100%;
+    }
+}
 .Prices {
     display: table;
     content: " ";
     width: 100%;
     padding: 17px 13px 0 11px;
-    font-family: "HelveticaNeue-Thin", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-family: "HelveticaNeue-Thin", "Roboto-Thin", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 
 }
 
