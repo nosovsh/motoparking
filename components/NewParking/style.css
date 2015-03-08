@@ -10,13 +10,31 @@
     width: 332px;
 }
 
-@-webkit-keyframes fadeOutDown {
+@-webkit-keyframes fadeInDown {
     0% {
-        opacity: 1;
+        top: 100%;
     }
 
     100% {
-        opacity: 0;
+        top: 50%;
+    }
+}
+
+@keyframes fadeInDown {
+    0% {
+        top: 100%;
+    }
+
+    100% {
+        top: 50%;
+    }
+}
+
+@-webkit-keyframes fadeOutDown {
+    0% {
+    }
+
+    100% {
         top: 100%;
 
     }
@@ -24,37 +42,10 @@
 
 @keyframes fadeOutDown {
     0% {
-        opacity: 1;
     }
 
     100% {
-        opacity: 0;
         top: 100%;
-
-    }
-}
-
-@-webkit-keyframes fadeInDown {
-    0% {
-        opacity: 0;
-        top: 100%;
-    }
-
-    100% {
-        opacity: 1;
-        top: 50%;
-    }
-}
-
-@keyframes fadeInDown {
-    0% {
-        opacity: 0;
-        top: 100%;
-    }
-
-    100% {
-        opacity: 1;
-        top: 50%;
     }
 }
 
@@ -62,30 +53,44 @@
 
     @-webkit-keyframes fadeInDown {
         0% {
-            opacity: 0;
             bottom: -30%;
         }
 
         100% {
-            opacity: 1;
             bottom: 10px;
         }
     }
 
     @keyframes fadeInDown {
         0% {
-            opacity: 0;
             bottom: -30%;
         }
 
         100% {
-            opacity: 1;
             bottom: 10px;
         }
     }
     .new-parking {
         bottom: 10px;
         top: initial;
+    }
+
+    @-webkit-keyframes fadeOutDown {
+        0% {
+        }
+
+        100% {
+            bottom: -30%;
+        }
+    }
+
+    @keyframes fadeOutDown {
+        0% {
+        }
+
+        100% {
+            bottom: -30%;
+        }
     }
 }
 
@@ -99,11 +104,9 @@
 }
 
 .new-parking.page-enter.page-enter-active {
-    opacity: 1;
 }
 
 .new-parking.page-leave {
-    opacity: 1;
 }
 
 .new-parking.page-leave.page-leave-active {
