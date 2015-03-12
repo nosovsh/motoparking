@@ -1,0 +1,52 @@
+    <div class="container">
+        <div class="row">
+            <div class="page-header">
+                <h1 class="text-center">Hi {{ current_user.cn }}</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3  col-md-offset-3">
+                <img src="{{ current_user.gravatar }}?s=300&d=retro" alt="" class="img-circle img-responsive mg-btm">
+            </div>
+            <div class="col-md-3">
+                <dl>
+                    <dt>Email</dt>
+                    <dd>{{ current_user.email }}</dd>
+                    <dt>First name</dt>
+                    <dd>{{ current_user.first_name }}</dd>
+                    <dt>Last name</dt>
+                    <dd>{{ current_user.last_name }}</dd>
+                </dl>
+                <a class="btn btn-primary btn-lg" href="{{ url_for_security('logout') }}">Logout</a>
+            </div>
+        </div>
+        {% with connections=current_user.social_connections() %}
+            {% if connections %}
+                <div class="row">
+                    <div class="text-center mg-btm">
+                        <h2 class="text-center">Connections</h2>
+                        {% for connection in connections %}
+                            <a href="{{ connection.profile_url }}">
+                                <img src="{{ connection.image_url }}" alt="" width="50" height="50" class="img-circle">
+                            </a>
+                        {% endfor %}
+
+                    </div>
+                </div>
+
+            {% endif %}
+        {% endwith %}
+        <div class="row">
+            <div class="text-center">
+                <h2 class="text-center">Connect another account</h2>
+
+                <div class="">
+                    <a href="{{ url_for('social.login', provider='Facebook') }}" class="social-facebook btn btn-primary btn-lg"><i class="fa fa-2x fa-facebook-square"></i></a>
+                    <a href="{{ url_for('social.login', provider='Google') }}" class="social-google btn btn-primary btn-lg"><i class="fa fa-2x fa-google-plus"></i></a>
+                    <a href="{{ url_for('social.login', provider='Github') }}" class="social-github btn btn-primary btn-lg"><i class="fa fa-2x fa-github"></i></a>
+                    <a href="{{ url_for('social.login', provider='Twitter') }}" class="social-twitter btn btn-primary btn-lg"><i class="fa fa-2x fa-twitter"></i></a>
+                </div>
+
+            </div>
+        </div>
+    </div>

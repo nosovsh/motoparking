@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
 import os
+from datetime import datetime
 from json import dumps
 from flask_mail import Mail
 from flask import Flask, url_for, render_template, jsonify
 from flask.ext.login import current_user
+# from flask.ext.social import Social
+# from flask.ext.social.datastore import MongoEngineConnectionDatastore
 from flask.ext.mongoengine import MongoEngine
 from flask.ext.mongorest import MongoRest
 from flask.ext.mongorest.views import ResourceView
@@ -13,8 +16,9 @@ from flask.ext.mongorest import methods
 from flask.ext.mongorest.authentication import AuthenticationBase
 from flask.ext.security import Security, MongoEngineUserDatastore, \
     UserMixin, RoleMixin, login_required, user_registered
-from flask_security.forms import RegisterForm
-import wtforms
+import flask_social_blueprint
+from flask_social_blueprint.core import SocialBlueprint
+
 
 from pro_resource import ProResource
 
@@ -40,6 +44,26 @@ app.config['SECRET_KEY'] = 'super-secret'
 app.config['SECURITY_PASSWORD_HASH'] = 'pbkdf2_sha512'
 app.config['SECURITY_PASSWORD_SALT'] = 'ytdjf.jk,upo8etsgdf,asdf34ttgewgq3g[q[epqogqjg;'
 app.config['SECURITY_REGISTERABLE'] = True
+app.config['SECURITY_MSG_LOGIN'] = (u'Надо обязательно войти и быть проаппрувленным', 'info')
+
+# app.config['SECURITY_LOGIN_USER_TEMPLATE'] = "login.html"
+
+# app.config['SOCIAL_FACEBOOK'] = {
+#     'consumer_key': '1556008511346406',
+#     'consumer_secret': 'a2ed924ccd3e3cf15a392b23fdb37f25'  # TODO: change and move out
+# }
+
+# Flask-SocialBlueprint
+# https://github.com/wooyek/flask-social-blueprint
+app.config['SOCIAL_BLUEPRINT'] = {
+    # https://developers.facebook.com/apps/
+    "flask_social_blueprint.providers.Facebook": {
+        # App ID
+        'consumer_key': '1556008511346406',
+        # App Secret
+        'consumer_secret': 'a2ed924ccd3e3cf15a392b23fdb37f25'
+    },
+}
 
 db = MongoEngine(app)
 api = MongoRest(app)
@@ -77,8 +101,86 @@ class User(db.Document, UserMixin):
     active = db.BooleanField(default=True)
     confirmed_at = db.DateTimeField()
     roles = db.ListField(db.ReferenceField(Role), default=[])
-    name = db.StringField(max_length=255)
+    first_name = db.StringField(max_length=255)
+    last_name = db.StringField(max_length=255)
     image = db.StringField(max_length=255)
+
+    @property
+    def cn(self):
+        if not self.first_name or not self.last_name:
+            return self.email
+        return u"{} {}".format(self.first_name, self.last_name)
+
+    @property
+    def id(self):
+        return self.pk
+
+    @classmethod
+    def by_email(cls, email):
+        return cls.objects(email=email).first()
+
+
+class SocialConnection(db.Document):
+    user = db.ReferenceField(User)
+    provider = db.StringField(max_length=255)
+    profile_id = db.StringField(max_length=255)
+    username = db.StringField(max_length=255)
+    email = db.StringField(max_length=255)
+    access_token = db.StringField(max_length=255)
+    secret = db.StringField(max_length=255)
+    first_name = db.StringField(max_length=255, help_text=u"First Name")
+    last_name = db.StringField(max_length=255, help_text=u"Last Name")
+    name = db.StringField(max_length=255, help_text=u"Common Name")
+    profile_url = db.StringField(max_length=512)
+    image_url = db.StringField(max_length=512)
+
+    def get_user(self):
+        return self.user
+
+    @classmethod
+    def by_profile(cls, profile):
+        provider = profile.data["provider"]
+        return cls.objects(provider=provider, profile_id=profile.id).first()
+
+    @classmethod
+    def from_profile(cls, user, profile):
+        if not user or user.is_anonymous():
+            email = profile.data.get("email")
+            if not email:
+                msg = "Cannot create new user, authentication provider did not not provide email"
+                # logging.warning(msg)
+                print msg
+                raise Exception(msg)
+            conflict = User.objects(email=email).first()
+            if conflict:
+                msg = "Cannot create new user, email {} is already used. Login and then connect external profile."
+                msg = msg.format(email)
+                # logging.warning(msg)
+                print msg
+                raise Exception(msg)
+
+            now = datetime.now()
+            user = User(
+                email=email,
+                first_name=profile.data.get("first_name"),
+                last_name=profile.data.get("last_name"),
+                confirmed_at=now,
+                image=profile.data.get("image_url"),
+                active=False,
+            )
+            user.save()
+
+        connection = cls(user=user, **profile.data)
+        connection.save()
+        return connection
+
+    def __unicode__(self):
+        return u"SocialConnection for {}".format(self.email)
+
+    meta = {
+        'collection': 'socialconnection',
+        'indexes': ['user', 'profile_id'],
+    }
 
 
 # Setup Flask-Security
@@ -92,16 +194,16 @@ user_datastore = MongoEngineUserDatastore(db, User, Role)
 security = Security(app, user_datastore)
          # register_form=ExtendedRegisterForm)
 
-# Create a user to test with
-# @app.before_first_request
-# def create_user():
-#     user_datastore.create_user(email='matt@nobien.net', password='123456')
+
+SocialBlueprint.init_bp(app, SocialConnection, url_prefix="/_social")
+
 
 @user_registered.connect_via(app)
 def when_template_rendered(*args, **kwargs):
     user = kwargs['user']
     user.active = False
     user.save()
+
 
 class Parking(db.Document):
     lat_lng = db.PointField()
@@ -110,8 +212,6 @@ class Parking(db.Document):
     price_per_day = db.IntField()
     price_per_month = db.IntField()
     user = db.ReferenceField(User)
-
-# Parking(title="Парковка 1", lat_lng=[55.7622200, 37.6155600], ).save()
 
 
 class Opinion(db.Document):
@@ -128,7 +228,7 @@ class Opinion(db.Document):
 
 class UserResource(Resource):
     document = User
-    fields = ["id", "name", "image", ]
+    fields = ["id", "first_name", "last_name", "image", ]
 
 
 class ParkingResource(ProResource):
@@ -233,9 +333,15 @@ class OpinionsView(BaseResourceView):
     methods = [methods.Create, methods.Fetch, methods.List, methods.Delete, methods.Update]
 
 
+# import auth.views
+# app.register_blueprint(auth.views.app, url_prefix='/pages')
+
+
+# Enable i18n and l10n
+from flask_babel import Babel
+babel = Babel(app)
 
 # other views
-
 
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
@@ -253,7 +359,8 @@ def catch_all(path):
 def current_user_json(user):
     return dumps({
         "id": user.get_id(),
-        "name": user.name,
+        "first_name": user.first_name,
+        "last_name": user.last_name,
         "image": user.image,
         "email": user.email,
     })
