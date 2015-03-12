@@ -44,7 +44,7 @@ app.config['SECRET_KEY'] = 'super-secret'
 app.config['SECURITY_PASSWORD_HASH'] = 'pbkdf2_sha512'
 app.config['SECURITY_PASSWORD_SALT'] = 'ytdjf.jk,upo8etsgdf,asdf34ttgewgq3g[q[epqogqjg;'
 app.config['SECURITY_REGISTERABLE'] = True
-app.config['SECURITY_MSG_LOGIN'] = (u'Надо обязательно войти и быть проаппрувленным', 'info')
+app.config['SECURITY_MSG_LOGIN'] = (u'Вы не авторизованы или Вас нет в списках доступа.', 'info')
 
 # app.config['SECURITY_LOGIN_USER_TEMPLATE'] = "login.html"
 

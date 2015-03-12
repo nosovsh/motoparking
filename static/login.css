@@ -1,0 +1,63 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    -webkit-font-smoothing: antialiased;
+    font-size: 18.3px;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    color: #4d4d4d;
+    letter-spacing: 1.37999999523163px;
+    line-height: 23px;
+    font-weight: normal;
+}
+
+#parent {
+    display: table;
+    min-height: 100%;
+    width: 100%;
+    margin: 0 auto;
+    max-width: 540px;
+}
+
+#child {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    padding: 0 20px;
+}
+
+.facebook {
+    background-color: #4e69a2;
+    border-color: #435a8b #3c5488 #334c83;
+    line-height: 36px;
+    font-size: 26px;
+    color: #FFF;
+    text-decoration: none;
+    display: inline-block;
+    padding: 14px 17px;
+    margin-top: 30px;
+    margin-bottom: 30px
+}
+
+h1 {
+    font-family: "HelveticaNeue-Thin", "Roboto-Thin", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-size: 32px;
+    font-weight: 100;
+    color: black;
+    margin-bottom: 30px
+
+}
+
+a {
+    color: #4d4d4d;
+}
+
+p {
+    text-align: justify;
+}
