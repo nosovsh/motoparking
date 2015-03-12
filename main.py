@@ -10,6 +10,7 @@ from flask.ext.mongorest.views import ResourceView
 from flask.ext.mongorest.resources import Resource
 from flask.ext.mongorest import operators as ops
 from flask.ext.mongorest import methods
+from flask.ext.mongorest.authentication import AuthenticationBase
 from flask.ext.security import Security, MongoEngineUserDatastore, \
     UserMixin, RoleMixin, login_required, user_registered
 from flask_security.forms import RegisterForm
@@ -53,6 +54,14 @@ app.config['MAIL_SUPPRESS_SEND'] = True
 mail = Mail(app)
 
 
+class SessionAuthentication(AuthenticationBase):
+    def authorized(self):
+        return current_user.is_authenticated()
+
+
+class BaseResourceView(ResourceView):
+    authentication_methods = [SessionAuthentication, ]
+
 
 # models
 
@@ -69,6 +78,7 @@ class User(db.Document, UserMixin):
     confirmed_at = db.DateTimeField()
     roles = db.ListField(db.ReferenceField(Role), default=[])
     name = db.StringField(max_length=255)
+    image = db.StringField(max_length=255)
 
 
 # Setup Flask-Security
@@ -116,10 +126,15 @@ class Opinion(db.Document):
 
 # resources
 
+class UserResource(Resource):
+    document = User
+    fields = ["id", "name", "image", ]
+
 
 class ParkingResource(ProResource):
     document = Parking
-    fields = ["id", "lat_lng", "is_secure", "is_moto", "user", "my_opinion", "price_per_day", "price_per_month", ]
+    fields = ["id", "lat_lng", "is_secure", "is_moto", "user", "my_opinion", "price_per_day", "price_per_month",
+              "users", ]
     rename_fields = {
         'lat_lng': 'latLng',
         'is_secure': 'isSecure',
@@ -138,8 +153,11 @@ class ParkingResource(ProResource):
 
     def get_object(self, pk):
         obj = super(ParkingResource, self).get_object(pk=pk)
-        opinions = Opinion.objects(parking=obj.pk, user=current_user._get_current_object().pk)
-        obj.my_opinion = OpinionResource().serialize(opinions[0]) if opinions else None
+        my_opinions = Opinion.objects(parking=obj.pk, user=current_user._get_current_object().pk)
+        obj.my_opinion = OpinionResource().serialize(my_opinions[0]) if my_opinions else None
+        opinions = Opinion.objects(parking=obj.pk, is_secure__in=("yes", "no"))
+        users = [opinion.user for opinion in opinions]
+        obj.users = [UserResource().serialize(user) for user in users]
         return obj
 
 
@@ -157,6 +175,9 @@ class OpinionResource(ProResource):
         'price_per_month': 'pricePerMonth'
     }
     readonly_fields = ["id", "user"]
+    related_resources = {
+        "user": UserResource
+    }
 
     def create_object(self, data=None, save=True, parent_resources=None):
         data = data or self.data
@@ -190,29 +211,27 @@ def fill_parking(parking, opinion):
         parking.lat_lng = opinion.lat_lng
 
 
-class UserResource(Resource):
-    document = User
-    fields = ["id", "name", ]
 
 
 # api views
 
+@api.register(name='users', url='/api/users/')
+class UserView(BaseResourceView):
+    resource = UserResource
+    methods = [methods.Fetch, methods.List, methods.Update]
+
+
 @api.register(name='parkings', url='/api/parkings/')
-class ParkingView(ResourceView):
+class ParkingView(BaseResourceView):
     resource = ParkingResource
     methods = [methods.Create, methods.Fetch, methods.List, methods.Delete, methods.Update]
 
 
 @api.register(name='opinions', url='/api/opinions/')
-class OpinionsView(ResourceView):
+class OpinionsView(BaseResourceView):
     resource = OpinionResource
     methods = [methods.Create, methods.Fetch, methods.List, methods.Delete, methods.Update]
 
-
-@api.register(name='users', url='/api/users/')
-class UserView(ResourceView):
-    resource = UserResource
-    methods = [methods.Fetch, methods.List]
 
 
 # other views
@@ -224,16 +243,19 @@ class UserView(ResourceView):
 def catch_all(path):
     """Catch all"""
     return render_template('index.html',
-                           current_user_json_str=user_json(current_user),
+                           current_user_json_str=current_user_json(current_user),
                            debug=app.config['DEBUG'])
 
 
 # utils
 
 
-def user_json(user):
+def current_user_json(user):
     return dumps({
-        "id": user.get_id()
+        "id": user.get_id(),
+        "name": user.name,
+        "image": user.image,
+        "email": user.email,
     })
 
 

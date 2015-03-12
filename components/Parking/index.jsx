@@ -52,28 +52,6 @@ var Parking = React.createClass({
                 text: "Как оказалось ночью сюда попасть нельзя :( Пришлось искать другое место"
             }
         ];
-        var fakeUsers = [
-            {
-                _id: "u2",
-                name: "Мирослав Шашек",
-                pictureUrl: "/static/test/picture-miroslav1.png"
-            },
-            {
-                _id: "u5",
-                name: "Александр Носов",
-                pictureUrl: "/static/test/picture-nosov.jpg"
-            },
-            {
-                _id: "u3",
-                name: "Джонни",
-                pictureUrl: "/static/test/picture-jonny.png"
-            },
-            {
-                _id: "u1",
-                name: "Гоша Шиков",
-                pictureUrl: "/static/test/picture-gosha.png"
-            }
-        ];
         if (this.state.editingLocation) {
             return (
                 <div className="edit-location">
@@ -94,7 +72,7 @@ var Parking = React.createClass({
 
                         { this.state.currentParking.isFullParkingLoaded ? (
                             <div>
-                                <AvatarList users={ fakeUsers } />
+                                <AvatarList users={ this.state.currentParking.users } />
 
                                 { this.state.currentParking.isMoto == "yes" ?
                                     <div className="Prices">

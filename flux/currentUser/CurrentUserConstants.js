@@ -1,0 +1,7 @@
+var CurrentUserConstants = {
+  LOAD_CURRENT_USER: "LOAD_CURRENT_USER",
+  LOAD_CURRENT_USER_SUCCESS: "LOAD_CURRENT_USER_SUCCESS",
+  LOAD_CURRENT_USER_FAIL: "LOAD_CURRENT_USER_FAIL"
+};
+
+module.exports = CurrentUserConstants;

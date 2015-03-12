@@ -14,5 +14,8 @@
             <script src='/static/build/main.js'></script>
 {#            <link rel="stylesheet" href="/static/build/main.css" />#}
         {% endif %}
+        <script>
+            flux.actions.manualUpdateCurrentUser({{ current_user_json_str|safe }});
+        </script>
     </body>
 </html>
