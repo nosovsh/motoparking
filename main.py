@@ -57,7 +57,7 @@ app.config['SECURITY_MSG_LOGIN'] = (u'Вы не авторизованы или 
 # https://github.com/wooyek/flask-social-blueprint
 app.config['SOCIAL_BLUEPRINT'] = {
     # https://developers.facebook.com/apps/
-    "flask_social_blueprint.providers.Facebook": {
+    "facebook_provider.Facebook": {
         # App ID
         'consumer_key': '1556008511346406',
         # App Secret
@@ -104,6 +104,7 @@ class User(db.Document, UserMixin):
     first_name = db.StringField(max_length=255)
     last_name = db.StringField(max_length=255)
     image = db.StringField(max_length=255)
+    gender = db.StringField(max_length=255)
 
     @property
     def cn(self):
@@ -160,6 +161,11 @@ class SocialConnection(db.Document):
                 raise Exception(msg)
 
             now = datetime.now()
+            gender = None
+            if profile.data.get("gender") == "male":
+                gender = "m"
+            if profile.data.get("gender") == "female":
+                gender = "f"
             user = User(
                 email=email,
                 first_name=profile.data.get("first_name"),
@@ -167,6 +173,7 @@ class SocialConnection(db.Document):
                 confirmed_at=now,
                 image=profile.data.get("image_url"),
                 active=False,
+                gender=gender
             )
             user.save()
 
@@ -244,7 +251,7 @@ class Opinion(db.Document):
 
 class UserResource(Resource):
     document = User
-    fields = ["id", "first_name", "last_name", "image", ]
+    fields = ["id", "first_name", "last_name", "image", "gender", ]
 
 
 class ParkingResource(ProResource):
@@ -379,6 +386,7 @@ def current_user_json(user):
         "last_name": user.last_name,
         "image": user.image,
         "email": user.email,
+        "gender": user.gender,
     })
 
 
