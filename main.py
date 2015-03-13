@@ -212,6 +212,14 @@ class Parking(db.Document):
     price_per_day = db.IntField()
     price_per_month = db.IntField()
     user = db.ReferenceField(User)
+    created = db.DateTimeField()
+    updated = db.DateTimeField()
+
+    def save(self, *args, **kwargs):
+        if not self.created:
+            self.created = datetime.now()
+        self.updated = datetime.now()
+        return super(Parking, self).save(*args, **kwargs)
 
 
 class Opinion(db.Document):
@@ -222,6 +230,14 @@ class Opinion(db.Document):
     is_moto = db.StringField(default="maybe")
     price_per_day = db.IntField()
     price_per_month = db.IntField()
+    created = db.DateTimeField()
+    updated = db.DateTimeField()
+
+    def save(self, *args, **kwargs):
+        if not self.created:
+            self.created = datetime.now()
+        self.updated = datetime.now()
+        return super(Opinion, self).save(*args, **kwargs)
 
 
 # resources
@@ -234,7 +250,7 @@ class UserResource(Resource):
 class ParkingResource(ProResource):
     document = Parking
     fields = ["id", "lat_lng", "is_secure", "is_moto", "user", "my_opinion", "price_per_day", "price_per_month",
-              "users", ]
+              "users", "created", "updated"]
     rename_fields = {
         'lat_lng': 'latLng',
         'is_secure': 'isSecure',
@@ -255,7 +271,7 @@ class ParkingResource(ProResource):
         obj = super(ParkingResource, self).get_object(pk=pk)
         my_opinions = Opinion.objects(parking=obj.pk, user=current_user._get_current_object().pk)
         obj.my_opinion = OpinionResource().serialize(my_opinions[0]) if my_opinions else None
-        opinions = Opinion.objects(parking=obj.pk, is_secure__in=("yes", "no"))
+        opinions = Opinion.objects(parking=obj.pk, is_secure__in=("yes", "no")).order_by("updated")
         users = [opinion.user for opinion in opinions]
         obj.users = [UserResource().serialize(user) for user in users]
         return obj
