@@ -49,7 +49,7 @@
     }
 }
 
-@media only screen and (max-device-height: 640px) {
+@media only screen and (max-device-height: 750px) {
 
     @-webkit-keyframes fadeInDown {
         0% {
@@ -57,7 +57,7 @@
         }
 
         100% {
-            bottom: 10px;
+            bottom: 20px;
         }
     }
 
@@ -67,11 +67,11 @@
         }
 
         100% {
-            bottom: 10px;
+            bottom: 20px;
         }
     }
     .new-parking {
-        bottom: 10px;
+        bottom: 20px;
         top: initial;
     }
 
