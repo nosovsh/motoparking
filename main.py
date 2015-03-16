@@ -3,7 +3,7 @@ import os
 from datetime import datetime
 from json import dumps
 from flask_mail import Mail
-from flask import Flask, url_for, render_template, jsonify
+from flask import Flask, url_for, render_template, jsonify, request
 from flask.ext.login import current_user
 # from flask.ext.social import Social
 # from flask.ext.social.datastore import MongoEngineConnectionDatastore
@@ -18,6 +18,7 @@ from flask.ext.security import Security, MongoEngineUserDatastore, \
     UserMixin, RoleMixin, login_required, user_registered
 import flask_social_blueprint
 from flask_social_blueprint.core import SocialBlueprint
+from flask_security.utils import do_flash
 
 
 from pro_resource import ProResource
@@ -105,6 +106,7 @@ class User(db.Document, UserMixin):
     last_name = db.StringField(max_length=255)
     image = db.StringField(max_length=255)
     gender = db.StringField(max_length=255)
+    invite_code = db.StringField(max_length=255)
 
     @property
     def cn(self):
@@ -119,6 +121,10 @@ class User(db.Document, UserMixin):
     @classmethod
     def by_email(cls, email):
         return cls.objects(email=email).first()
+
+
+class Invite(db.Document):
+    code = db.StringField(max_length=255)
 
 
 class SocialConnection(db.Document):
@@ -145,6 +151,16 @@ class SocialConnection(db.Document):
 
     @classmethod
     def from_profile(cls, user, profile):
+
+        invite_code = request.cookies.get("invite")
+        invite = Invite.objects(code=invite_code).first()
+        user_with_invite = User.objects(invite_code=invite_code).first()
+        if invite:
+            if user_with_invite:
+                raise Exception(u"Этот инвайт уже использован, напиши нам – дадим новый!")
+        else:
+            raise Exception(u"Нужен инвайт, что бы зайти на сайт. Напиши нам – сразу дадим!")
+
         if not user or user.is_anonymous():
             email = profile.data.get("email")
             if not email:
@@ -166,14 +182,15 @@ class SocialConnection(db.Document):
                 gender = "m"
             if profile.data.get("gender") == "female":
                 gender = "f"
+
             user = User(
                 email=email,
                 first_name=profile.data.get("first_name"),
                 last_name=profile.data.get("last_name"),
                 confirmed_at=now,
                 image=profile.data.get("image_url"),
-                active=False,
-                gender=gender
+                gender=gender,
+                invite_code=invite_code
             )
             user.save()
 

@@ -33,7 +33,7 @@ class Facebook(BaseProvider):
             "first_name": profile.get('first_name'),
             "last_name": profile.get('last_name'),
             "cn": profile.get('name'),
-            "profile_url": "http://facebook.com/profile.php?id={}".format(profile_id),
+            "profile_url": "http://facebook.com/{}".format(profile_id),
             "image_url": "http://graph.facebook.com/{}/picture?width=100&height=100".format(profile_id),
             "gender": profile.get("gender")
         }
