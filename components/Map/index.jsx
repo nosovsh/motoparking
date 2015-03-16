@@ -2,7 +2,8 @@ var React = require("react"),
     Fluxxor = require("fluxxor");
 
 require("./style.css");
-var L = require("leaflet");
+var L = require("leaflet"),
+    leafletProviders = require("leaflet-providers");
 L.Icon.Default.imagePath = 'path-to-your-leaflet-images-folder';
 require("leaflet/dist/leaflet.css");
 
@@ -82,12 +83,7 @@ var Map = React.createClass({
             maxZoom: 20,
             zoomControl: false,
             layers: [
-                L.tileLayer(
-                    'https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png',
-                    {attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
-                    '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-                    'Imagery © <a href="http://mapbox.com">Mapbox</a>',
-                id: 'trashgenerator.ih4locjo'})
+                L.tileLayer.provider('MapBox.trashgenerator.ih4locjo')
             ],
 
             attributionControl: false
