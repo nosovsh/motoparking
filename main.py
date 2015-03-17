@@ -22,6 +22,7 @@ from flask_security.utils import do_flash
 
 
 from pro_resource import ProResource
+from mongo_fields import SwappedPointField
 
 # config
 
@@ -233,7 +234,7 @@ def when_template_rendered(*args, **kwargs):
 
 
 class Parking(db.Document):
-    lat_lng = db.PointField()
+    lat_lng = SwappedPointField()
     is_secure = db.StringField(default="yes")
     is_moto = db.StringField(default="maybe")
     price_per_day = db.IntField()
@@ -278,14 +279,14 @@ class Parking(db.Document):
         else:
             self.is_moto = "maybe"
 
-
+Parking(lat_lng={"type": "Point", "coordinates": [1,2]}, __auto_convert=False).save()
 
 
 
 class Opinion(db.Document):
     parking = db.ReferenceField(Parking)
     user = db.ReferenceField(User)
-    lat_lng = db.PointField()
+    lat_lng = SwappedPointField()
     is_secure = db.StringField()
     is_moto = db.StringField(default="maybe")
     price_per_day = db.IntField()
