@@ -107,6 +107,7 @@ class User(db.Document, UserMixin):
     image = db.StringField(max_length=255)
     gender = db.StringField(max_length=255)
     invite_code = db.StringField(max_length=255)
+    weight = db.FloatField(default=0.3)
 
     @property
     def cn(self):
@@ -245,12 +246,45 @@ class Parking(db.Document):
         self.updated = datetime.now()
         return super(Parking, self).save(*args, **kwargs)
 
+    def calculate(self):
+        opinions = Opinion.objects(is_secure__exists=True, is_secure__ne="maybe").select_related(1)
+        is_secure = {
+            "yes": 0,
+            "no": 0,
+        }
+        for opinion in opinions:
+            is_secure[opinion.is_secure] += opinion.user.weight
+
+        if is_secure["yes"] == is_secure["no"]:
+            self.is_secure = "maybe"
+        else:
+            self.is_secure = max(is_secure.items(), key=lambda x: x[1])[0]
+
+        if self.is_secure == "yes":
+            is_moto = {
+                "yes": 0,
+                "no": 0,
+            }
+            for opinion in opinions:
+                if opinion.is_moto != "maybe":
+                    is_moto[opinion.is_moto] += opinion.user.weight
+
+            if is_moto["yes"] == is_moto["no"]:
+                self.is_moto = "maybe"
+            else:
+                self.is_moto = max(is_moto.items(), key=lambda x: x[1])[0]
+        else:
+            self.is_moto = "maybe"
+
+
+
+
 
 class Opinion(db.Document):
     parking = db.ReferenceField(Parking)
     user = db.ReferenceField(User)
     lat_lng = db.PointField()
-    is_secure = db.StringField(default="yes")
+    is_secure = db.StringField()
     is_moto = db.StringField(default="maybe")
     price_per_day = db.IntField()
     price_per_month = db.IntField()
@@ -324,6 +358,7 @@ class OpinionResource(ProResource):
         if "parking" not in data:
             parking = Parking()
             parking.save()
+            data["is_secure"] = "yes"
         else:
             parking = Parking.objects.get(pk=data["parking"])
 
@@ -333,9 +368,16 @@ class OpinionResource(ProResource):
             opinion = Opinion(parking=parking, user=current_user._get_current_object())
         except Opinion.OperationError:
             pass
+
+        if data.get("is_secure") != "yes":
+            data["is_moto"] = "maybe"
+        if data.get("is_moto") != "yes":
+            data["price_per_day"] = None
+            data["price_per_month"] = None
         opinion = self.update_object(opinion, data, save, parent_resources=parent_resources)
 
         fill_parking(parking, opinion)
+        parking.calculate()
         parking.save()
 
         return opinion

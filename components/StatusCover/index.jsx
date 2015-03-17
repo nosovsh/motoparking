@@ -3,9 +3,9 @@ var React = require("react/addons");
 require("./style.css");
 
 var texts = {
-    "is-secure_maybe_is-moto_maybe": "Мы совсем ничего не знаем об этом месте",
-    "is-secure_no_is-moto_maybe": "Скорее всего здесь вообще нет охраняемой парковки",
-    "is-secure_yes_is-moto_maybe": "Здесь есть охраняемая парковка, <br/ >но неизвестно можно оставить мотоцикл или нет",
+    "is-secure_maybe_is-moto_maybe": "Мнения об этом месте расходятся. <br />Мы не знаем что тут",
+    "is-secure_no_is-moto_maybe": "Скорее всего здесь нет охраняемой парковки",
+    "is-secure_yes_is-moto_maybe": "Здесь есть охраняемая парковка, <br/ >но неизвестно можно ли оставить мотоцикл",
     "is-secure_yes_is-moto_no": "Здесь есть охраняемая парковка, <br/ >но мотоциклы не пускают",
     "is-secure_yes_is-moto_yes": "Здесь можно оставить мотоцикл <br/ >под охраной"
 };
