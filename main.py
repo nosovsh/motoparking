@@ -249,7 +249,7 @@ class Parking(db.Document):
         return super(Parking, self).save(*args, **kwargs)
 
     def calculate(self):
-        opinions = Opinion.objects(is_secure__exists=True, is_secure__ne="maybe").select_related(1)
+        opinions = Opinion.objects(parking=self.pk, is_secure__exists=True, is_secure__ne="maybe").select_related(1)
         is_secure = {
             "yes": 0,
             "no": 0,
