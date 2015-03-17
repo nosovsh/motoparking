@@ -27,19 +27,12 @@ from pro_resource import ProResource
 
 
 app = Flask(__name__)
-if os.environ.get('PROD_MONGODB'):
-    MONGOLAB_URI = os.environ.get('PROD_MONGODB')
-    app.config['MONGODB_SETTINGS'] = {
-        'db': MONGOLAB_URI[MONGOLAB_URI.rfind("/")+1:],
-        'host': MONGOLAB_URI
-    }
-    app.config['DEBUG'] = False
-else:
-    app.config['MONGODB_SETTINGS'] = {
-        'db': 'motoparking',
-        'host': 'mongodb://localhost:27017/motoparking'
-    }
-    app.config['DEBUG'] = True
+
+app.config['MONGODB_SETTINGS'] = {
+    'db': 'motoparking',
+    'host': 'mongodb://localhost:27017/motoparking'
+}
+app.config['DEBUG'] = True
 
 app.config['SECRET_KEY'] = 'super-secret'
 app.config['SECURITY_PASSWORD_HASH'] = 'pbkdf2_sha512'
@@ -47,6 +40,15 @@ app.config['SECURITY_PASSWORD_SALT'] = 'ytdjf.jk,upo8etsgdf,asdf34ttgewgq3g[q[ep
 app.config['SECURITY_REGISTERABLE'] = True
 app.config['SECURITY_MSG_LOGIN'] = (u'Вы не авторизованы или Вас нет в списках доступа.', 'info')
 
+if os.environ.get('PROD_MONGODB'):
+    MONGOLAB_URI = os.environ.get('PROD_MONGODB')
+    app.config['MONGODB_SETTINGS'] = {
+        'db': MONGOLAB_URI[MONGOLAB_URI.rfind("/")+1:],
+        'host': MONGOLAB_URI
+    }
+    app.config['DEBUG'] = False
+    app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+    app.config['SECURITY_PASSWORD_SALT'] = os.environ.get('SECURITY_PASSWORD_SALT')
 # app.config['SECURITY_LOGIN_USER_TEMPLATE'] = "login.html"
 
 # app.config['SOCIAL_FACEBOOK'] = {
