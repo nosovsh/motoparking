@@ -279,9 +279,6 @@ class Parking(db.Document):
         else:
             self.is_moto = "maybe"
 
-Parking(lat_lng={"type": "Point", "coordinates": [1,2]}, __auto_convert=False).save()
-
-
 
 class Opinion(db.Document):
     parking = db.ReferenceField(Parking)
