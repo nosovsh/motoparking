@@ -298,17 +298,39 @@ class Opinion(db.Document):
         return super(Opinion, self).save(*args, **kwargs)
 
 
+class Comment(db.Document):
+    parking = db.ReferenceField(Parking)
+    user = db.ReferenceField(User)
+    text = db.StringField()
+    created = db.DateTimeField()
+    updated = db.DateTimeField()
+    is_deleted = db.BooleanField(default=False)
+
+    def save(self, *args, **kwargs):
+        if not self.created:
+            self.created = datetime.now()
+        self.updated = datetime.now()
+        return super(Comment, self).save(*args, **kwargs)
+
+    meta = {
+        'ordering': ['-created']
+    }
+
 # resources
 
 class UserResource(Resource):
     document = User
     fields = ["id", "first_name", "last_name", "image", "gender", ]
+    rename_fields = {
+        "first_name": "firstName",
+        "last_name": "lastName",
+    }
 
 
 class ParkingResource(ProResource):
     document = Parking
     fields = ["id", "lat_lng", "is_secure", "is_moto", "user", "my_opinion", "price_per_day", "price_per_month",
-              "users", "created", "updated"]
+              "users", "comments", "created", "updated"]
     rename_fields = {
         'lat_lng': 'latLng',
         'is_secure': 'isSecure',
@@ -332,16 +354,17 @@ class ParkingResource(ProResource):
         opinions = Opinion.objects(parking=obj.pk, is_secure__in=("yes", "no")).order_by("updated")
         users = [opinion.user for opinion in opinions]
         obj.users = [UserResource().serialize(user) for user in users]
+        comments = Comment.objects(parking=obj.pk, is_deleted=False)
+        obj.comments = [CommentResource().serialize(comment) for comment in comments]
         return obj
 
 
 class OpinionResource(ProResource):
     document = Opinion
     filters = {
-        'parkingId': [ops.Exact],
+        'parking': [ops.Exact],
     }
     rename_fields = {
-        'parking_id': 'parkingId',
         'lat_lng': 'latLng',
         'is_secure': 'isSecure',
         'is_moto': 'isMoto',
@@ -356,7 +379,7 @@ class OpinionResource(ProResource):
     def create_object(self, data=None, save=True, parent_resources=None):
         data = data or self.data
         if "parking" not in data:
-            parking = Parking()
+            parking = Parking(user=current_user._get_current_object())
             parking.save()
             data["is_secure"] = "yes"
         else:
@@ -374,23 +397,52 @@ class OpinionResource(ProResource):
         if data.get("is_moto") != "yes":
             data["price_per_day"] = None
             data["price_per_month"] = None
+
         opinion = self.update_object(opinion, data, save, parent_resources=parent_resources)
 
-        fill_parking(parking, opinion)
+        self.fill_parking(parking, opinion)
         parking.calculate()
         parking.save()
 
         return opinion
 
+    def fill_parking(self, parking, opinion):
+        parking.is_moto = opinion.is_moto
+        parking.is_secure = opinion.is_secure
+        parking.price_per_day = opinion.price_per_day
+        parking.price_per_month = opinion.price_per_month
 
-def fill_parking(parking, opinion):
-    parking.is_moto = opinion.is_moto
-    parking.is_secure = opinion.is_secure
-    parking.price_per_day = opinion.price_per_day
-    parking.price_per_month = opinion.price_per_month
+        if opinion.lat_lng:
+            parking.lat_lng = opinion.lat_lng
 
-    if opinion.lat_lng:
-        parking.lat_lng = opinion.lat_lng
+
+class CommentResource(ProResource):
+    document = Comment
+    filters = {
+        'parking': [ops.Exact],
+    }
+    rename_fields = {
+    }
+    fields = ["id", "tempId", "user", "parking", "text", "created", "updated", "is_deleted"]
+    readonly_fields = ["id", "user", "parking", "created", "updated", "is_deleted"]
+    related_resources = {
+        "user": UserResource,
+        "parking": ParkingResource
+    }
+
+    def create_object(self, data=None, save=True, parent_resources=None):
+        data = data or self.data
+        comment = super(CommentResource, self).create_object(data, False, parent_resources)
+        comment.user = current_user._get_current_object()
+        parking = Parking.objects.get_or_404(id=data["parking"])
+        comment.parking = parking
+        if save:
+            self._save(comment)
+        return comment
+
+    def tempId(self, d):
+        return self.data.get("tempId")
+
 
 
 
@@ -413,6 +465,11 @@ class ParkingView(BaseResourceView):
 class OpinionsView(BaseResourceView):
     resource = OpinionResource
     methods = [methods.Create, methods.Fetch, methods.List, methods.Delete, methods.Update]
+
+@api.register(name='comments', url='/api/comments/')
+class CommentView(BaseResourceView):
+    resource = CommentResource
+    methods = [methods.Create, methods.Fetch, methods.List, methods.Delete]
 
 
 # import auth.views
@@ -441,8 +498,8 @@ def catch_all(path):
 def current_user_json(user):
     return dumps({
         "id": user.get_id(),
-        "first_name": user.first_name,
-        "last_name": user.last_name,
+        "firstName": user.first_name,
+        "lastName": user.last_name,
         "image": user.image,
         "email": user.email,
         "gender": user.gender,

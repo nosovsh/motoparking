@@ -1,5 +1,5 @@
 .ButtonRow {
-    padding: 17px 20px;
+    padding: 17px 0;
     text-align: center;
     cursor: pointer;
     -webkit-transition: all 0.2s ease;
@@ -10,4 +10,17 @@
 .ButtonRow:hover, .ButtonRow:active, .ButtonRow__selected {
     background-color: #4D4D4D;
     color: #fff;
+}
+
+.ButtonRow_bordered {
+    border: 1px solid #4D4D4D;
+}
+
+.ButtonRow_color_light {
+    border-color: #c3c3c3;
+}
+
+.ButtonRow_height_thin {
+    padding: 14px 0;
+    font-size: 1em;
 }

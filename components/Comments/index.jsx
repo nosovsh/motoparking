@@ -12,13 +12,13 @@ var Comments = React.createClass({
     },
     render: function () {
         var commentsComponents = _.map(this.props.comments, function (comment) {
-            return <Comment comment={ comment }  key={ comment._id }/>
+            return <Comment comment={ comment }  key={ comment.tempId || comment.id}/>
         });
         return (
-                <div className="Comments">
-                    <CommentForm />
-                    { commentsComponents }
-                </div>
+            <div className="Comments">
+                <CommentForm />
+                { commentsComponents }
+            </div>
         )
     }
 });

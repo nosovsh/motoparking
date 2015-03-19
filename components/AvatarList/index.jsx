@@ -26,7 +26,7 @@ var AvatarList = React.createClass({
                 "webkitTransform": "translate(" + translateX + "px ,0)" // TODO: browser specific
             };
             return (
-                <div className="AvatarList__Object" style={ style } key={ user._id }>
+                <div className="AvatarList__Object" style={ style } key={ user.id }>
                     <Avatar user={ user } />
                 </div>
             )

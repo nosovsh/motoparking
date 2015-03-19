@@ -1,32 +1,74 @@
-var React = require("react");
+var React = require("react"),
+    Fluxxor = require("fluxxor");
 
 require("./style.css");
 
+var FluxMixin = Fluxxor.FluxMixin(React),
+    StoreWatchMixin = Fluxxor.StoreWatchMixin;
+
 var Avatar = require("../Avatar"),
-    Button = require("../Button");
+    Icon = require("../Icon"),
+    ButtonRow = require("../ButtonRow");
 
 
 var CommentForm = React.createClass({
+
+    mixins: [FluxMixin, StoreWatchMixin("ParkingStore", "CommentStore", "CurrentUserStore")],
+
     propTypes: {},
+
+    getInitialState: function () {
+        return {
+            text: ""
+        }
+    },
+
     render: function () {
-        var currentUser = {
-            _id: "u1",
-            name: "Гоша Шиков",
-            pictureUrl: "/static/test/picture-nosov.jpg"
-        };
         return (
-            <div className="Comment">
-                <div className="Comment__AvatarWrapper">
-                    <Avatar user={ currentUser } />
-                </div>
-                <div className="Comment__Data">
-                    <textarea className="Comment__Textarea" placeholder="Комментарий" />
+            <div>
+                <div className="Comment">
+                    <div className="Comment__AvatarWrapper">
+                        <Avatar user={ this.state.currentUser } />
+                    </div>
+                    <div className="Comment__Textarea-wrapper">
+                        <textarea className="Comment__Textarea"
+                            placeholder="Что еще надо знать другим мотоциклистам об этой парковке?"
+                            value={ this.state.text }
+                            onChange={ this.onTextChange }/>
+                        <ButtonRow callback={ this.onSendComment } color="light" height="thin">Отправить <Icon name="send" style={ {"fontSize": "0.8em"} }/></ButtonRow>
+                    </div>
                 </div>
             </div>
         );
     },
-    onSendComment: function () {
 
+    onSendComment: function () {
+        if (this.state.text) {
+            this.getFlux().actions.postComment({
+                parking: this.state.currentParkingId,
+                text: this.state.text
+            });
+            this.setState({
+                text: ""
+            })
+        }
+    },
+
+    onTextChange: function (e) {
+        this.setState({
+            text: e.target.value
+        })
+    },
+
+    getStateFromFlux: function () {
+        var store = this.getFlux().store("ParkingStore");
+        var commentStore = this.getFlux().store("CommentStore");
+        var currentUserStore = this.getFlux().store("CurrentUserStore");
+
+        return {
+            currentParkingId: store.currentParkingId,
+            currentUser: currentUserStore.currentUser
+        };
     }
 });
 

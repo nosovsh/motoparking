@@ -20,38 +20,10 @@ var StatusCover = require("../StatusCover"),
 
 
 var Parking = React.createClass({
-    mixins: [Router.State, FluxMixin, StoreWatchMixin("ParkingStore")],
+
+    mixins: [Router.State, FluxMixin, StoreWatchMixin("ParkingStore", "CommentStore")],
 
     render: function () {
-        var fakeComments = [
-            {
-                user: {
-                    _id: "u2",
-                    name: "Мирослав Шашек",
-                    pictureUrl: "/static/test/picture-nosov.jpg"
-                },
-                _id: "2",
-                text: "Ворота закрываются на ночь и охранники как ни странно не пьяные (обычно)"
-            },
-            {
-                user: {
-                    _id: "u3",
-                    name: "Джонни",
-                    pictureUrl: "/static/test/picture-jonny.png"
-                },
-                _id: "3",
-                text: "Всегда ставлю здесь свою Веспу, когда к бабушке заезжаю"
-            },
-            {
-                user: {
-                    _id: "u1",
-                    name: "Гоша Шиков",
-                    pictureUrl: "/static/test/picture-gosha.png"
-                },
-                _id: "1",
-                text: "Как оказалось ночью сюда попасть нельзя :( Пришлось искать другое место"
-            }
-        ];
         if (this.state.editingLocation) {
             return (
                 <div className="edit-location">
@@ -115,7 +87,7 @@ var Parking = React.createClass({
 
                                 <MyOpinion parking={ this.state.currentParking }/>
 
-                                <Comments comments={ fakeComments } />
+                                <Comments comments={ this.state.comments } />
                             </div>) :
                             <div className="loading">Loading...</div> }
                     </div>
@@ -137,6 +109,7 @@ var Parking = React.createClass({
     getStateFromFlux: function () {
         var store = this.getFlux().store("ParkingStore");
         var opinionStore = this.getFlux().store("OpinionStore");
+        var commentStore = this.getFlux().store("CommentStore");
 
         return {
             loading: store.loading,
@@ -144,7 +117,8 @@ var Parking = React.createClass({
             currentParking: store.getCurrentParking(),
             currentParkingId: store.currentParkingId,
             currentParkingOpinions: opinionStore.opinionsByParking[this.getParams().id] ? opinionStore.opinionsByParking[this.getParams().id] : [],
-            editingLocation: store.editingLocation
+            editingLocation: store.editingLocation,
+            comments: store.getCurrentParking() ? commentStore.getComments(store.getCurrentParking().id) : []
         };
     },
     editLocation: function () {

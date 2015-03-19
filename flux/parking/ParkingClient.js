@@ -10,7 +10,7 @@ var ParkingClient = {
         data: {},
         success: success
       })
-    }, 1000);
+    }, 0);
   },
 
   loadParkingList: function(params, success, failure) {
