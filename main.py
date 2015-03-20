@@ -286,7 +286,7 @@ class ParkingImage(db.Document):
     url = db.StringField(required=True)
     created = db.DateTimeField()
     updated = db.DateTimeField()
-    id_deleted = db.BooleanField(default=False)
+    is_deleted = db.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
         if not self.created:
