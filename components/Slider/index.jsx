@@ -8,7 +8,8 @@ require("slick-carousel/slick/slick.css");
 var FluxMixin = Fluxxor.FluxMixin(React),
     StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
-var Photo = require("../Photo");
+var Photo = require("../Photo"),
+    Icon = require("../Icon");
 
 
 var Slider = React.createClass({
@@ -38,6 +39,13 @@ var Slider = React.createClass({
                </div>
            )
         });
+        slides.push(
+               <div key="add-image">
+                   <div className="AddImage">
+                       <Icon name="add-image" />
+                   </div>
+               </div>
+        );
         return (
             <SliderSlick {...settings} className="Slider">
                 { slides }
