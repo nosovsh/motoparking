@@ -25,32 +25,38 @@ var Slider = React.createClass({
     },
 
     render: function () {
-        var settings = {
-            infinite: true,
-            speed: 500,
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            arrows: false
-        };
-        var slides = this.state.parkingImages.map(function (image) {
-           return (
-               <div key={ image.tempId || image.id }>
-                   <Photo url={ image.url }/>
-               </div>
-           )
-        });
-        slides.push(
+        var addImage = (
                <div key="add-image">
                    <div className="AddImage">
                        <Icon name="add-image" />
                    </div>
                </div>
         );
-        return (
-            <SliderSlick {...settings} className="Slider">
+        if (this.state.parkingImages.length) {
+            var settings = {
+                infinite: true,
+                speed: 500,
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                arrows: false
+            };
+
+            var slides = this.state.parkingImages.map(function (image) {
+                return (
+                    <div key={ image.tempId || image.id }>
+                        <Photo url={ image.url }/>
+                    </div>
+                )
+            });
+            slides.push(addImage);
+            return (
+                <SliderSlick {...settings} className="Slider">
                 { slides }
-            </SliderSlick>
-        )
+                </SliderSlick>
+            )
+        } else {
+            return addImage;
+        }
     },
 
     getStateFromFlux: function () {
