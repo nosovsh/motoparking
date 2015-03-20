@@ -3,7 +3,8 @@ var React = require("react/addons"),
     SliderSlick = require('react-slick');
 
 require("./style.css");
-require("react-slick/bower_components/slick-carousel/slick/slick.scss")
+require("slick-carousel/slick/slick.css");
+require("slick-carousel/slick/slick-theme.css");
 
 var FluxMixin = Fluxxor.FluxMixin(React),
     StoreWatchMixin = Fluxxor.StoreWatchMixin;

@@ -27,6 +27,7 @@ module.exports = {
       { test: /\.css$/, loader: "style!css" },
       { test: /\.png$/, loader: "file" },
       { test: /\.jpg$/, loader: "file" },
+      { test: /\.gif/, loader: "file" },
       { test: /\.(ttf|eot|svg|woff|ttf)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" },
       //{	test: "png|jpg|jpeg|gif|svg", loader: "url-loader?limit=10000",}
       { test: /\.scss$/, loader: "style!css!sass"}
