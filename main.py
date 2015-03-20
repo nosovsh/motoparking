@@ -280,6 +280,21 @@ class Parking(db.Document):
             self.is_moto = "maybe"
 
 
+class ParkingImage(db.Document):
+    parking = db.ReferenceField(Parking, required=True)
+    user = db.ReferenceField(User, required=True)
+    url = db.StringField(required=True)
+    created = db.DateTimeField()
+    updated = db.DateTimeField()
+    id_deleted = db.BooleanField(default=False)
+
+    def save(self, *args, **kwargs):
+        if not self.created:
+            self.created = datetime.now()
+        self.updated = datetime.now()
+        return super(ParkingImage, self).save(*args, **kwargs)
+
+
 class Opinion(db.Document):
     parking = db.ReferenceField(Parking)
     user = db.ReferenceField(User)
@@ -316,7 +331,9 @@ class Comment(db.Document):
         'ordering': ['-created']
     }
 
+
 # resources
+
 
 class UserResource(Resource):
     document = User
@@ -330,14 +347,15 @@ class UserResource(Resource):
 class ParkingResource(ProResource):
     document = Parking
     fields = ["id", "lat_lng", "is_secure", "is_moto", "user", "my_opinion", "price_per_day", "price_per_month",
-              "users", "comments", "created", "updated"]
+              "users", "comments", "created", "updated", "parking_images", ]
     rename_fields = {
         'lat_lng': 'latLng',
         'is_secure': 'isSecure',
         'is_moto': 'isMoto',
         'my_opinion': 'myOpinion',
         'price_per_day': 'pricePerDay',
-        'price_per_month': 'pricePerMonth'
+        'price_per_month': 'pricePerMonth',
+        'parking_images': 'parkingImages'
     }
 
     def create_object(self, data=None, save=True, parent_resources=None):
@@ -356,6 +374,8 @@ class ParkingResource(ProResource):
         obj.users = [UserResource().serialize(user) for user in users]
         comments = Comment.objects(parking=obj.pk, is_deleted=False)
         obj.comments = [CommentResource().serialize(comment) for comment in comments]
+        parking_images = ParkingImage.objects(parking=obj.pk, is_deleted=False)
+        obj.parking_images = [ParkingImageResource().serialize(parking_image) for parking_image in parking_images]
         return obj
 
 
@@ -423,8 +443,8 @@ class CommentResource(ProResource):
     }
     rename_fields = {
     }
-    fields = ["id", "tempId", "user", "parking", "text", "created", "updated", "is_deleted"]
-    readonly_fields = ["id", "user", "parking", "created", "updated", "is_deleted"]
+    fields = ["id", "tempId", "user", "parking", "text", "created", "updated", ]
+    readonly_fields = ["id", "user", "parking", "created", "updated", ]
     related_resources = {
         "user": UserResource,
         "parking": ParkingResource
@@ -444,10 +464,36 @@ class CommentResource(ProResource):
         return self.data.get("tempId")
 
 
+class ParkingImageResource(ProResource):
+    document = ParkingImage
+    filters = {
+        'parking': [ops.Exact],
+    }
+    rename_fields = {
+    }
+    fields = ["id", "tempId", "user", "parking", "url", "created", "updated", ]
+    readonly_fields = ["id", "user", "parking", "created", "updated", ]
+    related_resources = {
+        "user": UserResource,
+        "parking": ParkingResource
+    }
 
+    def create_object(self, data=None, save=True, parent_resources=None):
+        data = data or self.data
+        parking_image = super(ParkingImageResource, self).create_object(data, False, parent_resources)
+        parking_image.user = current_user._get_current_object()
+        parking = Parking.objects.get_or_404(id=data["parking"])
+        parking_image.parking = parking
+        if save:
+            self._save(parking_image)
+        return parking_image
+
+    def tempId(self, d):
+        return self.data.get("tempId")
 
 
 # api views
+
 
 @api.register(name='users', url='/api/users/')
 class UserView(BaseResourceView):
@@ -469,7 +515,12 @@ class OpinionsView(BaseResourceView):
 @api.register(name='comments', url='/api/comments/')
 class CommentView(BaseResourceView):
     resource = CommentResource
-    methods = [methods.Create, methods.Fetch, methods.List, methods.Delete]
+    methods = [methods.Create, methods.Fetch, methods.List, ]
+
+@api.register(name='parking_images', url='/api/parking_images/')
+class ParkingImagesView(BaseResourceView):
+    resource = ParkingImageResource
+    methods = [methods.Create, methods.Fetch, methods.List, ]
 
 
 # import auth.views

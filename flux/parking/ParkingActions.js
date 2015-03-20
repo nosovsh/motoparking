@@ -3,6 +3,7 @@ var ParkingClient = require("./ParkingClient");
 var OpinionConstants = require("../opinion/OpinionConstants");
 var OpinionClient = require("../opinion/OpinionClient");
 var CommentConstants = require("../comment/CommentConstants");
+var ParkingImageConstants = require("../parkingImage/ParkingImageConstants");
 
 var ParkingActions = {
   loadCurrentParking: function(parkingId) {
@@ -11,6 +12,7 @@ var ParkingActions = {
     ParkingClient.loadParking(parkingId, function (parking){
       this.dispatch(ParkingConstants.LOAD_CURRENT_PARKING_SUCCESS, {parking: parking})
       this.dispatch(CommentConstants.LOAD_COMMENT_LIST_SUCCESS, {parkingId: parking.id, comments: parking.comments})
+      this.dispatch(ParkingImageConstants.LOAD_PARKING_IMAGE_LIST_SUCCESS, {parkingId: parking.id, parkingImages: parking.parkingImages})
     }.bind(this), function(error) {
       this.dispatch(ParkingConstants.LOAD_CURRENT_PARKING_FAIL, {error: error});
     })

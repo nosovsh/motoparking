@@ -16,6 +16,7 @@ var StatusCover = require("../StatusCover"),
     Icon = require("../Icon"),
     Photo = require("../Photo"),
     Comments = require("../Comments"),
+    Slider = require("../Slider"),
     AvatarList = require("../AvatarList");
 
 
@@ -34,7 +35,7 @@ var Parking = React.createClass({
             return (
                 <div className="sidebar__wrapper">
                     <div className="sidebar__content">
-                        <Link to="Default" style={ {color: "#FFF" } }>
+                        <Link to="Default" style={ {color: "#FFF"} }>
                             <div className="close-wrapper">
                                 <Icon name="close" />
                             </div>
@@ -55,7 +56,8 @@ var Parking = React.createClass({
                                             <div className="Prices__Price__Value">
                                                 { this.state.currentParking.pricePerDay ?
                                                     <div>
-                                                        { this.state.currentParking.pricePerDay }<Icon name="rouble" additionalClasses={ ["Rouble"] } />
+                                                        { this.state.currentParking.pricePerDay }
+                                                        <Icon name="rouble" additionalClasses={ ["Rouble"] } />
                                                     </div> : "?" }
 
                                             </div>
@@ -69,14 +71,16 @@ var Parking = React.createClass({
                                             <div className="Prices__Price__Value">
                                                 { this.state.currentParking.pricePerMonth ?
                                                     <div>
-                                                        { this.state.currentParking.pricePerMonth }<Icon name="rouble" additionalClasses={ ["Rouble"] } />
+                                                        { this.state.currentParking.pricePerMonth }
+                                                        <Icon name="rouble" additionalClasses={ ["Rouble"] } />
                                                     </div> : "?" }
                                             </div>
                                         </div>
 
                                     </div> : null }
 
-                                <Photo url="/static/test/garaj.jpg" />
+                                <Slider images={ this.state.currentParking.images } />
+
                                 <div className="InfoRow">
                                     ул. Ленина д. 6, владение 17
                                     <Icon name="edit" style={ {
@@ -116,9 +120,9 @@ var Parking = React.createClass({
             error: store.error,
             currentParking: store.getCurrentParking(),
             currentParkingId: store.currentParkingId,
-            currentParkingOpinions: opinionStore.opinionsByParking[this.getParams().id] ? opinionStore.opinionsByParking[this.getParams().id] : [],
+            currentParkingOpinions: opinionStore.opinionsByParking[store.currentParkingId] ? opinionStore.opinionsByParking[store.currentParkingId] : [],
             editingLocation: store.editingLocation,
-            comments: store.getCurrentParking() ? commentStore.getComments(store.getCurrentParking().id) : []
+            comments: commentStore.getComments(store.currentParkingId)
         };
     },
     editLocation: function () {
