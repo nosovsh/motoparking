@@ -39,9 +39,12 @@
             доступа. Но если ты достаточно смел, что бы не бояться багов, то <a href="mailto:trashgenerator@gmail.com">напиши
                 нам</a> и мы с удовольствием дадим тебе доступ.</p>
 
-        <a class="facebook" href="{{ url_for('social.login', provider='Facebook') }}"
-           class="social-facebook btn btn-default btn-lg"><i class="fa fa-facebook"></i> Войти через Facebook</a>
-        {#                    <a href="{{ url_for('social.login', provider='Google') }}" class="social-google btn btn-default btn-lg"><i class="fa fa-google-plus"></i> with Google</a>#}
+        <a href="{{ url_for('social.login', provider='Facebook') }}" class="facebook social-facebook btn btn-default btn-lg">
+            <i class="fa fa-facebook"></i> Войти через Facebook
+        </a>
+        <a href="{{ url_for('social.login', provider='Google') }}" class="google social-google btn btn-default btn-lg">
+            <i class="fa fa-google-plus"></i> Войти через Google
+        </a>
         {#                    <a href="{{ url_for('social.login', provider='Github') }}" class="social-github btn btn-default btn-lg"><i class="fa fa-github"></i> with Github</a>#}
         {#                    <a href="{{ url_for('social.login', provider='Twitter') }}" class="social-twitter btn btn-default btn-lg"><i class="fa fa-twitter"></i> with Twitter</a>#}
 

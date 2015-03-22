@@ -61,11 +61,18 @@ if os.environ.get('PROD_MONGODB'):
 # https://github.com/wooyek/flask-social-blueprint
 app.config['SOCIAL_BLUEPRINT'] = {
     # https://developers.facebook.com/apps/
-    "facebook_provider.Facebook": {
+    "providers.Facebook": {
         # App ID
         'consumer_key': '1556008511346406',
         # App Secret
         'consumer_secret': 'a2ed924ccd3e3cf15a392b23fdb37f25'
+    },
+    # https://console.developers.google.com/project
+    "providers.Google": {
+        # Client ID
+        'consumer_key': '697498708815-abuhifg72qng38ur8mtnhin9347tcmep.apps.googleusercontent.com',
+        # Client secret
+        'consumer_secret': 'uSVAvnfTBwlF4fwHZV9LJ24a'
     },
 }
 
