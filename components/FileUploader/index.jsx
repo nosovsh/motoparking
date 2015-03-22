@@ -29,8 +29,8 @@ var FileUploader = React.createClass({
 
     render: function () {
         return (
-            <div className="AddImage">
-                <label>
+            <div className="FileUploader">
+                <label className="FileUploader__label">
                     <Icon name="add-image" />
                     <input type="file" ref="fileInput" name="file"/>
                 </label>
