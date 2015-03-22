@@ -283,7 +283,7 @@ class Parking(db.Document):
 class ParkingImage(db.Document):
     parking = db.ReferenceField(Parking, required=True)
     user = db.ReferenceField(User, required=True)
-    url = db.StringField(required=True)
+    cloudinary_id = db.StringField(required=True)
     created = db.DateTimeField()
     updated = db.DateTimeField()
     is_deleted = db.BooleanField(default=False)
@@ -470,8 +470,9 @@ class ParkingImageResource(ProResource):
         'parking': [ops.Exact],
     }
     rename_fields = {
+        "cloudinary_id": "cloudinaryId"
     }
-    fields = ["id", "tempId", "user", "parking", "url", "created", "updated", ]
+    fields = ["id", "tempId", "user", "parking", "cloudinary_id", "created", "updated", ]
     readonly_fields = ["id", "user", "parking", "created", "updated", ]
     related_resources = {
         "user": UserResource,

@@ -11,16 +11,3 @@
 .Slider.slick-slider {
     margin-bottom: 0;
 }
-
-.AddImage {
-    width: 100%;
-    height: 230px;
-    margin-top: 17px;
-
-    text-align: center;
-    line-height: 230px;
-    font-size: 3em;
-    border-top: 1px solid #979797;
-    border-bottom: 1px solid #979797;
-    cursor: pointer;
-}

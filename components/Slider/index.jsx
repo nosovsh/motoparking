@@ -1,5 +1,6 @@
 var React = require("react/addons"),
     Fluxxor = require("fluxxor"),
+    $ = require("jquery"),
     SliderSlick = require('react-slick');
 
 require("./style.css");
@@ -9,29 +10,25 @@ var FluxMixin = Fluxxor.FluxMixin(React),
     StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
 var Photo = require("../Photo"),
-    Icon = require("../Icon");
+    FileUploader = require("../FileUploader");
 
 
 var Slider = React.createClass({
 
-    mixins: [FluxMixin, StoreWatchMixin("ParkingImageStore")],
+    mixins: [FluxMixin, StoreWatchMixin("ParkingStore", "ParkingImageStore")],
 
-    propTypes: {
-    },
+    propTypes: {},
 
     getDefaultProps: function () {
-        return {
-        };
+        return {};
     },
 
     render: function () {
         var addImage = (
-               <div key="add-image">
-                   <div className="AddImage">
-                       <Icon name="add-image" />
-                   </div>
-               </div>
-        );
+            <div key="add-image">
+                <FileUploader/>
+            </div>
+        )
         if (this.state.parkingImages.length) {
             var settings = {
                 infinite: true,
@@ -42,16 +39,17 @@ var Slider = React.createClass({
             };
 
             var slides = this.state.parkingImages.map(function (image) {
+                var url = $.cloudinary.url(image.cloudinaryId, {height: 300, crop: 'fill'});
                 return (
                     <div key={ image.tempId || image.id }>
-                        <Photo url={ image.url }/>
+                        <Photo url={ url }/>
                     </div>
                 )
-            });
+            }.bind(this));
             slides.push(addImage);
             return (
                 <SliderSlick {...settings} className="Slider">
-                { slides }
+                    { slides }
                 </SliderSlick>
             )
         } else {
@@ -67,7 +65,7 @@ var Slider = React.createClass({
             loading: store.loading,
             error: store.error,
             currentParkingId: store.currentParkingId,
-            parkingImages: parkingImageStore.getParkingImages(store.currentParkingId),
+            parkingImages: parkingImageStore.getParkingImages(store.currentParkingId)
         };
     }
 });
