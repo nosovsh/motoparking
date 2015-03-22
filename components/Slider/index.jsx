@@ -39,7 +39,7 @@ var Slider = React.createClass({
             };
 
             var slides = this.state.parkingImages.map(function (image) {
-                var url = $.cloudinary.url(image.cloudinaryId, {height: 300, crop: 'fill'});
+                var url = $.cloudinary.url(image.cloudinaryId, {width: 664, crop: 'fill'});
                 return (
                     <div key={ image.tempId || image.id }>
                         <Photo url={ url }/>
