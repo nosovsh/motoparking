@@ -130,7 +130,8 @@ var FileUploader = React.createClass({
         }
         this.setState({
             uploading: false
-        })
+        });
+        this.circle.animate(0);
         console.log("Upload canceled");
 
     }

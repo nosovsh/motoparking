@@ -294,6 +294,9 @@ class ParkingImage(db.Document):
         self.updated = datetime.now()
         return super(ParkingImage, self).save(*args, **kwargs)
 
+    meta = {
+        'ordering': ['-created']
+    }
 
 class Opinion(db.Document):
     parking = db.ReferenceField(Parking)
