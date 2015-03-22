@@ -1,4 +1,5 @@
 var React = require("react/addons"),
+    ProgressBar = require("progressbar.js"),
     Fluxxor = require("fluxxor");
 
 var Icon = require("../Icon");
@@ -24,22 +25,34 @@ var FileUploader = React.createClass({
     },
 
     getInitialState: function () {
-        return {}
+        return {
+            uploading: false,
+        }
     },
 
     render: function () {
+        var addImageStyle = {},
+            progressBarStyle = {};
+        if (this.state.uploading)
+            addImageStyle["display"] = "none";
+        else
+            progressBarStyle["display"] = "none";
         return (
             <div className="FileUploader">
-                <label className="FileUploader__label">
+                <label className="FileUploader__label" style={ addImageStyle }>
                     <Icon name="add-image" />
                     <input type="file" ref="fileInput" name="file"/>
                 </label>
-
+                    <div className="Progressbar" ref="progressbar" style={progressBarStyle}></div>
+                    <div className="FileUploader__CancelWrapper" style={progressBarStyle}>
+                        <Icon name="close" onClick={ this.onCancelUpload } />
+                    </div>
             </div>
         )
     },
 
     componentDidMount: function () {
+        console.log("componentDidMount")
         // TODO: remove global object!
         var options = {};
 
@@ -56,19 +69,40 @@ var FileUploader = React.createClass({
         $(fileInput).unsigned_cloudinary_upload("zpwu8wz2",
             {cloud_name: 'motoparking', tags: 'browser_uploads'},
             options
+        ).bind('fileuploadstart', function (e, data) {
+                console.log("fileuploadstart");
+                this.setState({
+                    uploading: true
+                });
+            }.bind(this)
         ).bind('cloudinarydone', function (e, data) {
                 console.log("cloudinarydone");
+                this.setState({
+                    uploading: false
+                });
                 this.getFlux().actions.postParkingImage({
                     "cloudinaryId": data.result.public_id,
                     "parking": this.state.currentParkingId
                 });
             }.bind(this)
         ).bind('cloudinaryprogress', function (e, data) {
-
-                $('.progress_bar').css('width',
-                    Math.round((data.loaded * 100.0) / data.total) + '%');
-
+                var loaded = data.loaded / data.total;
+                console.log(loaded);
+                console.log(data);
+                //this.getFlux().actions.showParkingImageUploadProgress(loaded);
+                this.circle.animate(loaded)
+            }.bind(this)
+        ).bind('fileuploadadd', function (e, data) {
+                this.jqXHR = data.submit(); // Catching the upload process of every file
             }.bind(this));
+
+
+        var circleNode = this.refs.progressbar.getDOMNode();
+
+        this.circle = new ProgressBar.Circle(circleNode, {
+            color: '#979797',
+            strokeWidth: 1
+        });
     },
 
     componentWillUnmount: function () {
@@ -84,10 +118,21 @@ var FileUploader = React.createClass({
         var parkingImageStore = this.getFlux().store("ParkingImageStore");
 
         return {
-            loading: store.loading,
             error: store.error,
             currentParkingId: store.currentParkingId
         };
+    },
+
+    onCancelUpload: function (e) {
+        if (this.jqXHR) {
+            this.jqXHR.abort();
+            this.jqXHR = null;
+        }
+        this.setState({
+            uploading: false
+        })
+        console.log("Upload canceled");
+
     }
 
 });

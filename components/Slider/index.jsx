@@ -31,7 +31,7 @@ var Slider = React.createClass({
         )
         if (this.state.parkingImages.length) {
             var settings = {
-                infinite: true,
+                infinite: false,
                 speed: 500,
                 slidesToShow: 1,
                 slidesToScroll: 1,

@@ -19,6 +19,7 @@
     "lodash": "^3.3.1",
     "moment": "^2.9.0",
     "normalize.css": "^3.0.2",
+    "progressbar.js": "^0.7.4",
     "react": "^0.12.2",
     "react-router": "^0.11.6",
     "react-slick": "git+https://github.com/grrowl/react-slick#af6b9e6236fd10b5587e24e454ae05229bb8a97b",

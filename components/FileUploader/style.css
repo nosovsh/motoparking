@@ -24,3 +24,17 @@
 .FileUploader__label {
     cursor: pointer;
 }
+
+.Progressbar {
+    height: 100%;
+}
+
+.Progressbar > svg {
+    height: 100%;
+    padding: 50px;
+}
+.FileUploader__CancelWrapper {
+    position: relative;
+    top: -100%;
+    color: #979797;
+}
