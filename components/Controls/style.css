@@ -27,12 +27,10 @@
 .control-btn {
     line-height: 39px;
     text-align: center;
-    cursor: pointer;
     display: inline-block;
     position: relative;
     height: 38px;
     padding: 0 16px;
-    outline: 0;
     color: #ffffff;
     background: rgba(77, 77, 77, 0.76);
     text-decoration: none;
@@ -54,6 +52,8 @@
 }
 
 .control-btn:hover, .control-btn:active {
+     border-radius: 999em;
+
     background: rgba(77, 77, 77, 1);
 }
 
