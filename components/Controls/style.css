@@ -27,6 +27,7 @@
 .control-btn {
     line-height: 39px;
     text-align: center;
+    cursor: pointer;
     display: inline-block;
     position: relative;
     height: 38px;
