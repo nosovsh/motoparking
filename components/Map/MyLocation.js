@@ -1,4 +1,4 @@
-var LOCATION_TIMEOUT = 5 * 60 * 1000;
+var LOCATION_TIMEOUT = 1 * 60 * 1000;
 var MAX_RELOCATIONS = 5;
 var RELOCATION_TIME = 5 * 1000;
 
@@ -7,10 +7,17 @@ var MyLocation = function (map) {
     this.removeTimeoutId = null;
     this.relocationCount = 0;
     this.relocationTimeoutId = null;
+    this.shouldMoveToLocation = false;
+    this.lastLatLng = null;
 
     this.map.on('locationfound', function (e) {
         this.setLocation(e);
         console.log("locationfound");
+        if (this.shouldMoveToLocation) {
+            this.map.panTo(e.latlng);
+            this.shouldMoveToLocation = false;
+        }
+        this.lastLatLng = e.latlng;
         //if (this.relocationCount < MAX_RELOCATIONS) {
         //    this.relocationTimeoutId = setTimeout(function () {
         //        this.relocate({setView: false, enableHighAccuracy: true});
@@ -28,13 +35,17 @@ var MyLocation = function (map) {
         //    }.bind(this), RELOCATION_TIME);
         //    this.relocationCount++;
         //}
-
+        this.lastLatLng = null;
         this.remove();
     }.bind(this))
 };
 
 MyLocation.prototype.locate = function (options) {
     this.relocationCount = 0;
+    this.shouldMoveToLocation = true;
+    if (this.lastLatLng) {
+        this.map.panTo(this.lastLatLng);
+    }
     clearTimeout(this.relocationTimeoutId);
     clearTimeout(this.removeTimeoutId);
 
@@ -43,7 +54,7 @@ MyLocation.prototype.locate = function (options) {
         this.map.stopLocate()
     }.bind(this), LOCATION_TIMEOUT);
 
-    this.relocate(options);
+    this.relocate({enableHighAccuracy:true, watch:true});
 
 };
 
