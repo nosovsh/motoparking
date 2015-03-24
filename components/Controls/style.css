@@ -7,14 +7,25 @@
     left: 16px;
 }
 
+.controls__wrapper_secondary {
+    bottom: 16px;
+    top: initial;
+}
+
 .controls__content {
     position: relative;
     width: 300px;
 
 }
 
+.controls__content_secondary {
+    position: relative;
+    width: 50px;
+
+}
+
 .control-btn {
-    line-height: 35px;
+    line-height: 39px;
     text-align: center;
     cursor: pointer;
     display: inline-block;
@@ -47,11 +58,15 @@
 }
 
 .control-btn_icon_true {
-    width: 38px;
-    padding: 0 9px;
 }
 
 .control-btn_avatar_true {
     width: 38px;
     padding: 0;
+}
+
+.control-btn-round {
+    width: 38px;
+    padding: 0;
+    margin-top: 10px;
 }

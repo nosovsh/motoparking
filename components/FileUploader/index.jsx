@@ -26,7 +26,7 @@ var FileUploader = React.createClass({
 
     getInitialState: function () {
         return {
-            uploading: false,
+            uploading: false
         }
     },
 

@@ -21,6 +21,9 @@ var Navigation = require('react-router/modules/mixins/Navigation');
 var FluxMixin = Fluxxor.FluxMixin(React),
     StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
+var AppConstants = require("../../flux/app/AppConstants"),
+    myLocation = require("./MyLocation");
+
 var images = {
     "is-secure_maybe_is-moto_maybe": require("./images/marker-mot.svg"),
     "is-secure_no_is-moto_maybe": require("./images/marker-mot-no.svg"),
@@ -40,14 +43,14 @@ var activeImages = {
 
 var getStatusName = function (isSecure, isMoto) {
     return (isSecure ? 'is-secure_' + isSecure : "") +
-            (isMoto ? '_is-moto_' + isMoto : "");
+        (isMoto ? '_is-moto_' + isMoto : "");
 }
 
-var getIcon = function(is_secure, is_moto) {
+var getIcon = function (is_secure, is_moto) {
     return L.icon({
         iconUrl: images[getStatusName(is_secure, is_moto)],
-        iconSize:     [39, 42], // size of the icon
-        iconAnchor:   [19, 41] // point of the icon which will correspond to marker's location
+        iconSize: [39, 42], // size of the icon
+        iconAnchor: [19, 41] // point of the icon which will correspond to marker's location
     });
 };
 var resizeIcon = L.icon({
@@ -56,29 +59,29 @@ var resizeIcon = L.icon({
     iconAnchor: [24, 51] // point of the icon which will correspond to marker's location
 });
 
-var getActiveIcon = function(is_secure, is_moto) {
+var getActiveIcon = function (is_secure, is_moto) {
     return L.icon({
         iconUrl: activeImages[getStatusName(is_secure, is_moto)],
-        iconSize:     [48, 52], // size of the icon
-        iconAnchor:   [24, 51] // point of the icon which will correspond to marker's location
+        iconSize: [48, 52], // size of the icon
+        iconAnchor: [24, 51] // point of the icon which will correspond to marker's location
     });
 };
 
 var Map = React.createClass({
-	mixins: [Navigation, FluxMixin],
-	getInitialState: function() {
+    mixins: [Navigation, FluxMixin],
+    getInitialState: function () {
         this.parkingMarkers = {};
         this.parkings = {};
         this.newParkingMarker = null;
-		return {
-			width: $(window).width(),
-			height: $(window).height()
-		}
-	},
-    componentDidMount: function() {
+        return {
+            width: $(window).width(),
+            height: $(window).height()
+        }
+    },
+    componentDidMount: function () {
         this.map = L.map(this.getDOMNode(), {
-			center: [55.7522200, 37.6155600],
-			zoom: 12,
+            center: [55.7522200, 37.6155600],
+            zoom: 12,
             minZoom: 2,
             maxZoom: 20,
             zoomControl: false,
@@ -97,23 +100,31 @@ var Map = React.createClass({
             .on("editLocationDone", this._editLocationDone)
             .on("newParking", this._newParking)
             .on("saveNewParkingSuccess", this._saveNewParkingSuccess)
+
+        this.getFlux().store("AppStore")
+            .on(AppConstants.MAP_ZOOM_IN, this._mapZoomIn)
+            .on(AppConstants.MAP_ZOOM_OUT, this._mapZoomOut)
+            .on(AppConstants.MAP_MY_LOCATION, this._mapMyLocation)
+
         this.getFlux().actions.loadParkingList();
 
+        this.myLocation = myLocation(this.map);
+
     },
-    componentWillUnmount: function() {
+    componentWillUnmount: function () {
         this.map = null;
     },
-    render: function() {
+    render: function () {
         // style={{width:this.state.width, height: this.state.height}}
         return (
             <div className='map'></div>
         );
     },
-	onMarkerClick: function (id) {
-		this.transitionTo("Parking", {"id": id});
-	},
+    onMarkerClick: function (id) {
+        this.transitionTo("Parking", {"id": id});
+    },
 
-    _loadParkingListSuccess: function() {
+    _loadParkingListSuccess: function () {
         var store = this.getFlux().store("ParkingStore");
         _.forEach(store.parkingList, function (parking) {
             if (store.currentParkingId && parking.id == store.currentParkingId) {
@@ -138,7 +149,7 @@ var Map = React.createClass({
         }
     },
 
-    _unselectCurrentParking: function() {
+    _unselectCurrentParking: function () {
         this._unselectAllMarkers()
     },
 
@@ -146,7 +157,7 @@ var Map = React.createClass({
      * make current marker parking draggable. update store, when dragged
      * @private
      */
-    _editLocation: function() {
+    _editLocation: function () {
         var store = this.getFlux().store("ParkingStore");
 
         var oldMarker = this.parkingMarkers[store.currentParkingId];
@@ -177,7 +188,7 @@ var Map = React.createClass({
      * make current parking marking not draggable
      * @private
      */
-    _editLocationDone: function() {
+    _editLocationDone: function () {
         var store = this.getFlux().store("ParkingStore");
 
         var oldMarker = this.parkingMarkers[store.currentParkingId];
@@ -198,7 +209,7 @@ var Map = React.createClass({
      * TODO: same as _editLocationDone
      * @private
      */
-    _editLocationCancel: function() {
+    _editLocationCancel: function () {
         var store = this.getFlux().store("ParkingStore");
 
         var oldMarker = this.parkingMarkers[store.currentParkingId];
@@ -217,13 +228,13 @@ var Map = React.createClass({
      * Create draggable marker for new parking at map center. Update store, when dragged
      * @private
      */
-    _newParking: function() {
+    _newParking: function () {
         var store = this.getFlux().store("ParkingStore");
 
         this._unselectAllMarkers();
 
         if (!store.newParking.latLng) {
-        console.log("1111")
+            console.log("1111")
 
 
             // set point 100 pixels higher than center
@@ -264,7 +275,7 @@ var Map = React.createClass({
 
     },
 
-    _saveNewParkingSuccess: function() {
+    _saveNewParkingSuccess: function () {
         var store = this.getFlux().store("ParkingStore");
 
         this.map.removeLayer(this.newParkingMarker);
@@ -275,7 +286,7 @@ var Map = React.createClass({
             draggable: false
         }).on("click", this.onMarkerClick.bind(this, store.currentParkingId))
             .addTo(this.map); // TODO: do it not throws currentParkingId
-        setTimeout(function() {
+        setTimeout(function () {
             this.transitionTo("Parking", {"id": store.currentParkingId})
         }.bind(this), 0);
     },
@@ -294,6 +305,18 @@ var Map = React.createClass({
             this.map.removeLayer(this.newParkingMarker);
             this.newParkingMarker = null;
         }
+    },
+
+    _mapZoomIn: function () {
+        this.map.zoomIn();
+    },
+
+    _mapZoomOut: function () {
+        this.map.zoomOut();
+    },
+
+    _mapMyLocation: function () {
+        this.myLocation.locate({setView: true, maxZoom: 17})
     }
 });
 

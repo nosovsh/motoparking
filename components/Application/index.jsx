@@ -5,8 +5,13 @@ var React = require("react/addons"),
 require("normalize.css/normalize.css");
 require("./style.css");
 
+var Router = require('react-router'),
+    Link = Router.Link;
+
 var Map = require('../Map'),
-    Controls = require('../Controls');
+    Controls = require('../Controls'),
+    Avatar = require("../Avatar"),
+    Icon = require("../Icon");
 
 
 // Require React-Router
@@ -24,22 +29,54 @@ var InnerApplication = React.createClass({
     render: function () {
         return (
             <div>
-                <Controls />
+                <Controls>
+                    <div className="control-btn control-btn_avatar_true">
+                        <Avatar user={ this.state.currentUser } style={ {width: 38, height: 38} }/>
+                    </div>
+                    <Link to="NewParking">
+                        <div className="control-btn">
+                            <Icon name="add"/>
+                            Добавить парковку
+                        </div>
+                    </Link>
+                </Controls>
+                <Controls secondary={ true }>
+                    <div className="control-btn control-btn-round" onClick={ this.onPlusClick }>
+                        <Icon name="plus"/>
+                    </div>
+                    <div className="control-btn control-btn-round" onClick={ this.onMinusClick }>
+                        <Icon name="minus"/>
+                    </div>
+                    <div className="control-btn control-btn-round" onClick={ this.onMyLocationClick }>
+                        <Icon name="location"/>
+                    </div>
+                </Controls>
             </div>
         );
     },
 
     getStateFromFlux: function () {
         var store = this.getFlux().store("ParkingStore");
+        var currentUserStore = this.getFlux().store("CurrentUserStore");
 
         return {
+            currentUser: currentUserStore.currentUser
         };
+    },
+    onPlusClick: function () {
+        this.getFlux().actions.mapZoomIn()
+    },
+    onMinusClick: function () {
+        this.getFlux().actions.mapZoomOut()
+    },
+    onMyLocationClick: function () {
+        this.getFlux().actions.mapMyLocation()
     }
 });
 
 
 var Application = React.createClass({
-    mixins: [FluxMixin,  Router.State ],
+    mixins: [FluxMixin, Router.State],
     render: function () {
         var name = this.getRoutes().reverse()[0].name;
         return (

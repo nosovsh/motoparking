@@ -1,24 +1,32 @@
 var Fluxxor = require("fluxxor");
 var ParkingStore = require("./flux/parking/ParkingStore");
-var OpinionStore = require("./flux/opinion/OpinionStore");
-var CurrentUserStore = require("./flux/currentUser/CurrentUserStore");
-var CommentStore = require("./flux/comment/CommentStore");
-var ParkingImageStore = require("./flux/parkingImage/ParkingImageStore");
 var ParkingActions = require("./flux/parking/ParkingActions");
+
+var OpinionStore = require("./flux/opinion/OpinionStore");
 var OpinionActions = require("./flux/opinion/OpinionActions");
+
+var CurrentUserStore = require("./flux/currentUser/CurrentUserStore");
 var CurrentUserActions = require("./flux/currentUser/CurrentUserActions");
+
+var CommentStore = require("./flux/comment/CommentStore");
 var CommentActions = require("./flux/comment/CommentActions");
+
+var ParkingImageStore = require("./flux/parkingImage/ParkingImageStore");
 var ParkingImageActions = require("./flux/parkingImage/ParkingImageActions");
+
+var AppStore = require("./flux/app/AppStore");
+var AppActions = require("./flux/app/AppActions");
 
 var stores = {
   ParkingStore: new ParkingStore(),
   OpinionStore: new OpinionStore(),
   CurrentUserStore: new CurrentUserStore(),
   CommentStore: new CommentStore(),
-  ParkingImageStore: new ParkingImageStore()
+  ParkingImageStore: new ParkingImageStore(),
+  AppStore: new AppStore()
 };
 
-var actions = _.extend(ParkingActions, OpinionActions, CurrentUserActions, CommentActions, ParkingImageActions);
+var actions = _.extend(ParkingActions, OpinionActions, CurrentUserActions, CommentActions, ParkingImageActions,AppActions);
 
 var flux = new Fluxxor.Flux(stores, actions);
 
