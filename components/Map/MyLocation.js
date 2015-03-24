@@ -19,6 +19,7 @@ var MyLocation = function (map) {
         }
     }.bind(this));
 
+
     this.map.on('locationerror', function (e) {
         console.log(e.message);
         if (this.relocationCount < MAX_RELOCATIONS) {
