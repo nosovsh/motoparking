@@ -13,7 +13,7 @@ var MyLocation = function (map) {
         console.log("locationfound");
         if (this.relocationCount < MAX_RELOCATIONS) {
             this.relocationTimeoutId = setTimeout(function () {
-                this.relocate({setView: false});
+                this.relocate({setView: false, enableHighAccuracy: true});
             }.bind(this), RELOCATION_TIME);
             this.relocationCount++;
         }
@@ -23,7 +23,7 @@ var MyLocation = function (map) {
         console.log(e.message);
         if (this.relocationCount < MAX_RELOCATIONS) {
             this.relocationTimeoutId = setTimeout(function () {
-                this.relocate();
+                this.relocate({enableHighAccuracy:true});
             }.bind(this), RELOCATION_TIME);
             this.relocationCount++;
         }

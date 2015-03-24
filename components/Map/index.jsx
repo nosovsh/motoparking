@@ -316,7 +316,7 @@ var Map = React.createClass({
     },
 
     _mapMyLocation: function () {
-        this.myLocation.locate({setView: true, maxZoom: 17})
+        this.myLocation.locate({setView: true, maxZoom: 17, enableHighAccuracy:true})
     }
 });
 

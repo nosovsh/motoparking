@@ -48,7 +48,7 @@ var InnerApplication = React.createClass({
                         <Icon name="minus"/>
                     </div>
                     <div className="control-btn control-btn-round" onClick={ this.onMyLocationClick }>
-                        <Icon name="location"/>
+                        <Icon name="location" style={ {"marginLeft": "-3"} }/>
                     </div>
                 </Controls>
             </div>
