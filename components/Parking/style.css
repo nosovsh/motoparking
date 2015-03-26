@@ -41,6 +41,7 @@
 
     background: #FFF;
     width: 332px;
+    z-index: 200;
 }
 
 @media only screen and (max-device-width: 335px) {

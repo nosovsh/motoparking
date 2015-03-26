@@ -1,7 +1,7 @@
 .controls__wrapper {
     position: absolute;
     width: 0;
-    z-index: 200;
+    z-index: 100;
 
     top: 16px;
     left: 16px;

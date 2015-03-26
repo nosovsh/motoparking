@@ -8,6 +8,7 @@
 
     background: #FFF;
     width: 332px;
+    z-index: 200;
 }
 
 @-webkit-keyframes fadeInDown {

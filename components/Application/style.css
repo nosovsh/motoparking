@@ -31,6 +31,7 @@ a {
     top: 9px;
     right: 7px;
     cursor: pointer;
+    font-size: 1.2em;
 }
 
 .close-wrapper:hover, .close-wrapper:active {
