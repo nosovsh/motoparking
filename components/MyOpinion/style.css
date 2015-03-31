@@ -18,3 +18,9 @@
     line-height: 22px;
     color: #4D4D4D;
 }
+
+@media only screen and (max-device-width: 335px) {
+    .my-opinion__row {
+        padding: 17px 15px;
+    }
+}
