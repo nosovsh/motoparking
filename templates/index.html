@@ -3,16 +3,64 @@
 <html>
     <head>
         <meta charset='utf-8'/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+        <meta name="viewport" loader="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
         <title>Motoparking.club</title>
+        <style>
+            html, body {
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+
+            #loader {
+                height: 100%;
+                position: relative;
+            }
+
+            #loader__inner {
+                left: 50%;
+                top: 50%;
+                color: #4D4D4D;
+                transform: translate(-50%, -50%);
+                -webkit-transform: translate(-50%, -50%);
+                -moz-transform: translate(-50%, -50%);
+                -o-transform: translate(-50%, -50%);
+                position: absolute;
+                text-align: center;
+                font-family: "HelveticaNeue-Thin", "Roboto-Thin", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+                line-height: 2em;
+            }
+
+            #loader__inner__h1 {
+                font-size: 4em;
+                line-height: 2em;
+            }
+
+            @media only screen and (max-device-width: 335px) {
+                #loader__inner__h1 {
+                    font-size: 2.2em;
+                    line-height: 2em;
+                }
+
+                #loader__inner {
+                    line-height: 1.5em;
+                }
+            }
+        </style>
     </head>
     <body>
-        <div id='content'></div>
+        <div id='loader'>
+            <div id="loader__inner">
+                <div id="loader__inner__h1">motoparking.club</div>
+                Magic is happening now. <Br>Wait a second.
+            </div>
+        </div>
+
         {% if debug %}
             <script src='http://localhost:3005/build/main.js'></script>
         {% else %}
             <script src='/static/build/main.js'></script>
-{#            <link rel="stylesheet" href="/static/build/main.css" />#}
+            {#            <link rel="stylesheet" href="/static/build/main.css" />#}
         {% endif %}
         <script>
             flux.actions.manualUpdateCurrentUser({{ current_user_json_str|safe }});
