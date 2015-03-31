@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
-from datetime import datetime
+from datetime import datetime, timedelta
 from json import dumps
 from flask_mail import Mail
 from flask import Flask, url_for, render_template, jsonify, request
@@ -19,6 +19,7 @@ from flask.ext.security import Security, MongoEngineUserDatastore, \
 import flask_social_blueprint
 from flask_social_blueprint.core import SocialBlueprint
 from flask_security.utils import do_flash
+from flask.sessions import SecureCookieSessionInterface
 
 
 from pro_resource import ProResource
@@ -92,6 +93,16 @@ mail = Mail(app)
 class SessionAuthentication(AuthenticationBase):
     def authorized(self):
         return current_user.is_authenticated()
+
+
+class InfiniteSecureCookieSessionInterface(SecureCookieSessionInterface):
+    """Longer session"""
+    def get_expiration_time(self, app1, session):
+        session.permanent = True
+        return super(InfiniteSecureCookieSessionInterface, self).get_expiration_time(app1, session)
+
+app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(days=90)
+app.session_interface = InfiniteSecureCookieSessionInterface()
 
 
 class BaseResourceView(ResourceView):
