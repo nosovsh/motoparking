@@ -1,4 +1,5 @@
-var React = require("react");
+var React = require("react"),
+    _ = require("lodash");
 
 require("./style.css");
 
@@ -23,7 +24,7 @@ var Comment = React.createClass({
                 </div>
                 <div className="Comment__Data">
                     <div className="Comment__Username">
-                         { this.props.comment.user.firstName } { this.props.comment.user.lastName }
+                         { _.capitalize(this.props.comment.user.firstName) } { _.capitalize(this.props.comment.user.lastName) }
                     </div>
                     <div className="Comment__Date">
                         { moment(this.props.comment.created).fromNow() }
