@@ -35,6 +35,10 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.DefinePlugin({
+        GA_TRACKING_CODE: undefined,
+        DEBUG: true
+    })
   ]
 };

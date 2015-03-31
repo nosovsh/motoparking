@@ -23,6 +23,7 @@
     "react": "^0.12.2",
     "react-router": "^0.11.6",
     "react-slick": "git+https://github.com/grrowl/react-slick#af6b9e6236fd10b5587e24e454ae05229bb8a97b",
+    "ga-react-router": "https://github.com/trashgenerator/ga-react-router.git",
     "sass-loader": "^0.5.0",
     "slick-carousel": "^1.4.1",
     "source-map": "^0.4.0",
@@ -30,6 +31,7 @@
     "webpack": "^1.4.14"
   },
   "devDependencies": {
+    "express": "^4.12.3",
     "react-hot-loader": "^1.0.4",
     "webpack-dev-server": "^1.7.0"
   },
