@@ -39,7 +39,9 @@ var ParkingStore = Fluxxor.createStore({
             ParkingConstants.NEW_PARKING, this.onNewParking,
 
             ParkingConstants.NEW_PARKING_UPDATE_DATA, this.onNewParkingUpdateData,
-            ParkingConstants.SAVE_NEW_PARKING_SUCCESS, this.onSaveNewParkingSuccess
+            ParkingConstants.SAVE_NEW_PARKING, this.onSaveNewParking,
+            ParkingConstants.SAVE_NEW_PARKING_SUCCESS, this.onSaveNewParkingSuccess,
+            ParkingConstants.SAVE_NEW_PARKING_FAIL, this.onSaveNewParkingFail
         );
     },
 
@@ -139,6 +141,7 @@ var ParkingStore = Fluxxor.createStore({
     },
 
     onNewParking: function (payload) {
+        this.savingNewParking = false;
         this.newParkingEditInfo = false;
         this.newParkingEditingLocation = true;
         this.newParking = {};
@@ -151,7 +154,13 @@ var ParkingStore = Fluxxor.createStore({
         this.emit("change");
     },
 
+    onSaveNewParking: function (payload) {
+        this.savingNewParking = true;
+        this.emit("change");
+    },
+
     onSaveNewParkingSuccess: function (payload) {
+        this.savingNewParking = false;
         this.newParkingEditInfo = false;
         this.currentParkingId = payload.opinion.parking; // TODO: do it not throws currentParkingId
         this.newParking.id = payload.opinion.parking;
@@ -161,6 +170,10 @@ var ParkingStore = Fluxxor.createStore({
         this.emit("saveNewParkingSuccess");
     },
 
+    onSaveNewParkingFail: function (payload) {
+        this.savingNewParking = false;
+        this.emit("change");
+    },
 
 
 

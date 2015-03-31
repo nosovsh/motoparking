@@ -24,7 +24,8 @@ var OpinionClient = {
             data: JSON.stringify(opinion),
             success: function (ret) {
                 success(ret)
-            }
+            },
+            error: failure
         });
     }
 };

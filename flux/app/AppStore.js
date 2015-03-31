@@ -1,5 +1,6 @@
 var Fluxxor = require("fluxxor"),
     AppConstants = require("./AppConstants"),
+    $ = require("jquery"),
     _ = require("lodash");
 
 var AppStore = Fluxxor.createStore({
@@ -13,6 +14,10 @@ var AppStore = Fluxxor.createStore({
             AppConstants.MAP_ZOOM_OUT, this.onMapZoomOut,
             AppConstants.MAP_MY_LOCATION, this.onMapMyLocation
         );
+
+        $( document ).ajaxError(function() {
+            console.log("Global error handler");
+        });
     },
 
     onMapZoomIn: function (payload) {

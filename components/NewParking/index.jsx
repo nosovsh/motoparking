@@ -21,6 +21,9 @@ var NewParking = React.createClass({
     mixins: [FluxMixin, StoreWatchMixin("ParkingStore")],
 
     render: function () {
+        var newParkingDoneIconClasses = {
+            "animate-spin": this.state.savingNewParking
+        };
         return (
             <div className="new-parking">
 
@@ -46,7 +49,9 @@ var NewParking = React.createClass({
 
                     </div> : null }
 
-                <ButtonRow callback={ this.onNewParkingDone }><Icon name="rocket"/>Создать парковку</ButtonRow>
+                <ButtonRow callback={ this.onNewParkingDone }>
+                    <Icon name="rocket" additionalClasses={ [React.addons.classSet(newParkingDoneIconClasses)] }/>Создать парковку
+                </ButtonRow>
 
             </div>
         )
@@ -66,7 +71,8 @@ var NewParking = React.createClass({
         return {
             newParkingEditingLocation: store.newParkingEditingLocation,
             newParkingEditInfo: store.newParkingEditInfo,
-            newParking: store.newParking
+            newParking: store.newParking,
+            savingNewParking: store.savingNewParking
         };
     },
 
@@ -78,6 +84,7 @@ var NewParking = React.createClass({
         var store = this.getFlux().store("ParkingStore");
         this.getFlux().actions.saveNewParking(store.newParking)
     },
+
     onPriceChange: function (dictWithPrices) {
         this.getFlux().actions.newParkingUpdateData(dictWithPrices)
     }

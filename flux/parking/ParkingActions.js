@@ -75,9 +75,9 @@ var ParkingActions = {
 
     OpinionClient.postOpinion(opinion, function (opinion) {
       this.dispatch(ParkingConstants.SAVE_NEW_PARKING_SUCCESS, {opinion: opinion})
-    }.bind(this), function(error) {
-      this.dispatch(OpinionConstants.SAVE_NEW_PARKING_FAIL, {opinion: opinion, error: error});
-    })
+    }.bind(this), function(jqXHR, textStatus, errorThrown) {
+      this.dispatch(ParkingConstants.SAVE_NEW_PARKING_FAIL, {opinion: opinion, jqXHR: jqXHR, textStatus:textStatus, errorThrown:errorThrown});
+    }.bind(this))
   }
 };
 
