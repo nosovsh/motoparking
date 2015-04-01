@@ -36,7 +36,7 @@
                 line-height: 2em;
             }
 
-            @media only screen and (max-device-width: 335px) {
+            @media only screen and (max-device-width: 640px) {
                 #loader__inner__h1 {
                     font-size: 2.2em;
                     line-height: 2em;
@@ -49,6 +49,9 @@
         </style>
     </head>
     <body>
+        <script>
+            window.currentUser = {{ current_user_json_str|safe }};
+        </script>
         <div id='loader'>
             <div id="loader__inner">
                 <div id="loader__inner__h1">motoparking.club</div>

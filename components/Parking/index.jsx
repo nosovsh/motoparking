@@ -33,15 +33,16 @@ var Parking = React.createClass({
             )
         } else {
             return (
-                <div className="sidebar__wrapper">
-                    <div className="sidebar__content">
-                        <Link to="Default" style={ {color: "#FFF"} }>
-                            <div className="close-wrapper">
-                                <Icon name="close" />
-                            </div>
-                        </Link>
+                <div className="sidebar__wrapper" >
+                    <div className="sidebar__content" ref="parking__content">
+                        <div className="sidebar__content__inner" ref="parking__content__inner">
+                            <Link to="Default" style={ {color: "#FFF"} }>
+                                <div className="close-wrapper">
+                                    <Icon name="close" />
+                                </div>
+                            </Link>
 
-                        <StatusCover isSecure={ this.state.currentParking.isSecure }  isMoto={ this.state.currentParking.isMoto }/>
+                            <StatusCover isSecure={ this.state.currentParking.isSecure }  isMoto={ this.state.currentParking.isMoto }/>
 
                         { this.state.currentParking.isFullParkingLoaded ? (
                             <div>
@@ -94,6 +95,7 @@ var Parking = React.createClass({
                                 <Comments comments={ this.state.comments } />
                             </div>) :
                             <div className="loading">Loading...</div> }
+                        </div>
                     </div>
                 </div>
             )
@@ -103,6 +105,17 @@ var Parking = React.createClass({
     componentDidMount: function () {
         this.getFlux().actions.loadCurrentParking(this.getParams().id);
         //this.getFlux().actions.loadOpinions(this.getParams().id);
+
+        var parkingContent = this.refs.parking__content.getDOMNode();
+        var parkingContentInner = this.refs.parking__content__inner.getDOMNode();
+        $(parkingContent).scroll(function () {
+            if ($(parkingContent).scrollTop() + $(parkingContent).height() == $(parkingContentInner).height()) {
+                this.getFlux().actions.parkingScrolled("bottom")
+            }
+            if ($(parkingContent).scrollTop() == 0) {
+                this.getFlux().actions.parkingScrolled("top")
+            }
+        }.bind(this))
     },
 
     componentWillReceiveProps: function (nextProps) {

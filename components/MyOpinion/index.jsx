@@ -171,6 +171,9 @@ var MyOpinion = React.createClass({
         }
     },
     onWantToChangeOpinion: function (value) {
+        if (value) {
+            this.getFlux().actions.editOpinion();
+        }
         this.setState({wantToChangeOpinion: value})
     }
 });

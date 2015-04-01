@@ -28,7 +28,7 @@ var Slider = React.createClass({
             <div key="add-image">
                 <FileUploader/>
             </div>
-        )
+        );
         if (this.state.parkingImages.length) {
             var settings = {
                 infinite: false,
@@ -48,7 +48,7 @@ var Slider = React.createClass({
             }.bind(this));
             slides.push(addImage);
             return (
-                <SliderSlick {...settings} className="Slider">
+                <SliderSlick {...settings} className="Slider" afterChange={ this.onAfterChange }>
                     { slides }
                 </SliderSlick>
             )
@@ -67,7 +67,14 @@ var Slider = React.createClass({
             currentParkingId: store.currentParkingId,
             parkingImages: parkingImageStore.getParkingImages(store.currentParkingId)
         };
+    },
+
+    onAfterChange: function (index) {
+        if (index == this.state.parkingImages.length)
+            index = "new";
+        this.getFlux().actions.slideParkingImage(index)
     }
+
 });
 
 module.exports = Slider;

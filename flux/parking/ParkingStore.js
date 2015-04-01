@@ -1,7 +1,9 @@
 var Fluxxor = require("fluxxor"),
     ParkingConstants = require("./ParkingConstants"),
     OpinionConstants = require("../opinion/OpinionConstants"),
-    _ = require("lodash");
+    _ = require("lodash"),
+    analytics = require('../../utils/analytics');
+
 
 var ParkingStore = Fluxxor.createStore({
     initialize: function () {
@@ -30,6 +32,7 @@ var ParkingStore = Fluxxor.createStore({
             ParkingConstants.EDIT_LOCATION_DONE, this.onEditLocationDone,
             ParkingConstants.EDIT_LOCATION_CANCEL, this.onEditLocationCancel,
 
+            OpinionConstants.EDIT_OPINION, this.onEditOpinion,
             OpinionConstants.POST_OPINION, this.onPostOpinion,
             OpinionConstants.POST_OPINION_SUCCESS, this.onPostOpinionSuccess,
             //OpinionConstants.POST_OPINION_FAIL, this.onPostOpinionFail
@@ -41,7 +44,9 @@ var ParkingStore = Fluxxor.createStore({
             ParkingConstants.NEW_PARKING_UPDATE_DATA, this.onNewParkingUpdateData,
             ParkingConstants.SAVE_NEW_PARKING, this.onSaveNewParking,
             ParkingConstants.SAVE_NEW_PARKING_SUCCESS, this.onSaveNewParkingSuccess,
-            ParkingConstants.SAVE_NEW_PARKING_FAIL, this.onSaveNewParkingFail
+            ParkingConstants.SAVE_NEW_PARKING_FAIL, this.onSaveNewParkingFail,
+
+            ParkingConstants.PARKING_SCROLLED, this.onParkingScrolled
         );
     },
 
@@ -97,6 +102,10 @@ var ParkingStore = Fluxxor.createStore({
         this.emit("change");
     },
 
+    onEditOpinion: function (payload) {
+        analytics.event("Opinion", "editing");
+    },
+
     onPostOpinion: function (payload) {
         var parking = this.getParking(payload.opinion.parking);
         var newParking = _.merge(parking, {myOpinion: payload.opinion});
@@ -109,11 +118,13 @@ var ParkingStore = Fluxxor.createStore({
         setTimeout(function () {
             this.flux.actions.loadCurrentParking(payload.opinion.parking);
         }.bind(this), 0);
+        analytics.event("Opinion", "created");
         this.emit("change");
     },
 
     onEditLocation: function () {
         this.editingLocation = true;
+        analytics.event("Location", "editing");
         this.emit("change");
         this.emit("editLocation");
     },
@@ -124,6 +135,7 @@ var ParkingStore = Fluxxor.createStore({
         parking.latLng = payload.opinion.latLng;
         this.currentParkingTemporaryPosition = null;
         this.updateParking(parking);
+        analytics.event("Location", "edited");
         this.emit("change");
         this.emit("editLocationDone");
     },
@@ -131,6 +143,7 @@ var ParkingStore = Fluxxor.createStore({
     onEditLocationCancel: function () {
         this.editingLocation = false;
         this.currentParkingTemporaryPosition = null;
+        analytics.event("Location", "canceled");
         this.emit("change");
         this.emit("editLocationCancel");
     },
@@ -166,6 +179,7 @@ var ParkingStore = Fluxxor.createStore({
         this.newParking.id = payload.opinion.parking;
         this.updateParking(_.extend({}, this.newParking, {"isMoto": payload.opinion.isMoto, "isSecure": payload.opinion.isSecure}));
         this.newParking = {};
+        analytics.event("Parking", "created");
         this.emit("change");
         this.emit("saveNewParkingSuccess");
     },
@@ -173,6 +187,10 @@ var ParkingStore = Fluxxor.createStore({
     onSaveNewParkingFail: function (payload) {
         this.savingNewParking = false;
         this.emit("change");
+    },
+
+    onParkingScrolled: function (payload) {
+        analytics.event("Parking", "scrolled_" + payload.position);
     },
 
 

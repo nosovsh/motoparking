@@ -1,6 +1,8 @@
 var Fluxxor = require("fluxxor"),
     CommentConstants = require("./CommentConstants"),
-    _ = require("lodash");
+    _ = require("lodash"),
+    analytics = require('../../utils/analytics');
+
 
 var CommentStore = Fluxxor.createStore({
     initialize: function () {
@@ -54,6 +56,7 @@ var CommentStore = Fluxxor.createStore({
         }.bind(this));
         this.loading = false;
         this.error = null;
+        analytics.event("Comment", "created");
         this.emit("change");
     },
 

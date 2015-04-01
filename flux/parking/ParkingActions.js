@@ -78,7 +78,12 @@ var ParkingActions = {
     }.bind(this), function(jqXHR, textStatus, errorThrown) {
       this.dispatch(ParkingConstants.SAVE_NEW_PARKING_FAIL, {opinion: opinion, jqXHR: jqXHR, textStatus:textStatus, errorThrown:errorThrown});
     }.bind(this))
+  },
+
+  parkingScrolled: function (position) {
+    this.dispatch(ParkingConstants.PARKING_SCROLLED, {position: position});
   }
+
 };
 
 module.exports = ParkingActions;

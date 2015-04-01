@@ -9,14 +9,14 @@ var DefaultRoute = Router.DefaultRoute;
 var Link = Router.Link;
 var RouteHandler = Router.RouteHandler;
 
-var analytics = require('ga-react-router');
+var analytics = require('./utils/analytics');
 
 window.React = React; // For chrome dev tool support
 
 var flux = require("./fluxy");
 
 Router.run(routes, Router.HistoryLocation, function (Handler, state) {
-  React.render(<Handler flux={flux}/>, document.body);
-  analytics(state);
+    React.render(<Handler flux={ flux }/>, document.body);
+    analytics.pageView(state.path);
 });
 

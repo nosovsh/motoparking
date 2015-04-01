@@ -1,7 +1,9 @@
 var Fluxxor = require("fluxxor"),
     AppConstants = require("./AppConstants"),
     $ = require("jquery"),
-    _ = require("lodash");
+    _ = require("lodash"),
+    analytics = require('../../utils/analytics');
+
 
 var AppStore = Fluxxor.createStore({
     initialize: function () {
@@ -15,7 +17,7 @@ var AppStore = Fluxxor.createStore({
             AppConstants.MAP_MY_LOCATION, this.onMapMyLocation
         );
 
-        $( document ).ajaxError(function() {
+        $(document).ajaxError(function () {
             console.log("Global error handler");
         });
     },
@@ -29,6 +31,7 @@ var AppStore = Fluxxor.createStore({
     },
 
     onMapMyLocation: function (payload) {
+        analytics.event("MyLocation", "find");
         this.emit(AppConstants.MAP_MY_LOCATION);
     }
 

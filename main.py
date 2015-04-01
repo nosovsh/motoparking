@@ -2,9 +2,11 @@
 import os
 from datetime import datetime, timedelta
 from json import dumps
+
 from flask_mail import Mail
-from flask import Flask, url_for, render_template, jsonify, request
+from flask import Flask, render_template, request
 from flask.ext.login import current_user
+
 # from flask.ext.social import Social
 # from flask.ext.social.datastore import MongoEngineConnectionDatastore
 from flask.ext.mongoengine import MongoEngine
@@ -16,11 +18,10 @@ from flask.ext.mongorest import methods
 from flask.ext.mongorest.authentication import AuthenticationBase
 from flask.ext.security import Security, MongoEngineUserDatastore, \
     UserMixin, RoleMixin, login_required, user_registered
-import flask_social_blueprint
 from flask_social_blueprint.core import SocialBlueprint
-from flask_security.utils import do_flash
 from flask.sessions import SecureCookieSessionInterface
-
+import random
+import string
 
 from pro_resource import ProResource
 from mongo_fields import SwappedPointField
@@ -129,6 +130,7 @@ class User(db.Document, UserMixin):
     gender = db.StringField(max_length=255)
     invite_code = db.StringField(max_length=255)
     weight = db.FloatField(default=0.3)
+    tracking_id = db.StringField(max_length=255)
 
     @property
     def cn(self):
@@ -143,6 +145,14 @@ class User(db.Document, UserMixin):
     @classmethod
     def by_email(cls, email):
         return cls.objects(email=email).first()
+
+    def save(self, *args, **kwargs):
+        if not self.tracking_id:
+            def id_generator(size=24, chars=string.ascii_lowercase + string.digits):
+                return ''.join(random.choice(chars) for _ in range(size))
+            self.tracking_id = id_generator()
+
+        return super(User, self).save(*args, **kwargs)
 
 
 class Invite(db.Document):
@@ -569,6 +579,8 @@ def catch_all(path):
 
 
 def current_user_json(user):
+    if not user.tracking_id:  # force generate tracking id
+        user.save()
     return dumps({
         "id": user.get_id(),
         "firstName": user.first_name,
@@ -576,6 +588,7 @@ def current_user_json(user):
         "image": user.image,
         "email": user.email,
         "gender": user.gender,
+        "trackingId": user.tracking_id
     })
 
 

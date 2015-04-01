@@ -3,6 +3,7 @@ var ParkingImageClient = require("./ParkingImageClient");
 var _ = require("lodash");
 
 var ParkingImageActions = {
+
     loadParkingImageList: function (parkingId) {
         this.dispatch(ParkingImageConstants.LOAD_PARKING_IMAGE_LIST, {parkingId: parkingId});
 
@@ -12,6 +13,7 @@ var ParkingImageActions = {
             this.dispatch(ParkingImageConstants.LOAD_PARKING_IMAGE_LIST_FAIL, {error: error});
         })
     },
+
     postParkingImage: function (parkingImage) {
         parkingImage = _.merge({}, parkingImage);
         parkingImage.status = 'SAVING';
@@ -23,7 +25,12 @@ var ParkingImageActions = {
         }.bind(this), function (error) {
             this.dispatch(ParkingImageConstants.POST_PARKING_IMAGE_FAIL, {parkingImage: parkingImage, error: error});
         })
+    },
+
+    slideParkingImage: function (index) {
+        this.dispatch(ParkingImageConstants.SLIDE_PARKING_IMAGE, {index: index});
     }
+
 };
 
 module.exports = ParkingImageActions;

@@ -1,6 +1,8 @@
 var Fluxxor = require("fluxxor"),
     ParkingImageConstants = require("./ParkingImageConstants"),
-    _ = require("lodash");
+    _ = require("lodash"),
+    analytics = require('../../utils/analytics');
+
 
 var ParkingImageStore = Fluxxor.createStore({
     initialize: function () {
@@ -15,7 +17,9 @@ var ParkingImageStore = Fluxxor.createStore({
 
             ParkingImageConstants.POST_PARKING_IMAGE, this.onPostParkingImage,
             ParkingImageConstants.POST_PARKING_IMAGE_SUCCESS, this.onPostParkingImageSuccess,
-            ParkingImageConstants.POST_PARKING_IMAGE_FAIL, this.onPostParkingImageFail
+            ParkingImageConstants.POST_PARKING_IMAGE_FAIL, this.onPostParkingImageFail,
+
+            ParkingImageConstants.SLIDE_PARKING_IMAGE, this.onSlideParkingImage
         );
     },
 
@@ -54,6 +58,7 @@ var ParkingImageStore = Fluxxor.createStore({
         }.bind(this));
         this.loading = false;
         this.error = null;
+        analytics.event("ParkingImage", "created");
         this.emit("change");
     },
 
@@ -66,6 +71,10 @@ var ParkingImageStore = Fluxxor.createStore({
         this.loading = false;
         this.error = payload.error;
         this.emit("change");
+    },
+
+    onSlideParkingImage: function (payload) {
+        analytics.event("ParkingImage", "slided", payload.index);
     },
 
     getParkingImages: function (parkingId) {
