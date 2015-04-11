@@ -2,6 +2,8 @@
 import os
 from datetime import datetime, timedelta
 from json import dumps
+import sys
+import logging
 
 from flask_mail import Mail
 from flask import Flask, render_template, request
@@ -30,6 +32,9 @@ from mongo_fields import SwappedPointField
 
 
 app = Flask(__name__)
+
+app.logger.addHandler(logging.StreamHandler(sys.stdout))
+app.logger.setLevel(logging.ERROR)
 
 app.config['MONGODB_SETTINGS'] = {
     'db': 'motoparking',
