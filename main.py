@@ -478,7 +478,6 @@ class OpinionResource(ProResource):
         parking.is_secure = opinion.is_secure
         parking.price_per_day = opinion.price_per_day
         parking.price_per_month = opinion.price_per_month
-        print opinion.address
         if opinion.address is not None:
             parking.address = opinion.address
 
