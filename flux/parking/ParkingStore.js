@@ -16,6 +16,8 @@ var ParkingStore = Fluxxor.createStore({
         this.newParkingEditingLocation = false;
         this.newParkingEditInfo = false;
         this.newParking = {};
+        this.loadingAddress = false;
+        this.loadingAddressError = null;
 
         this.bindActions(
             ParkingConstants.LOAD_CURRENT_PARKING, this.onLoadCurrentParking,
@@ -32,6 +34,8 @@ var ParkingStore = Fluxxor.createStore({
             ParkingConstants.EDIT_LOCATION_DONE, this.onEditLocationDone,
             ParkingConstants.EDIT_LOCATION_CANCEL, this.onEditLocationCancel,
 
+            OpinionConstants.POST_LOCATION_SUCCESS, this.onPostLocationSuccess,
+
             OpinionConstants.EDIT_OPINION, this.onEditOpinion,
             OpinionConstants.POST_OPINION, this.onPostOpinion,
             OpinionConstants.POST_OPINION_SUCCESS, this.onPostOpinionSuccess,
@@ -46,7 +50,11 @@ var ParkingStore = Fluxxor.createStore({
             ParkingConstants.SAVE_NEW_PARKING_SUCCESS, this.onSaveNewParkingSuccess,
             ParkingConstants.SAVE_NEW_PARKING_FAIL, this.onSaveNewParkingFail,
 
-            ParkingConstants.PARKING_SCROLLED, this.onParkingScrolled
+            ParkingConstants.PARKING_SCROLLED, this.onParkingScrolled,
+
+            ParkingConstants.LOAD_ADDRESS, this.onLoadAddress,
+            ParkingConstants.LOAD_ADDRESS_SUCCESS, this.onLoadAddressSuccess,
+            ParkingConstants.LOAD_ADDRESS_FAIL, this.onLoadAddressFail
         );
     },
 
@@ -61,10 +69,14 @@ var ParkingStore = Fluxxor.createStore({
     onLoadCurrentParkingSuccess: function (payload) {
         var parking = _.extend({}, payload.parking, {isFullParkingLoaded: true});
         this.updateParking(parking);
-
         if (payload.parking.id == this.currentParkingId) {
             this.loading = false;
             this.error = null;
+            setTimeout(function() {
+                if (!parking.address) {
+                    this.flux.actions.loadAddress(parking)
+                }
+            }.bind(this), 0)
         }
         this.emit("change");
         this.emit("loadCurrentParkingSuccess")
@@ -73,6 +85,31 @@ var ParkingStore = Fluxxor.createStore({
     onLoadCurrentParkingFail: function (payload) {
         this.loading = false;
         this.error = payload.error;
+        this.emit("change");
+    },
+
+    onLoadAddress: function (payload) {
+        this.loadingAddress = true;
+        this.emit("change");
+    },
+
+    onLoadAddressSuccess: function (payload) {
+        var parking = _.extend({}, this.getParking(payload.parking.id), {address: payload.address});
+        this.updateParking(parking);
+        setTimeout(function () {
+            var opinion = _.extend({}, parking.myOpinion, {parking: payload.parking.id}, {address: payload.address});
+            this.flux.actions.postOpinion(opinion)
+        }.bind(this), 0)
+        if (payload.parking.id == this.currentParkingId) {
+            this.loadingAddress = false;
+            this.loadingAddressError = null;
+        }
+        this.emit("change");
+    },
+
+    onLoadAddressFail: function (payload) {
+        this.loading = false;
+        this.loadingAddressError = payload.error;
         this.emit("change");
     },
 
@@ -146,6 +183,12 @@ var ParkingStore = Fluxxor.createStore({
         analytics.event("Location", "canceled");
         this.emit("change");
         this.emit("editLocationCancel");
+    },
+
+    onPostLocationSuccess: function (payload) {
+        setTimeout(function () {
+            this.flux.actions.loadCurrentParking(payload.opinion.parking);
+        }.bind(this), 0)
     },
 
     onChangeCurrentParkingTemporaryPosition: function (payload) {
@@ -227,7 +270,9 @@ var ParkingStore = Fluxxor.createStore({
     },
 
     getMyOpinionOfCurrentParking: function () {
-        return this.getCurrentParking()["myOpinion"] || {}
+        var myOpinion = this.getCurrentParking()["myOpinion"] || {};
+        myOpinion = _.extend({}, myOpinion, {"parking": this.getCurrentParking()["id"]}); // что бы всегда был id паркинга
+        return myOpinion;
     }
 });
 

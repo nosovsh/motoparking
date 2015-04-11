@@ -30,6 +30,16 @@
     line-height: 300px;
 }
 
+.Address {
+    max-width: 270px;
+}
+
+.edit-location-button {
+    position: absolute;
+    cursor: pointer;
+    right: 0;
+    top: 17px;
+}
 .edit-location {
     position: relative;
     left: 50%;
@@ -84,7 +94,7 @@
     /*border-bottom: 1px solid #4D4D4D;*/
     padding: 17px 0 6px 0;
     margin: 0 17px;
-
+    position: relative;
 }
 
 @-webkit-keyframes fadeInRight {

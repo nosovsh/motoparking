@@ -38,7 +38,8 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
         GA_TRACKING_CODE: undefined,
-        DEBUG: true
+        DEBUG: true,
+        YANDEX_API_KEY: JSON.stringify("AHMEKVUBAAAAdcQIfQIA6t3GMOs3_4bbwjkyhyBbjTpnP0cAAAAAAAAAAACGT93VehWe6n5wXG-tL7Gv_61nSw==")
     })
   ]
 };

@@ -37,21 +37,22 @@ var ParkingActions = {
   },
 
   editLocationDone: function (opinion) {
-    /* TODO:
-    1. действия над Opininon в  ParkingActions
-    2. передается целый opinion, а надо только координаты
-    3. Почти такой же код, как при просто сохранении Opinion*/
-    this.dispatch(ParkingConstants.EDIT_LOCATION_DONE, {opinion: opinion});
+    if (!_.isEqual(this.flux.stores.ParkingStore.getParking(opinion.parking).latLng, opinion.latLng)) {
+      var opinion = _.merge({}, opinion, {address: ""});
+      this.dispatch(ParkingConstants.EDIT_LOCATION_DONE, {opinion: opinion});
 
-    opinion = _.merge({}, opinion);
-    opinion.status = 'SAVING';
-    this.dispatch(OpinionConstants.POST_LOCATION, {opinion: opinion});
+      opinion.status = 'SAVING';
+      this.dispatch(OpinionConstants.POST_LOCATION, {opinion: opinion});
 
-    OpinionClient.postOpinion(opinion, function (opinion) {
-      this.dispatch(OpinionConstants.POST_LOCATION_SUCCESS, {opinion: opinion})
-    }.bind(this), function(error) {
-      this.dispatch(OpinionConstants.POST_LOCATION_FAIL, {opinion: opinion, error: error});
-    })
+      OpinionClient.postOpinion(opinion, function (opinion) {
+        this.dispatch(OpinionConstants.POST_LOCATION_SUCCESS, {opinion: opinion})
+      }.bind(this), function (error) {
+        this.dispatch(OpinionConstants.POST_LOCATION_FAIL, {opinion: opinion, error: error});
+      })
+    } else {
+      console.log("Coordinates are same");
+      this.dispatch(ParkingConstants.EDIT_LOCATION_DONE, {opinion: opinion});
+    }
   },
 
   editLocationCancel: function () {
@@ -82,6 +83,16 @@ var ParkingActions = {
 
   parkingScrolled: function (position) {
     this.dispatch(ParkingConstants.PARKING_SCROLLED, {position: position});
+  },
+
+  loadAddress: function (parking) {
+    this.dispatch(ParkingConstants.LOAD_ADDRESS, {parking: parking});
+
+    ParkingClient.loadAddress(parking.latLng, function (address) {
+      this.dispatch(ParkingConstants.LOAD_ADDRESS_SUCCESS, {parking: parking, address: address})
+    }.bind(this), function(jqXHR, textStatus, errorThrown) {
+
+    }.bind(this))
   }
 
 };

@@ -28,7 +28,8 @@ config["plugins"] = [
     new webpack.optimize.UglifyJsPlugin({minimize: true}),
     new webpack.DefinePlugin({
         GA_TRACKING_CODE: JSON.stringify('UA-59996600-1'),
-        DEBUG: false
+        DEBUG: false,
+        YANDEX_API_KEY: JSON.stringify("AHMEKVUBAAAAdcQIfQIA6t3GMOs3_4bbwjkyhyBbjTpnP0cAAAAAAAAAAACGT93VehWe6n5wXG-tL7Gv_61nSw==")
     })
 
 ];

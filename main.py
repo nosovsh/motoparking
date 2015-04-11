@@ -263,6 +263,7 @@ def when_template_rendered(*args, **kwargs):
 
 class Parking(db.Document):
     lat_lng = SwappedPointField()
+    address = db.StringField()
     is_secure = db.StringField(default="yes")
     is_moto = db.StringField(default="maybe")
     price_per_day = db.IntField()
@@ -326,10 +327,12 @@ class ParkingImage(db.Document):
         'ordering': ['-created']
     }
 
+
 class Opinion(db.Document):
     parking = db.ReferenceField(Parking)
     user = db.ReferenceField(User)
     lat_lng = SwappedPointField()
+    address = db.StringField()
     is_secure = db.StringField()
     is_moto = db.StringField(default="maybe")
     price_per_day = db.IntField()
@@ -377,7 +380,7 @@ class UserResource(Resource):
 
 class ParkingResource(ProResource):
     document = Parking
-    fields = ["id", "lat_lng", "is_secure", "is_moto", "user", "my_opinion", "price_per_day", "price_per_month",
+    fields = ["id", "lat_lng", "address", "is_secure", "is_moto", "user", "my_opinion", "price_per_day", "price_per_month",
               "users", "comments", "created", "updated", "parking_images", ]
     rename_fields = {
         'lat_lng': 'latLng',
@@ -449,9 +452,17 @@ class OpinionResource(ProResource):
             data["price_per_day"] = None
             data["price_per_month"] = None
 
+        if current_user.id != parking.user.id:
+            data["lat_lng"] = None
+
         opinion = self.update_object(opinion, data, save, parent_resources=parent_resources)
 
         self.fill_parking(parking, opinion)
+
+        if opinion.address:
+            opinion.address = None
+            opinion.save()
+
         parking.calculate()
         parking.save()
 
@@ -462,6 +473,9 @@ class OpinionResource(ProResource):
         parking.is_secure = opinion.is_secure
         parking.price_per_day = opinion.price_per_day
         parking.price_per_month = opinion.price_per_month
+        print opinion.address
+        if opinion.address is not None:
+            parking.address = opinion.address
 
         if opinion.lat_lng:
             parking.lat_lng = opinion.lat_lng

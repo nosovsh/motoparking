@@ -22,7 +22,7 @@ var StatusCover = require("../StatusCover"),
 
 var Parking = React.createClass({
 
-    mixins: [Router.State, FluxMixin, StoreWatchMixin("ParkingStore", "CommentStore")],
+    mixins: [Router.State, FluxMixin, StoreWatchMixin("ParkingStore", "OpinionStore", "CommentStore", "CurrentUserStore")],
 
     render: function () {
         if (this.state.editingLocation) {
@@ -83,11 +83,10 @@ var Parking = React.createClass({
                                 <Slider images={ this.state.currentParking.images } />
 
                                 <div className="InfoRow">
-                                    ул. Ленина д. 6, владение 17
-                                    <Icon name="edit" style={ {
-                                        float: "right",
-                                        cursor: "pointer"
-                                    } } onClick={ this.editLocation }/>
+                                    <div className="Address">{ this.state.currentParking.address }&nbsp;</div>
+                                    { this.state.currentUser && this.state.currentUser.id == this.state.currentParking.user ?
+                                    <Icon name="edit" additionalClasses={ ["edit-location-button"] } onClick={ this.editLocation }/> :
+                                        null }
                                 </div>
 
                                 <MyOpinion parking={ this.state.currentParking }/>
@@ -127,6 +126,7 @@ var Parking = React.createClass({
         var store = this.getFlux().store("ParkingStore");
         var opinionStore = this.getFlux().store("OpinionStore");
         var commentStore = this.getFlux().store("CommentStore");
+        var currentUserStore = this.getFlux().store("CurrentUserStore");
 
         return {
             loading: store.loading,
@@ -135,7 +135,10 @@ var Parking = React.createClass({
             currentParkingId: store.currentParkingId,
             currentParkingOpinions: opinionStore.opinionsByParking[store.currentParkingId] ? opinionStore.opinionsByParking[store.currentParkingId] : [],
             editingLocation: store.editingLocation,
-            comments: commentStore.getComments(store.currentParkingId)
+            comments: commentStore.getComments(store.currentParkingId),
+            loadingAddress: store.loadingAddress,
+            loadingAddressError: store.loadingAddressError,
+            currentUser: currentUserStore.currentUser
         };
     },
     editLocation: function () {
