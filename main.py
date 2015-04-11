@@ -500,6 +500,7 @@ class CommentResource(ProResource):
     }
 
     def create_object(self, data=None, save=True, parent_resources=None):
+        strf.get()
         data = data or self.data
         comment = super(CommentResource, self).create_object(data, False, parent_resources)
         comment.user = current_user._get_current_object()
