@@ -457,6 +457,11 @@ class OpinionResource(ProResource):
             data["price_per_day"] = None
             data["price_per_month"] = None
 
+        # fix parking with no author
+        if not parking.user:
+            parking.user = current_user._get_current_object()
+
+        # only author can change lat_lng
         if current_user.id != parking.user.id:
             data["lat_lng"] = None
 
