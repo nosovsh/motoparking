@@ -77,15 +77,22 @@ var InnerApplication = React.createClass({
 
 var Application = React.createClass({
     mixins: [FluxMixin, Router.State],
+
+    getHandlerKey: function () {
+        var childDepth = 1;
+        var childName = this.getRoutes()[childDepth].name;
+        var key = childName ;
+        return key;
+    },
+
     render: function () {
-        var name = this.getRoutes().reverse()[0].name;
         return (
             <div>
                 <Map/>
                 <InnerApplication />
                 <CSSTransitionGroup transitionName="page" className="one-more-wrapper">
 
-                    <RouteHandler key={name} />
+                    <RouteHandler  key={this.getHandlerKey()} />
                 </CSSTransitionGroup>
 
             </div>

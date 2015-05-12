@@ -23,7 +23,7 @@ var AvatarList = React.createClass({
         var avatarComponents = _.map(this.props.users, function (user, i) {
             var translateX = rightmostTransform - i * this.state.gap;
             var style = {
-                "webkitTransform": "translate(" + translateX + "px ,0)" // TODO: browser specific
+                "WebkitTransform": "translate(" + translateX + "px ,0)" // TODO: browser specific
             };
             return (
                 <div className="AvatarList__Object" style={ style } key={ user.id }>

@@ -16,7 +16,7 @@ var NotFoundRoute = Router.NotFoundRoute;
 var DefaultRoute = Router.DefaultRoute;
 var Link = Router.Link;
 var RouteHandler = Router.RouteHandler;
-var Navigation = require('react-router/modules/mixins/Navigation');
+var Navigation = Router.Navigation;
 
 var FluxMixin = Fluxxor.FluxMixin(React),
     StoreWatchMixin = Fluxxor.StoreWatchMixin;
@@ -133,7 +133,15 @@ var Map = React.createClass({
             } else {
                 ic = getIcon(parking.isSecure, parking.isMoto);
             }
-            this.parkingMarkers[parking.id] = L.marker(parking.latLng.coordinates, {icon: ic}).on('click', this.onMarkerClick.bind(this, parking.id)).addTo(this.map);
+            if (this.map) {
+                this.parkingMarkers[parking.id] = L.marker(
+                    parking.latLng.coordinates,
+                    {icon: ic}
+                )
+
+                this.parkingMarkers[parking.id].on('click', this.onMarkerClick.bind(this, parking.id))
+                    .addTo(this.map);
+            }
         }.bind(this));
         console.log(this.parkingMarkers)
     },

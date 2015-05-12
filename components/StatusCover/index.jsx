@@ -35,11 +35,14 @@ var StatusCover = React.createClass({
         return (
             <div className={ cx(coverClasses) }>
                 <div className={ cx(iconClasses) }></div>
-                <div className="status-cover__text" dangerouslySetInnerHTML={{__html: texts[name]}}>
+                <div className="status-cover__text"
+                    dangerouslySetInnerHTML={{
+                        __html: createMarkup({sanitize: true})
+                    }}>
                 </div>
             </div>
         );
-    }
+    },
 });
 
 module.exports = StatusCover;
