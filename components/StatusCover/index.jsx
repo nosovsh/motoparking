@@ -32,6 +32,11 @@ var StatusCover = React.createClass({
         };
         iconClasses[iconClassName] = true;
 
+        // TODO: ???
+        function createMarkup() {
+            return  texts[name] || "";
+        };
+
         return (
             <div className={ cx(coverClasses) }>
                 <div className={ cx(iconClasses) }></div>
