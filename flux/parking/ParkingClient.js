@@ -14,10 +14,11 @@ var ParkingClient = {
     },
 
     loadParkingList: function (params, success, failure) {
+        var moreParams = _.extend({}, params, {"_limit": 10000});
         $.ajax({
             dataType: "json",
             url: "/api/parkings/",
-            data: params,
+            data: moreParams,
             success: function (ret) {
                 success(ret['data'])
             }
