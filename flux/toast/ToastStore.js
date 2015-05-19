@@ -18,7 +18,7 @@ var ToastStore = Fluxxor.createStore({
         this.emit("change");
     },
 
-    onRemoveToast(id) {
+    onRemoveToast: function (id) {
         this.toasts = this.toasts.filter(function (toast) {
             return toast.id != id
         });
