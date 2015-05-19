@@ -64,8 +64,8 @@
     content: " ";
     width: 100%;
     padding: 17px 13px 0 11px;
-    font-family: "HelveticaNeue-Thin", "Roboto-Thin", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-
+    font-family: "Roboto", Arial, "Lucida Grande", sans-serif;
+    font-weight: 100;
 }
 
 .Prices__Price {
