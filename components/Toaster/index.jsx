@@ -16,7 +16,6 @@ var Toaster = React.createClass({
             return <Toast toast={ toast } />
         });
         return (
-
             <div className="Toaster">
                 <CSSTransitionGroup transitionName="Toast">
                         { toastsComponents }
