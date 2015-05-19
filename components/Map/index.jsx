@@ -94,6 +94,7 @@ var Map = React.createClass({
         this.getFlux().store("ParkingStore")
             .on("loadParkingListSuccess", this._loadParkingListSuccess)
             .on("loadCurrentParking", this._loadCurrentParking)
+            .on("loadCurrentParkingSuccess", this._loadCurrentParkingSuccess)
             .on("unselectCurrentParking", this._unselectCurrentParking)
             .on("editLocation", this._editLocation)
             .on("editLocationCancel", this._editLocationCancel)
@@ -154,6 +155,14 @@ var Map = React.createClass({
         if (this.parkingMarkers[store.currentParkingId]) {
             this.parkingMarkers[store.currentParkingId].setIcon(getActiveIcon(store.getCurrentParking().isSecure, store.getCurrentParking().isMoto));
             this.map.panTo(this.parkingMarkers[store.currentParkingId].getLatLng());
+        }
+    },
+
+    _loadCurrentParkingSuccess: function () {
+        var store = this.getFlux().store("ParkingStore");
+
+        if (this.parkingMarkers[store.currentParkingId]) {
+            this.parkingMarkers[store.currentParkingId].setIcon(getActiveIcon(store.getCurrentParking().isSecure, store.getCurrentParking().isMoto));
         }
     },
 
