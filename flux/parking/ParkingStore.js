@@ -223,6 +223,9 @@ var ParkingStore = Fluxxor.createStore({
         this.updateParking(_.extend({}, this.newParking, {"isMoto": payload.opinion.isMoto, "isSecure": payload.opinion.isSecure}));
         this.newParking = {};
         analytics.event("Parking", "created");
+        setTimeout(function() {
+            this.flux.actions.successToast("Парковка создана! Спасибо, этот мир стал чуточку лучше. \n Если есть желание, можно добавить фотографию или пару слов в комментариях.")
+        }, 0);
         this.emit("change");
         this.emit("saveNewParkingSuccess");
     },

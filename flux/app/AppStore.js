@@ -17,9 +17,10 @@ var AppStore = Fluxxor.createStore({
             AppConstants.MAP_MY_LOCATION, this.onMapMyLocation
         );
 
-        $(document).ajaxError(function () {
+        $(document).ajaxError(function (e, jqXHR, ajaxSettings, exception) {
             console.log("Global error handler");
-        });
+            this.flux.actions.errorToast("Что то не так. \nЛибо с интернетом, либо с нашим сервером. Попробуйте еще раз.")
+        }.bind(this));
     },
 
     onMapZoomIn: function (payload) {

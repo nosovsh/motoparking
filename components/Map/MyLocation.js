@@ -2,8 +2,9 @@ var LOCATION_TIMEOUT = 1 * 60 * 1000;
 var MAX_RELOCATIONS = 5;
 var RELOCATION_TIME = 5 * 1000;
 
-var MyLocation = function (map) {
+var MyLocation = function (map, errorHandler) {
     this.map = map;
+    this.errorHandler = errorHandler;
     this.removeTimeoutId = null;
     this.relocationCount = 0;
     this.relocationTimeoutId = null;
@@ -29,6 +30,7 @@ var MyLocation = function (map) {
 
     this.map.on('locationerror', function (e) {
         console.log(e.message);
+        this.errorHandler(e);
         //if (this.relocationCount < MAX_RELOCATIONS) {
         //    this.relocationTimeoutId = setTimeout(function () {
         //        this.relocate({enableHighAccuracy:true});
@@ -101,8 +103,8 @@ MyLocation.prototype.remove = function () {
     }
 };
 
-var myLocation = function (map) {
-    return new MyLocation(map)
+var myLocation = function (map, errorHandler) {
+    return new MyLocation(map, errorHandler)
 };
 
 module.exports = myLocation;

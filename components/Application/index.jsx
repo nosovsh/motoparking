@@ -11,7 +11,8 @@ var Router = require('react-router'),
 var Map = require('../Map'),
     Controls = require('../Controls'),
     Avatar = require("../Avatar"),
-    Icon = require("../Icon");
+    Icon = require("../Icon"),
+    Toaster = require("../Toaster");
 
 
 // Require React-Router
@@ -31,7 +32,12 @@ var InnerApplication = React.createClass({
             <div>
                 <Controls>
                     <div className="control-btn control-btn_avatar_true">
-                        <Avatar user={ this.state.currentUser } style={ {width: 38, height: 38} }/>
+                        <Avatar
+                            user={ this.state.currentUser }
+                            style={{
+                                width: 38,
+                                height: 38
+                            }}/>
                     </div>
                     <Link to="NewParking">
                         <div className="control-btn">
@@ -81,7 +87,7 @@ var Application = React.createClass({
     getHandlerKey: function () {
         var childDepth = 1;
         var childName = this.getRoutes()[childDepth].name;
-        var key = childName ;
+        var key = childName;
         return key;
     },
 
@@ -94,7 +100,7 @@ var Application = React.createClass({
 
                     <RouteHandler  key={this.getHandlerKey()} />
                 </CSSTransitionGroup>
-
+                <Toaster />
             </div>
         );
     }

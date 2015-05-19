@@ -109,7 +109,7 @@ var Map = React.createClass({
 
         this.getFlux().actions.loadParkingList();
 
-        this.myLocation = myLocation(this.map);
+        this.myLocation = myLocation(this.map, this._onLocationError);
 
     },
     componentWillUnmount: function () {
@@ -334,6 +334,10 @@ var Map = React.createClass({
 
     _mapMyLocation: function () {
         this.myLocation.locate()
+    },
+
+    _onLocationError: function (e) {
+        this.getFlux().actions.errorToast("Не получается определить Ваше местоположение.")
     }
 });
 

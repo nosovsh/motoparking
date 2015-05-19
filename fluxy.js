@@ -17,16 +17,28 @@ var ParkingImageActions = require("./flux/parkingImage/ParkingImageActions");
 var AppStore = require("./flux/app/AppStore");
 var AppActions = require("./flux/app/AppActions");
 
+var ToastStore = require("./flux/toast/ToastStore");
+var ToastActions = require("./flux/toast/ToastActions");
+
 var stores = {
   ParkingStore: new ParkingStore(),
   OpinionStore: new OpinionStore(),
   CurrentUserStore: new CurrentUserStore(),
   CommentStore: new CommentStore(),
   ParkingImageStore: new ParkingImageStore(),
-  AppStore: new AppStore()
+  AppStore: new AppStore(),
+  ToastStore: new ToastStore()
 };
 
-var actions = _.extend(ParkingActions, OpinionActions, CurrentUserActions, CommentActions, ParkingImageActions,AppActions);
+var actions = _.extend(
+    ParkingActions,
+    OpinionActions,
+    CurrentUserActions,
+    CommentActions,
+    ParkingImageActions,
+    AppActions,
+    ToastActions
+);
 
 var flux = new Fluxxor.Flux(stores, actions);
 
