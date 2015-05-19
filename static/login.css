@@ -1,7 +1,17 @@
+@import url("http://fonts.googleapis.com/css?family=Roboto:100,300&subset=cyrillic,latin");
+
 html, body {
     height: 100%;
     margin: 0;
     padding: 0;
+}
+
+
+body {
+    font-family: "Roboto", Arial, "Lucida Grande", sans-serif;
+    font-weight: 300;
+    color: #4D4D4D;
+
 }
 
 body {
@@ -10,8 +20,6 @@ body {
     margin: 0;
     padding: 0;
     height: 100%;
-    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-    color: #4d4d4d;
     letter-spacing: 1.37999999523163px;
     line-height: 23px;
     font-weight: normal;
@@ -60,7 +68,6 @@ body {
 }
 
 h1 {
-    font-family: "HelveticaNeue-Thin", "Roboto-Thin", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
     font-size: 32px;
     font-weight: 100;
     color: black;
