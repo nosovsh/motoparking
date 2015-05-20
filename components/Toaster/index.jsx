@@ -1,6 +1,7 @@
 var React = require("react/addons"),
     Fluxxor = require("fluxxor"),
-    CSSTransitionGroup = React.addons.CSSTransitionGroup;
+    CSSTransitionGroup = React.addons.CSSTransitionGroup,
+    _ = require("lodash");
 
 var FluxMixin = Fluxxor.FluxMixin(React),
     StoreWatchMixin = Fluxxor.StoreWatchMixin;
@@ -13,7 +14,9 @@ var Toaster = React.createClass({
 
     render: function () {
         var toastsComponents = this.state.toasts.map(function (toast) {
-            return <Toast toast={ toast } />
+            return (
+                <Toast toast={ toast } />
+            );
         });
         return (
             <div className="Toaster">
@@ -39,9 +42,11 @@ var Toast = React.createClass({
         toast: React.PropTypes.object.isRequired
     },
 
-    render() {
-        var messageRows = this.props.toast.message.split("\n").map(function (str) {
-            return <p>{ str }</p>
+    render: function () {
+        var messageRows = _.map(this.props.toast.message.split("\n"), function (str) {
+            return (
+                <p>{ str }</p>
+            )
         });
 
         return <div className="Toast" key={ this.props.toast.id }> { messageRows } </div>
