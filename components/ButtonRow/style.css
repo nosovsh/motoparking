@@ -7,7 +7,14 @@
     font-size: 1.1em;
 }
 
-.ButtonRow:hover, .ButtonRow:active, .ButtonRow__selected {
+@media only screen  and (min-width : 768px) {
+    .ButtonRow:hover {
+        background-color: #4D4D4D;
+        color: #fff;
+    }
+}
+
+.ButtonRow:active, .ButtonRow__selected {
     background-color: #4D4D4D;
     color: #fff;
 }

@@ -11,7 +11,13 @@
     -webkit-transition: all 0.2s ease;
 }
 
-.button:hover, .button:active, .button__selected {
+@media only screen  and (min-width : 768px) {
+    .button:hover {
+        background-color: #4D4D4D;
+        color: #fff;
+    }
+}
+.button:active, .button__selected {
     background-color: #4D4D4D;
     color: #fff;
 }
