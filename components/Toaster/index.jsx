@@ -15,7 +15,7 @@ var Toaster = React.createClass({
     render: function () {
         var toastsComponents = this.state.toasts.map(function (toast) {
             return (
-                <Toast toast={ toast } />
+                <Toast toast={ toast } key={ toast.id }/>
             );
         });
         return (
@@ -52,7 +52,7 @@ var Toast = React.createClass({
             )
         });
 
-        return <div className="Toast" key={ this.props.toast.id }> { messageRows } </div>
+        return <div className="Toast"> { messageRows } </div>
     }
 });
 
