@@ -1,0 +1,18 @@
+.DropDownMenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 200px;
+
+    box-shadow: 0 2px 3px 1px rgba(0, 0, 0, .2);
+    background-color: #FFF;
+    -webkit-border-radius: 5px;
+
+    margin: 4px 0 0;
+}
+
+.DropDownMenuItem {
+    padding: 17px 20px;
+    border-bottom: 1px solid #979797;
+    color: #4D4D4D;
+}

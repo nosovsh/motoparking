@@ -12,6 +12,8 @@ var Map = require('../Map'),
     Controls = require('../Controls'),
     Avatar = require("../Avatar"),
     Icon = require("../Icon"),
+    DropDownMenu = require("../DropDownMenu").DropDownMenu,
+    ButtonRow = require("../ButtonRow"),
     Toaster = require("../Toaster");
 
 
@@ -37,7 +39,14 @@ var InnerApplication = React.createClass({
                             style={{
                                 width: 38,
                                 height: 38
-                            }}/>
+                            }}
+                            onClick={ this.onMenuTriggerClick }
+                        />
+                        <DropDownMenu ref="menu">
+                            <ButtonRow  height="very-thin" align="left">Профиль</ButtonRow>
+                            <ButtonRow  height="very-thin" align="left">О проекте</ButtonRow>
+                            <ButtonRow  height="very-thin" align="left">Выйти</ButtonRow>
+                        </DropDownMenu>
                     </div>
                     <Link to="NewParking">
                         <div className="control-btn">
@@ -77,6 +86,10 @@ var InnerApplication = React.createClass({
     },
     onMyLocationClick: function () {
         this.getFlux().actions.mapMyLocation()
+    },
+    onMenuTriggerClick: function () {
+        console.log("a")
+        this.refs.menu.toggle();
     }
 });
 
@@ -97,7 +110,6 @@ var Application = React.createClass({
                 <Map/>
                 <InnerApplication />
                 <CSSTransitionGroup transitionName="page" className="one-more-wrapper">
-
                     <RouteHandler  key={this.getHandlerKey()} />
                 </CSSTransitionGroup>
                 <Toaster />
