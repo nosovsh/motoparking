@@ -7,6 +7,8 @@ require("./style.css");
 
 var Router = require('react-router'),
     Link = Router.Link;
+var Navigation = Router.Navigation;
+
 
 var Map = require('../Map'),
     Controls = require('../Controls'),
@@ -28,7 +30,7 @@ var FluxMixin = Fluxxor.FluxMixin(React),
 
 
 var InnerApplication = React.createClass({
-    mixins: [FluxMixin, StoreWatchMixin("ParkingStore")],
+    mixins: [Navigation, FluxMixin, StoreWatchMixin("ParkingStore")],
     render: function () {
         return (
             <div>
@@ -44,8 +46,8 @@ var InnerApplication = React.createClass({
                         />
                         <DropDownMenu ref="menu">
                             <ButtonRow  height="very-thin" align="left">Профиль</ButtonRow>
-                            <ButtonRow  height="very-thin" align="left">О проекте</ButtonRow>
-                            <ButtonRow  height="very-thin" align="left">Выйти</ButtonRow>
+                            <ButtonRow  height="very-thin" align="left" callback={ this.transitionTo.bind(this, "NewParking") }>О проекте</ButtonRow>
+                            <ButtonRow  height="very-thin" align="left" callback={ this.logout }>Выйти</ButtonRow>
                         </DropDownMenu>
                     </div>
                     <Link to="NewParking">
@@ -90,7 +92,11 @@ var InnerApplication = React.createClass({
     onMenuTriggerClick: function () {
         console.log("a")
         this.refs.menu.toggle();
+    },
+    logout: function () {
+        window.location = "/logout"
     }
+
 });
 
 
