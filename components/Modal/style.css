@@ -1,0 +1,82 @@
+.Modal__Content {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1050;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+    outline: 0;
+    display: block;
+    padding-left: 0px;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+
+.Modal__Content__Inner {
+    position: relative;
+    width: auto;
+    background: #FFF;
+    padding: 5px 15px;
+    z-index: 100;
+    height: 100%;
+}
+
+@media (min-width: 768px) {
+    .Modal__Content__Inner {
+        width: 500px;
+        margin: 30px auto;
+        height: auto;
+    }
+}
+
+.Modal.page-enter .Modal__Content {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 20%, 0);
+    transform: translate3d(0, 20%, 0);
+}
+
+.Modal.page-enter .Backdrop {
+    opacity: 0;
+}
+
+.Modal.page-enter.page-enter-active .Modal__Content {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+}
+
+.Modal.page-enter.page-enter-active .Backdrop {
+    opacity: 1;
+}
+
+.Modal.page-leave .Modal__Content {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+}
+
+.Modal.page-leave .Backdrop {
+    opacity: 1;
+}
+
+.Modal.page-leave.page-leave-active .Modal__Content {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 20%, 0);
+    transform: translate3d(0, 20%, 0);
+}
+
+.Modal.page-leave.page-leave-active .Backdrop {
+    opacity: 0;
+}
+
+.Backdrop {
+    position: fixed;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    height: 100%;
+    top: 0;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}

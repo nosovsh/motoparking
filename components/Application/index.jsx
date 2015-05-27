@@ -1,6 +1,6 @@
 var React = require("react/addons"),
     Fluxxor = require("fluxxor"),
-    CSSTransitionGroup = React.addons.CSSTransitionGroup;
+    TimeoutTransitionGroup = require("react-components/js/timeout-transition-group");
 
 require("normalize.css/normalize.css");
 require("./style.css");
@@ -45,8 +45,7 @@ var InnerApplication = React.createClass({
                             onClick={ this.onMenuTriggerClick }
                         />
                         <DropDownMenu ref="menu">
-                            <ButtonRow  height="very-thin" align="left">Профиль</ButtonRow>
-                            <ButtonRow  height="very-thin" align="left" callback={ this.transitionTo.bind(this, "NewParking") }>О проекте</ButtonRow>
+                            <ButtonRow  height="very-thin" align="left" callback={ this.transitionTo.bind(this, "Info") }>О проекте</ButtonRow>
                             <ButtonRow  height="very-thin" align="left" callback={ this.logout }>Выйти</ButtonRow>
                         </DropDownMenu>
                     </div>
@@ -115,9 +114,13 @@ var Application = React.createClass({
             <div>
                 <Map/>
                 <InnerApplication />
-                <CSSTransitionGroup transitionName="page" className="one-more-wrapper">
+                <TimeoutTransitionGroup
+                    enterTimeout={500}
+                    leaveTimeout={500}
+                    transitionName="page"
+                    className="one-more-wrapper">
                     <RouteHandler  key={this.getHandlerKey()} />
-                </CSSTransitionGroup>
+                </TimeoutTransitionGroup>
                 <Toaster />
             </div>
         );
