@@ -1,6 +1,6 @@
 var React = require("react/addons"),
     Fluxxor = require("fluxxor"),
-    CSSTransitionGroup = React.addons.CSSTransitionGroup,
+    TimeoutTransitionGroup = require("react-components/js/timeout-transition-group"),
     _ = require("lodash");
 
 var FluxMixin = Fluxxor.FluxMixin(React),
@@ -20,9 +20,12 @@ var Toaster = React.createClass({
         });
         return (
             <div className="Toaster">
-                <CSSTransitionGroup transitionName="Toast">
+                <TimeoutTransitionGroup
+                    enterTimeout={1000}
+                    leaveTimeout={1000}
+                    transitionName="Toast">
                         { toastsComponents }
-                </CSSTransitionGroup>
+                </TimeoutTransitionGroup>
             </div>
         )
     },

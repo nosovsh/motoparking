@@ -1,6 +1,5 @@
 var React = require("react/addons"),
-    Fluxxor = require("fluxxor"),
-    CSSTransitionGroup = React.addons.CSSTransitionGroup;
+    Fluxxor = require("fluxxor");
 
 require("./style.css");
 
