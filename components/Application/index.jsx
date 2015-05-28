@@ -34,28 +34,7 @@ var InnerApplication = React.createClass({
     render: function () {
         return (
             <div>
-                <Controls>
-                    <div className="control-btn control-btn_avatar_true">
-                        <Avatar
-                            user={ this.state.currentUser }
-                            style={{
-                                width: 38,
-                                height: 38
-                            }}
-                            onClick={ this.onMenuTriggerClick }
-                        />
-                        <DropDownMenu ref="menu">
-                            <ButtonRow  height="very-thin" align="left" callback={ this.transitionTo.bind(this, "Info") }>О проекте</ButtonRow>
-                            <ButtonRow  height="very-thin" align="left" callback={ this.logout }>Выйти</ButtonRow>
-                        </DropDownMenu>
-                    </div>
-                    <Link to="NewParking">
-                        <div className="control-btn">
-                            <Icon name="add"/>
-                            Добавить парковку
-                        </div>
-                    </Link>
-                </Controls>
+            { this.state.isAuthorized ? this.authorizedMenu() : this.notAuthorizedMenu() }
                 <Controls secondary={ true }>
                     <div className="control-btn control-btn-round" onClick={ this.onPlusClick }>
                         <Icon name="plus"/>
@@ -70,13 +49,61 @@ var InnerApplication = React.createClass({
             </div>
         );
     },
+    authorizedMenu: function () {
+        return (
+            <Controls>
+                <div className="control-btn control-btn-round">
+                    <Avatar
+                        user={ this.state.currentUser }
+                        style={{
+                            width: 38,
+                            height: 38
+                        }}
+                        onClick={ this.onMenuTriggerClick }
+                    />
+                </div>
+                <Link to="NewParking">
+                    <div className="control-btn">
+                        <Icon name="add"/>
+                        Добавить парковку
+                    </div>
+                </Link>
+                    <DropDownMenu ref="menu">
+                        <ButtonRow align="left" callback={ this.transitionTo.bind(this, "Info") }>О проекте</ButtonRow>
+                        <ButtonRow align="left" callback={ this.logout }>Выйти</ButtonRow>
+                    </DropDownMenu>
+            </Controls>
+        )
+    },
+    notAuthorizedMenu: function () {
+        return (
+            <Controls>
+                <div className="control-btn control-btn-round" onClick={ this.onMenuTriggerClick }>
+                    <Icon name="menu"/>
+                </div>
+
+                <a href="/login">
+                    <div className="control-btn">
+                        <Icon name="add"/>
+                        Добавить парковку
+                    </div>
+                </a>
+
+                <DropDownMenu ref="menu">
+                    <ButtonRow align="left" callback={ this.transitionTo.bind(this, "Info") }>О проекте</ButtonRow>
+                    <ButtonRow align="left" callback={ this.login }>Войти</ButtonRow>
+                </DropDownMenu>
+            </Controls>
+        )
+    },
 
     getStateFromFlux: function () {
         var store = this.getFlux().store("ParkingStore");
         var currentUserStore = this.getFlux().store("CurrentUserStore");
 
         return {
-            currentUser: currentUserStore.currentUser
+            currentUser: currentUserStore.currentUser,
+            isAuthorized: currentUserStore.isAuthorized(),
         };
     },
     onPlusClick: function () {
@@ -89,11 +116,13 @@ var InnerApplication = React.createClass({
         this.getFlux().actions.mapMyLocation()
     },
     onMenuTriggerClick: function () {
-        console.log("a")
         this.refs.menu.toggle();
     },
     logout: function () {
         window.location = "/logout"
+    },
+    login: function () {
+        window.location = "/login"
     }
 
 });

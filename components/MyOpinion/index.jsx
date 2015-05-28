@@ -58,7 +58,7 @@ var MyOpinionExists = React.createClass({
 });
 
 var MyOpinionNotExists = React.createClass({
-    mixins: [FluxMixin],
+    mixins: [FluxMixin, StoreWatchMixin("ParkingStore")],
     propTypes: {
         parking: React.PropTypes.object.isRequired,
         onWantToChangeOpinion: React.PropTypes.func.isRequired,
@@ -106,6 +106,10 @@ var MyOpinionNotExists = React.createClass({
         );
     },
     isSecureCallback: function (value) {
+        if (!this.state.isAuthorized) {
+            this.getFlux().actions.authorizationRequired()
+            return
+        }
         var tmpOpinion = _.extend({}, this.state.tmpOpinion, {isSecure: value});
         if (value == "no" || value == "maybe") {
             tmpOpinion.isMoto = "maybe";
@@ -140,6 +144,13 @@ var MyOpinionNotExists = React.createClass({
     onSave: function () {
         this.getFlux().actions.postOpinion(this.state.tmpOpinion);
         this.props.onWantToChangeOpinion(false);
+    },
+    getStateFromFlux: function () {
+        var currentUserStore = this.getFlux().store("CurrentUserStore");
+
+        return {
+            isAuthorized: currentUserStore.isAuthorized()
+        };
     }
 });
 

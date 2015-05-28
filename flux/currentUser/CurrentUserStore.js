@@ -11,7 +11,9 @@ var CurrentUserStore = Fluxxor.createStore({
         this.bindActions(
             CurrentUserConstants.LOAD_CURRENT_USER, this.onLoadCurrentUser,
             CurrentUserConstants.LOAD_CURRENT_USER_SUCCESS, this.onLoadCurrentUserSuccess,
-            CurrentUserConstants.LOAD_CURRENT_USER_FAIL, this.onLoadCurrentUserFail
+            CurrentUserConstants.LOAD_CURRENT_USER_FAIL, this.onLoadCurrentUserFail,
+
+            CurrentUserConstants.AUTHORIZATION_REQUIRED, this.onAuthorizationRequired
         );
     },
 
@@ -31,6 +33,14 @@ var CurrentUserStore = Fluxxor.createStore({
         this.loading = false;
         this.error = payload.error;
         this.emit("change");
+    },
+
+    onAuthorizationRequired: function (payload) {
+        window.location = "/login?next=" + window.location.pathname;
+    },
+
+    isAuthorized: function () {
+        return !!this.currentUser.id
     }
 });
 

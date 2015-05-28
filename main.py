@@ -19,7 +19,7 @@ from flask.ext.mongorest import operators as ops
 from flask.ext.mongorest import methods
 from flask.ext.mongorest.authentication import AuthenticationBase
 from flask.ext.security import Security, MongoEngineUserDatastore, \
-    UserMixin, RoleMixin, login_required, user_registered
+    UserMixin, RoleMixin, user_registered
 from flask_social_blueprint.core import SocialBlueprint
 from flask.sessions import SecureCookieSessionInterface
 import random
@@ -101,6 +101,16 @@ class SessionAuthentication(AuthenticationBase):
         return current_user.is_authenticated()
 
 
+def session_authentication_fabric(methods):
+    class MethodSessionAuthentication(AuthenticationBase):
+        auth_methods = methods
+        def authorized(self):
+            if request.method in self.auth_methods:
+                return current_user.is_authenticated()
+            return True
+    return MethodSessionAuthentication
+
+
 class InfiniteSecureCookieSessionInterface(SecureCookieSessionInterface):
     """Longer session"""
     def get_expiration_time(self, app1, session):
@@ -112,7 +122,7 @@ app.session_interface = InfiniteSecureCookieSessionInterface()
 
 
 class BaseResourceView(ResourceView):
-    authentication_methods = [SessionAuthentication, ]
+    authentication_methods = [session_authentication_fabric(["POST", "UPDATE", "DELETE"]), ]
 
 
 # models
@@ -406,8 +416,11 @@ class ParkingResource(ProResource):
 
     def get_object(self, pk):
         obj = super(ParkingResource, self).get_object(pk=pk)
-        my_opinions = Opinion.objects(parking=obj.pk, user=current_user._get_current_object().pk)
-        obj.my_opinion = OpinionResource().serialize(my_opinions[0]) if my_opinions else None
+        if current_user.is_authenticated():
+            my_opinions = Opinion.objects(parking=obj.pk, user=current_user._get_current_object().pk)
+            obj.my_opinion = OpinionResource().serialize(my_opinions[0]) if my_opinions else None
+        else:
+            obj.my_opinion = None
         opinions = Opinion.objects(parking=obj.pk, is_secure__in=("yes", "no")).order_by("updated")
         users = [opinion.user for opinion in opinions]
         obj.users = [UserResource().serialize(user) for user in users]
@@ -553,19 +566,19 @@ class ParkingImageResource(ProResource):
 @api.register(name='users', url='/api/users/')
 class UserView(BaseResourceView):
     resource = UserResource
-    methods = [methods.Fetch, methods.List, methods.Update]
+    methods = [methods.Fetch, methods.List, ]
 
 
 @api.register(name='parkings', url='/api/parkings/')
 class ParkingView(BaseResourceView):
     resource = ParkingResource
-    methods = [methods.Create, methods.Fetch, methods.List, methods.Delete, methods.Update]
+    methods = [methods.Fetch, methods.List, ]
 
 
 @api.register(name='opinions', url='/api/opinions/')
 class OpinionsView(BaseResourceView):
     resource = OpinionResource
-    methods = [methods.Create, methods.Fetch, methods.List, methods.Delete, methods.Update]
+    methods = [methods.Create, methods.Fetch, methods.List, ]
 
 @api.register(name='comments', url='/api/comments/')
 class CommentView(BaseResourceView):
@@ -590,7 +603,6 @@ babel = Babel(app)
 
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
-@login_required
 def catch_all(path):
     """Catch all"""
     return render_template('index.html',
@@ -602,17 +614,20 @@ def catch_all(path):
 
 
 def current_user_json(user):
-    if not user.tracking_id:  # force generate tracking id
-        user.save()
-    return dumps({
-        "id": user.get_id(),
-        "firstName": user.first_name,
-        "lastName": user.last_name,
-        "image": user.image,
-        "email": user.email,
-        "gender": user.gender,
-        "trackingId": user.tracking_id
-    })
+    if user.is_anonymous():
+        return dumps({})
+    else:
+        if not user.tracking_id:  # force generate tracking id
+            user.save()
+        return dumps({
+            "id": user.get_id(),
+            "firstName": user.first_name,
+            "lastName": user.last_name,
+            "image": user.image,
+            "email": user.email,
+            "gender": user.gender,
+            "trackingId": user.tracking_id
+        })
 
 
 if __name__ == '__main__':

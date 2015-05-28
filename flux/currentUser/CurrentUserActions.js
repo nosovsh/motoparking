@@ -13,6 +13,10 @@ var CurrentUserActions = {
     },
     manualUpdateCurrentUser: function (currentUser) {
         this.dispatch(CurrentUserConstants.LOAD_CURRENT_USER_SUCCESS, {currentUser: currentUser})
+    },
+    authorizationRequired: function () {
+        this.dispatch(CurrentUserConstants.AUTHORIZATION_REQUIRED, {})
+
     }
 };
 

@@ -3,7 +3,7 @@
     width: 0;
     z-index: 100;
 
-    top: 16px;
+    top: 6px;
     left: 16px;
 }
 
@@ -62,11 +62,6 @@
 }
 
 .control-btn_icon_true {
-}
-
-.control-btn_avatar_true {
-    width: 38px;
-    padding: 0;
 }
 
 .control-btn-round {
