@@ -122,7 +122,7 @@ var InnerApplication = React.createClass({
         window.location = "/logout"
     },
     login: function () {
-        window.location = "/login"
+        this.getFlux().actions.authorizationRequired()
     }
 
 });
