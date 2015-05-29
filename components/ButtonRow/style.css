@@ -36,6 +36,11 @@
     border-color: #c3c3c3;
 }
 
+.ButtonRow_color_dark {
+    background: rgba(77,77,77,.76);
+    color: #FFF;
+}
+
 .ButtonRow_height_thin {
     padding: 14px 0;
     font-size: 1em;

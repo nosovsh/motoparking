@@ -69,8 +69,8 @@ var InnerApplication = React.createClass({
                     </div>
                 </Link>
                     <DropDownMenu ref="menu">
-                        <ButtonRow align="left" callback={ this.transitionTo.bind(this, "Info") }>О проекте</ButtonRow>
-                        <ButtonRow align="left" callback={ this.logout }>Выйти</ButtonRow>
+                        <ButtonRow align="left" color="dark" callback={ this.transitionTo.bind(this, "Info") }>О проекте</ButtonRow>
+                        <ButtonRow align="left" color="dark" callback={ this.logout }>Выйти</ButtonRow>
                     </DropDownMenu>
             </Controls>
         )
@@ -90,8 +90,8 @@ var InnerApplication = React.createClass({
                 </a>
 
                 <DropDownMenu ref="menu">
-                    <ButtonRow align="left" callback={ this.transitionTo.bind(this, "Info") }>О проекте</ButtonRow>
-                    <ButtonRow align="left" callback={ this.login }>Войти</ButtonRow>
+                    <ButtonRow align="left" color="dark" callback={ this.transitionTo.bind(this, "Info") }>О проекте</ButtonRow>
+                    <ButtonRow align="left" color="dark" callback={ this.login }>Войти</ButtonRow>
                 </DropDownMenu>
             </Controls>
         )
