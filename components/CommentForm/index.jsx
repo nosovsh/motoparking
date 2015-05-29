@@ -13,7 +13,7 @@ var Avatar = require("../Avatar"),
 
 var CommentForm = React.createClass({
 
-    mixins: [FluxMixin, StoreWatchMixin("ParkingStore", "CommentStore", "CurrentUserStore")],
+    mixins: [FluxMixin, StoreWatchMixin("ParkingStore", "CurrentUserStore")],
 
     propTypes: {},
 
@@ -33,10 +33,12 @@ var CommentForm = React.createClass({
                             <Avatar user={ this.state.currentUser } />
                         </div> : null }
                     <div className={ commentWrapperClass }>
-                        <textarea className="Comment__Textarea"
+                        <textarea
+                            className="Comment__Textarea"
                             placeholder="Что еще надо знать другим мотоциклистам об этой парковке?"
                             value={ this.state.text }
-                            onChange={ this.onTextChange }/>
+                            onChange={ this.onTextChange }
+                            onFocus={ this.onFocus }/>
                         <ButtonRow callback={ this.onSendComment } color="light" height="thin">Отправить
                             <Icon name="send" style={ {"fontSize": "0.8em"} }/>
                         </ButtonRow>
@@ -63,15 +65,20 @@ var CommentForm = React.createClass({
             text: e.target.value
         })
     },
+    onFocus: function (e) {
+        if (!this.state.isAuthorized) {
+            this.getFlux().actions.authorizationRequired();
+        }
+    },
 
     getStateFromFlux: function () {
         var store = this.getFlux().store("ParkingStore");
-        var commentStore = this.getFlux().store("CommentStore");
         var currentUserStore = this.getFlux().store("CurrentUserStore");
 
         return {
             currentParkingId: store.currentParkingId,
-            currentUser: currentUserStore.currentUser
+            currentUser: currentUserStore.currentUser,
+            isAuthorized: currentUserStore.isAuthorized()
         };
     }
 });
