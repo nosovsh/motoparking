@@ -2,11 +2,31 @@
     position: absolute;
     top: 100%;
     left: 0;
-    width: 200px;
+    width: 244px;
 
     box-shadow: 0 2px 3px 1px rgba(0, 0, 0, .2);
     background-color: transparent;
     -webkit-border-radius: 5px;
 
-    margin: 8px 0 0;
+    margin: 10px 0 0;
+}
+
+.PopoverArrow {
+    top: -14px;
+    clip: rect(0 18px 14px -4px);
+    left: 13px;
+    position: absolute;
+}
+
+.PopoverArrow:after {
+    -webkit-transform: rotate(45deg) translate(6px, 6px);
+    -ms-transform: rotate(45deg) translate(6px, 6px);
+    transform: rotate(45deg) translate(6px, 6px);
+    box-shadow: -1px -1px 1px -1px rgba(0, 0, 0, 0.44);
+
+    content: '';
+    display: block;
+    width: 14px;
+    height: 14px;
+    background: rgba(77, 77, 77, .76);
 }

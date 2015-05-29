@@ -15,7 +15,10 @@ var DropDownMenu = React.createClass({
         return (
             <div>
                 { this.state.open ? <div className="DropDownMenu">
-                    { this.props.children }
+                    <div className="DropDownMenu_Inner">
+                        { this.props.children }
+                    </div>
+                    <div className="PopoverArrow"/>
                 </div> : null}
             </div>
         )
