@@ -24,18 +24,22 @@ var CommentForm = React.createClass({
     },
 
     render: function () {
+        var commentWrapperClass = this.state.isAuthorized ? "Comment__Textarea-wrapper" : "Comment__Textarea-wrapper Comment__Textarea-wrapper_margin_false";
         return (
             <div>
                 <div className="Comment">
-                    <div className="Comment__AvatarWrapper">
-                        <Avatar user={ this.state.currentUser } />
-                    </div>
-                    <div className="Comment__Textarea-wrapper">
+                    { this.state.isAuthorized ?
+                        <div className="Comment__AvatarWrapper">
+                            <Avatar user={ this.state.currentUser } />
+                        </div> : null }
+                    <div className={ commentWrapperClass }>
                         <textarea className="Comment__Textarea"
                             placeholder="Что еще надо знать другим мотоциклистам об этой парковке?"
                             value={ this.state.text }
                             onChange={ this.onTextChange }/>
-                        <ButtonRow callback={ this.onSendComment } color="light" height="thin">Отправить <Icon name="send" style={ {"fontSize": "0.8em"} }/></ButtonRow>
+                        <ButtonRow callback={ this.onSendComment } color="light" height="thin">Отправить
+                            <Icon name="send" style={ {"fontSize": "0.8em"} }/>
+                        </ButtonRow>
                     </div>
                 </div>
             </div>

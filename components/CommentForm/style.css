@@ -26,3 +26,6 @@
     border-radius: 5px;
     border: 1px solid #979797;
 }
+.Comment__Textarea-wrapper_margin_false {
+    margin-left: 0;
+}
