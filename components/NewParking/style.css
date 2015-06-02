@@ -17,7 +17,7 @@
     }
 
     100% {
-        top: 50%;
+        top: 35%;
     }
 }
 
@@ -27,7 +27,7 @@
     }
 
     100% {
-        top: 50%;
+        top: 35%;
     }
 }
 
@@ -54,43 +54,53 @@
 
     @-webkit-keyframes fadeInDown {
         0% {
-            bottom: -30%;
+            -webkit-transform: translate3d(-50%, 100%, 0);
+            transform: translate3d(-50%, 100%, 0);
         }
 
         100% {
-            bottom: 20px;
+            -webkit-transform: translate3d(-50%, 0, 0);
+            transform: translate3d(-50%, 0, 0);
         }
     }
 
     @keyframes fadeInDown {
         0% {
-            bottom: -30%;
+            -webkit-transform: translate3d(-50%, 100%, 0);
+            transform: translate3d(-50%, 100%, 0);
         }
 
         100% {
-            bottom: 20px;
+            -webkit-transform: translate3d(-50%, 0, 0);
+            transform: translate3d(-50%, 0, 0);
         }
     }
     .new-parking {
-        bottom: 20px;
+        bottom: 0;
         top: initial;
     }
 
     @-webkit-keyframes fadeOutDown {
         0% {
+            -webkit-transform: translate3d(-50%, 0, 0);
+            transform: translate3d(-50%, 0, 0);
         }
 
         100% {
-            bottom: -30%;
+            -webkit-transform: translate3d(-50%, 100%, 0);
+            transform: translate3d(-50%, 100%, 0);
         }
     }
 
     @keyframes fadeOutDown {
         0% {
+            -webkit-transform: translate3d(-50%, 0, 0);
+            transform: translate3d(-50%, 0, 0);
         }
 
         100% {
-            bottom: -30%;
+            -webkit-transform: translate3d(-50%, 100%, 0);
+            transform: translate3d(-50%, 100%, 0);
         }
     }
 }
