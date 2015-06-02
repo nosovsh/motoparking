@@ -14,6 +14,9 @@ var Default = React.createClass({
     },
     componentWillReceiveProps: function () {
         this.getFlux().actions.unselectCurrentParking();
+    },
+    componentDidMount: function () {
+        this.getFlux().actions.unselectCurrentParking();
     }
 });
 
