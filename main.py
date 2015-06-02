@@ -24,6 +24,8 @@ from flask_social_blueprint.core import SocialBlueprint
 from flask.sessions import SecureCookieSessionInterface
 import random
 import string
+from werkzeug.utils import redirect
+from flask_security.utils import do_flash
 
 from pro_resource import ProResource
 from mongo_fields import SwappedPointField
@@ -198,16 +200,6 @@ class SocialConnection(db.Document):
 
     @classmethod
     def from_profile(cls, user, profile):
-
-        invite_code = request.cookies.get("invite")
-        invite = Invite.objects(code=invite_code).first()
-        user_with_invite = User.objects(invite_code=invite_code).first()
-        if invite:
-            if user_with_invite:
-                raise Exception(u"Этот инвайт уже использован, напиши нам – дадим новый!")
-        else:
-            raise Exception(u"Нужен инвайт, что бы зайти на сайт. Напиши нам – сразу дадим!")
-
         if not user or user.is_anonymous():
             email = profile.data.get("email")
             if not email:
@@ -217,7 +209,8 @@ class SocialConnection(db.Document):
                 raise Exception(msg)
             conflict = User.objects(email=email).first()
             if conflict:
-                msg = "Cannot create new user, email {} is already used. Login and then connect external profile."
+                msg = u"Упс. Кажется этот емэйл ({}) уже зарегистрирован через другую социальную сеть." \
+                      u" Попробуйте нажать на другую кнопку."
                 msg = msg.format(email)
                 # logging.warning(msg)
                 print msg
@@ -237,7 +230,6 @@ class SocialConnection(db.Document):
                 confirmed_at=now,
                 image=profile.data.get("image_url"),
                 gender=gender,
-                invite_code=invite_code
             )
             user.save()
 
@@ -266,7 +258,28 @@ security = Security(app, user_datastore)
          # register_form=ExtendedRegisterForm)
 
 
-SocialBlueprint.init_bp(app, SocialConnection, url_prefix="/_social")
+class ExtendedSocialBlueprint(SocialBlueprint):
+    def no_connection(self, profile, provider):
+        try:
+            connection = self.create_connection(profile, provider)
+        except Exception as ex:
+            logging.warn(ex, exc_info=True)
+            do_flash(ex.message, "warning")
+            return self.login_failed_redirect(profile, provider)
+
+        return self.login_connection(connection, profile, provider)
+
+    def login_failed_redirect(self, profile, provider):
+        return redirect("/login")
+
+    @classmethod
+    def create_bp(cls, name, connection_adapter, providers, *args, **kwargs):
+        bp = ExtendedSocialBlueprint(name, __name__, connection_adapter, providers, *args, **kwargs)
+        bp.route('/login/<provider>', endpoint="login")(bp.authenticate)
+        bp.route('/callback/<provider>', endpoint="callback")(bp.callback)
+        return bp
+
+ExtendedSocialBlueprint.init_bp(app, SocialConnection, url_prefix="/_social")
 
 
 @user_registered.connect_via(app)

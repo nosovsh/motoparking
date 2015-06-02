@@ -82,3 +82,6 @@ a {
 p {
     text-align: justify;
 }
+.error {
+    color: #D84B6C;
+}
