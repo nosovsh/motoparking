@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="80px" height="86px" viewBox="0 0 80 86" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.2.2 (9983) - http://www.bohemiancoding.com/sketch -->
+    <title>marker-mot-active</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="marker-mot-active" sketch:type="MSLayerGroup" transform="translate(1.000000, 1.000000)">
+            <g id="ic_plus-2-+-Shape-14" stroke-width="0.7" stroke="#3AB7AA" fill="#3AB7AA" sketch:type="MSShapeGroup">
+                <g transform="translate(0.000000, 0.177000)">
+                    <g>
+                        <g id="ic_plus-2">
+                            <path d="M45.0507603,77.931046 L39.3482143,84 L33.756223,78.0487043 C14.6968217,75.4741914 0,59.0622106 0,39.2 C0,17.5504378 17.4608948,0 39,0 C60.5391052,0 78,17.5504378 78,39.2 C78,58.780964 63.7164422,75.0087161 45.0507603,77.931046 Z" id="Triangle-27"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+            <g id="Rectangle-124-+-Rectangle-123" transform="translate(25.000000, 27.000000)" fill="#FFFFFF" sketch:type="MSShapeGroup">
+                <rect id="Rectangle-124" transform="translate(6.500000, 19.000000) rotate(42.000000) translate(-6.500000, -19.000000) " x="-1" y="18" width="15" height="2"></rect>
+                <rect id="Rectangle-123" transform="translate(21.000000, 13.000000) rotate(-51.000000) translate(-21.000000, -13.000000) " x="6" y="12" width="30" height="2"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

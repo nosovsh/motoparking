@@ -25,20 +25,20 @@ var AppConstants = require("../../flux/app/AppConstants"),
     myLocation = require("./MyLocation");
 
 var images = {
-    "is-secure_maybe_is-moto_maybe": require("./images/marker-mot.svg"),
-    "is-secure_no_is-moto_maybe": require("./images/marker-mot-no.svg"),
-    "is-secure_yes_is-moto_maybe": require("./images/marker-mot-maybe.svg"),
-    "is-secure_yes_is-moto_no": require("./images/marker-mot-crossed.svg"),
-    "is-secure_yes_is-moto_yes": require("./images/marker-mot.svg")
+    "is-secure_maybe_is-moto_maybe": require("./images1/marker-mot.svg"),
+    "is-secure_no_is-moto_maybe": require("./images1/marker-mot-no.svg"),
+    "is-secure_yes_is-moto_maybe": require("./images1/marker-mot-maybe.svg"),
+    "is-secure_yes_is-moto_no": require("./images1/marker-mot-crossed.svg"),
+    "is-secure_yes_is-moto_yes": require("./images1/marker-mot.svg")
 };
 
 var activeImages = {
-    "": require("./images/marker-undefined.svg"),
-    "is-secure_maybe_is-moto_maybe": require("./images/marker-mot-active.svg"),
-    "is-secure_no_is-moto_maybe": require("./images/marker-mot-no-active.svg"),
-    "is-secure_yes_is-moto_maybe": require("./images/marker-mot-maybe-active.svg"),
-    "is-secure_yes_is-moto_no": require("./images/marker-mot-crossed-active.svg"),
-    "is-secure_yes_is-moto_yes": require("./images/marker-mot-active.svg")
+    "": require("./images1/marker-undefined.svg"),
+    "is-secure_maybe_is-moto_maybe": require("./images1/marker-mot-active.svg"),
+    "is-secure_no_is-moto_maybe": require("./images1/marker-mot-no-active.svg"),
+    "is-secure_yes_is-moto_maybe": require("./images1/marker-mot-maybe-active.svg"),
+    "is-secure_yes_is-moto_no": require("./images1/marker-mot-crossed-active.svg"),
+    "is-secure_yes_is-moto_yes": require("./images1/marker-mot-active.svg")
 };
 
 var getStatusName = function (isSecure, isMoto) {
@@ -54,7 +54,7 @@ var getIcon = function (is_secure, is_moto) {
     });
 };
 var resizeIcon = L.icon({
-    iconUrl: require("./images/marker-resize.svg"),
+    iconUrl: require("./images1/marker-resize.svg"),
     iconSize: [48, 52], // size of the icon
     iconAnchor: [24, 51] // point of the icon which will correspond to marker's location
 });
