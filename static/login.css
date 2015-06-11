@@ -44,27 +44,25 @@ body {
     background-color: #4e69a2;
     border-color: #435a8b #3c5488 #334c83;
     line-height: 36px;
-    font-size: 20px;
     color: #FFF;
     text-decoration: none;
     display: inline-block;
     padding: 14px 17px;
     margin-top: 30px;
     /*margin-bottom: 30px;*/
-    width: 280px;
+    width: 235px;
 }
 
 .google {
     background-color: #d73d32;
     line-height: 36px;
-    font-size: 20px;
     color: #FFF;
     text-decoration: none;
     display: inline-block;
     padding: 14px 17px;
     margin-top: 30px;
     margin-bottom: 30px;
-    width: 280px;
+    width: 235px;
 }
 
 h1 {
