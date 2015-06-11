@@ -5,7 +5,7 @@
 }
 
 .status-cover_is-secure_maybe_is-moto_maybe {
-    background: #4D4D4D;
+    background: #8A8263;
 }
 
 .status-cover_is-secure_no_is-moto_maybe {
@@ -26,34 +26,35 @@
 
 .status-cover__icon {
     height: 130px;
+    background-size: 332px 115px;
     background-position-x: center;
-    background-position-y: center;
+    background-position-y: bottom;
     background-repeat: no-repeat;
 }
 
 
 
 .status-cover__icon_is-secure_maybe_is-moto_maybe {
-    background-image: url("images/mot-no.svg");
-    background-size: 32px 104px;
+    background-image: url("images/is-secure_maybe_is-moto_maybe.svg");
+    /*background-size: 32px 104px;*/
 }
 
 .status-cover__icon_is-secure_no_is-moto_maybe {
-    background-image: url("images/mot-no.svg");
-    background-size: 32px 104px;
+    background-image: url("images/is-secure_no_is-moto_maybe.svg");
+    /*background-size: 32px 104px;*/
 }
 
 .status-cover__icon_is-secure_yes_is-moto_maybe {
     background-image: url("images/mot-maybe.svg");
-    background-size: 63px 132px;
+    /*background-size: 63px 132px;*/
 }
 
 .status-cover__icon_is-secure_yes_is-moto_no {
-    background-image: url("images/mot-crossed.png");
+    background-image: url("images/mot-crossed.svg");
 }
 
 .status-cover__icon_is-secure_yes_is-moto_yes {
-    background-image: url("images/mot.png");
+    background-image: url("images/is-secure_yes_is-moto_yes.svg");
 }
 
 .status-cover__text {
