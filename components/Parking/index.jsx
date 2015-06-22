@@ -35,6 +35,13 @@ var Parking = React.createClass({
                 <div className="sidebar__wrapper" >
                     <div className="sidebar__content" ref="parking__content">
                         <div className="sidebar__content__inner" ref="parking__content__inner">
+                            { this.state.currentUser.isSuper ?
+                            <a href="#" style={ {color: "#FFF"} } onClick={ this.deleteParking }>
+                                <div className="close-wrapper" style={{right: "inherit",left: 6}}>
+                                    <Icon name="delete" />
+                                </div>
+                            </a> : null }
+
                             <Link to="Default" style={ {color: "#FFF"} }>
                                 <div className="close-wrapper">
                                     <Icon name="close" />
@@ -140,8 +147,13 @@ var Parking = React.createClass({
             currentUser: currentUserStore.currentUser
         };
     },
+
     editLocation: function () {
         this.getFlux().actions.editLocation();
+    },
+
+    deleteParking: function () {
+        this.getFlux().actions.deleteParking(this.state.currentParking.id);
     }
 
 });

@@ -6,7 +6,7 @@ var ParkingClient = {
         setTimeout(function () {
             $.ajax({
                 dataType: "json",
-                url: "/api/parkings/" + parkingId,
+                url: "/api/parkings/" + parkingId + "/",
                 data: {},
                 success: success
             })
@@ -40,8 +40,17 @@ var ParkingClient = {
                 success(ret.response.GeoObjectCollection.featureMember[0].GeoObject.name)
             }
         });
-
-
+    },
+    deleteParking: function (parkingId, success, failure) {
+        setTimeout(function () {
+            $.ajax({
+                dataType: "json",
+                url: "/api/parkings/" + parkingId + "/",
+                data: {},
+                success: success,
+                method: "DELETE"
+            })
+        }, 0);
     }
 };
 

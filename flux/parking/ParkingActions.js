@@ -93,6 +93,13 @@ var ParkingActions = {
     }.bind(this), function(jqXHR, textStatus, errorThrown) {
 
     }.bind(this))
+  },
+  deleteParking: function(parkingId) {
+    ParkingClient.deleteParking(parkingId, function (parkingId) {
+
+    }.bind(this), function(jqXHR, textStatus, errorThrown) {
+
+    }.bind(this))
   }
 
 };

@@ -148,6 +148,7 @@ class User(db.Document, UserMixin):
     invite_code = db.StringField(max_length=255)
     weight = db.FloatField(default=0.3)
     tracking_id = db.StringField(max_length=255)
+    is_super = db.BooleanField(default=False)
 
     @property
     def cn(self):
@@ -443,6 +444,14 @@ class ParkingResource(ProResource):
         obj.parking_images = [ParkingImageResource().serialize(parking_image) for parking_image in parking_images]
         return obj
 
+    def delete_object(self, obj, parent_resources=None):
+        # Really delete from db
+        if current_user.is_super:
+            Opinion.objects(parking=obj.pk).delete()
+            Comment.objects(parking=obj.pk).delete()
+            ParkingImage.objects(parking=obj.pk).delete()
+            obj.delete()
+
 
 class OpinionResource(ProResource):
     document = Opinion
@@ -585,7 +594,7 @@ class UserView(BaseResourceView):
 @api.register(name='parkings', url='/api/parkings/')
 class ParkingView(BaseResourceView):
     resource = ParkingResource
-    methods = [methods.Fetch, methods.List, ]
+    methods = [methods.Fetch, methods.List, methods.Delete]
 
 
 @api.register(name='opinions', url='/api/opinions/')
@@ -639,12 +648,13 @@ def current_user_json(user):
             "image": user.image,
             "email": user.email,
             "gender": user.gender,
-            "trackingId": user.tracking_id
+            "trackingId": user.tracking_id,
+            "isSuper": user.is_super
         })
 
 
 if __name__ == '__main__':
     app.debug = True
     app.run(
-        # host="0.0.0.0"
+        host="0.0.0.0"
     )

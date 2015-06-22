@@ -54,7 +54,7 @@ var getIcon = function (is_secure, is_moto) {
     });
 };
 var resizeIcon = L.icon({
-    iconUrl: require("./images/marker-resize.svg"),
+    iconUrl: require("./images/marker-resize1.svg"),
     iconSize: [48, 52], // size of the icon
     iconAnchor: [24, 51] // point of the icon which will correspond to marker's location
 });
