@@ -25,7 +25,7 @@ config["module"] = {
     ]
 };
 config["plugins"] = [
-    //new webpack.optimize.UglifyJsPlugin({minimize: true}),
+    new webpack.optimize.UglifyJsPlugin({}),
     new webpack.DefinePlugin({
         GA_TRACKING_CODE: JSON.stringify('UA-59996600-1'),
         DEBUG: false,
