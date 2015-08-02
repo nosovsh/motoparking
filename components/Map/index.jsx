@@ -79,7 +79,7 @@ var Map = React.createClass({
         }
     },
     componentDidMount: function () {
-        this.map = L.map(this.getDOMNode(), {
+        this.map = L.map("map", {
             center: [55.7522200, 37.6155600],
             zoom: 12,
             minZoom: 2,
@@ -118,7 +118,7 @@ var Map = React.createClass({
     render: function () {
         // style={{width:this.state.width, height: this.state.height}}
         return (
-            <div className='map'></div>
+            <div className='map' id="map"></div>
         );
     },
     onMarkerClick: function (id) {
