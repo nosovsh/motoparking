@@ -79,8 +79,7 @@ var Map = React.createClass({
         }
     },
     componentDidMount: function () {
-        var p=1;
-        this.map = L.map("map", {
+        this.map = L.map(this.getDOMNode(), {
             center: [55.7522200, 37.6155600],
             zoom: 12,
             minZoom: 2,
