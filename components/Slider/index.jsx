@@ -35,7 +35,8 @@ var Slider = React.createClass({
                 speed: 500,
                 slidesToShow: 1,
                 slidesToScroll: 1,
-                arrows: false
+                arrows: true,
+                dots: true
             };
 
             var slides = this.state.parkingImages.map(function (image) {
