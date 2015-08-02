@@ -85,7 +85,7 @@ var InnerApplication = React.createClass({
                 <a href="/login">
                     <div className="control-btn">
                         <Icon name="add"/>
-                        Добавить парковку
+                        Добавить парковку1
                     </div>
                 </a>
 

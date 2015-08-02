@@ -19,7 +19,6 @@
     position: relative;
     width: auto;
     background: #FFF;
-    padding: 5px 15px;
     z-index: 100;
 }
 
@@ -79,4 +78,28 @@
     top: 0;
     -webkit-transition: all 0.2s ease;
     transition: all 0.2s ease;
+}
+
+.Modal__Cover {
+    width: 100%;
+}
+
+.Modal__Text__Wrapper {
+    position: relative;
+    padding: 5px 15px;
+}
+
+.Modal__Text {
+}
+
+.Modal__Header {
+    position: absolute;
+    top: -72px;
+    color: #FFF;
+}
+
+@media (max-width: 768px) {
+    .Modal__Header {
+        top: -100px;
+    }
 }
