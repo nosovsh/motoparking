@@ -86,7 +86,7 @@
 
 .Modal__Text__Wrapper {
     position: relative;
-    padding: 5px 15px;
+    padding: 11px 15px;
 }
 
 .Modal__Text {
@@ -94,12 +94,20 @@
 
 .Modal__Header {
     position: absolute;
-    top: -72px;
+    top: -90px;
     color: #FFF;
+    font-weight: 200;
 }
 
 @media (max-width: 768px) {
     .Modal__Header {
-        top: -100px;
+        top: -68px;
     }
 }
+
+.NoBullets {
+    /*padding-left: 10px;*/
+    margin-top: -10px;
+}
+
+.NoBullets > li {}
