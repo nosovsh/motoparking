@@ -72,11 +72,11 @@ var ParkingStore = Fluxxor.createStore({
         if (payload.parking.id == this.currentParkingId) {
             this.loading = false;
             this.error = null;
-            setTimeout(function() {
-                if (!parking.address) {
+            if (!parking.address && this.flux.stores.CurrentUserStore.isAuthorized()) {
+                setTimeout(function () {
                     this.flux.actions.loadAddress(parking)
-                }
-            }.bind(this), 0)
+                }.bind(this), 0)
+            }
         }
         this.emit("change");
         this.emit("loadCurrentParkingSuccess")

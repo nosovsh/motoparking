@@ -11,7 +11,7 @@ var OpinionActions = {
             this.dispatch(OpinionConstants.LOAD_OPINIONS_SUCCESS, {parkingId: parkingId, opinions: opinions})
         }.bind(this), function (error) {
             this.dispatch(OpinionConstants.LOAD_OPINIONS_FAIL, {error: error});
-        })
+        }.bind(this))
     },
 
     postOpinion: function (opinion) {
@@ -23,7 +23,7 @@ var OpinionActions = {
             this.dispatch(OpinionConstants.POST_OPINION_SUCCESS, {opinion: opinion})
         }.bind(this), function (error) {
             this.dispatch(OpinionConstants.POST_OPINION_FAIL, {opinion: opinion, error: error});
-        })
+        }.bind(this))
     },
 
     editOpinion: function () {
