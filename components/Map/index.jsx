@@ -89,8 +89,15 @@ var Map = React.createClass({
                 L.tileLayer.provider('MapBox.trashgenerator.ih4locjo')
             ],
 
-            attributionControl: false
+            attributionControl: true,
         });
+        this.map.attributionControl.setPrefix("")
+        // Add attribution to Mapbox and OpenStreetMap.
+        //var attribution = L.control.attribution();
+        //attribution.setPrefix('');
+        //attribution.addAttribution("asdf");
+        //attribution.addTo(this.map);
+
         this.getFlux().store("ParkingStore")
             .on("loadParkingListSuccess", this._loadParkingListSuccess)
             .on("loadCurrentParking", this._loadCurrentParking)
