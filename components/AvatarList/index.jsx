@@ -3,7 +3,10 @@ var React = require("react/addons"),
 
 require("./style.css");
 
-var Avatar = require("../Avatar");
+var Avatar = require("../Avatar"),
+    Tooltip = require('rc-tooltip');
+
+require('rc-tooltip/assets/bootstrap.css');
 
 var DEFAULT_GAP = 20;
 var HOVER_GAP = 40;
@@ -27,7 +30,9 @@ var AvatarList = React.createClass({
             };
             return (
                 <div className="AvatarList__Object" style={ style } key={ user.id }>
-                    <Avatar user={ user } />
+                    <Tooltip placement="bottom" trigger={['hover']} overlay={<span>{ user.firstName } { user.lastName }</span>}>
+                        <Avatar user={ user } />
+                    </Tooltip>
                 </div>
             )
         }.bind(this));

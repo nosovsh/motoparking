@@ -23,6 +23,7 @@
     "normalize.css": "^3.0.2",
     "photoswipe": "^4.0.7",
     "progressbar.js": "^0.7.4",
+    "rc-tooltip": "^2.5.1",
     "react": "^0.13.1",
     "react-components": "^0.2.0",
     "react-router": "^0.13.3",
