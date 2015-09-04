@@ -420,6 +420,7 @@ class ParkingResource(ProResource):
         'price_per_month': 'pricePerMonth',
         'parking_images': 'parkingImages'
     }
+    allowed_ordering = ["created", "updated", "id", ]
 
     def create_object(self, data=None, save=True, parent_resources=None):
         obj = super(ParkingResource, self).create_object(data, save=False, parent_resources=parent_resources)
@@ -469,6 +470,7 @@ class OpinionResource(ProResource):
     related_resources = {
         "user": UserResource
     }
+    allowed_ordering = ["created", "updated", "id", ]
 
     def create_object(self, data=None, save=True, parent_resources=None):
         data = data or self.data
@@ -538,6 +540,7 @@ class CommentResource(ProResource):
         "user": UserResource,
         "parking": ParkingResource
     }
+    allowed_ordering = ["created", "updated", "id", ]
 
     def create_object(self, data=None, save=True, parent_resources=None):
         data = data or self.data
@@ -567,6 +570,7 @@ class ParkingImageResource(ProResource):
         "user": UserResource,
         "parking": ParkingResource
     }
+    allowed_ordering = ["created", "updated", "id", ]
 
     def create_object(self, data=None, save=True, parent_resources=None):
         data = data or self.data
