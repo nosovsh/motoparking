@@ -128,7 +128,15 @@ var ParkingStore = Fluxxor.createStore({
         this.loading = false;
         this.error = null;
 
-        this.parkingList = payload.parkingList;
+        // do not update parking of it is already loaded. Quite straightforward method.
+        // Should be rewriten
+        var alreadyLoadedParkingIds = _.pluck(this.parkingList, 'id');
+        var newParkings = _.filter(payload.parkingList, function (newParking) {
+            return !_.find(alreadyLoadedParkingIds, function (id) {
+                return id == newParking.id
+            });
+        }.bind(this));
+        this.parkingList = this.parkingList.concat(newParkings);
         this.emit("change");
         this.emit("loadParkingListSuccess");
     },
