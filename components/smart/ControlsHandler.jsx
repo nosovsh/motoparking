@@ -5,7 +5,7 @@ var Controls = require("../dump/Controls/Controls");
 var ControlButton = require("../dump/Controls/ControlButton/ControlButton");
 var Avatar = require("../dump/Avatar/Avatar");
 var Icon = require("../dump/Icon/Icon");
-var DropDownMenu = require("../DropDownMenu").DropDownMenu;
+var DropDownMenu = require("../dump/DropDownMenu/DropDownMenu").DropDownMenu;
 var ButtonRow = require("../dump/ButtonRow/ButtonRow");
 
 

@@ -1,7 +1,7 @@
 var React = require("react/addons");
 var Events = require("utils/events");
 
-require("./style.css");
+require("./DropDownMenu.css");
 
 
 var DropDownMenu = React.createClass({
@@ -39,15 +39,13 @@ var DropDownMenu = React.createClass({
   render: function() {
     return (
       <div>
-        {
-          this.state.open ?
+        { this.state.open ?
           <div className="DropDownMenu">
             <div className="DropDownMenu_Inner">
               { this.props.children }
             </div>
             <div className="PopoverArrow"/>
-          </div> : null
-          }
+          </div> : null }
       </div>
     );
   }
