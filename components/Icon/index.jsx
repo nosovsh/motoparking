@@ -1,25 +1,20 @@
 var React = require("react/addons");
+var classNames = require("classnames");
 
 require("./style.css");
 
 
 var Icon = React.createClass({
-    propTypes: {
-        name: React.PropTypes.string.isRequired,
-        additionalClasses: React.PropTypes.array
-    },
+  propTypes: {
+    name: React.PropTypes.string.isRequired,
+    additionalClasses: React.PropTypes.array
+  },
 
-    render: function () {
-        var classes = {};
-        _.map(this.props.additionalClasses, function(el) {
-            classes[el] = true;
-        });
-        classes["icon-" + this.props.name] = true;
-
-        return (
-            <i className={ React.addons.classSet(classes) } {...this.props}/>
-        );
-    }
+  render: function() {
+    return (
+      <i className={ classNames(["icon-" + this.props.name].concat(this.props.additionalClasses)) } {...this.props}/>
+    );
+  }
 });
 
 module.exports = Icon;
