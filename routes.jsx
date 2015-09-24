@@ -4,7 +4,7 @@ var React = require("react");
 
 // Require view components. One for each route.
 var App = require("./components/smart/Application");
-var Default = require("./components/Default");
+var Default = require("./components/smart/Default");
 var Parking = require("./components/Parking");
 var NewParking = require("./components/NewParking");
 var Modal = require("./components/dump/Modal/Modal");
