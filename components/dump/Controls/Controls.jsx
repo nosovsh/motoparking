@@ -3,7 +3,6 @@ var React = require("react");
 require("./Controls.css");
 
 var Controls = React.createClass({
-
   propTypes: {
     isSecondary: React.PropTypes.bool,
     children: React.PropTypes.array

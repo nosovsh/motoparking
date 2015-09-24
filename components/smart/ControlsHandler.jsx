@@ -1,10 +1,8 @@
 var React = require("react/addons");
 var Fluxxor = require("fluxxor");
 
-require("normalize.css/normalize.css");
-require("./style.css");
-
 var Controls = require("../dump/Controls/Controls");
+var ControlButton = require("../dump/Controls/ControlButton/ControlButton");
 var Avatar = require("../Avatar");
 var Icon = require("../Icon");
 var DropDownMenu = require("../DropDownMenu").DropDownMenu;
@@ -59,7 +57,7 @@ var ControlsHandler = React.createClass({
   authorizedMenu: function() {
     return (
       <Controls>
-        <div className="control-btn control-btn-round">
+        <ControlButton isRound>
           <Avatar
             user={ this.state.currentUser }
             style={{
@@ -68,12 +66,12 @@ var ControlsHandler = React.createClass({
             }}
             onClick={ this.onMenuTriggerClick }
           />
-        </div>
+        </ControlButton>
         <Link to="NewParking">
-          <div className="control-btn">
+          <ControlButton>
             <Icon name="add"/>
             Добавить парковку
-          </div>
+          </ControlButton>
         </Link>
         <DropDownMenu ref="menu">
           <ButtonRow align="left" color="dark" callback={ this.transitionTo.bind(this, "Info") }>О проекте</ButtonRow>
@@ -86,15 +84,15 @@ var ControlsHandler = React.createClass({
   notAuthorizedMenu: function() {
     return (
       <Controls>
-        <div className="control-btn control-btn-round" onClick={ this.onMenuTriggerClick }>
+        <ControlButton isRound onClick={ this.onMenuTriggerClick }>
           <Icon name="menu"/>
-        </div>
+        </ControlButton>
 
         <a href="/login">
-          <div className="control-btn">
+          <ControlButton>
             <Icon name="add"/>
             Добавить парковку
-          </div>
+          </ControlButton>
         </a>
 
         <DropDownMenu ref="menu">
@@ -108,17 +106,18 @@ var ControlsHandler = React.createClass({
   render: function() {
     return (
       <div>
-            { this.state.isAuthorized ? this.authorizedMenu() : this.notAuthorizedMenu() }
+        { this.state.isAuthorized ? this.authorizedMenu() : this.notAuthorizedMenu() }
+
         <Controls isSecondary>
-          <div className="control-btn control-btn-round" onClick={ this.onPlusClick }>
+          <ControlButton isRound onClick={ this.onPlusClick }>
             <Icon name="plus"/>
-          </div>
-          <div className="control-btn control-btn-round" onClick={ this.onMinusClick }>
+          </ControlButton>
+          <ControlButton isRound onClick={ this.onMinusClick }>
             <Icon name="minus"/>
-          </div>
-          <div className="control-btn control-btn-round" onClick={ this.onMyLocationClick }>
+          </ControlButton>
+          <ControlButton isRound onClick={ this.onMyLocationClick }>
             <Icon name="location" style={ {"marginLeft": "-3"} }/>
-          </div>
+          </ControlButton>
         </Controls>
       </div>
     );

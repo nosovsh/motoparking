@@ -1,0 +1,42 @@
+.ControlButton {
+    line-height: 39px;
+    text-align: center;
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    height: 38px;
+    padding: 0 16px;
+    color: #ffffff;
+    background: rgba(77, 77, 77, 0.76);
+    text-decoration: none;
+    vertical-align: bottom;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    box-sizing: border-box;
+    border-radius: 999em;
+    font-style: normal;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    margin-right: 8px;
+
+    -webkit-transition: all 0.5s ease;
+}
+
+@media only screen  and (min-width : 768px) {
+    .ControlButton:hover {
+        background: rgba(77, 77, 77, 1);
+    }
+}
+.ControlButton:active {
+    background: rgba(77, 77, 77, 1);
+}
+
+
+.ControlButton_isRound {
+    width: 38px;
+    padding: 0;
+    margin-top: 10px;
+}
