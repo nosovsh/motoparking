@@ -7,7 +7,7 @@ config.entry = [
 ];
 
 config.output = {
-  path: path.join(__dirname, "/build/"),
+  path: path.join(__dirname, "./static/build/"),
   filename: "[name].js",
   publicPath: "/static/build/",
   chunkFilename: "[id].js"
