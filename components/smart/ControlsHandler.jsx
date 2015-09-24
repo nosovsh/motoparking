@@ -57,11 +57,10 @@ var ControlsHandler = React.createClass({
   authorizedMenu: function() {
     return (
       <Controls>
-        <ControlButton isRound>
+        <ControlButton isRound onClick={ this.onMenuTriggerClick }>
           <Avatar
             user={ this.state.currentUser }
             size="small"
-            onClick={ this.onMenuTriggerClick }
           />
         </ControlButton>
         <Link to="NewParking">

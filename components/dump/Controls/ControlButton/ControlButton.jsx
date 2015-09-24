@@ -3,10 +3,11 @@ var classNames = require("classnames");
 
 require("./ControlButton.css");
 
-var Controls = React.createClass({
+var ControlButton = React.createClass({
   propTypes: {
     isRound: React.PropTypes.bool,
-    children: React.PropTypes.array
+    children: React.PropTypes.node,
+    onClick: React.PropTypes.func
   },
 
   getDefaultProps: function() {
@@ -18,11 +19,11 @@ var Controls = React.createClass({
   render: function() {
     return (
       <div className={ classNames("ControlButton", this.props.isRound && "ControlButton_isRound") }
-        onClick={ this.onPlusClick }>
+        onClick={ this.props.onClick }>
         { this.props.children }
       </div>
     );
   }
 });
 
-module.exports = Controls;
+module.exports = ControlButton;

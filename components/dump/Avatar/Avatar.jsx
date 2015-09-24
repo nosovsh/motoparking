@@ -8,7 +8,7 @@ var placeholder = require("./placeholder.svg");
 var Avatar = React.createClass({
   propTypes: {
     user: React.PropTypes.object.isRequired,
-    size: React.PropTypes.oneOf("small", "big")
+    size: React.PropTypes.oneOf(["small", "big"])
   },
 
   getDefaultProps: function() {
