@@ -1,3 +1,5 @@
+var _ = require("lodash");
+
 var Fluxxor = require("fluxxor");
 var ParkingStore = require("./flux/parking/ParkingStore");
 var ParkingActions = require("./flux/parking/ParkingActions");
@@ -19,6 +21,7 @@ var AppActions = require("./flux/app/AppActions");
 
 var ToastStore = require("./flux/toast/ToastStore");
 var ToastActions = require("./flux/toast/ToastActions");
+
 
 var stores = {
   ParkingStore: new ParkingStore(),

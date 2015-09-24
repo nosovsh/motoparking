@@ -1,22 +1,17 @@
-var React = require('react');
-var routes = require('./routes');
+var React = require("react");
+var routes = require("./routes");
 
 // Require React-Router
-var Router = require('react-router');
-var Route = Router.Route;
-var NotFoundRoute = Router.NotFoundRoute;
-var DefaultRoute = Router.DefaultRoute;
-var Link = Router.Link;
-var RouteHandler = Router.RouteHandler;
+var Router = require("react-router");
 
-var analytics = require('./utils/analytics');
+var analytics = require("./utils/analytics");
 
 window.React = React; // For chrome dev tool support
 
 var flux = require("./fluxy");
 
-Router.run(routes, Router.HistoryLocation, function (Handler, state) {
-    React.render(<Handler flux={ flux }/>, document.body);
-    analytics.pageView(state.path);
+Router.run(routes, Router.HistoryLocation, function(Handler, state) {
+  React.render(<Handler flux={ flux }/>, document.body);
+  analytics.pageView(state.path);
 });
 

@@ -1,0 +1,7 @@
+{
+  "extends": "eslint-config-airbnb-es5",
+  "rules": {
+    "quotes": [2, "double", "avoid-escape"],
+    "no-console": 0
+  }
+}
