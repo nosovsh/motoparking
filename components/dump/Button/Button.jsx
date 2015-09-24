@@ -1,7 +1,7 @@
 var React = require("react/addons");
 var classNames = require("classnames");
 
-require("./style.css");
+require("./Button.css");
 
 
 var Button = React.createClass({

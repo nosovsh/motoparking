@@ -1,7 +1,7 @@
 var React = require("react"),
     Fluxxor = require("fluxxor");
 
-var Button = require("../Button");
+var Button = require("../dump/Button/Button");
 
 var IsMotoQuestion = React.createClass({
     propTypes: {

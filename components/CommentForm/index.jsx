@@ -8,7 +8,7 @@ var FluxMixin = Fluxxor.FluxMixin(React),
 
 var Avatar = require("../dump/Avatar/Avatar"),
     Icon = require("../Icon"),
-    ButtonRow = require("../ButtonRow");
+    ButtonRow = require("../dump/ButtonRow/ButtonRow");
 
 
 var CommentForm = React.createClass({

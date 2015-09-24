@@ -9,7 +9,7 @@ var Link = Router.Link;
 var FluxMixin = Fluxxor.FluxMixin(React),
     StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
-var ButtonRow = require("../ButtonRow"),
+var ButtonRow = require("../dump/ButtonRow/ButtonRow"),
     Icon = require("../Icon");
 
 var EditLocation = React.createClass({

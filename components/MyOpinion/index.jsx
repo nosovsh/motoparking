@@ -4,10 +4,10 @@ var React = require("react"),
 
 require("./style.css");
 
-var Button = require("../Button"),
+var Button = require("../dump/Button/Button"),
     IsMotoQuestion = require("../IsMotoQuestion"),
     IsSecureQuestion = require("../IsSecureQuestion"),
-    ButtonRow = require("../ButtonRow"),
+    ButtonRow = require("../dump/ButtonRow/ButtonRow"),
     Icon = require("../Icon"),
     PriceQuestion = require("../PriceQuestion");
 

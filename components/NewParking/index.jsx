@@ -4,10 +4,10 @@ var React = require("react/addons"),
 
 require("./style.css");
 
-var Button = require("../Button"),
+var Button = require("../dump/Button/Button"),
     IsMotoQuestion = require("../IsMotoQuestion"),
     PriceQuestion = require("../PriceQuestion"),
-    ButtonRow = require("../ButtonRow"),
+    ButtonRow = require("../dump/ButtonRow/ButtonRow"),
     Icon = require("../Icon");
 
 var FluxMixin = Fluxxor.FluxMixin(React),
