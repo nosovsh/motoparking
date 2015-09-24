@@ -9,7 +9,7 @@ require("slick-carousel/slick/slick.css");
 var FluxMixin = Fluxxor.FluxMixin(React),
     StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
-var Photo = require("../Photo"),
+var Photo = require("../dump/Photo/Photo"),
     FileUploader = require("../FileUploader");
 
 

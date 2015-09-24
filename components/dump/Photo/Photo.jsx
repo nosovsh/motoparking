@@ -1,6 +1,6 @@
 var React = require("react/addons");
 
-require("./style.css");
+require("./Photo.css");
 
 
 var Photo = React.createClass({
