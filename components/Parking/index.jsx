@@ -16,6 +16,7 @@ var StatusCover = require("../StatusCover"),
     Photo = require("../Photo"),
     Comments = require("../Comments"),
     Slider = require("../Slider"),
+    Sidebar = require("../dump/Sidebar/Sidebar"),
     AvatarList = require("../dump/AvatarList/AvatarList");
 
 
@@ -32,8 +33,7 @@ var Parking = React.createClass({
             )
         } else {
             return (
-                <div className="sidebar__wrapper" >
-                    <div className="sidebar__content" ref="parking__content">
+                <Sidebar>
                         <div className="sidebar__content__inner" ref="parking__content__inner">
                             { this.state.currentUser.isSuper ?
                             <a href="#" style={ {color: "#FFF"} } onClick={ this.deleteParking }>
@@ -101,8 +101,7 @@ var Parking = React.createClass({
                             </div>) :
                             <div className="loading">Loading...</div> }
                         </div>
-                    </div>
-                </div>
+                </Sidebar>
             )
         }
     },
@@ -111,6 +110,11 @@ var Parking = React.createClass({
         this.getFlux().actions.loadCurrentParking(this.getParams().id);
         //this.getFlux().actions.loadOpinions(this.getParams().id);
 
+        /**
+         * Sending scroll event to analytics.
+         * Temporary disable
+         */
+          /*
         var parkingContent = this.refs.parking__content.getDOMNode();
         var parkingContentInner = this.refs.parking__content__inner.getDOMNode();
         $(parkingContent).scroll(function () {
@@ -121,6 +125,7 @@ var Parking = React.createClass({
                 this.getFlux().actions.parkingScrolled("top")
             }
         }.bind(this))
+        */
     },
 
     componentWillReceiveProps: function (nextProps) {
