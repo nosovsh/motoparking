@@ -1,6 +1,9 @@
 {
   "name": "motoparking",
   "version": "1.0.0",
+  "engines": {
+    "npm": "3.3.x"
+  }
   "description": "",
   "main": "index.js",
   "dependencies": {
