@@ -43,9 +43,6 @@ a {
 }
 
 
-/*
-   Animation example, for spinners
-*/
 .animate-spin {
   -moz-animation: spin 2s infinite linear;
   -o-animation: spin 2s infinite linear;
@@ -127,10 +124,4 @@ a {
     -webkit-transform: rotate(359deg);
     transform: rotate(359deg);
   }
-}
-
-.icon-menu {
-  display: block;
-  margin-top: -1px;
-  margin-left: -1px;
 }

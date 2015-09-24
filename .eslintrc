@@ -1,8 +1,19 @@
 {
-  "extends": "eslint-config-airbnb-es5",
+  "extends": "eslint-config-airbnb",
   "rules": {
     "quotes": [2, "double", "avoid-escape"],
     "no-console": 0,
-    "func-names": 0
+    "func-names": 0,
+    "new-cap": [2, {
+      "newIsCap": true,
+      "capIsNew": false
+      }],
+
+    "no-var": 0,
+    "prefer-const": 0,
+
+    "vars-on-top": 0,                  // easy to move to ES6 some day
+    "comma-dangle": [2, "never"]
   }
+
 }
