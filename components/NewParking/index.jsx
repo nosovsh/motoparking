@@ -8,7 +8,7 @@ var Button = require("../dump/Button/Button"),
     IsMotoQuestion = require("../IsMotoQuestion"),
     PriceQuestion = require("../PriceQuestion"),
     ButtonRow = require("../dump/ButtonRow/ButtonRow"),
-    Icon = require("../Icon");
+    Icon = require("../dump/Icon/Icon");
 
 var FluxMixin = Fluxxor.FluxMixin(React),
     StoreWatchMixin = Fluxxor.StoreWatchMixin;

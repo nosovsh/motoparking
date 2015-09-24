@@ -8,7 +8,7 @@ var Button = require("../dump/Button/Button"),
     IsMotoQuestion = require("../IsMotoQuestion"),
     IsSecureQuestion = require("../IsSecureQuestion"),
     ButtonRow = require("../dump/ButtonRow/ButtonRow"),
-    Icon = require("../Icon"),
+    Icon = require("../dump/Icon/Icon"),
     PriceQuestion = require("../PriceQuestion");
 
 

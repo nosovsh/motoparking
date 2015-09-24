@@ -3,7 +3,7 @@ var React = require("react/addons");
 require("./style.css");
 
 var TextInput = require("../TextInput"),
-    Icon = require("../Icon");
+    Icon = require("../dump/Icon/Icon");
 
 var PriceQuestion = React.createClass({
 

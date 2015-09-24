@@ -2,7 +2,7 @@ var React = require("react/addons"),
     ProgressBar = require("progressbar.js"),
     Fluxxor = require("fluxxor");
 
-var Icon = require("../Icon");
+var Icon = require("../dump/Icon/Icon");
 
 var FluxMixin = Fluxxor.FluxMixin(React),
     StoreWatchMixin = Fluxxor.StoreWatchMixin;

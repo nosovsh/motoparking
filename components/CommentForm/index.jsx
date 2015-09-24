@@ -7,7 +7,7 @@ var FluxMixin = Fluxxor.FluxMixin(React),
     StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
 var Avatar = require("../dump/Avatar/Avatar"),
-    Icon = require("../Icon"),
+    Icon = require("../dump/Icon/Icon"),
     ButtonRow = require("../dump/ButtonRow/ButtonRow");
 
 

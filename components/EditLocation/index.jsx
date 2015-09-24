@@ -10,7 +10,7 @@ var FluxMixin = Fluxxor.FluxMixin(React),
     StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
 var ButtonRow = require("../dump/ButtonRow/ButtonRow"),
-    Icon = require("../Icon");
+    Icon = require("../dump/Icon/Icon");
 
 var EditLocation = React.createClass({
 
