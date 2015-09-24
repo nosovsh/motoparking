@@ -1,59 +1,39 @@
-var React = require("react/addons"),
-    Fluxxor = require("fluxxor"),
-    TimeoutTransitionGroup = require("react-components/js/timeout-transition-group"),
-    _ = require("lodash");
+var React = require("react/addons");
+var TimeoutTransitionGroup = require("react-components/js/timeout-transition-group");
 
-var FluxMixin = Fluxxor.FluxMixin(React),
-    StoreWatchMixin = Fluxxor.StoreWatchMixin;
+var Toast = require("./Toast/Toast");
 
 require("./style.css");
 
+
 var Toaster = React.createClass({
+  propTypes: {
+    toasts: React.PropTypes.array
+  },
 
-    mixins: [FluxMixin, StoreWatchMixin("ToastStore")],
+  getDefaultProps: function() {
+    return {
+      toasts: []
+    };
+  },
 
-    render: function () {
-        var toastsComponents = this.state.toasts.map(function (toast) {
-            return (
-                <Toast toast={ toast } key={ toast.id }/>
-            );
-        });
-        return (
-            <div className="Toaster">
-                <TimeoutTransitionGroup
-                    enterTimeout={1000}
-                    leaveTimeout={1000}
-                    transitionName="Toast">
-                        { toastsComponents }
-                </TimeoutTransitionGroup>
-            </div>
-        )
-    },
-
-    getStateFromFlux: function () {
-        var toastStore = this.getFlux().store("ToastStore");
-
-        return {
-            toasts: toastStore.toasts
-        };
-    }
-});
-
-var Toast = React.createClass({
-
-    propTypes: {
-        toast: React.PropTypes.object.isRequired
-    },
-
-    render: function () {
-        var messageRows = _.map(this.props.toast.message.split("\n"), function (str) {
-            return (
-                <p>{ str }</p>
-            )
-        });
-
-        return <div className="Toast"> { messageRows } </div>
-    }
+  render: function() {
+    var toastsComponents = this.props.toasts.map(function(toast) {
+      return (
+        <Toast toast={ toast } key={ toast.id }/>
+      );
+    });
+    return (
+      <div className="Toaster">
+        <TimeoutTransitionGroup
+          enterTimeout={1000}
+          leaveTimeout={1000}
+          transitionName="Toast">
+            { toastsComponents }
+        </TimeoutTransitionGroup>
+      </div>
+    );
+  }
 });
 
 module.exports = Toaster;

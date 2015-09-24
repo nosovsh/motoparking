@@ -3,7 +3,7 @@ var Fluxxor = require("fluxxor");
 var TimeoutTransitionGroup = require("react-components/js/timeout-transition-group");
 
 var Map = require("../Map");
-var Toaster = require("../Toaster");
+var ToasterContainer = require("./ToasterContainer");
 
 var Router = require("react-router");
 var RouteHandler = Router.RouteHandler;
@@ -39,7 +39,7 @@ var Application = React.createClass({
           className="one-more-wrapper">
           <RouteHandler  key={this.getHandlerKey()} />
         </TimeoutTransitionGroup>
-        <Toaster />
+        <ToasterContainer />
       </div>
     );
   }

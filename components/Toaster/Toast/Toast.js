@@ -1,0 +1,21 @@
+var React = require("react/addons");
+
+require("./Toast.css");
+
+
+var Toast = React.createClass({
+  propTypes: {
+    toast: React.PropTypes.object.isRequired
+  },
+
+  render: function() {
+    var messageRows = this.props.toast.message.split("\n").map(function(str) {
+      return (
+        <p>{ str }</p>
+      );
+    });
+    return <div className="Toast"> { messageRows } </div>;
+  }
+});
+
+module.exports = Toast;
