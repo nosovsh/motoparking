@@ -6,7 +6,7 @@ require("./style.css");
 var FluxMixin = Fluxxor.FluxMixin(React),
     StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
-var Avatar = require("../Avatar"),
+var Avatar = require("../dump/Avatar/Avatar"),
     Icon = require("../Icon"),
     ButtonRow = require("../ButtonRow");
 

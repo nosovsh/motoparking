@@ -3,7 +3,7 @@ var React = require("react"),
 
 require("./style.css");
 
-var Avatar = require("../Avatar"),
+var Avatar = require("../dump/Avatar/Avatar"),
     moment = require('moment');
 
 

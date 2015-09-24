@@ -1,6 +1,6 @@
 var React = require("react");
 
-require("./style.css");
+require("./Avatar.css");
 
 var placeholder = require("./placeholder.svg");
 

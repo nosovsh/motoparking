@@ -3,7 +3,7 @@ var React = require("react/addons"),
 
 require("./style.css");
 
-var Avatar = require("../Avatar"),
+var Avatar = require("../dump/Avatar/Avatar"),
     Tooltip = require('rc-tooltip');
 
 require('rc-tooltip/assets/bootstrap.css');

@@ -3,7 +3,7 @@ var Fluxxor = require("fluxxor");
 
 var Controls = require("../dump/Controls/Controls");
 var ControlButton = require("../dump/Controls/ControlButton/ControlButton");
-var Avatar = require("../Avatar");
+var Avatar = require("../dump/Avatar/Avatar");
 var Icon = require("../Icon");
 var DropDownMenu = require("../DropDownMenu").DropDownMenu;
 var ButtonRow = require("../ButtonRow");
