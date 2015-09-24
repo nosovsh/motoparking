@@ -1,4 +1,5 @@
 var React = require("react");
+var classNames = require("classnames");
 
 require("./Controls.css");
 
@@ -24,8 +25,8 @@ var Controls = React.createClass({
       "controls__content_secondary": this.props.isSecondary
     };
     return (
-      <div className={ React.addons.classSet(classes1) }>
-        <div className={ React.addons.classSet(classes2) }>
+      <div className={ classNames(classes1) }>
+        <div className={ classNames(classes2) }>
           { this.props.children }
         </div>
       </div>

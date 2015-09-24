@@ -1,4 +1,5 @@
 var React = require("react");
+var classNames = require("classnames");
 
 require("./Avatar.css");
 
@@ -10,15 +11,16 @@ var Avatar = React.createClass({
     size: React.PropTypes.oneOf("small", "big")
   },
 
+  getDefaultProps: function() {
+    return {
+      size: "big"
+    };
+  },
+
   render: function() {
     var image = this.props.user.image || placeholder;
-    var modifierClass = "Avatar_size_" + this.props.size;
-    var classes = {
-      "Avatar": true
-    };
-    classes[modifierClass] = true;
     return (
-      <img className={ React.addons.classSet(classes) } src={ image }/>
+      <img className={ classNames("Avatar", "Avatar_size_" + this.props.size) } src={ image }/>
     );
   }
 });

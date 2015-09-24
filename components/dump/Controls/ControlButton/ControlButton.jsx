@@ -1,4 +1,5 @@
 var React = require("react");
+var classNames = require("classnames");
 
 require("./ControlButton.css");
 
@@ -15,12 +16,9 @@ var Controls = React.createClass({
   },
 
   render: function() {
-    var classes = {
-      "ControlButton": true,
-      "ControlButton_isRound": this.props.isRound
-    };
     return (
-      <div className={ React.addons.classSet(classes) } onClick={ this.onPlusClick }>
+      <div className={ classNames("ControlButton", this.props.isRound && "ControlButton_isRound") }
+        onClick={ this.onPlusClick }>
         { this.props.children }
       </div>
     );
