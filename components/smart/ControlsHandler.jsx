@@ -109,7 +109,7 @@ var ControlsHandler = React.createClass({
     return (
       <div>
             { this.state.isAuthorized ? this.authorizedMenu() : this.notAuthorizedMenu() }
-        <Controls secondary={ true }>
+        <Controls isSecondary>
           <div className="control-btn control-btn-round" onClick={ this.onPlusClick }>
             <Icon name="plus"/>
           </div>
