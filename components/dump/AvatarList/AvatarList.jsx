@@ -1,11 +1,10 @@
 var React = require("react/addons");
 var _ = require("lodash");
 
-require("./style.css");
-
-var Avatar = require("../dump/Avatar/Avatar");
+var Avatar = require("../Avatar/Avatar");
 var Tooltip = require("rc-tooltip");
 
+require("./AvatarList.css");
 require("rc-tooltip/assets/bootstrap.css");
 
 var DEFAULT_GAP = 20;

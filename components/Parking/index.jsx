@@ -16,7 +16,7 @@ var StatusCover = require("../StatusCover"),
     Photo = require("../Photo"),
     Comments = require("../Comments"),
     Slider = require("../Slider"),
-    AvatarList = require("../AvatarList");
+    AvatarList = require("../dump/AvatarList/AvatarList");
 
 
 var Parking = React.createClass({
