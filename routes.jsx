@@ -7,7 +7,7 @@ var App = require("./components/smart/Application");
 var Default = require("./components/Default");
 var Parking = require("./components/Parking");
 var NewParking = require("./components/NewParking");
-var Modal = require("./components/Modal");
+var Modal = require("./components/dump/Modal/Modal");
 
 var Router = require("react-router");
 var Route = Router.Route;
