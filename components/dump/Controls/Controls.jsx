@@ -1,6 +1,6 @@
 var React = require("react");
 
-require("./style.css");
+require("./Controls.css");
 
 var Controls = React.createClass({
 

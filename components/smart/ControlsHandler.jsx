@@ -4,7 +4,7 @@ var Fluxxor = require("fluxxor");
 require("normalize.css/normalize.css");
 require("./style.css");
 
-var Controls = require("../Controls");
+var Controls = require("../dump/Controls/Controls");
 var Avatar = require("../Avatar");
 var Icon = require("../Icon");
 var DropDownMenu = require("../DropDownMenu").DropDownMenu;
