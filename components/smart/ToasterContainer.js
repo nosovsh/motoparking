@@ -1,15 +1,13 @@
-var React = require("react/addons"),
-  Fluxxor = require("fluxxor"),
-  TimeoutTransitionGroup = require("react-components/js/timeout-transition-group"),
-  _ = require("lodash");
+var React = require("react/addons");
+var Fluxxor = require("fluxxor");
 
-var FluxMixin = Fluxxor.FluxMixin(React),
-  StoreWatchMixin = Fluxxor.StoreWatchMixin;
+var FluxMixin = Fluxxor.FluxMixin(React);
+var StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
-var Toaster = require("../Toaster");
+var Toaster = require("../dump/Toaster/Toaster");
+
 
 var ToasterContainer = React.createClass({
-
   mixins: [FluxMixin, StoreWatchMixin("ToastStore")],
 
   getStateFromFlux: function() {
@@ -19,7 +17,7 @@ var ToasterContainer = React.createClass({
     };
   },
 
-  render: function () {
+  render: function() {
     return (
       <Toaster toasts={ this.state.toasts } />
     );

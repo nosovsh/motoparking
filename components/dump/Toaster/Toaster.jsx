@@ -3,7 +3,7 @@ var TimeoutTransitionGroup = require("react-components/js/timeout-transition-gro
 
 var Toast = require("./Toast/Toast");
 
-require("./style.css");
+require("./Toaster.css");
 
 
 var Toaster = React.createClass({

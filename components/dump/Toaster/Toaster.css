@@ -1,0 +1,10 @@
+.Toaster {
+    position: fixed;
+    max-width: 600px;
+    width: 90%;
+    z-index: 300;
+    bottom: 16px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+}
