@@ -60,10 +60,7 @@ var ControlsHandler = React.createClass({
         <ControlButton isRound>
           <Avatar
             user={ this.state.currentUser }
-            style={{
-              width: 38,
-              height: 38
-            }}
+            size="small"
             onClick={ this.onMenuTriggerClick }
           />
         </ControlButton>

@@ -4,15 +4,21 @@ require("./style.css");
 
 var placeholder = require("./placeholder.svg");
 
-
 var Avatar = React.createClass({
   propTypes: {
-    user: React.PropTypes.object.isRequired
+    user: React.PropTypes.object.isRequired,
+    size: React.PropTypes.oneOf("small", "big")
   },
+
   render: function() {
     var image = this.props.user.image || placeholder;
+    var modifierClass = "Avatar_size_" + this.props.size;
+    var classes = {
+      "Avatar": true
+    };
+    classes[modifierClass] = true;
     return (
-      <img className="Avatar" src={ image } { ...this.props }/>
+      <img className={ React.addons.classSet(classes) } src={ image }/>
     );
   }
 });
