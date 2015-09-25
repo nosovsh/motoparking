@@ -1,165 +1,111 @@
-var React = require("react/addons"),
-    Fluxxor = require("fluxxor");
+var React = require("react/addons");
+
+var Router = require("react-router");
+var Link = Router.Link;
+
+var StatusCover = require("../StatusCover");
+var MyOpinion = require("../MyOpinion");
+var EditLocation = require("../EditLocation");
+var Icon = require("../dump/Icon/Icon");
+var Comments = require("../Comments");
+var Slider = require("../Slider");
+var Sidebar = require("../dump/Sidebar/Sidebar");
+var AvatarList = require("../dump/AvatarList/AvatarList");
 
 require("./style.css");
 
-var Router = require('react-router'),
-    Link = Router.Link;
-
-var FluxMixin = Fluxxor.FluxMixin(React),
-    StoreWatchMixin = Fluxxor.StoreWatchMixin;
-
-var StatusCover = require("../StatusCover"),
-    MyOpinion = require("../MyOpinion"),
-    EditLocation = require("../EditLocation"),
-    Icon = require("../dump/Icon/Icon"),
-    Comments = require("../Comments"),
-    Slider = require("../Slider"),
-    Sidebar = require("../dump/Sidebar/Sidebar"),
-    AvatarList = require("../dump/AvatarList/AvatarList");
-
 
 var Parking = React.createClass({
+  propTypes: {
+    loading: React.PropTypes.bool,
+    error: React.PropTypes.bool,
+    currentParking: React.PropTypes.object.isRequired,
+    currentParkingOpinions: React.PropTypes.array.isRequired,
+    editingLocation: React.PropTypes.bool,
+    comments: React.PropTypes.array.isRequired,
+    currentUser: React.PropTypes.object.isRequired
+  },
 
-    mixins: [Router.State, FluxMixin, StoreWatchMixin("ParkingStore", "OpinionStore", "CommentStore", "CurrentUserStore")],
+  render: function() {
+    if (this.props.editingLocation) {
+      return (
+        <div className="edit-location">
+          <EditLocation />
+        </div>
+      );
+    } else {
+      return (
+        <Sidebar>
+          <div className="sidebar__content__inner" ref="parking__content__inner">
+              { this.props.currentUser.isSuper ?
+                <a href="#" style={ {color: "#FFF"} } onClick={ this.deleteParking }>
+                  <div className="close-wrapper" style={{right: "inherit", left: 6}}>
+                    <Icon name="delete" />
+                  </div>
+                </a> : null }
 
-    render: function () {
-        if (this.state.editingLocation) {
-            return (
-                <div className="edit-location">
-                    <EditLocation />
-                </div>
-            )
-        } else {
-            return (
-                <Sidebar>
-                        <div className="sidebar__content__inner" ref="parking__content__inner">
-                            { this.state.currentUser.isSuper ?
-                            <a href="#" style={ {color: "#FFF"} } onClick={ this.deleteParking }>
-                                <div className="close-wrapper" style={{right: "inherit",left: 6}}>
-                                    <Icon name="delete" />
-                                </div>
-                            </a> : null }
+            <Link to="Default" style={ {color: "#FFF"} }>
+              <div className="close-wrapper">
+                <Icon name="close" />
+              </div>
+            </Link>
 
-                            <Link to="Default" style={ {color: "#FFF"} }>
-                                <div className="close-wrapper">
-                                    <Icon name="close" />
-                                </div>
-                            </Link>
+            <StatusCover isSecure={ this.props.currentParking.isSecure }  isMoto={ this.props.currentParking.isMoto }/>
+            { this.props.currentParking.isFullParkingLoaded ? (
+              <div>
+                <AvatarList users={ this.props.currentParking.users } />
 
-                            <StatusCover isSecure={ this.state.currentParking.isSecure }  isMoto={ this.state.currentParking.isMoto }/>
+                    { this.props.currentParking.isMoto === "yes" ?
+                      <div className="Prices">
+                        <div className="Prices__Price">
+                          <div className="Prices__Price__Label">
+                            Сутки
+                          </div>
+                          <div className="Prices__Price__Value">
+                                    { this.props.currentParking.pricePerDay ?
+                                      <div>
+                                            { this.props.currentParking.pricePerDay }
+                                        <Icon name="rouble" additionalClasses={ ["Rouble"] } />
+                                      </div> : "?" }
 
-                        { this.state.currentParking.isFullParkingLoaded ? (
-                            <div>
-                                <AvatarList users={ this.state.currentParking.users } />
-
-                                { this.state.currentParking.isMoto == "yes" ?
-                                    <div className="Prices">
-                                        <div className="Prices__Price">
-                                            <div className="Prices__Price__Label">
-                                                Сутки
-                                            </div>
-                                            <div className="Prices__Price__Value">
-                                                { this.state.currentParking.pricePerDay ?
-                                                    <div>
-                                                        { this.state.currentParking.pricePerDay }
-                                                        <Icon name="rouble" additionalClasses={ ["Rouble"] } />
-                                                    </div> : "?" }
-
-                                            </div>
-                                        </div>
-
-                                        <div className="Prices__Price">
-
-                                            <div className="Prices__Price__Label">
-                                                Месяц
-                                            </div>
-                                            <div className="Prices__Price__Value">
-                                                { this.state.currentParking.pricePerMonth ?
-                                                    <div>
-                                                        { this.state.currentParking.pricePerMonth }
-                                                        <Icon name="rouble" additionalClasses={ ["Rouble"] } />
-                                                    </div> : "?" }
-                                            </div>
-                                        </div>
-
-                                    </div> : null }
-
-                                <Slider images={ this.state.currentParking.images } />
-
-                                <div className="InfoRow">
-                                    <div className="Address">{ this.state.currentParking.address }&nbsp;</div>
-                                    { this.state.currentUser && this.state.currentUser.id == this.state.currentParking.user ?
-                                    <Icon name="edit" additionalClasses={ ["edit-location-button"] } onClick={ this.editLocation }/> :
-                                        null }
-                                </div>
-
-                                <MyOpinion parking={ this.state.currentParking }/>
-
-                                <Comments comments={ this.state.comments } />
-                            </div>) :
-                            <div className="loading">Loading...</div> }
+                          </div>
                         </div>
-                </Sidebar>
-            )
-        }
-    },
 
-    componentDidMount: function () {
-        this.getFlux().actions.loadCurrentParking(this.getParams().id);
-        //this.getFlux().actions.loadOpinions(this.getParams().id);
+                        <div className="Prices__Price">
 
-        /**
-         * Sending scroll event to analytics.
-         * Temporary disable
-         */
-          /*
-        var parkingContent = this.refs.parking__content.getDOMNode();
-        var parkingContentInner = this.refs.parking__content__inner.getDOMNode();
-        $(parkingContent).scroll(function () {
-            if ($(parkingContent).scrollTop() + $(parkingContent).height() == $(parkingContentInner).height()) {
-                this.getFlux().actions.parkingScrolled("bottom")
-            }
-            if ($(parkingContent).scrollTop() == 0) {
-                this.getFlux().actions.parkingScrolled("top")
-            }
-        }.bind(this))
-        */
-    },
+                          <div className="Prices__Price__Label">
+                            Месяц
+                          </div>
+                          <div className="Prices__Price__Value">
+                                    { this.props.currentParking.pricePerMonth ?
+                                      <div>
+                                            { this.props.currentParking.pricePerMonth }
+                                        <Icon name="rouble" additionalClasses={ ["Rouble"] } />
+                                      </div> : "?" }
+                          </div>
+                        </div>
 
-    componentWillReceiveProps: function (nextProps) {
-        this.getFlux().actions.loadCurrentParking(this.getParams().id);
-        //this.getFlux().actions.loadOpinions(this.getParams().id);
-    },
+                      </div> : null }
 
-    getStateFromFlux: function () {
-        var store = this.getFlux().store("ParkingStore");
-        var opinionStore = this.getFlux().store("OpinionStore");
-        var commentStore = this.getFlux().store("CommentStore");
-        var currentUserStore = this.getFlux().store("CurrentUserStore");
+                <Slider images={ this.props.currentParking.images } />
 
-        return {
-            loading: store.loading,
-            error: store.error,
-            currentParking: store.getCurrentParking(),
-            currentParkingId: store.currentParkingId,
-            currentParkingOpinions: opinionStore.opinionsByParking[store.currentParkingId] ? opinionStore.opinionsByParking[store.currentParkingId] : [],
-            editingLocation: store.editingLocation,
-            comments: commentStore.getComments(store.currentParkingId),
-            loadingAddress: store.loadingAddress,
-            loadingAddressError: store.loadingAddressError,
-            currentUser: currentUserStore.currentUser
-        };
-    },
+                <div className="InfoRow">
+                  <div className="Address">{ this.props.currentParking.address }&nbsp;</div>
+                        { this.props.currentUser && this.props.currentUser.id === this.props.currentParking.user ?
+                          <Icon name="edit" additionalClasses={ ["edit-location-button"] } onClick={ this.editLocation }/> :
+                          null }
+                </div>
 
-    editLocation: function () {
-        this.getFlux().actions.editLocation();
-    },
+                <MyOpinion parking={ this.props.currentParking }/>
 
-    deleteParking: function () {
-        this.getFlux().actions.deleteParking(this.state.currentParking.id);
+                <Comments comments={ this.props.comments } />
+              </div>) :
+              <div className="loading">Loading...</div> }
+          </div>
+        </Sidebar>
+      );
     }
-
+  }
 });
 
 module.exports = Parking;
