@@ -45,12 +45,12 @@
 }
 
 .status-cover__icon_is-secure_yes_is-moto_maybe {
-    background-image: url("images/mot-maybe.svg");
+    background-image: url("images/is-secure_yes_is-moto_maybe.svg");
     /*background-size: 63px 132px;*/
 }
 
 .status-cover__icon_is-secure_yes_is-moto_no {
-    background-image: url("images/mot-crossed.svg");
+    background-image: url("images/is-secure_yes_is-moto_no.svg");
 }
 
 .status-cover__icon_is-secure_yes_is-moto_yes {

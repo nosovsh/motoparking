@@ -1,53 +1,42 @@
 var React = require("react/addons");
+var classNames = require("classnames");
 
-require("./style.css");
+require("./StatusCover.css");
 
 var texts = {
-    "is-secure_maybe_is-moto_maybe": "Мнения об этом месте расходятся. <br />Мы не знаем что тут",
-    "is-secure_no_is-moto_maybe": "Скорее всего здесь нет охраняемой парковки",
-    "is-secure_yes_is-moto_maybe": "Здесь есть охраняемая парковка, <br/ >но неизвестно можно ли оставить мотоцикл",
-    "is-secure_yes_is-moto_no": "Здесь есть охраняемая парковка, <br/ >но мотоциклы не пускают",
-    "is-secure_yes_is-moto_yes": "Здесь можно оставить мотоцикл <br/ >под охраной"
+  "is-secure_maybe_is-moto_maybe": "Мнения об этом месте расходятся. \nМы не знаем что тут",
+  "is-secure_no_is-moto_maybe": "Скорее всего здесь нет охраняемой парковки",
+  "is-secure_yes_is-moto_maybe": "Здесь есть охраняемая парковка, \nно неизвестно можно ли оставить мотоцикл",
+  "is-secure_yes_is-moto_no": "Здесь есть охраняемая парковка, \nно мотоциклы не пускают",
+  "is-secure_yes_is-moto_yes": "Здесь можно оставить мотоцикл \nпод охраной"
 };
 
 var StatusCover = React.createClass({
-    propTypes: {
-        isSecure: React.PropTypes.string,
-        isSoto: React.PropTypes.string
-    },
-    render: function () {
-        var name = 'is-secure_' + this.props.isSecure +
-            (this.props.isMoto ? '_is-moto_' + this.props.isMoto : "");
-        var cx = React.addons.classSet;
+  propTypes: {
+    isSecure: React.PropTypes.string,
+    isMoto: React.PropTypes.string
+  },
 
-        var coverClassName = "status-cover_" + name;
-        var coverClasses = {
-            'status-cover': true
-        };
-        coverClasses[coverClassName] = true;
+  render: function() {
+    var name = "is-secure_" + this.props.isSecure +
+      (this.props.isMoto ? "_is-moto_" + this.props.isMoto : "");
 
-        var iconClassName = "status-cover__icon_" + name;
-        var iconClasses = {
-            'status-cover__icon': true
-        };
-        iconClasses[iconClassName] = true;
+    // TODO: remove hack `this.props.isSecure !== undefined`
+    var textRows = this.props.isSecure !== undefined ? texts[name].split("\n").map(function(str) {
+      return (
+        <span>{ str }<br /></span>
+      );
+    }) : [];
 
-        // TODO: ???
-        function createMarkup() {
-            return  texts[name] || "";
-        };
-
-        return (
-            <div className={ cx(coverClasses) }>
-                <div className={ cx(iconClasses) }></div>
-                <div className="status-cover__text"
-                    dangerouslySetInnerHTML={{
-                        __html: createMarkup({sanitize: true})
-                    }}>
-                </div>
-            </div>
-        );
-    },
+    return (
+      <div className={ classNames("status-cover", "status-cover_" + name) }>
+        <div className={ classNames("status-cover__icon", "status-cover__icon_" + name) }></div>
+        <div className="status-cover__text">
+          { textRows }
+        </div>
+      </div>
+    );
+  }
 });
 
 module.exports = StatusCover;
