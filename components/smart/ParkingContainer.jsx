@@ -15,27 +15,24 @@ var ParkingContainer = React.createClass({
 
   componentDidMount: function() {
     this.getFlux().actions.loadCurrentParking(this.getParams().id);
-
-    /**
-     * Sending scroll event to analytics.
-     * Temporary disable
-     */
-    /*
-     var parkingContent = this.refs.parking__content.getDOMNode();
-     var parkingContentInner = this.refs.parking__content__inner.getDOMNode();
-     $(parkingContent).scroll(function () {
-     if ($(parkingContent).scrollTop() + $(parkingContent).height() == $(parkingContentInner).height()) {
-     this.getFlux().actions.parkingScrolled("bottom")
-     }
-     if ($(parkingContent).scrollTop() == 0) {
-     this.getFlux().actions.parkingScrolled("top")
-     }
-     }.bind(this))
-     */
   },
 
   componentWillReceiveProps: function(nextProps) { // eslint-disable-line no-unused-vars
     this.getFlux().actions.loadCurrentParking(this.getParams().id);
+  },
+
+  onEditLocationDone: function() {
+    var store = this.getFlux().store("ParkingStore");
+    var myOpinion = store.getMyOpinionOfCurrentParking();
+    myOpinion.latLng = {
+      type: "Point",
+      coordinates: [store.currentParkingTemporaryPosition.lat, store.currentParkingTemporaryPosition.lng]
+    };
+    this.getFlux().actions.editLocationDone(myOpinion);
+  },
+
+  onEditLocationCancel: function() {
+    this.getFlux().actions.editLocationCancel();
   },
 
   getStateFromFlux: function() {
@@ -57,18 +54,20 @@ var ParkingContainer = React.createClass({
     };
   },
 
-  editLocation: function() {
+  onEditLocation: function() {
     this.getFlux().actions.editLocation();
   },
 
-  deleteParking: function() {
+  onDeleteParking: function() {
     this.getFlux().actions.deleteParking(this.state.currentParking.id);
   },
 
   render: function() {
     if (this.state.editingLocation) {
       return (
-          <EditLocation />
+          <EditLocation
+            onEditLocationDone={ this.onEditLocationDone }
+            onEditLocationCancel={ this.onEditLocationCancel }/>
       );
     }
     return (
@@ -82,8 +81,8 @@ var ParkingContainer = React.createClass({
         loadingAddress={ this.state.loadingAddress }
         loadingAddressError={ this.state.loadingAddressError }
         currentUser={ this.state.currentUser }
-        onEditLocation={ this.editLocation }
-        onDeleteParking={ this.deleteParking }
+        onEditLocation={ this.onEditLocation }
+        onDeleteParking={ this.onDeleteParking }
       />
     );
   }
