@@ -1,14 +1,14 @@
 var React = require("react/addons");
 
-var IsMotoQuestion = require("../IsMotoQuestion");
-var PriceQuestion = require("../PriceQuestion");
-var ButtonRow = require("../dump/ButtonRow/ButtonRow");
-var Icon = require("../dump/Icon/Icon");
+var IsMotoQuestion = require("../../IsMotoQuestion");
+var PriceQuestion = require("../../PriceQuestion");
+var ButtonRow = require("../ButtonRow/ButtonRow");
+var Icon = require("../Icon/Icon");
 
 var Router = require("react-router");
 var Link = Router.Link;
 
-require("./style.css");
+require("./NewParking.css");
 
 
 var NewParking = React.createClass({
@@ -52,7 +52,7 @@ var NewParking = React.createClass({
           </div> : null }
 
         <ButtonRow callback={ this.props.onNewParkingDone }>
-          <Icon name="rocket" additionalClasses={ [React.addons.classSet(newParkingDoneIconClasses)] }/>
+          <Icon name="rocket" animation={ this.props.savingNewParking ? "spin" : null }/>
           Создать парковку
         </ButtonRow>
 

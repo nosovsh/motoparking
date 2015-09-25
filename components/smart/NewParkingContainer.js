@@ -4,7 +4,7 @@ var Fluxxor = require("fluxxor");
 var FluxMixin = Fluxxor.FluxMixin(React);
 var StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
-var NewParking = require("../NewParking");
+var NewParking = require("../dump/NewParking/NewParking");
 
 
 var NewParkingContainer = React.createClass({
