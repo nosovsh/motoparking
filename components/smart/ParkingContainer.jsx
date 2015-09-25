@@ -7,7 +7,7 @@ var FluxMixin = Fluxxor.FluxMixin(React);
 var StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
 var Parking = require("../Parking");
-var EditLocation = require("../EditLocation");
+var EditLocation = require("../dump/EditLocation/EditLocation");
 
 
 var ParkingContainer = React.createClass({
@@ -35,6 +35,14 @@ var ParkingContainer = React.createClass({
     this.getFlux().actions.editLocationCancel();
   },
 
+  onEditLocation: function() {
+    this.getFlux().actions.editLocation();
+  },
+
+  onDeleteParking: function() {
+    this.getFlux().actions.deleteParking(this.state.currentParking.id);
+  },
+
   getStateFromFlux: function() {
     var store = this.getFlux().store("ParkingStore");
     var opinionStore = this.getFlux().store("OpinionStore");
@@ -52,14 +60,6 @@ var ParkingContainer = React.createClass({
       loadingAddressError: store.loadingAddressError,
       currentUser: currentUserStore.currentUser
     };
-  },
-
-  onEditLocation: function() {
-    this.getFlux().actions.editLocation();
-  },
-
-  onDeleteParking: function() {
-    this.getFlux().actions.deleteParking(this.state.currentParking.id);
   },
 
   render: function() {

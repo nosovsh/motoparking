@@ -1,9 +1,9 @@
 var React = require("react/addons");
 
-var ButtonRow = require("../dump/ButtonRow/ButtonRow");
-var Icon = require("../dump/Icon/Icon");
+var ButtonRow = require("../ButtonRow/ButtonRow");
+var Icon = require("../Icon/Icon");
 
-require("./style.css");
+require("./EditLocation.css");
 
 
 var EditLocation = React.createClass({
