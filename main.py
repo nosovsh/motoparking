@@ -512,6 +512,9 @@ class OpinionResource(ProResource):
 
         parking.calculate()
         parking.save()
+        import time
+        print "aaa"
+        time.sleep(5)
 
         return opinion
 

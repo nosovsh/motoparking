@@ -6,7 +6,7 @@ var Router = require("react-router");
 var FluxMixin = Fluxxor.FluxMixin(React);
 var StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
-var Parking = require("../Parking");
+var Parking = require("../dump/Parking/Parking");
 var EditLocation = require("../dump/EditLocation/EditLocation");
 
 
