@@ -7,6 +7,7 @@ var FluxMixin = Fluxxor.FluxMixin(React);
 var StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
 var Parking = require("../Parking");
+var EditLocation = require("../EditLocation");
 
 
 var ParkingContainer = React.createClass({
@@ -36,6 +37,7 @@ var ParkingContainer = React.createClass({
   componentWillReceiveProps: function(nextProps) { // eslint-disable-line no-unused-vars
     this.getFlux().actions.loadCurrentParking(this.getParams().id);
   },
+
   getStateFromFlux: function() {
     var store = this.getFlux().store("ParkingStore");
     var opinionStore = this.getFlux().store("OpinionStore");
@@ -46,7 +48,6 @@ var ParkingContainer = React.createClass({
       loading: store.loading,
       error: store.error,
       currentParking: store.getCurrentParking(),
-      currentParkingId: store.currentParkingId,
       currentParkingOpinions: opinionStore.opinionsByParking[store.currentParkingId] ? opinionStore.opinionsByParking[store.currentParkingId] : [],
       editingLocation: store.editingLocation,
       comments: commentStore.getComments(store.currentParkingId),
@@ -65,6 +66,11 @@ var ParkingContainer = React.createClass({
   },
 
   render: function() {
+    if (this.state.editingLocation) {
+      return (
+          <EditLocation />
+      );
+    }
     return (
       <Parking
         loading={ this.state.loading }
@@ -72,11 +78,12 @@ var ParkingContainer = React.createClass({
         currentParking={ this.state.currentParking }
         currentParkingId={ this.state.currentParkingId }
         currentParkingOpinions={ this.state.currentParkingOpinions }
-        editingLocation={ this.state.editingLocation }
         comments={ this.state.comments }
         loadingAddress={ this.state.loadingAddress }
         loadingAddressError={ this.state.loadingAddressError }
         currentUser={ this.state.currentUser }
+        onEditLocation={ this.editLocation }
+        onDeleteParking={ this.deleteParking }
       />
     );
   }

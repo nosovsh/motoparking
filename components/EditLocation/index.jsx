@@ -18,7 +18,7 @@ var EditLocation = React.createClass({
 
     render: function () {
         return (
-            <div>
+            <div className="edit-location">
                 <div className="close-wrapper">
                     <Icon name="close" onClick={ this.onEditLocationCancel }/>
                 </div>
