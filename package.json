@@ -2,7 +2,8 @@
   "name": "motoparking",
   "version": "1.0.0",
   "engines": {
-    "npm": "3.3.x"
+    "npm": "3.3.x",
+    "node": "0.12.7"
   },
   "description": "",
   "main": "index.js",
