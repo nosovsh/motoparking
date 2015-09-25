@@ -3,15 +3,16 @@ var React = require("react/addons");
 var Router = require("react-router");
 var Link = Router.Link;
 
-var StatusCover = require("../StatusCover");
-var MyOpinion = require("../MyOpinion");
-var Icon = require("../dump/Icon/Icon");
-var Comments = require("../Comments");
-var Slider = require("../Slider");
-var Sidebar = require("../dump/Sidebar/Sidebar");
-var AvatarList = require("../dump/AvatarList/AvatarList");
+var StatusCover = require("../../StatusCover");
+var MyOpinion = require("../../MyOpinion");
+var Icon = require("../Icon/Icon");
+var Comments = require("../../Comments");
+var Slider = require("../../Slider");
+var Sidebar = require("../Sidebar/Sidebar");
+var AvatarList = require("../AvatarList/AvatarList");
+var Prices = require("./Prices/Prices");
 
-require("./style.css");
+require("./Parking.css");
 
 
 var Parking = React.createClass({
@@ -29,72 +30,47 @@ var Parking = React.createClass({
   render: function() {
     return (
       <Sidebar>
-        <div>
-            { this.props.currentUser.isSuper ?
-              <a href="#" style={ {color: "#FFF"} } onClick={ this.props.onDeleteParking }>
-                <div className="close-wrapper" style={{right: "inherit", left: 6}}>
-                  <Icon name="delete" />
-                </div>
-              </a> : null }
-
-          <Link to="Default" style={ {color: "#FFF"} }>
-            <div className="close-wrapper">
-              <Icon name="close" />
+        { this.props.currentUser.isSuper ? (
+          <a href="#" style={ {color: "#FFF"} } onClick={ this.props.onDeleteParking }>
+            <div className="close-wrapper" style={{right: "inherit", left: 6}}>
+              <Icon name="delete" />
             </div>
-          </Link>
+          </a>
+        ) : null }
 
-          <StatusCover isSecure={ this.props.currentParking.isSecure }  isMoto={ this.props.currentParking.isMoto }/>
-          { this.props.currentParking.isFullParkingLoaded ? (
-            <div>
-              <AvatarList users={ this.props.currentParking.users } />
+        <Link to="Default" style={ {color: "#FFF"} }>
+          <div className="close-wrapper">
+            <Icon name="close" />
+          </div>
+        </Link>
 
-                  { this.props.currentParking.isMoto === "yes" ?
-                    <div className="Prices">
-                      <div className="Prices__Price">
-                        <div className="Prices__Price__Label">
-                          Сутки
-                        </div>
-                        <div className="Prices__Price__Value">
-                                  { this.props.currentParking.pricePerDay ?
-                                    <div>
-                                          { this.props.currentParking.pricePerDay }
-                                      <Icon name="rouble" additionalClasses={ ["Rouble"] } />
-                                    </div> : "?" }
+        <StatusCover
+          isSecure={ this.props.currentParking.isSecure }
+          isMoto={ this.props.currentParking.isMoto }/>
 
-                        </div>
-                      </div>
+        { this.props.currentParking.isFullParkingLoaded ? (
+          <div>
+            <AvatarList users={ this.props.currentParking.users } />
 
-                      <div className="Prices__Price">
+            { this.props.currentParking.isMoto === "yes" ?
+              <Prices
+                pricePerDay={ this.props.currentParking.pricePerDay }
+                pricePerMonth={ this.props.currentParking.pricePerMonth } /> : null }
 
-                        <div className="Prices__Price__Label">
-                          Месяц
-                        </div>
-                        <div className="Prices__Price__Value">
-                                  { this.props.currentParking.pricePerMonth ?
-                                    <div>
-                                          { this.props.currentParking.pricePerMonth }
-                                      <Icon name="rouble" additionalClasses={ ["Rouble"] } />
-                                    </div> : "?" }
-                        </div>
-                      </div>
+            <Slider images={ this.props.currentParking.images } />
 
-                    </div> : null }
+            <div className="InfoRow">
+              <div className="Address">{ this.props.currentParking.address }&nbsp;</div>
+              { this.props.currentUser && this.props.currentUser.id === this.props.currentParking.user ?
+                <Icon name="edit" additionalClasses={ ["edit-location-button"] } onClick={ this.props.onEditLocation }/> :
+                null }
+            </div>
 
-              <Slider images={ this.props.currentParking.images } />
+            <MyOpinion parking={ this.props.currentParking }/>
 
-              <div className="InfoRow">
-                <div className="Address">{ this.props.currentParking.address }&nbsp;</div>
-                      { this.props.currentUser && this.props.currentUser.id === this.props.currentParking.user ?
-                        <Icon name="edit" additionalClasses={ ["edit-location-button"] } onClick={ this.props.onEditLocation }/> :
-                        null }
-              </div>
-
-              <MyOpinion parking={ this.props.currentParking }/>
-
-              <Comments comments={ this.props.comments } />
-            </div>) :
-            <div className="loading">Loading...</div> }
-        </div>
+            <Comments comments={ this.props.comments } />
+          </div>
+        ) : <div className="loading">Loading...</div> }
       </Sidebar>
     );
   }
