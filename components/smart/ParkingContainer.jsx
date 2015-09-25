@@ -11,7 +11,7 @@ var EditLocation = require("../dump/EditLocation/EditLocation");
 
 
 var ParkingContainer = React.createClass({
-  mixins: [Router.State, FluxMixin, StoreWatchMixin("ParkingStore", "OpinionStore", "CommentStore", "CurrentUserStore")],
+  mixins: [Router.State, FluxMixin, StoreWatchMixin("ParkingStore", "OpinionStore", "CommentStore", "CurrentUserStore", "ParkingImageStore")],
 
   componentDidMount: function() {
     this.getFlux().actions.loadCurrentParking(this.getParams().id);
@@ -43,17 +43,23 @@ var ParkingContainer = React.createClass({
     this.getFlux().actions.deleteParking(this.state.currentParking.id);
   },
 
+  onSlideParkingImage: function(index) {
+    this.getFlux().actions.slideParkingImage(index);
+  },
+
   getStateFromFlux: function() {
     var store = this.getFlux().store("ParkingStore");
     var opinionStore = this.getFlux().store("OpinionStore");
     var commentStore = this.getFlux().store("CommentStore");
     var currentUserStore = this.getFlux().store("CurrentUserStore");
+    var parkingImageStore = this.getFlux().store("ParkingImageStore");
 
     return {
       loading: store.loading,
       error: store.error,
       currentParking: store.getCurrentParking(),
       currentParkingOpinions: opinionStore.opinionsByParking[store.currentParkingId] ? opinionStore.opinionsByParking[store.currentParkingId] : [],
+      parkingImages: parkingImageStore.getParkingImages(store.currentParkingId),
       editingLocation: store.editingLocation,
       comments: commentStore.getComments(store.currentParkingId),
       loadingAddress: store.loadingAddress,
@@ -77,12 +83,14 @@ var ParkingContainer = React.createClass({
         currentParking={ this.state.currentParking }
         currentParkingId={ this.state.currentParkingId }
         currentParkingOpinions={ this.state.currentParkingOpinions }
+        parkingImages={ this.state.parkingImages }
         comments={ this.state.comments }
         loadingAddress={ this.state.loadingAddress }
         loadingAddressError={ this.state.loadingAddressError }
         currentUser={ this.state.currentUser }
         onEditLocation={ this.onEditLocation }
         onDeleteParking={ this.onDeleteParking }
+        onSlideParkingImage={ this.onSlideParkingImage }
       />
     );
   }

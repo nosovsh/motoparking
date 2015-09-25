@@ -21,10 +21,12 @@ var Parking = React.createClass({
     error: React.PropTypes.bool,
     currentParking: React.PropTypes.object.isRequired,
     currentParkingOpinions: React.PropTypes.array.isRequired,
+    parkingImages: React.PropTypes.array,
     comments: React.PropTypes.array.isRequired,
     currentUser: React.PropTypes.object.isRequired,
     onEditLocation: React.PropTypes.func.isRequired,
-    onDeleteParking: React.PropTypes.func.isRequired
+    onDeleteParking: React.PropTypes.func.isRequired,
+    onSlideParkingImage: React.PropTypes.func.isRequired
   },
 
   render: function() {
@@ -57,7 +59,9 @@ var Parking = React.createClass({
                 pricePerDay={ this.props.currentParking.pricePerDay }
                 pricePerMonth={ this.props.currentParking.pricePerMonth } /> : null }
 
-            <Slider images={ this.props.currentParking.images } />
+            <Slider
+              parkingImages={ this.props.parkingImages }
+              onSlideParkingImage={ this.props.onSlideParkingImage }/>
 
             <div className="InfoRow">
               <div className="Address">{ this.props.currentParking.address }&nbsp;</div>
