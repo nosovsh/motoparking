@@ -2,17 +2,23 @@ var React = require("react/addons");
 var $ = require("jquery");
 var SliderSlick = require("react-slick");
 
-require("./style.css");
-require("slick-carousel/slick/slick.css");
+var Photo = require("../../Photo/Photo");
+var FileUploader = require("../../../FileUploader");
+var FileUploaderFake = require("../../../FileUploader/FileUploaderFake");
 
-var Photo = require("../dump/Photo/Photo");
-var FileUploader = require("../FileUploader");
+require("./Slider.css");
+require("slick-carousel/slick/slick.css");
 
 
 var Slider = React.createClass({
   propTypes: {
     parkingImages: React.PropTypes.array,
-    onSlideParkingImage: React.PropTypes.func
+    onSlideParkingImage: React.PropTypes.func,
+    onAuthorizationRequired: React.PropTypes.func,
+    currentUserIsAuthorized: React.PropTypes.bool,
+    onPostParkingImage: React.PropTypes.func.isRequired,
+    currentParkingId: React.PropTypes.string,
+    cloudinaryConfig: React.PropTypes.object.isRequired
   },
 
   onAfterChange: function(index) {
@@ -22,7 +28,12 @@ var Slider = React.createClass({
   render: function() {
     var addImage = (
       <div key="add-image">
-        <FileUploader/>
+        { this.props.currentUserIsAuthorized ? (
+          <FileUploader
+            onPostParkingImage={ this.props.onPostParkingImage }
+            currentParkingId={ this.props.currentParkingId }
+            cloudinaryConfig={ this.props.cloudinaryConfig }/>
+        ) : <FileUploaderFake onAuthorizationRequired={ this.props.onAuthorizationRequired }/> }
       </div>
     );
     if (this.props.parkingImages.length) {

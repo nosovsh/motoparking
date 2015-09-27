@@ -7,7 +7,7 @@ var StatusCover = require("./StatusCover/StatusCover");
 var MyOpinion = require("../../MyOpinion");
 var Icon = require("../Icon/Icon");
 var Comments = require("../../Comments");
-var Slider = require("../../Slider");
+var Slider = require("./Slider/Slider");
 var Sidebar = require("../Sidebar/Sidebar");
 var AvatarList = require("../AvatarList/AvatarList");
 var Prices = require("./Prices/Prices");
@@ -24,9 +24,14 @@ var Parking = React.createClass({
     parkingImages: React.PropTypes.array,
     comments: React.PropTypes.array.isRequired,
     currentUser: React.PropTypes.object.isRequired,
+    currentUserIsAuthorized: React.PropTypes.bool,
     onEditLocation: React.PropTypes.func.isRequired,
     onDeleteParking: React.PropTypes.func.isRequired,
-    onSlideParkingImage: React.PropTypes.func.isRequired
+    onSlideParkingImage: React.PropTypes.func.isRequired,
+    onAuthorizationRequired: React.PropTypes.func.isRequired,
+    onPostParkingImage: React.PropTypes.func.isRequired,
+    cloudinaryConfig: React.PropTypes.object.isRequired,
+    actions: React.PropTypes.object.isRequired
   },
 
   render: function() {
@@ -61,7 +66,12 @@ var Parking = React.createClass({
 
             <Slider
               parkingImages={ this.props.parkingImages }
-              onSlideParkingImage={ this.props.onSlideParkingImage }/>
+              onSlideParkingImage={ this.props.onSlideParkingImage }
+              onAuthorizationRequired={ this.props.onAuthorizationRequired }
+              currentUserIsAuthorized={ this.props.currentUserIsAuthorized }
+              onPostParkingImage={ this.props.onPostParkingImage }
+              currentParkingId={ this.props.currentParking.id }
+              cloudinaryConfig={ this.props.cloudinaryConfig }/>
 
             <div className="InfoRow">
               <div className="Address">{ this.props.currentParking.address }&nbsp;</div>

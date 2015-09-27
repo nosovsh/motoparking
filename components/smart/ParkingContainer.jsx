@@ -6,6 +6,8 @@ var Router = require("react-router");
 var FluxMixin = Fluxxor.FluxMixin(React);
 var StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
+var config = require("../../config");
+
 var Parking = require("../dump/Parking/Parking");
 var EditLocation = require("../dump/EditLocation/EditLocation");
 
@@ -47,6 +49,14 @@ var ParkingContainer = React.createClass({
     this.getFlux().actions.slideParkingImage(index);
   },
 
+  onAuthorizationRequired: function() {
+    this.getFlux().actions.authorizationRequired();
+  },
+
+  onPostParkingImage: function(parkingImage) {
+    this.getFlux().actions.postParkingImage(parkingImage);
+  },
+
   getStateFromFlux: function() {
     var store = this.getFlux().store("ParkingStore");
     var opinionStore = this.getFlux().store("OpinionStore");
@@ -64,7 +74,8 @@ var ParkingContainer = React.createClass({
       comments: commentStore.getComments(store.currentParkingId),
       loadingAddress: store.loadingAddress,
       loadingAddressError: store.loadingAddressError,
-      currentUser: currentUserStore.currentUser
+      currentUser: currentUserStore.currentUser,
+      currentUserIsAuthorized: currentUserStore.isAuthorized()
     };
   },
 
@@ -88,9 +99,14 @@ var ParkingContainer = React.createClass({
         loadingAddress={ this.state.loadingAddress }
         loadingAddressError={ this.state.loadingAddressError }
         currentUser={ this.state.currentUser }
+        currentUserIsAuthorized={ this.state.currentUserIsAuthorized }
         onEditLocation={ this.onEditLocation }
         onDeleteParking={ this.onDeleteParking }
         onSlideParkingImage={ this.onSlideParkingImage }
+        onAuthorizationRequired={ this.onAuthorizationRequired }
+        onPostParkingImage={ this.onPostParkingImage }
+        cloudinaryConfig={ config.cloudinary }
+        actions = { this.getFlux().actions }
       />
     );
   }
