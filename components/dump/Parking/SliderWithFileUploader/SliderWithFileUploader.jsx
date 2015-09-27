@@ -3,14 +3,14 @@ var $ = require("jquery");
 var SliderSlick = require("react-slick");
 
 var Photo = require("../../Photo/Photo");
-var FileUploader = require("../../../FileUploader");
-var FileUploaderFake = require("../../../FileUploader/FileUploaderFake");
+var FileUploader = require("./FileUploader/FileUploader");
+var FileUploaderFake = require("./FileUploader/FileUploaderFake");
 
-require("./Slider.css");
+require("./SliderWithFileUploader.css");
 require("slick-carousel/slick/slick.css");
 
 
-var Slider = React.createClass({
+var SliderWithFileUploader = React.createClass({
   propTypes: {
     parkingImages: React.PropTypes.array,
     onSlideParkingImage: React.PropTypes.func,
@@ -37,15 +37,6 @@ var Slider = React.createClass({
       </div>
     );
     if (this.props.parkingImages.length) {
-      var settings = {
-        infinite: false,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        arrows: true,
-        dots: true
-      };
-
       var slides = this.props.parkingImages.map(function(image) {
         var url = $.cloudinary.url(image.cloudinaryId, {width: 664, crop: "fill"});
         return (
@@ -53,12 +44,18 @@ var Slider = React.createClass({
             <Photo url={ url }/>
           </div>
         );
-      });
-
-      slides.push(addImage);
+      }).concat(addImage);
 
       return (
-        <SliderSlick {...settings} className="Slider" afterChange={ this.onAfterChange }>
+        <SliderSlick
+          className="Slider"
+          afterChange={ this.onAfterChange }
+          infinite={ false }
+          speed={ 500 }
+          slidesToShow={ 1 }
+          slidesToScroll={ 1 }
+          arrows
+          dots>
           { slides }
         </SliderSlick>
       );
@@ -67,4 +64,4 @@ var Slider = React.createClass({
   }
 });
 
-module.exports = Slider;
+module.exports = SliderWithFileUploader;

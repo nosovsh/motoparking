@@ -10,7 +10,7 @@
     // Register as an anonymous AMD module:
     define([
       'jquery',
-      'blueimp-file-upload/js/vendor/jquery.ui.widget',
+      '../../../../../node_modules/blueimp-file-upload/js/vendor/jquery.ui.widget.js',
       'blueimp-file-upload/js/jquery.iframe-transport'
     ], factory);
   } else {

@@ -1,5 +1,5 @@
 var React = require("react/addons");
-var Icon = require("../dump/Icon/Icon");
+var Icon = require("../../../Icon/Icon");
 
 
 var FileUploaderFake = React.createClass({

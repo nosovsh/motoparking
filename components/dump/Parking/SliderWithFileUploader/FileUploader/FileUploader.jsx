@@ -1,7 +1,7 @@
 var React = require("react/addons");
 var ProgressBar = require("progressbar.js");
 
-var Icon = require("../dump/Icon/Icon");
+var Icon = require("../../../Icon/Icon");
 
 require("./style.css");
 require("imports?define=>false!blueimp-file-upload/js/jquery.fileupload");

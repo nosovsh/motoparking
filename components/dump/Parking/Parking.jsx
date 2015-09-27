@@ -7,7 +7,7 @@ var StatusCover = require("./StatusCover/StatusCover");
 var MyOpinion = require("../../MyOpinion");
 var Icon = require("../Icon/Icon");
 var Comments = require("../../Comments");
-var Slider = require("./Slider/Slider");
+var SliderWithFileUploader = require("./SliderWithFileUploader/SliderWithFileUploader");
 var Sidebar = require("../Sidebar/Sidebar");
 var AvatarList = require("../AvatarList/AvatarList");
 var Prices = require("./Prices/Prices");
@@ -64,7 +64,7 @@ var Parking = React.createClass({
                 pricePerDay={ this.props.currentParking.pricePerDay }
                 pricePerMonth={ this.props.currentParking.pricePerMonth } /> : null }
 
-            <Slider
+            <SliderWithFileUploader
               parkingImages={ this.props.parkingImages }
               onSlideParkingImage={ this.props.onSlideParkingImage }
               onAuthorizationRequired={ this.props.onAuthorizationRequired }
