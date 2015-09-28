@@ -2,9 +2,9 @@ var React = require("react");
 var _ = require("lodash");
 var moment = require("moment");
 
-var Avatar = require("../dump/Avatar/Avatar");
+var Avatar = require("../../Avatar/Avatar");
 
-require("./style.css");
+require("./Comment.css");
 
 
 var Comment = React.createClass({

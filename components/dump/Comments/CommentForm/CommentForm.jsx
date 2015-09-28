@@ -1,10 +1,10 @@
 var React = require("react");
 
-var Avatar = require("../dump/Avatar/Avatar");
-var Icon = require("../dump/Icon/Icon");
-var ButtonRow = require("../dump/ButtonRow/ButtonRow");
+var Avatar = require("../../Avatar/Avatar");
+var Icon = require("../../Icon/Icon");
+var ButtonRow = require("../../ButtonRow/ButtonRow");
 
-require("./style.css");
+require("./CommentForm.css");
 
 
 var CommentForm = React.createClass({

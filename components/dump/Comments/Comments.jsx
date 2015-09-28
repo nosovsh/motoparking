@@ -1,9 +1,9 @@
 var React = require("react/addons");
 
-var Comment = require("../Comment");
-var CommentForm = require("../CommentForm");
+var Comment = require("./Comment/Comment");
+var CommentForm = require("./CommentForm/CommentForm");
 
-require("./style.css");
+require("./Comments.css");
 
 
 var Comments = React.createClass({
