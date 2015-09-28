@@ -4,7 +4,7 @@ var _ = require("lodash");
 var YesNoMaybeQuestion = require("../../YesNoMaybeQuestion/YesNoMaybeQuestion");
 var ButtonRow = require("../../ButtonRow/ButtonRow");
 var Icon = require("../../Icon/Icon");
-var PriceQuestion = require("../../../PriceQuestion");
+var PriceQuestion = require("../../PriceQuestion/PriceQuestion");
 
 
 var MyOpinionNotExists = React.createClass({

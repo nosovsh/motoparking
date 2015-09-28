@@ -1,9 +1,9 @@
 var React = require("react/addons");
 
-var TextInput = require("../TextInput");
-var Icon = require("../dump/Icon/Icon");
+var TextInput = require("../../TextInput");
+var Icon = require("../../dump/Icon/Icon");
 
-require("./style.css");
+require("./PriceQuestion.css");
 
 
 var PriceQuestion = React.createClass({
