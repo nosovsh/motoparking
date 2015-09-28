@@ -1,8 +1,7 @@
 var React = require("react");
 var _ = require("lodash");
 
-var IsMotoQuestion = require("../../../IsMotoQuestion");
-var IsSecureQuestion = require("../../../IsSecureQuestion");
+var YesNoMaybeQuestion = require("../../YesNoMaybeQuestion/YesNoMaybeQuestion");
 var ButtonRow = require("../../ButtonRow/ButtonRow");
 var Icon = require("../../Icon/Icon");
 var PriceQuestion = require("../../../PriceQuestion");
@@ -70,12 +69,18 @@ var MyOpinionNotExists = React.createClass({
     return (
       <div>
         <div className="my-opinion__row">
-          <IsSecureQuestion value={ this.state.tmpOpinion.isSecure } callback={ this.onIsSecureAnswer }/>
+          <YesNoMaybeQuestion
+            text="Здесь есть охраняемая парковка?"
+            value={ this.state.tmpOpinion.isSecure }
+            callback={ this.onIsSecureAnswer }/>
         </div>
 
         { this.state.tmpOpinion.isSecure === "yes" ? (
           <div className="my-opinion__row">
-            <IsMotoQuestion value={ this.state.tmpOpinion.isMoto } callback={ this.onIsMotoAnswer }/>
+            <YesNoMaybeQuestion
+              text="Сюда пускают мотоциклы?"
+              value={ this.state.tmpOpinion.isMoto }
+              callback={ this.onIsMotoAnswer }/>
           </div>
         ) : null }
 

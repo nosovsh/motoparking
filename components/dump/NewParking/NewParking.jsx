@@ -1,6 +1,6 @@
 var React = require("react/addons");
 
-var IsMotoQuestion = require("../../IsMotoQuestion");
+var YesNoMaybeQuestion = require("../YesNoMaybeQuestion/YesNoMaybeQuestion");
 var PriceQuestion = require("../../PriceQuestion");
 var ButtonRow = require("../ButtonRow/ButtonRow");
 var Icon = require("../Icon/Icon");
@@ -35,10 +35,10 @@ var NewParking = React.createClass({
             <br/>
             парковку.
           </p>
-          <IsMotoQuestion
+          <YesNoMaybeQuestion
+            text="На неё пускают мотоциклы?"
             callback={ this.props.onIsMotoQuestionCallback }
-            value={ this.props.newParking.isMoto }
-            text="На неё пускают мотоциклы?"/>
+            value={ this.props.newParking.isMoto }/>
         </div>
         { this.props.newParking.isMoto === "yes" ?
           <div className="my-opinion__row">
