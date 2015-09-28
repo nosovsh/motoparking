@@ -85,7 +85,12 @@ var Parking = React.createClass({
               currentUserIsAuthorized={ this.props.currentUserIsAuthorized }
               actions={ this.props.actions }/>
 
-            <Comments comments={ this.props.comments } />
+            <Comments
+              comments={ this.props.comments }
+              currentUserIsAuthorized={ this.props.currentUserIsAuthorized }
+              currentUser={ this.props.currentUser }
+              currentParkingId={ this.props.currentParking.id }
+              actions={ this.props.actions }/>
           </div>
         ) : <div className="loading">Loading...</div> }
       </Sidebar>

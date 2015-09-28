@@ -1,6 +1,6 @@
 var React = require("react");
 var _ = require("lodash");
-var moment = require('moment');
+var moment = require("moment");
 
 var Avatar = require("../dump/Avatar/Avatar");
 
