@@ -3,7 +3,7 @@ var React = require("react");
 var MyOpinionExists = require("./MyOpinionExists");
 var MyOpinionNotExists = require("./MyOpinionNotExists");
 
-require("./style.css");
+require("./MyOpinion.css");
 
 
 var MyOpinion = React.createClass({

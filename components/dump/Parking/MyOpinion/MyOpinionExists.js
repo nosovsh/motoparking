@@ -1,7 +1,7 @@
 var React = require("react");
 
-var ButtonRow = require("../dump/ButtonRow/ButtonRow");
-var Icon = require("../dump/Icon/Icon");
+var ButtonRow = require("../../ButtonRow/ButtonRow");
+var Icon = require("../../Icon/Icon");
 
 
 var texts = {

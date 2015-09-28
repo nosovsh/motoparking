@@ -4,7 +4,7 @@ var Router = require("react-router");
 var Link = Router.Link;
 
 var StatusCover = require("./StatusCover/StatusCover");
-var MyOpinion = require("../../MyOpinion");
+var MyOpinion = require("./MyOpinion/MyOpinion");
 var Icon = require("../Icon/Icon");
 var Comments = require("../../Comments");
 var SliderWithFileUploader = require("./SliderWithFileUploader/SliderWithFileUploader");
