@@ -1,6 +1,6 @@
 var React = require("react/addons");
 
-var TextInput = require("../../TextInput");
+var TextInput = require("../TextInput/TextInput");
 var Icon = require("../../dump/Icon/Icon");
 
 require("./PriceQuestion.css");
