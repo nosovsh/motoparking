@@ -19,7 +19,7 @@ var Prices = React.createClass({
             Сутки
           </div>
           <div className="Prices__Price__Value">
-            { this.props.pricePerDay ?
+            { this.props.pricePerDay !== null ?
               <div>
                 { this.props.pricePerDay }
                 <Icon name="rouble" additionalClasses={ ["Rouble"] } />
@@ -32,7 +32,7 @@ var Prices = React.createClass({
             Месяц
           </div>
           <div className="Prices__Price__Value">
-            { this.props.pricePerMonth ?
+            { this.props.pricePerMonth !== null ?
               <div>
                 { this.props.pricePerMonth }
                 <Icon name="rouble" additionalClasses={ ["Rouble"] } />

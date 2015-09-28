@@ -30,9 +30,9 @@ var MyOpinionExists = React.createClass({
       <div>
         <div className="my-opinion__row">
           { text }
-          { this.props.parking.myOpinion.pricePerDay ?
+          { this.props.parking.myOpinion.pricePerDay !== null ?
             <div>Цена за сутки: { this.props.parking.myOpinion.pricePerDay } рублей.</div> : null }
-          { this.props.parking.myOpinion.pricePerMonth ?
+          { this.props.parking.myOpinion.pricePerMonth !== null ?
             <div>Цена за месяц: { this.props.parking.myOpinion.pricePerMonth } рублей.</div> : null }
         </div>
         <ButtonRow callback={ this.props.onWantToChangeOpinion.bind(null, true) }>
