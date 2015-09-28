@@ -21,9 +21,6 @@ var NewParking = React.createClass({
   },
 
   render: function() {
-    var newParkingDoneIconClasses = {
-      "animate-spin": this.props.savingNewParking
-    };
     return (
       <div className="new-parking">
         <Link to="Default">

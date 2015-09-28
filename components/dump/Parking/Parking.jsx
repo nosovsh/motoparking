@@ -80,7 +80,10 @@ var Parking = React.createClass({
                 null }
             </div>
 
-            <MyOpinion parking={ this.props.currentParking }/>
+            <MyOpinion
+              parking={ this.props.currentParking }
+              currentUserIsAuthorized={ this.props.currentUserIsAuthorized }
+              actions={ this.props.actions }/>
 
             <Comments comments={ this.props.comments } />
           </div>

@@ -106,7 +106,7 @@ var ParkingContainer = React.createClass({
         onAuthorizationRequired={ this.onAuthorizationRequired }
         onPostParkingImage={ this.onPostParkingImage }
         cloudinaryConfig={ config.cloudinary }
-        actions = { this.getFlux().actions }
+        actions={ this.getFlux().actions }
       />
     );
   }
