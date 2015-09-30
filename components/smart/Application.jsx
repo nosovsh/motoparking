@@ -2,7 +2,7 @@ var React = require("react/addons");
 var Fluxxor = require("fluxxor");
 var TimeoutTransitionGroup = require("react-components/js/timeout-transition-group");
 
-var Map = require("../Map");
+var Map = require("./Map/Map");
 var ToasterContainer = require("./ToasterContainer");
 
 var Router = require("react-router");

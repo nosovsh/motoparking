@@ -3,6 +3,7 @@ var LOCATION_TIMEOUT = 1 * 60 * 1000;
 /**
  * Finds current location of user and draws circles at those coordinates
  *
+ * TODO: rewrite this
  * @param map
  * @param errorHandler
  * @constructor
