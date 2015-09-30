@@ -9,9 +9,9 @@ var Toast = React.createClass({
   },
 
   render: function() {
-    var messageRows = this.props.toast.message.split("\n").map(function(str) {
+    var messageRows = this.props.toast.message.split("\n").map(function(str, i) {
       return (
-        <p>{ str }</p>
+        <p key={ i }>{ str }</p>
       );
     });
     return <div className="Toast"> { messageRows } </div>;

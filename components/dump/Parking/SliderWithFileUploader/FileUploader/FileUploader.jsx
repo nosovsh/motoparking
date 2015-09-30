@@ -25,6 +25,7 @@ var FileUploader = React.createClass({
   },
 
   componentDidMount: function() {
+    // TODO: add error handling
     var options = {};
 
     var fileInput = this.refs.fileInput.getDOMNode();
