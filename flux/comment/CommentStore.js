@@ -37,6 +37,7 @@ var CommentStore = Fluxxor.createStore({
 
   onPostComment: function(payload) {
     var comment = _.extend({}, payload.comment);
+    // TODO: currentUser should be passed to action. I don't like using another store here
     comment.user = this.flux.store("CurrentUserStore").currentUser;
     this.commentsByParking[comment.parking] = this.commentsByParking[comment.parking] || [];
     this.commentsByParking[comment.parking].unshift(comment);
