@@ -3,19 +3,15 @@ var Fluxxor = require("fluxxor");
 
 var L = require("leaflet");
 leafletProviders = require("leaflet-providers");
-L.Icon.Default.imagePath = "path-to-your-leaflet-images-folder";
 require("leaflet/dist/leaflet.css");
 
-// Require React-Router
 var Router = require("react-router");
 var Navigation = Router.Navigation;
 
 var FluxMixin = Fluxxor.FluxMixin(React);
 
-var AppConstants = require("../../flux/app/AppConstants");
+var AppConstants = require("../../../flux/app/AppConstants");
 var myLocation = require("./MyLocation");
-
-require("./style.css");
 
 
 var images = {
