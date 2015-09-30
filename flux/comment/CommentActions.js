@@ -22,7 +22,7 @@ var CommentActions = {
     CommentClient.postComment(newComment, function(returnedComment) {
       this.dispatch(CommentConstants.POST_COMMENT_SUCCESS, {comment: returnedComment});
     }.bind(this), function(error) {
-      this.dispatch(CommentConstants.POST_COMMENT_FAIL, {comment: comment, error: error});
+      this.dispatch(CommentConstants.POST_COMMENT_FAIL, {comment: newComment, error: error});
     }.bind(this));
   }
 };
