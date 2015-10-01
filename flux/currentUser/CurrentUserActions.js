@@ -17,7 +17,7 @@ var CurrentUserActions = {
    * @param currentUser
    */
   manualUpdateCurrentUser: function(currentUser) {
-    this.dispatch(CurrentUserConstants.LOAD_CURRENT_USER_SUCCESS, {currentUser: currentUser})
+    this.dispatch(CurrentUserConstants.LOAD_CURRENT_USER_SUCCESS, {currentUser: currentUser});
   },
 
   authorizationRequired: function() {

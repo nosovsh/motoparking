@@ -3,15 +3,13 @@ var $ = require("jquery");
 
 var CommentClient = {
   loadComments: function(parkingId, success, failure) {
-    setTimeout(function() {
-      $.ajax({
-        dataType: "json",
-        url: "/api/comments/" + parkingId,
-        data: {"parking": parkingId},
-        success: success,
-        error: failure
-      });
-    }, 0);
+    $.ajax({
+      dataType: "json",
+      url: "/api/comments/" + parkingId,
+      data: {"parking": parkingId},
+      success: success,
+      error: failure
+    });
   },
 
   postComment: function(comment, success, failure) {

@@ -1,7 +1,7 @@
 var Fluxxor = require("fluxxor");
 var ToastConstants = require("./ToastConstants");
 
-var TOAST_TIMEOUT = 50000000;
+var TOAST_TIMEOUT = 5000;
 
 var ToastStore = Fluxxor.createStore({
   initialize: function() {
