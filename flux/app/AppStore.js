@@ -12,9 +12,9 @@ var AppStore = Fluxxor.createStore({
       AppConstants.MAP_MY_LOCATION, this.onMapMyLocation
     );
 
-    $(document).ajaxError(function (e, jqXHR, ajaxSettings, exception) { // eslint-disable-line no-unused-vars
+    $(document).ajaxError(function(e, jqXHR, ajaxSettings, exception) { // eslint-disable-line no-unused-vars
       console.log("Global error handler");
-      this.flux.actions.errorToast("Что то не так. \nЛибо с интернетом, либо с нашим сервером. Попробуйте еще раз.")
+      this.flux.actions.errorToast("Что то не так. \nЛибо с интернетом, либо с нашим сервером. Попробуйте еще раз.");
     }.bind(this));
   },
 

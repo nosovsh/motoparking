@@ -32,7 +32,7 @@ var ParkingActions = {
     this.dispatch(ParkingConstants.LOAD_PARKING_LIST, {});
 
     ParkingClient.loadParkingList({}, function(parkingList) {
-      this.dispatch(ParkingConstants.LOAD_PARKING_LIST_SUCCESS, {parkingList: parkingList})
+      this.dispatch(ParkingConstants.LOAD_PARKING_LIST_SUCCESS, {parkingList: parkingList});
     }.bind(this), function(error) {
       this.dispatch(ParkingConstants.LOAD_PARKING_LIST_FAIL, {error: error});
     }.bind(this));
@@ -82,7 +82,7 @@ var ParkingActions = {
     OpinionClient.postOpinion(opinion, function(returnedOpinion) {
       this.dispatch(ParkingConstants.SAVE_NEW_PARKING_SUCCESS, {opinion: returnedOpinion});
     }.bind(this), function(jqXHR, textStatus, errorThrown) {
-      this.dispatch(ParkingConstants.SAVE_NEW_PARKING_FAIL, {opinion: opinion, jqXHR: jqXHR, textStatus: textStatus, errorThrown:errorThrown});
+      this.dispatch(ParkingConstants.SAVE_NEW_PARKING_FAIL, {opinion: opinion, jqXHR: jqXHR, textStatus: textStatus, errorThrown: errorThrown});
     }.bind(this));
   },
 
@@ -100,7 +100,7 @@ var ParkingActions = {
     });
   },
   deleteParking: function(parkingId) {
-    ParkingClient.deleteParking(parkingId, function(parkingId) { // eslint-disable-line no-unused-vars
+    ParkingClient.deleteParking(parkingId, function(returnedParkingId) { // eslint-disable-line no-unused-vars
       // TODO: implement
     }, function(jqXHR, textStatus, errorThrown) { // eslint-disable-line no-unused-vars
       // TODO: implement

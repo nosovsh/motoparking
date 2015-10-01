@@ -1,7 +1,7 @@
 var $ = require("jquery");
 
 var OpinionClient = {
-  loadCurrentUser: function (success, failure) {
+  loadCurrentUser: function(success, failure) {
     $.ajax({
       type: "POST",
       // dataType: "json",

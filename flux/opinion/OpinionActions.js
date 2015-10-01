@@ -8,7 +8,7 @@ var OpinionActions = {
     this.dispatch(OpinionConstants.LOAD_OPINIONS, {parkingId: parkingId});
 
     OpinionClient.loadOpinions(parkingId, function(opinions) {
-      this.dispatch(OpinionConstants.LOAD_OPINIONS_SUCCESS, {parkingId: parkingId, opinions: opinions})
+      this.dispatch(OpinionConstants.LOAD_OPINIONS_SUCCESS, {parkingId: parkingId, opinions: opinions});
     }.bind(this), function(error) {
       this.dispatch(OpinionConstants.LOAD_OPINIONS_FAIL, {error: error});
     }.bind(this));

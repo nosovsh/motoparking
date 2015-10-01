@@ -53,7 +53,8 @@
   },
   "scripts": {
     "dev": "node_modules/.bin/supervisor --ignore build/ -e jsx server & node hotLoadServer.js",
-    "postinstall": "node_modules/.bin/webpack -dp --config webpack.deploy.config"
+    "postinstall": "node_modules/.bin/webpack -dp --config webpack.deploy.config",
+    "lint": "eslint ."
   },
   "author": "",
   "license": "ISC"

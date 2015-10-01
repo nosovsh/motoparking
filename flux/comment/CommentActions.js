@@ -7,7 +7,7 @@ var CommentActions = {
     this.dispatch(CommentConstants.LOAD_COMMENT_LIST, {parkingId: parkingId});
 
     CommentClient.loadComments(parkingId, function(comments) {
-      this.dispatch(CommentConstants.LOAD_COMMENT_LIST_SUCCESS, {parkingId: parkingId, comments: comments})
+      this.dispatch(CommentConstants.LOAD_COMMENT_LIST_SUCCESS, {parkingId: parkingId, comments: comments});
     }.bind(this), function(error) {
       this.dispatch(CommentConstants.LOAD_COMMENT_LIST_FAIL, {error: error});
     }.bind(this));

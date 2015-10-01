@@ -216,7 +216,7 @@ var ParkingStore = Fluxxor.createStore({
     this.emit("change");
   },
 
-  onSaveNewParking: function(payload) {
+  onSaveNewParking: function(payload) { // eslint-disable-line no-unused-vars
     this.savingNewParking = true;
     this.emit("change");
   },
@@ -233,7 +233,7 @@ var ParkingStore = Fluxxor.createStore({
     this.newParking = {};
     analytics.event("Parking", "created");
     setTimeout(function() {
-      this.flux.actions.successToast("Парковка создана! Спасибо, этот мир стал чуточку лучше. \n Если есть желание, можно добавить фотографию или пару слов в комментариях.")
+      this.flux.actions.successToast("Парковка создана! Спасибо, этот мир стал чуточку лучше. \n Если есть желание, можно добавить фотографию или пару слов в комментариях.");
     }, 0);
     this.emit("change");
     this.emit("saveNewParkingSuccess");
