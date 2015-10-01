@@ -22,9 +22,9 @@ var StatusCover = React.createClass({
       (this.props.isMoto ? "_is-moto_" + this.props.isMoto : "");
 
     // TODO: remove hack `this.props.isSecure !== undefined`
-    var textRows = this.props.isSecure !== undefined ? texts[name].split("\n").map(function(str) {
+    var textRows = this.props.isSecure !== undefined ? texts[name].split("\n").map(function(str, i) {
       return (
-        <span>{ str }<br /></span>
+        <span key={ i }>{ str }<br /></span>
       );
     }) : [];
 
