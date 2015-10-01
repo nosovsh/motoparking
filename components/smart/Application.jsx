@@ -12,12 +12,6 @@ var FluxMixin = Fluxxor.FluxMixin(React);
 
 var ControlsHandler = require("./ControlsHandler");
 
-var moment = require("moment");
-moment.locale("ru");
-
-require("normalize.css/normalize.css");
-require("./style.css");
-
 
 var Application = React.createClass({
   mixins: [FluxMixin, Router.State],

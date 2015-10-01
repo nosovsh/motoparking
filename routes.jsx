@@ -1,8 +1,5 @@
-/** @jsx React.DOM */
-
 var React = require("react");
 
-// Require view components. One for each route.
 var App = require("./components/smart/Application");
 var Default = require("./components/smart/Default");
 var ParkingContainer = require("./components/smart/ParkingContainer");
@@ -15,10 +12,10 @@ var DefaultRoute = Router.DefaultRoute;
 
 var Routes = (
   <Route handler={ App }>
-    <DefaultRoute name="Default" handler={ Default } addHandlerKey={true} />
-    <Route name="Parking" path="/p/:id" handler={ ParkingContainer } addHandlerKey={true} />
-    <Route name="NewParking" path="/add" handler={ NewParkingContainer } addHandlerKey={true} />
-    <Route name="Info" path="/about" handler={ Modal } addHandlerKey={true} />
+    <DefaultRoute name="Default" handler={ Default } addHandlerKey />
+    <Route name="Parking" path="/p/:id" handler={ ParkingContainer } addHandlerKey />
+    <Route name="NewParking" path="/add" handler={ NewParkingContainer } addHandlerKey />
+    <Route name="Info" path="/about" handler={ Modal } addHandlerKey />
   </Route>
 );
 
