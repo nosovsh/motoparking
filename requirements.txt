@@ -22,7 +22,7 @@ gunicorn==18.0
 httplib2==0.9
 itsdangerous==0.22
 mimerender==0.5.4
-mongoengine==0.8.7
+mongoengine==0.10.0
 oauth2==1.5.211
 passlib==1.6.2
 pymongo==3.0.3

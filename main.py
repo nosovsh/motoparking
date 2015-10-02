@@ -60,13 +60,8 @@ app.config['SECURITY_MSG_LOGIN'] = (u'Вы не авторизованы или 
 if os.environ.get('MONGODB_DB'):
     app.config['MONGODB_SETTINGS'] = {
         'db': os.environ.get('MONGODB_DB'),
-        'host': os.environ.get('MONGOLAB_URI')
+        'host': os.environ.get('PROD_MONGODB')
     }
-    app.config['MONGODB_DB'] = os.environ.get('MONGODB_DB')
-    app.config['MONGODB_HOST'] = os.environ.get('MONGODB_HOST')
-    app.config['MONGODB_PORT'] = os.environ.get('MONGODB_PORT')
-    app.config['MONGODB_USERNAME'] = os.environ.get('MONGODB_USERNAME')
-    app.config['MONGODB_PASSWORD'] = os.environ.get('MONGODB_PASSWORD')
     # app.config['DEBUG'] = False
     app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
     app.config['SECURITY_PASSWORD_SALT'] = os.environ.get('SECURITY_PASSWORD_SALT')
