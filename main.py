@@ -45,10 +45,10 @@ app = Flask(__name__)
 app.logger.addHandler(logging.StreamHandler(sys.stdout))
 app.logger.setLevel(logging.ERROR)
 
-# app.config['MONGODB_SETTINGS'] = {
-#     'db': 'motoparking',
-#     'host': 'mongodb://localhost:27017/motoparking'
-# }
+app.config['MONGODB_SETTINGS'] = {
+    'db': 'motoparking',
+    'host': 'mongodb://localhost:27017/motoparking'
+}
 app.config['DEBUG'] = True
 
 app.config['SECRET_KEY'] = 'super-secret'
@@ -58,12 +58,16 @@ app.config['SECURITY_REGISTERABLE'] = True
 app.config['SECURITY_MSG_LOGIN'] = (u'Вы не авторизованы или Вас нет в списках доступа.', 'info')
 
 if os.environ.get('MONGODB_DB'):
+    app.config['MONGODB_SETTINGS'] = {
+        'db': os.environ.get('MONGODB_DB'),
+        'host': os.environ.get('MONGOLAB_URI')
+    }
     app.config['MONGODB_DB'] = os.environ.get('MONGODB_DB')
     app.config['MONGODB_HOST'] = os.environ.get('MONGODB_HOST')
     app.config['MONGODB_PORT'] = os.environ.get('MONGODB_PORT')
     app.config['MONGODB_USERNAME'] = os.environ.get('MONGODB_USERNAME')
     app.config['MONGODB_PASSWORD'] = os.environ.get('MONGODB_PASSWORD')
-    app.config['DEBUG'] = False
+    # app.config['DEBUG'] = False
     app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
     app.config['SECURITY_PASSWORD_SALT'] = os.environ.get('SECURITY_PASSWORD_SALT')
 
