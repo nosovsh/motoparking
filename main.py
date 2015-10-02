@@ -66,8 +66,6 @@ if os.environ.get('MONGODB_DB'):
     app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
     app.config['SECURITY_PASSWORD_SALT'] = os.environ.get('SECURITY_PASSWORD_SALT')
 
-print "-" * 100
-print app.config
 # app.config['SECURITY_LOGIN_USER_TEMPLATE'] = "login.html"
 
 # app.config['SOCIAL_FACEBOOK'] = {
