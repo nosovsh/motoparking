@@ -45,10 +45,10 @@ app = Flask(__name__)
 app.logger.addHandler(logging.StreamHandler(sys.stdout))
 app.logger.setLevel(logging.ERROR)
 
-app.config['MONGODB_SETTINGS'] = {
-    'db': 'motoparking',
-    'host': 'mongodb://localhost:27017/motoparking'
-}
+# app.config['MONGODB_SETTINGS'] = {
+#     'db': 'motoparking',
+#     'host': 'mongodb://localhost:27017/motoparking'
+# }
 app.config['DEBUG'] = True
 
 app.config['SECRET_KEY'] = 'super-secret'
