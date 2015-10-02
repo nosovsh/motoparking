@@ -25,7 +25,7 @@ mimerender==0.5.4
 mongoengine==0.8.7
 oauth2==1.5.211
 passlib==1.6.2
-pymongo==2.6.3
+pymongo==3.0.3
 python-dateutil==2.2
 python-mimeparse==0.1.4
 simplejson==3.3.0
