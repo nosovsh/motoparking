@@ -65,7 +65,7 @@ var ControlsHandler = React.createClass({
         </ControlButton>
         <Link to="NewParking">
           <ControlButton>
-            <Icon name="add"/>
+            <Icon name="add" animation="spin"/>
             Добавить парковку
           </ControlButton>
         </Link>

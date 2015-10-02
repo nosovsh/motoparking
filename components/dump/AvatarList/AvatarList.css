@@ -9,5 +9,5 @@
     position: absolute;
     left: 50%;
     margin-left: -26px;
-    -webkit-transition: all .5s ease;
+    transition: all .5s ease;
 }

@@ -1,25 +1,22 @@
-.controls__wrapper {
+.Controls {
     position: absolute;
     width: 0;
     z-index: 100;
-
     top: 6px;
     left: 16px;
 }
 
-.controls__wrapper_secondary {
+.Controls_secondary {
     bottom: 16px;
     top: initial;
 }
 
-.controls__content {
+.Controls__Inner {
     position: relative;
     width: 300px;
-
 }
 
-.controls__content_secondary {
+.Controls__Inner_secondary {
     position: relative;
     width: 50px;
-
 }

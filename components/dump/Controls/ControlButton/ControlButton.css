@@ -11,29 +11,24 @@
     text-decoration: none;
     vertical-align: bottom;
     white-space: nowrap;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
     user-select: none;
     box-sizing: border-box;
     border-radius: 999em;
     font-style: normal;
     text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
     margin-right: 8px;
-
-    -webkit-transition: all 0.5s ease;
+    transition: all 0.5s ease;
 }
 
-@media only screen  and (min-width : 768px) {
+@media only screen  and (min-width: 768px) {
     .ControlButton:hover {
         background: rgba(77, 77, 77, 1);
     }
 }
+
 .ControlButton:active {
     background: rgba(77, 77, 77, 1);
 }
-
 
 .ControlButton_isRound {
     width: 38px;

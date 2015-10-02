@@ -3,11 +3,9 @@
     top: 100%;
     left: 0;
     width: 244px;
-
     box-shadow: 0 2px 3px 1px rgba(0, 0, 0, .2);
     background-color: transparent;
-    -webkit-border-radius: 5px;
-
+    border-radius: 5px;
     margin: 10px 0 0;
 }
 
@@ -19,11 +17,8 @@
 }
 
 .PopoverArrow:after {
-    -webkit-transform: rotate(45deg) translate(6px, 6px);
-    -ms-transform: rotate(45deg) translate(6px, 6px);
     transform: rotate(45deg) translate(6px, 6px);
     box-shadow: -1px -1px 1px -1px rgba(0, 0, 0, 0.44);
-
     content: '';
     display: block;
     width: 14px;

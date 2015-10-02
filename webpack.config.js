@@ -1,5 +1,7 @@
 var webpack = require("webpack");
 var path = require("path");
+var autoprefixer = require("autoprefixer");
+var precss      = require('precss');
 
 module.exports = {
   devtool: "cheap-module-eval-source-map",
@@ -26,7 +28,7 @@ module.exports = {
     loaders: [
       // Pass *.jsx files through jsx-loader transform
       {test: /\.jsx$/, loaders: ["react-hot", "jsx"]},
-      {test: /\.css$/, loader: "style!css"},
+      {test: /\.css$/, loader: "style-loader!css-loader!postcss-loader"},
       {test: /\.png$/, loader: "file"},
       {test: /\.jpg$/, loader: "file"},
       {test: /\.gif/, loader: "file"},
@@ -44,5 +46,8 @@ module.exports = {
       DEBUG: true,
       YANDEX_API_KEY: JSON.stringify("AHMEKVUBAAAAdcQIfQIA6t3GMOs3_4bbwjkyhyBbjTpnP0cAAAAAAAAAAACGT93VehWe6n5wXG-tL7Gv_61nSw==")
     })
-  ]
+  ],
+  postcss: function() {
+    return [autoprefixer({ browsers: ["> 5%"] }), precss];
+  }
 };

@@ -1,4 +1,4 @@
-.button {
+.Button {
     border: 1px solid #4D4D4D;
     border-radius: 5px;
     display: inline-block;
@@ -8,21 +8,21 @@
     line-height: 22px;
     cursor: pointer;
 
-    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
 }
 
 @media only screen  and (min-width : 768px) {
-    .button:hover {
+    .Button:hover {
         background-color: #4D4D4D;
         color: #fff;
     }
 }
-.button:active, .button__selected {
+.Button:active, .Button__selected {
     background-color: #4D4D4D;
     color: #fff;
 }
 
-.button:last-child {
+.Button:last-child {
     margin-right: 0;
 }
 
