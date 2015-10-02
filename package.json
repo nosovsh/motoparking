@@ -52,7 +52,7 @@
     "webpack-dev-server": "^1.7.0"
   },
   "scripts": {
-    "dev": "node_modules/.bin/supervisor --ignore build/ -e jsx server & node hotLoadServer.js",
+    "dev": "node server.js",
     "postinstall": "node_modules/.bin/webpack -dp --config webpack.deploy.config",
     "lint": "eslint ."
   },
