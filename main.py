@@ -1,4 +1,11 @@
 # -*- coding: utf-8 -*-
+###########################################################################
+#
+# Backend of this service was writen at the maximum speed so it is not a masterpiece.
+# A lot of refactoring coming soon.
+#
+###########################################################################
+
 import os
 from datetime import datetime, timedelta
 from json import dumps
