@@ -1,7 +1,7 @@
 # Motoparking.club
 Web app that helps bikers to find nearest secure motorcycle parking.
 
-Check it right now: http://www.motoparking.club
+Check it here: http://www.motoparking.club
 
 ## Installaion
 ```
@@ -16,7 +16,7 @@ pip install -r requirements.txt
 ## Deploying to Heroku
 Create heroku app, create mongo database.
 
-Create heroku config vars: `PROD_MONGODB`, `SECRET_KEY`, `SECURITY_PASSWORD_SALT`.
+Create heroku config vars: `PROD_MONGODB`, `MONGODB_DB`, `SECRET_KEY`, `SECURITY_PASSWORD_SALT`.
 
 Deploy the code: `git push heroku master`
 
@@ -47,6 +47,8 @@ Run `npm run lint` to check code.
 
 ## Server side
 Server is writen in `Python` using `Flask` framework and `MongoDB`. Server was developed in a short period of time so it is not perfect. It will be refactored soon.
+
+All code is inside `server/motoparking/` directory.
 
 ## TODO:
 - ES2015
