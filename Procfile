@@ -1,1 +1,1 @@
-web: gunicorn main:app --log-file=-
+web: gunicorn --pythonpath server/motoparking main:app --log-file=-
