@@ -62,7 +62,7 @@ if os.environ.get('MONGODB_DB'):
         'db': os.environ.get('MONGODB_DB'),
         'host': os.environ.get('PROD_MONGODB')
     }
-    # app.config['DEBUG'] = False
+    app.config['DEBUG'] = False
     app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
     app.config['SECURITY_PASSWORD_SALT'] = os.environ.get('SECURITY_PASSWORD_SALT')
 
