@@ -9,8 +9,8 @@ var Sidebar = React.createClass({
 
   render: function() {
     return (
-      <div className="sidebar__wrapper" >
-        <div className="sidebar__content">
+      <div className="Sidebar" >
+        <div className="Sidebar__Content">
           { this.props.children }
         </div>
       </div>

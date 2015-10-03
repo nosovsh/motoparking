@@ -2,6 +2,7 @@ var React = require("react/addons");
 
 var ButtonRow = require("../ButtonRow/ButtonRow");
 var Icon = require("../Icon/Icon");
+var Row = require("../Row/Row");
 
 require("./EditLocation.css");
 
@@ -14,13 +15,13 @@ var EditLocation = React.createClass({
 
   render: function() {
     return (
-      <div className="edit-location">
+      <div className="EditLocation">
         <div className="close-wrapper">
           <Icon name="close" onClick={ this.props.onEditLocationCancel }/>
         </div>
-        <div className="my-opinion__row">
+        <Row>
           Передвиньте парковку, если она расположена неточно.
-        </div>
+        </Row>
         <ButtonRow callback={ this.props.onEditLocationDone }>
           <Icon name="thumbup" />
           Так лучше

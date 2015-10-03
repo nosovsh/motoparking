@@ -43,6 +43,7 @@ var AvatarList = React.createClass({
       var style = {
         "WebkitTransform": "translate(" + translateX + "px ,0)",
         "Transform": "translate(" + translateX + "px ,0)",
+        "MozTransform": "translate(" + translateX + "px ,0)",
         "MsTransform": "translate(" + translateX + "px ,0)"
       };
       return (

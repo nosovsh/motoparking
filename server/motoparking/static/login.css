@@ -6,12 +6,10 @@ html, body {
     padding: 0;
 }
 
-
 body {
     font-family: "Roboto", Arial, "Lucida Grande", sans-serif;
     font-weight: 300;
     color: #4D4D4D;
-
 }
 
 body {
@@ -70,7 +68,6 @@ h1 {
     font-weight: 100;
     color: black;
     margin-bottom: 30px
-
 }
 
 a {
@@ -80,6 +77,7 @@ a {
 p {
     text-align: justify;
 }
+
 .error {
     color: #D84B6C;
 }

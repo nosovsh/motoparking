@@ -33,6 +33,7 @@
     height: 100%;
     padding: 50px;
 }
+
 .FileUploader__CancelWrapper {
     position: relative;
     top: -100%;

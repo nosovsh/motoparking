@@ -14,19 +14,6 @@
     right: 0;
     top: 17px;
 }
-.edit-location {
-    position: relative;
-    left: 50%;
-    top: 50%;
-    -webkit-transform: translate(-50%, 0);
-    -webkit-border-radius: 15px;
-    margin-top: 20px;
-
-
-    background: #FFF;
-    width: 332px;
-    z-index: 200;
-}
 
 @media only screen and (max-device-width: 335px) {
     .edit-location {

@@ -1,4 +1,3 @@
-
 .Slider.slick-slider {
     margin-bottom: 0;
 }
@@ -17,9 +16,7 @@
     color: transparent;
     border: none;
     outline: none;
-
     background-color: transparent;
-
 }
 
 .Slider .slick-next {

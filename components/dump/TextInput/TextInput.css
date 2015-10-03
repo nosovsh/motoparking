@@ -13,11 +13,6 @@
 
 }
 
-.TextInput:hover, .TextInput:focus {
-    /*background: bottom left linear-gradient(#0099cc, #0099cc) no-repeat, bottom center linear-gradient(#0099cc, #0099cc) repeat-x, bottom right linear-gradient(#0099cc, #0099cc) no-repeat;*/
-    /*background-size: 1px 6px, 1px 1px, 1px 6px;	*/
-}
-
 .TextInput_big {
     font-size: 30px;
     padding: 0;

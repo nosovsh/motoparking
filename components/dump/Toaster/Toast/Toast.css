@@ -8,26 +8,6 @@
   }
 }
 
-@-webkit-keyframes toastIn {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
-}
-@-webkit-keyframes toastOut {
-  0% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-    -webkit-transform: translate3d(0, 100%, 0);
-    transform: translate3d(0, 100%, 0);
-  }
-}
 @keyframes toastOut {
   0% {
     opacity: 1;
@@ -44,17 +24,14 @@
     background: #323232;
     margin:10px 0;
     padding: 17px 20px 1px 20px;
-    -webkit-border-radius: 2px;
+    border-radius: 2px;
     color: white;
 }
 
 
 .Toast-enter {
-  -webkit-animation-duration: 1s;
   animation-duration: 1s;
-  -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
-  -webkit-animation-name: toastIn;
   animation-name: toastIn;
 }
 
@@ -62,11 +39,8 @@
 }
 
 .Toast-leave {
-  -webkit-animation-duration: 1s;
   animation-duration: 1s;
-  -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
-  -webkit-animation-name: toastOut;
   animation-name: toastOut;
 }
 

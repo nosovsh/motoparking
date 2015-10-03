@@ -34,7 +34,7 @@ var MyOpinion = React.createClass({
 
   render: function() {
     return (
-      <div className="my-opinion">
+      <div className="MyOpinion">
         { this.props.parking.myOpinion && this.props.parking.myOpinion.isSecure && !this.state.wantToChangeOpinion ? (
           <MyOpinionExists
             parking={ this.props.parking }

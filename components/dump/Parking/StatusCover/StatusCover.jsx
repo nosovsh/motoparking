@@ -29,9 +29,9 @@ var StatusCover = React.createClass({
     }) : [];
 
     return (
-      <div className={ classNames("status-cover", "status-cover_" + name) }>
-        <div className={ classNames("status-cover__icon", "status-cover__icon_" + name) }></div>
-        <div className="status-cover__text">
+      <div className={ classNames("StatusCover", "StatusCover_" + name) }>
+        <div className={ classNames("StatusCover__icon", "StatusCover__icon_" + name) }></div>
+        <div className="StatusCover__text">
           { textRows }
         </div>
       </div>
