@@ -26,8 +26,7 @@ function onUpdate() {
 onUpdate();
 
 function createElement(Component, props) {
-  props.flux = flux;
-  return React.createElement(Component, props);
+  return <Component {...props} flux={flux} />;
 }
 
 React.render(<Router history={ history } createElement={ createElement } onUpdate={ onUpdate }>{ routes }</Router>, document.body);
