@@ -10,8 +10,6 @@
     -webkit-overflow-scrolling: touch;
     outline: 0;
     display: block;
-    padding-left: 0px;
-    -webkit-transition: all 0.2s ease;
     transition: all 0.2s ease;
 }
 
@@ -32,7 +30,6 @@
 
 .Modal.page-enter .Modal__Content {
     opacity: 0;
-    -webkit-transform: translate3d(0, 20%, 0);
     transform: translate3d(0, 20%, 0);
 }
 
@@ -42,7 +39,6 @@
 
 .Modal.page-enter.page-enter-active .Modal__Content {
     opacity: 1;
-    -webkit-transform: none;
     transform: none;
 }
 
@@ -52,7 +48,6 @@
 
 .Modal.page-leave .Modal__Content {
     opacity: 1;
-    -webkit-transform: none;
     transform: none;
 }
 
@@ -62,7 +57,6 @@
 
 .Modal.page-leave.page-leave-active .Modal__Content {
     opacity: 0;
-    -webkit-transform: translate3d(0, 20%, 0);
     transform: translate3d(0, 20%, 0);
 }
 
@@ -76,7 +70,6 @@
     background-color: rgba(0, 0, 0, 0.5);
     height: 100%;
     top: 0;
-    -webkit-transition: all 0.2s ease;
     transition: all 0.2s ease;
 }
 
@@ -107,8 +100,8 @@
 }
 
 .NoBullets {
-    /*padding-left: 10px;*/
     margin-top: -10px;
 }
 
-.NoBullets > li {}
+.NoBullets > li {
+}

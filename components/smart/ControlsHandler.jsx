@@ -9,7 +9,6 @@ var DropDownMenu = require("../dump/DropDownMenu/DropDownMenu").DropDownMenu;
 var ButtonRow = require("../dump/ButtonRow/ButtonRow");
 
 
-// Require React-Router
 var Router = require("react-router");
 var Navigation = Router.Navigation;
 var Link = Router.Link;
@@ -65,7 +64,7 @@ var ControlsHandler = React.createClass({
         </ControlButton>
         <Link to="NewParking">
           <ControlButton>
-            <Icon name="add" animation="spin"/>
+            <Icon name="add"/>
             Добавить парковку
           </ControlButton>
         </Link>

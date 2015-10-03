@@ -1,0 +1,14 @@
+.Row {
+    padding: 17px 20px;
+    border-bottom: 1px solid #979797;;
+}
+
+.Row:last-child {
+    border-bottom: none;
+}
+
+@media only screen and (max-device-width: 335px) {
+    .Row {
+        padding: 17px 15px;
+    }
+}

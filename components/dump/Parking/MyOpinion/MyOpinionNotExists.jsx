@@ -5,6 +5,7 @@ var YesNoMaybeQuestion = require("../../YesNoMaybeQuestion/YesNoMaybeQuestion");
 var ButtonRow = require("../../ButtonRow/ButtonRow");
 var Icon = require("../../Icon/Icon");
 var PriceQuestion = require("../../PriceQuestion/PriceQuestion");
+var Row = require("../../Row/Row");
 
 
 var MyOpinionNotExists = React.createClass({
@@ -68,29 +69,29 @@ var MyOpinionNotExists = React.createClass({
   render: function() {
     return (
       <div>
-        <div className="my-opinion__row">
+        <Row>
           <YesNoMaybeQuestion
             text="Здесь есть охраняемая парковка?"
             value={ this.state.tmpOpinion.isSecure }
             callback={ this.onIsSecureAnswer }/>
-        </div>
+        </Row>
 
         { this.state.tmpOpinion.isSecure === "yes" ? (
-          <div className="my-opinion__row">
+          <Row>
             <YesNoMaybeQuestion
               text="Сюда пускают мотоциклы?"
               value={ this.state.tmpOpinion.isMoto }
               callback={ this.onIsMotoAnswer }/>
-          </div>
+          </Row>
         ) : null }
 
         { this.state.tmpOpinion.isMoto === "yes" ? (
-         <div className="my-opinion__row">
+         <Row>
            <PriceQuestion
              pricePerDay={ this.state.tmpOpinion.pricePerDay }
              pricePerMonth={ this.state.tmpOpinion.pricePerMonth }
              callback={ this.onPriceChange } />
-         </div>
+         </Row>
         ) : null }
 
         { this.state.tmpOpinion.isMoto === "yes" ? (

@@ -4,23 +4,3 @@
     -webkit-border-radius: 6px;
     margin: 12px;
 }
-
-.my-opinion__row {
-    padding: 17px 20px;
-    border-bottom: 1px solid #979797;;
-}
-
-.my-opinion__row:last-child {
-    border-bottom: none;
-}
-
-.my-opinion__row__text {
-    line-height: 22px;
-    color: #4D4D4D;
-}
-
-@media only screen and (max-device-width: 335px) {
-    .my-opinion__row {
-        padding: 17px 15px;
-    }
-}

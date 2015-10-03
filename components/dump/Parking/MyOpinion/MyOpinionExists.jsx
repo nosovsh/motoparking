@@ -2,6 +2,7 @@ var React = require("react");
 
 var ButtonRow = require("../../ButtonRow/ButtonRow");
 var Icon = require("../../Icon/Icon");
+var Row = require("../../Row/Row");
 
 
 var texts = {
@@ -28,13 +29,13 @@ var MyOpinionExists = React.createClass({
 
     return (
       <div>
-        <div className="my-opinion__row">
+        <Row>
           { text }
           { this.props.parking.myOpinion.pricePerDay !== null ?
             <div>Цена за сутки: { this.props.parking.myOpinion.pricePerDay } руб..</div> : null }
           { this.props.parking.myOpinion.pricePerMonth !== null ?
             <div>Цена за месяц: { this.props.parking.myOpinion.pricePerMonth } руб.</div> : null }
-        </div>
+        </Row>
         <ButtonRow callback={ this.props.onWantToChangeOpinion.bind(null, true) }>
           <Icon name="edit"/>
           { "Что то поменялось?" }

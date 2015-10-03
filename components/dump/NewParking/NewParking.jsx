@@ -1,12 +1,13 @@
 var React = require("react/addons");
 
+var Router = require("react-router");
+var Link = Router.Link;
+
 var YesNoMaybeQuestion = require("../YesNoMaybeQuestion/YesNoMaybeQuestion");
 var PriceQuestion = require("../PriceQuestion/PriceQuestion");
 var ButtonRow = require("../ButtonRow/ButtonRow");
 var Icon = require("../Icon/Icon");
-
-var Router = require("react-router");
-var Link = Router.Link;
+var Row = require("../Row/Row");
 
 require("./NewParking.css");
 
@@ -22,14 +23,14 @@ var NewParking = React.createClass({
 
   render: function() {
     return (
-      <div className="new-parking">
+      <div className="NewParking">
         <Link to="Default">
           <div className="close-wrapper">
             <Icon name="close" />
           </div>
         </Link>
 
-        <div className="my-opinion__row">
+        <Row>
           <p>
             Вы добавляете охраняемую
             <br/>
@@ -39,14 +40,14 @@ var NewParking = React.createClass({
             text="На неё пускают мотоциклы?"
             callback={ this.props.onIsMotoQuestionCallback }
             value={ this.props.newParking.isMoto }/>
-        </div>
+        </Row>
         { this.props.newParking.isMoto === "yes" ?
-          <div className="my-opinion__row">
+          <Row>
             <PriceQuestion
               pricePerDay={ this.props.newParking.pricePerDay }
               pricePerMonth={ this.props.newParking.pricePerMonth }
               callback={ this.props.onPriceChange } />
-          </div> : null }
+          </Row> : null }
 
         <ButtonRow callback={ this.props.onNewParkingDone }>
           <Icon name="rocket" animation={ this.props.savingNewParking ? "spin" : null }/>
