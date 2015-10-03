@@ -8,7 +8,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "async": "^0.9.0",
+    "async": "1.4.2",
     "autoprefixer": "^6.0.3",
     "blueimp-file-upload": "^9.9.3",
     "css-loader": "^0.9.1",
