@@ -13,7 +13,7 @@ var Button = React.createClass({
   render: function() {
     return (
       <div
-        className={ classNames("Button", this.props.selected && "button__selected") }
+        className={ classNames("Button", this.props.selected && "Button__selected") }
         onClick={ this.props.callback }>
           { this.props.text }
       </div>
