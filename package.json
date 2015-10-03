@@ -14,7 +14,7 @@
     "css-loader": "^0.9.1",
     "extract-text-webpack-plugin": "^0.3.8",
     "file-loader": "^0.8.1",
-    "fluxxor": "^1.5.3",
+    "fluxxor": "^1.7.3",
     "ga-react-router": "git+https://github.com/trashgenerator/ga-react-router.git",
     "imports-loader": "^0.6.3",
     "jquery": "^2.1.3",
