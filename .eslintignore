@@ -1,4 +1,4 @@
-static/build/
+server/motoparking/static/build/
 node_modules/
 components/dump/Parking/SliderWithFileUploader/FileUploader/jquery.cloudinary.js
 components/dump/Parking/SliderWithFileUploader/FileUploader/jquery.iframe-transport.js

@@ -1,7 +1,7 @@
 var webpack = require("webpack");
 var path = require("path");
 var autoprefixer = require("autoprefixer");
-var precss      = require('precss');
+var precss      = require("precss");
 
 module.exports = {
   devtool: "cheap-module-eval-source-map",
