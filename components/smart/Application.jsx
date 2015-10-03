@@ -5,7 +5,7 @@ var Router = require("react-router");
 
 var Map = require("./Map/map");
 var ToasterContainer = require("./ToasterContainer");
-var ControlsHandler = require("./ControlsHandler");
+var ControlsContainer = require("./ControlsContainer");
 
 var FluxMixin = Fluxxor.FluxMixin(React);
 
@@ -22,7 +22,7 @@ var Application = React.createClass({
     return (
       <div>
         <Map/>
-        <ControlsHandler />
+        <ControlsContainer />
         <TimeoutTransitionGroup
           enterTimeout={500}
           leaveTimeout={500}
