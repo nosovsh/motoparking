@@ -40,6 +40,9 @@ Everything should be passed to them throught `props`.
 
 Styling of any component should be done in the file `ComponentName.css` in the same directory as component file.
 
+Run `npm run csslint` to fix any css files with `csscomb`.
+
+
 ### Code style
 Run `npm run lint` to check code.
 
@@ -52,8 +55,8 @@ All code is inside `server/motoparking/` directory.
 
 ## TODO:
 - ES2015
-- postCSS
-- refactor css
+- ~~postCSS~~
+- ~~refactor css~~
 - refactor map components and store to make them more reactive
 - make stores more functional, without side effects to make migration to Redux more easy 
 - refactor server side code
