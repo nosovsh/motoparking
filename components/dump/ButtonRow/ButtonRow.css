@@ -20,22 +20,22 @@
 @media only screen  and (min-width: 768px) {
     .ButtonRow:hover {
         background-color: #4D4D4D;
-        color: #fff;
+        color: #FFFFFF;
     }
 }
 
 .ButtonRow:active, .ButtonRow__selected {
     background-color: #4D4D4D;
-    color: #fff;
+    color: #FFFFFF;
 }
 
 .ButtonRow_color_light {
-    border-color: #c3c3c3;
+    border-color: #C3C3C3;
 }
 
 .ButtonRow_color_dark {
-    background: rgba(77, 77, 77, .76);
-    color: #FFF;
+    background: rgba(77, 77, 77, 0.76);
+    color: #FFFFFF;
 }
 
 .ButtonRow_height_thin {

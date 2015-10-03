@@ -3,7 +3,7 @@
     top: 100%;
     left: 0;
     width: 244px;
-    box-shadow: 0 2px 3px 1px rgba(0, 0, 0, .2);
+    box-shadow: 0 2px 3px 1px rgba(0, 0, 0, 0.2);
     background-color: transparent;
     border-radius: 5px;
     margin: 10px 0 0;
@@ -19,9 +19,9 @@
 .PopoverArrow:after {
     transform: rotate(45deg) translate(6px, 6px);
     box-shadow: -1px -1px 1px -1px rgba(0, 0, 0, 0.44);
-    content: '';
+    content: "";
     display: block;
     width: 14px;
     height: 14px;
-    background: rgba(77, 77, 77, .76);
+    background: rgba(77, 77, 77, 0.76);
 }

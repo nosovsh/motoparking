@@ -13,7 +13,6 @@
     width: 100%;
     height: 230px;
     margin-top: 17px;
-
     text-align: center;
     line-height: 230px;
     font-size: 2em; /* strange bug android chrome if >2em */

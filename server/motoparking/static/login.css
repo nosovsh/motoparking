@@ -39,10 +39,10 @@ body {
 }
 
 .facebook {
-    background-color: #4e69a2;
-    border-color: #435a8b #3c5488 #334c83;
+    background-color: #4E69A2;
+    border-color: #435A8B #3C5488 #334C83;
     line-height: 36px;
-    color: #FFF;
+    color: #FFFFFF;
     text-decoration: none;
     display: inline-block;
     padding: 14px 17px;
@@ -52,9 +52,9 @@ body {
 }
 
 .google {
-    background-color: #d73d32;
+    background-color: #D73D32;
     line-height: 36px;
-    color: #FFF;
+    color: #FFFFFF;
     text-decoration: none;
     display: inline-block;
     padding: 14px 17px;
@@ -67,11 +67,11 @@ h1 {
     font-size: 32px;
     font-weight: 100;
     color: black;
-    margin-bottom: 30px
+    margin-bottom: 30px;
 }
 
 a {
-    color: #4d4d4d;
+    color: #4D4D4D;
 }
 
 p {

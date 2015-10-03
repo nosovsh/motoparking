@@ -16,7 +16,7 @@
 .Modal__Content__Inner {
     position: relative;
     width: auto;
-    background: #FFF;
+    background: #FFFFFF;
     z-index: 100;
 }
 
@@ -89,7 +89,7 @@
 .Modal__Header {
     position: absolute;
     top: -90px;
-    color: #FFF;
+    color: #FFFFFF;
     font-weight: 200;
 }
 

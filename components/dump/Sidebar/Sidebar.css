@@ -11,8 +11,8 @@
     position: relative;
     width: 332px;
     margin-left: -332px;
-    box-shadow: 0 2px 3px 1px rgba(0, 0, 0, .2);
-    background-color: #FFF;
+    box-shadow: 0 2px 3px 1px rgba(0, 0, 0, 0.2);
+    background-color: #FFFFFF;
     max-height: 100%;
     overflow-y: scroll;
     overflow-x: hidden;
@@ -59,7 +59,7 @@
 }
 
 .Sidebar.page-enter {
-    animation-duration: .2s;
+    animation-duration: 0.2s;
     animation-fill-mode: both;
     animation-name: fadeInRight;
 }
@@ -74,7 +74,7 @@
 
 .Sidebar.page-leave.page-leave-active {
     animation-name: fadeOutRight;
-    animation-duration: .2s;
+    animation-duration: 0.2s;
     animation-fill-mode: both;
 }
 
@@ -94,8 +94,8 @@
         width: 100%;
         height: 100%;
         margin-left: 0;
-        box-shadow: 0 2px 3px 1px rgba(0, 0, 0, .2);
-        background-color: #FFF;
+        box-shadow: 0 2px 3px 1px rgba(0, 0, 0, 0.2);
+        background-color: #FFFFFF;
         max-height: 100%;
         overflow-y: scroll;
     }

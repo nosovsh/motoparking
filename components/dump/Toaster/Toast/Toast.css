@@ -1,28 +1,28 @@
 @keyframes toastIn {
-  0% {
-    opacity: 0;
-  }
+    0% {
+        opacity: 0;
+    }
 
-  100% {
-    opacity: 1;
-  }
+    100% {
+        opacity: 1;
+    }
 }
 
 @keyframes toastOut {
-  0% {
-    opacity: 1;
-  }
+    0% {
+        opacity: 1;
+    }
 
-  100% {
-    opacity: 0;
-    -webkit-transform: translate3d(0, 100%, 0);
-    transform: translate3d(0, 100%, 0);
-  }
+    100% {
+        opacity: 0;
+        -webkit-transform: translate3d(0, 100%, 0);
+        transform: translate3d(0, 100%, 0);
+    }
 }
 
 .Toast {
     background: #323232;
-    margin:10px 0;
+    margin: 10px 0;
     padding: 17px 20px 1px 20px;
     border-radius: 2px;
     color: white;
@@ -30,18 +30,18 @@
 
 
 .Toast-enter {
-  animation-duration: 1s;
-  animation-fill-mode: both;
-  animation-name: toastIn;
+    animation-duration: 1s;
+    animation-fill-mode: both;
+    animation-name: toastIn;
 }
 
 .Toast-enter.Toast-enter-active {
 }
 
 .Toast-leave {
-  animation-duration: 1s;
-  animation-fill-mode: both;
-  animation-name: toastOut;
+    animation-duration: 1s;
+    animation-fill-mode: both;
+    animation-name: toastOut;
 }
 
 .Toast-leave.Toast-leave-active {

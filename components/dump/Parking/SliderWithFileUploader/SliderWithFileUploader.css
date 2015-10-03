@@ -27,7 +27,6 @@
 .Slider .slick-prev {
     left: 10px;
     background-image: url("images/arrow-prev.svg");
-
 }
 
 .Slider .slick-disabled {
@@ -70,12 +69,12 @@
 }
 
 .Slider .slick-dots li.slick-active button:before {
-    opacity: .75;
-    color: #FFF;
+    opacity: 0.75;
+    color: #FFFFFF;
 }
 
 .Slider .slick-dots li button:before {
-    font-family: 'slick';
+    font-family: "slick";
     font-size: 20px;
     line-height: 20px;
     position: absolute;
@@ -83,10 +82,10 @@
     left: 0;
     width: 20px;
     height: 20px;
-    content: '•';
+    content: "•";
     text-align: center;
-    opacity: .25;
-    color: #FFF;
+    opacity: 0.25;
+    color: #FFFFFF;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }

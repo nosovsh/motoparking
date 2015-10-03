@@ -4,25 +4,22 @@
     display: inline-block;
     padding: 9px 20px;
     margin-right: 14px;
-
     line-height: 22px;
     cursor: pointer;
-
     transition: all 0.2s ease;
 }
 
 @media only screen  and (min-width : 768px) {
     .Button:hover {
         background-color: #4D4D4D;
-        color: #fff;
+        color: #FFFFFF;
     }
 }
 .Button:active, .Button__selected {
     background-color: #4D4D4D;
-    color: #fff;
+    color: #FFFFFF;
 }
 
 .Button:last-child {
     margin-right: 0;
 }
-
