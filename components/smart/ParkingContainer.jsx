@@ -1,8 +1,6 @@
 var React = require("react/addons");
 var Fluxxor = require("fluxxor");
 
-var Router = require("react-router");
-
 var FluxMixin = Fluxxor.FluxMixin(React);
 var StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
@@ -13,14 +11,18 @@ var EditLocation = require("../dump/EditLocation/EditLocation");
 
 
 var ParkingContainer = React.createClass({
-  mixins: [Router.State, FluxMixin, StoreWatchMixin("ParkingStore", "OpinionStore", "CommentStore", "CurrentUserStore", "ParkingImageStore")],
+  propTypes: {
+    params: React.PropTypes.object
+  },
+
+  mixins: [FluxMixin, StoreWatchMixin("ParkingStore", "OpinionStore", "CommentStore", "CurrentUserStore", "ParkingImageStore")],
 
   componentDidMount: function() {
-    this.getFlux().actions.loadCurrentParking(this.getParams().id);
+    this.getFlux().actions.loadCurrentParking(this.props.params.id);
   },
 
   componentWillReceiveProps: function(nextProps) { // eslint-disable-line no-unused-vars
-    this.getFlux().actions.loadCurrentParking(this.getParams().id);
+    this.getFlux().actions.loadCurrentParking(nextProps.params.id);
   },
 
   onEditLocationDone: function() {

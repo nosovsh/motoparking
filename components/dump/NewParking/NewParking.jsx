@@ -24,7 +24,7 @@ var NewParking = React.createClass({
   render: function() {
     return (
       <div className="NewParking">
-        <Link to="Default">
+        <Link to="/">
           <div className="close-wrapper">
             <Icon name="close" />
           </div>

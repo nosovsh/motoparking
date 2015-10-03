@@ -45,7 +45,7 @@ var Parking = React.createClass({
           </a>
         ) : null }
 
-        <Link to="Default" style={ {color: "#FFF"} }>
+        <Link to="/" style={ {color: "#FFF"} }>
           <div className="close-wrapper">
             <Icon name="close" />
           </div>

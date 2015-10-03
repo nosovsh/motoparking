@@ -6,7 +6,7 @@ leafletProviders = require("leaflet-providers");
 require("leaflet/dist/leaflet.css");
 
 var Router = require("react-router");
-var Navigation = Router.Navigation;
+var History = Router.History;
 
 var FluxMixin = Fluxxor.FluxMixin(React);
 
@@ -65,7 +65,7 @@ var getActiveIcon = function(isSecure, isMoto) {
  * TODO: rewrite it in React style!
  */
 var Map = React.createClass({
-  mixins: [Navigation, FluxMixin],
+  mixins: [History, FluxMixin],
 
   getInitialState: function() {
     this.parkingMarkers = {};
@@ -114,7 +114,7 @@ var Map = React.createClass({
   },
 
   onMarkerClick: function(id) {
-    this.transitionTo("Parking", {"id": id});
+    this.history.pushState(null, "/p/" + id);
   },
 
   /**
@@ -312,7 +312,7 @@ var Map = React.createClass({
     }).on("click", this.onMarkerClick.bind(this, store.currentParkingId))
       .addTo(this.map); // TODO: should be done without currentParkingId
     setTimeout(function() {
-      this.transitionTo("Parking", {"id": store.currentParkingId});
+      this.history.pushState(null, "/p/" + store.currentParkingId);
     }.bind(this), 0);
   },
 

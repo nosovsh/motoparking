@@ -8,14 +8,14 @@ var Modal = require("./components/dump/Modal/Modal");
 
 var Router = require("react-router");
 var Route = Router.Route;
-var DefaultRoute = Router.DefaultRoute;
+var IndexRoute = Router.IndexRoute;
 
 var Routes = (
-  <Route handler={ App }>
-    <DefaultRoute name="Default" handler={ Default } addHandlerKey />
-    <Route name="Parking" path="/p/:id" handler={ ParkingContainer } addHandlerKey />
-    <Route name="NewParking" path="/add" handler={ NewParkingContainer } addHandlerKey />
-    <Route name="Info" path="/about" handler={ Modal } addHandlerKey />
+  <Route path="/" component={ App } >
+    <IndexRoute component={ Default }/>
+    <Route path="/p/:id" component={ ParkingContainer }/>
+    <Route path="/add" component={ NewParkingContainer }/>
+    <Route path="/about" component={ Modal }/>
   </Route>
 );
 

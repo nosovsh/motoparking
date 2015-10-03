@@ -10,7 +10,7 @@ var ButtonRow = require("../dump/ButtonRow/ButtonRow");
 
 
 var Router = require("react-router");
-var Navigation = Router.Navigation;
+var History = Router.History;
 var Link = Router.Link;
 
 var FluxMixin = Fluxxor.FluxMixin(React);
@@ -18,7 +18,7 @@ var StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
 
 var ControlsHandler = React.createClass({
-  mixins: [Navigation, FluxMixin, StoreWatchMixin("ParkingStore")],
+  mixins: [History, FluxMixin, StoreWatchMixin("ParkingStore")],
 
   onPlusClick: function() {
     this.getFlux().actions.mapZoomIn();
@@ -34,6 +34,10 @@ var ControlsHandler = React.createClass({
 
   onMenuTriggerClick: function() {
     this.refs.menu.toggle();
+  },
+
+  onAbout: function() {
+    this.history.pushState(null, "/about");
   },
 
   getStateFromFlux: function() {
@@ -62,14 +66,14 @@ var ControlsHandler = React.createClass({
             size="small"
           />
         </ControlButton>
-        <Link to="NewParking">
+        <Link to="/add">
           <ControlButton>
             <Icon name="add"/>
             Добавить парковку
           </ControlButton>
         </Link>
         <DropDownMenu ref="menu">
-          <ButtonRow align="left" color="dark" callback={ this.transitionTo.bind(this, "Info") }>О проекте</ButtonRow>
+          <ButtonRow align="left" color="dark" callback={ this.onAbout }>О проекте</ButtonRow>
           <ButtonRow align="left" color="dark" callback={ this.logout }>Выйти</ButtonRow>
         </DropDownMenu>
       </Controls>
@@ -91,7 +95,7 @@ var ControlsHandler = React.createClass({
         </a>
 
         <DropDownMenu ref="menu">
-          <ButtonRow align="left" color="dark" callback={ this.transitionTo.bind(this, "Info") }>О проекте</ButtonRow>
+          <ButtonRow align="left" color="dark" callback={ this.onAbout }>О проекте</ButtonRow>
           <ButtonRow align="left" color="dark" callback={ this.login }>Войти</ButtonRow>
         </DropDownMenu>
       </Controls>

@@ -14,7 +14,7 @@ var Modal = React.createClass({
       <div className="Modal" >
         <div className="Modal__Content">
           <div className="Modal__Content__Inner">
-            <Link to="Default" style={ {color: "#FFF"} } >
+            <Link to="/" style={ {color: "#FFF"} } >
               <div className="close-wrapper">
                 <Icon name="close" />
               </div>

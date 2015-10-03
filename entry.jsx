@@ -1,23 +1,33 @@
 var React = require("react");
 var routes = require("./routes");
 
-// Require React-Router
-var Router = require("react-router");
-
-var analytics = require("./utils/analytics");
-
-window.React = React; // For chrome dev tool support
-
-var flux = require("./fluxy");
+var ReactRouter = require("react-router");
+var Router = ReactRouter.Router;
+var createBrowserHistory = require("history/lib/createBrowserHistory");
 
 var moment = require("moment");
-moment.locale("ru");
+var analytics = require("./utils/analytics");
 
 require("normalize.css/normalize.css");
 require("styles/style.css");
 
+window.React = React; // For chrome dev tool support
 
-Router.run(routes, Router.HistoryLocation, function(Handler, state) {
-  React.render(<Handler flux={ flux }/>, document.body);
-  analytics.pageView(state.path);
-});
+moment.locale("ru");
+
+var history = createBrowserHistory();
+
+var flux = require("./fluxy");
+
+function onUpdate() {
+  analytics.pageView(window.location.pathname);
+}
+
+onUpdate();
+
+function createElement(Component, props) {
+  props.flux = flux;
+  return React.createElement(Component, props);
+}
+
+React.render(<Router history={ history } createElement={ createElement } onUpdate={ onUpdate }>{ routes }</Router>, document.body);

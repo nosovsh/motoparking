@@ -1,25 +1,22 @@
 var React = require("react/addons");
 var Fluxxor = require("fluxxor");
 var TimeoutTransitionGroup = require("react-components/js/timeout-transition-group");
+var Router = require("react-router");
 
 var Map = require("./Map/map");
 var ToasterContainer = require("./ToasterContainer");
-
-var Router = require("react-router");
-var RouteHandler = Router.RouteHandler;
+var ControlsHandler = require("./ControlsHandler");
 
 var FluxMixin = Fluxxor.FluxMixin(React);
 
-var ControlsHandler = require("./ControlsHandler");
-
 
 var Application = React.createClass({
-  mixins: [FluxMixin, Router.State],
-
-  getHandlerKey: function() {
-    var childDepth = 1;
-    return this.getRoutes()[childDepth].name;
+  propTypes: {
+    children: React.PropTypes.node,
+    routes: React.PropTypes.array
   },
+
+  mixins: [FluxMixin, Router.State],
 
   render: function() {
     return (
@@ -31,7 +28,9 @@ var Application = React.createClass({
           leaveTimeout={500}
           transitionName="page"
           className="one-more-wrapper">
-          <RouteHandler  key={this.getHandlerKey()} />
+          { React.Children.map(this.props.children, function(child) {
+            return React.cloneElement(child, { key: this.props.routes[this.props.routes.length - 1].path });
+          }.bind(this)) }
         </TimeoutTransitionGroup>
         <ToasterContainer />
       </div>
