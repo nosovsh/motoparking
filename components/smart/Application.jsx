@@ -18,6 +18,24 @@ var Application = React.createClass({
 
   mixins: [FluxMixin, Router.State],
 
+  /**
+   * Returns key that should be assigned to `this.props.children`.
+   * Users and parkings have the same key because there should be no animation between them.
+   *
+   * @returns {*}
+   */
+  getKey: function() {
+    var sidebarPaths = [
+      "/p/:id",
+      "/u/:userId"
+    ];
+    var path = this.props.routes[this.props.routes.length - 1].path;
+    if (sidebarPaths.indexOf(path) !== -1) {
+      return "sidebar";
+    }
+    return path;
+  },
+
   render: function() {
     return (
       <div>
@@ -29,7 +47,7 @@ var Application = React.createClass({
           transitionName="page"
           className="one-more-wrapper">
           { React.Children.map(this.props.children, function(child) {
-            return React.cloneElement(child, { key: this.props.routes[this.props.routes.length - 1].path });
+            return React.cloneElement(child, { key: this.getKey() });
           }.bind(this)) }
         </TimeoutTransitionGroup>
         <ToasterContainer />

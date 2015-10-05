@@ -7,7 +7,6 @@ var StoreWatchMixin = Fluxxor.StoreWatchMixin;
 var config = require("../../config");
 
 var Parking = require("../dump/Parking/Parking");
-var EditLocation = require("../dump/EditLocation/EditLocation");
 
 
 var ParkingContainer = React.createClass({
@@ -18,25 +17,16 @@ var ParkingContainer = React.createClass({
   mixins: [FluxMixin, StoreWatchMixin("ParkingStore", "OpinionStore", "CommentStore", "CurrentUserStore", "ParkingImageStore")],
 
   componentDidMount: function() {
-    this.getFlux().actions.loadCurrentParking(this.props.params.id);
+    // delaying load a little bit so that animation be smooth
+    setTimeout(function() {
+      this.getFlux().actions.loadCurrentParking(this.props.params.id);
+    }.bind(this), 600);
   },
 
-  componentWillReceiveProps: function(nextProps) { // eslint-disable-line no-unused-vars
-    this.getFlux().actions.loadCurrentParking(nextProps.params.id);
-  },
-
-  onEditLocationDone: function() {
-    var store = this.getFlux().store("ParkingStore");
-    var myOpinion = store.getMyOpinionOfCurrentParking();
-    myOpinion.latLng = {
-      type: "Point",
-      coordinates: [store.currentParkingTemporaryPosition.lat, store.currentParkingTemporaryPosition.lng]
-    };
-    this.getFlux().actions.editLocationDone(myOpinion);
-  },
-
-  onEditLocationCancel: function() {
-    this.getFlux().actions.editLocationCancel();
+  componentWillReceiveProps: function(nextProps) {
+    if (nextProps.params.id !== this.props.params.id) {
+      this.getFlux().actions.loadCurrentParking(nextProps.params.id);
+    }
   },
 
   onEditLocation: function() {
@@ -66,14 +56,15 @@ var ParkingContainer = React.createClass({
     var currentUserStore = this.getFlux().store("CurrentUserStore");
     var parkingImageStore = this.getFlux().store("ParkingImageStore");
 
+    var currentParkingId = this.props.params.id;
     return {
       loading: store.loading,
       error: store.error,
-      currentParking: store.getCurrentParking(),
-      currentParkingOpinions: opinionStore.opinionsByParking[store.currentParkingId] ? opinionStore.opinionsByParking[store.currentParkingId] : [],
-      parkingImages: parkingImageStore.getParkingImages(store.currentParkingId),
+      currentParking: store.getParking(currentParkingId),
+      currentParkingOpinions: opinionStore.opinionsByParking[currentParkingId] ? opinionStore.opinionsByParking[currentParkingId] : [],
+      parkingImages: parkingImageStore.getParkingImages(currentParkingId),
       editingLocation: store.editingLocation,
-      comments: commentStore.getComments(store.currentParkingId),
+      comments: commentStore.getComments(currentParkingId),
       loadingAddress: store.loadingAddress,
       loadingAddressError: store.loadingAddressError,
       currentUser: currentUserStore.currentUser,
@@ -82,13 +73,6 @@ var ParkingContainer = React.createClass({
   },
 
   render: function() {
-    if (this.state.editingLocation) {
-      return (
-          <EditLocation
-            onEditLocationDone={ this.onEditLocationDone }
-            onEditLocationCancel={ this.onEditLocationCancel }/>
-      );
-    }
     return (
       <Parking
         loading={ this.state.loading }
