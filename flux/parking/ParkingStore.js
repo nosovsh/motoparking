@@ -274,9 +274,7 @@ var ParkingStore = Fluxxor.createStore({
   },
 
   getCurrentParking: function() {
-    return _.find(this.parkingList, function(parking) {
-      return parking.id === this.currentParkingId;
-    }.bind(this)) || {};
+    return this.getParking(this.currentParkingId) || {};
   },
 
   getMyOpinionOfCurrentParking: function() {
