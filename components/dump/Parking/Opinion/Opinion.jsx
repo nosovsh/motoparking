@@ -30,6 +30,12 @@ var Opinion = React.createClass({
   },
 
   render: function() {
+    // quick fix for db inconsistent
+    if (!this.props.parking) {
+      console.log("No parking found.");
+      console.log(this.props.opinion);
+      return null;
+    }
     return (
       <div className="Opinion" onClick={ this.goToParking }>
         <div className="Opinion__Data">
