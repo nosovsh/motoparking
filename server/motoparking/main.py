@@ -405,14 +405,22 @@ class Comment(db.Document):
 # resources
 
 
-class UserResource(Resource):
+class UserResource(ProResource):
     document = User
-    fields = ["id", "first_name", "last_name", "image", "gender", ]
+    fields = ["id", "first_name", "last_name", "image", "gender", "social_connections", "opinions"]
     rename_fields = {
         "first_name": "firstName",
         "last_name": "lastName",
+        "social_connections": "socialConnections",
     }
 
+    def get_object(self, pk):
+        obj = super(UserResource, self).get_object(pk=pk)
+        social_connections = SocialConnection.objects(user=pk)
+        obj.social_connections = [{"provider": sc.provider, "profileUrl": sc.profile_url} for sc in social_connections]
+        opinions = Opinion.objects(user=pk).order_by("-updated")
+        obj.opinions = [OpinionResource().serialize(o, {"_fields": "id,parking,isSecure,isMoto,updated,pricePerDay,pricePerMonth"}) for o in opinions]
+        return obj
 
 class ParkingResource(ProResource):
     document = Parking

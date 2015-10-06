@@ -1,3 +1,7 @@
+.Parking {
+    position: absolute;
+    width: 332px;
+}
 .loading {
     height: 300px;
     text-align: center;

@@ -100,3 +100,12 @@
 .icon-delete:before {
     content: "\e810";
 } /* '' */
+.icon-back:before {
+    content: "\e811";
+} /* '' */
+.icon-facebook:before {
+    content: "\e812";
+} /* '' */
+.icon-google:before {
+    content: "\e813";
+} /* '' */

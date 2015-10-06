@@ -11,6 +11,23 @@ var texts = {
   "is-secure_yes_is-moto_yes": "Здесь можно оставить мотоцикл \nпод охраной"
 };
 
+var statusImages = {
+  "is-secure_maybe_is-moto_maybe": require("./images/is-secure_maybe_is-moto_maybe.svg"),
+  "is-secure_no_is-moto_maybe": require("./images/is-secure_no_is-moto_maybe.svg"),
+  "is-secure_yes_is-moto_maybe": require("./images/is-secure_yes_is-moto_maybe.svg"),
+  "is-secure_yes_is-moto_no": require("./images/is-secure_yes_is-moto_no.svg"),
+  "is-secure_yes_is-moto_yes": require("./images/is-secure_yes_is-moto_yes.svg")
+};
+
+var getStatusName = function(isSecure, isMoto) {
+  return "is-secure_" + isSecure +
+      (isMoto ? "_is-moto_" + isMoto : "");
+};
+
+var getStatusImage = function(isSecure, isMoto) {
+  return statusImages[getStatusName(isSecure, isMoto)];
+};
+
 var StatusCover = React.createClass({
   propTypes: {
     isSecure: React.PropTypes.string,
@@ -18,8 +35,7 @@ var StatusCover = React.createClass({
   },
 
   render: function() {
-    var name = "is-secure_" + this.props.isSecure +
-      (this.props.isMoto ? "_is-moto_" + this.props.isMoto : "");
+    var name = getStatusName(this.props.isSecure, this.props.isMoto);
 
     // TODO: remove hack `this.props.isSecure !== undefined`
     var textRows = this.props.isSecure !== undefined ? texts[name].split("\n").map(function(str, i) {
@@ -30,7 +46,9 @@ var StatusCover = React.createClass({
 
     return (
       <div className={ classNames("StatusCover", "StatusCover_" + name) }>
-        <div className={ classNames("StatusCover__icon", "StatusCover__icon_" + name) }></div>
+        <div
+          className={ classNames("StatusCover__icon", "StatusCover__icon_" + name) }
+          style={ {backgroundImage: "url(" + getStatusImage(this.props.isSecure, this.props.isMoto) + ")" } }></div>
         <div className="StatusCover__text">
           { textRows }
         </div>
@@ -39,4 +57,8 @@ var StatusCover = React.createClass({
   }
 });
 
-module.exports = StatusCover;
+module.exports = {
+  StatusCover: StatusCover,
+  getStatusName: getStatusName,
+  getStatusImage: getStatusImage
+};

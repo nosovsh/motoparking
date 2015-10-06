@@ -8,3 +8,12 @@
     width: 38px;
     height: 38px;
 }
+
+.Avatar_size_big {
+    width: 100px;
+    height: 100px;
+}
+
+.Avatar_border_thin {
+    border: 2px solid #FFFFFF;
+}

@@ -1,14 +1,12 @@
 var React = require("react/addons");
 
 var Router = require("react-router");
-var Link = Router.Link;
 
-var StatusCover = require("./StatusCover/StatusCover");
+var StatusCover = require("./StatusCover/StatusCover").StatusCover;
 var MyOpinion = require("./MyOpinion/MyOpinion");
 var Icon = require("../Icon/Icon");
 var Comments = require("../Comments/Comments");
 var SliderWithFileUploader = require("./SliderWithFileUploader/SliderWithFileUploader");
-var Sidebar = require("../Sidebar/Sidebar");
 var AvatarList = require("../AvatarList/AvatarList");
 var Prices = require("./Prices/Prices");
 
@@ -35,21 +33,19 @@ var Parking = React.createClass({
   },
 
   render: function() {
+    if (!this.props.currentParking) {
+      return <div>Loading...</div>;
+    }
     return (
-      <Sidebar>
-        { this.props.currentUser.isSuper ? (
+      <div className="Parking">
+      { this.props.currentUser.isSuper ? (
           <a href="#" style={ {color: "#FFF"} } onClick={ this.props.onDeleteParking }>
-            <div className="close-wrapper" style={{right: "inherit", left: 6}}>
+            <div className="close-wrapper" style={{right: "inherit", left: 40}}>
               <Icon name="delete" />
             </div>
           </a>
         ) : null }
 
-        <Link to="/" style={ {color: "#FFF"} }>
-          <div className="close-wrapper">
-            <Icon name="close" />
-          </div>
-        </Link>
 
         <StatusCover
           isSecure={ this.props.currentParking.isSecure }
@@ -93,7 +89,7 @@ var Parking = React.createClass({
               actions={ this.props.actions }/>
           </div>
         ) : <div className="loading">Loading...</div> }
-      </Sidebar>
+      </div>
     );
   }
 });

@@ -1,0 +1,21 @@
+.Opinion {
+    display: table;
+    margin: 0;
+    padding: 14px 11px 14px 11px;
+    width: 100%;
+    cursor: pointer;
+}
+
+.Opinion:hover {
+    background-color: rgba(77, 77, 77, 0.76);
+    color: #FFFFFF;
+}
+
+.Opinion__Date {
+    opacity: 0.7;
+    line-height: 1.7em;
+}
+.Opinion__Ruble {
+    font-size: 0.7em;
+    margin-left: -5px;
+}

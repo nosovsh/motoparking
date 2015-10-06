@@ -1,5 +1,6 @@
 var Fluxxor = require("fluxxor");
 var OpinionConstants = require("./OpinionConstants");
+var UserConstants = require("../user/UserConstants");
 var _ = require("lodash");
 
 
@@ -9,6 +10,7 @@ var OpinionStore = Fluxxor.createStore({
   initialize: function() {
     this.loading = false;
     this.error = null;
+    this.opinions = {};
     this.opinionsByParking = {};
 
     this.bindActions(
@@ -18,7 +20,9 @@ var OpinionStore = Fluxxor.createStore({
 
       OpinionConstants.POST_OPINION, this.onPostOpinion,
       OpinionConstants.POST_OPINION_SUCCESS, this.onPostOpinionSuccess,
-      OpinionConstants.POST_OPINION_FAIL, this.onPostOpinionFail
+      OpinionConstants.POST_OPINION_FAIL, this.onPostOpinionFail,
+
+      UserConstants.LOAD_USER_SUCCESS, this.onLoadUserSuccess
     );
   },
 
@@ -69,6 +73,18 @@ var OpinionStore = Fluxxor.createStore({
     this.loading = false;
     this.error = payload.error;
     this.emit("change");
+  },
+
+  onLoadUserSuccess: function(payload) {
+    payload.user.opinions.map(function(opinion) {
+      this.opinions[opinion.id] = _.extend({}, this.opinions[opinion.id], opinion, {"user": payload.user.id});
+    }.bind(this));
+  },
+
+  getOpinions: function(opinionIds) {
+    return _.zipObject(opinionIds.map(function(opinionId) {
+      return [opinionId, this.opinions[opinionId]];
+    }.bind(this)));
   }
 });
 

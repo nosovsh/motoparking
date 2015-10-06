@@ -55,6 +55,7 @@ a {
     right: 7px;
     cursor: pointer;
     font-size: 1.2em;
+    z-index: 200;
 }
 
 .close-wrapper:hover, .close-wrapper:active {
