@@ -32,26 +32,6 @@
     background-repeat: no-repeat;
 }
 
-.StatusCover__icon_is-secure_maybe_is-moto_maybe {
-    background-image: url("images/is-secure_maybe_is-moto_maybe.svg");
-}
-
-.StatusCover__icon_is-secure_no_is-moto_maybe {
-    background-image: url("images/is-secure_no_is-moto_maybe.svg");
-}
-
-.StatusCover__icon_is-secure_yes_is-moto_maybe {
-    background-image: url("images/is-secure_yes_is-moto_maybe.svg");
-}
-
-.StatusCover__icon_is-secure_yes_is-moto_no {
-    background-image: url("images/is-secure_yes_is-moto_no.svg");
-}
-
-.StatusCover__icon_is-secure_yes_is-moto_yes {
-    background-image: url("images/is-secure_yes_is-moto_yes.svg");
-}
-
 .StatusCover__text {
     font-size: 19px;
     color: #FFFFFF;

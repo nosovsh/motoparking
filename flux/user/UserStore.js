@@ -18,6 +18,9 @@ var UserStore = Fluxxor.createStore({
 
   onLoadUserSuccess: function(payload) {
     this.users[payload.user.id] = _.extend({}, this.users[payload.user.id] || {}, payload.user, {fullUserLoaded: true});
+    // saving just ids of opinions. Opinion objects will be saved in OpinionStore
+    this.users[payload.user.id].opinionIds = _.pluck(this.users[payload.user.id].opinions, "id");
+    delete this.users[payload.user.id].opinions;
     this.emit("change");
   },
 

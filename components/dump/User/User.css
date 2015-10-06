@@ -19,3 +19,8 @@
     text-align: center;
     font-size: 2em;
 }
+
+.User__Header {
+    padding: 0 11px;
+    font-size: 1.5em;
+}

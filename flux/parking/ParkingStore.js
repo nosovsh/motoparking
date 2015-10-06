@@ -255,6 +255,12 @@ var ParkingStore = Fluxxor.createStore({
     });
   },
 
+  getParkings: function(parkingIds) {
+    return _.filter(this.parkingList, function(parking) {
+      return parkingIds.indexOf(parking.id) !== -1;
+    });
+  },
+
   /**
    * update parking data in list or add new
    * @param newParking

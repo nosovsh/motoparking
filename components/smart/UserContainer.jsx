@@ -12,7 +12,7 @@ var UserContainer = React.createClass({
     params: React.PropTypes.object
   },
 
-  mixins: [FluxMixin, StoreWatchMixin("UserStore")],
+  mixins: [FluxMixin, StoreWatchMixin("UserStore", "OpinionStore", "ParkingStore")],
 
   componentDidMount: function() {
     this.getFlux().actions.loadUser(this.props.params.userId);
@@ -26,14 +26,30 @@ var UserContainer = React.createClass({
 
   getStateFromFlux: function() {
     var userStore = this.getFlux().store("UserStore");
+    var opinionStore = this.getFlux().store("OpinionStore");
+    var parkingStore = this.getFlux().store("ParkingStore");
+
+    var user = userStore.users[this.props.params.userId];
+    var opinions = user && user.opinionIds && opinionStore.getOpinions(userStore.users[this.props.params.userId].opinionIds || []);
+    var parkingsArray = parkingStore.getParkings(_.pluck(_.values(opinions), "parking")) || [];
+    var parkings = _.zipObject(parkingsArray.map(function(parking) {
+      return [parking.id, parking];
+    }));
 
     return {
-      user: userStore.users[this.props.params.userId]
+      user: user,
+      opinions: opinions,
+      parkings: parkings
     };
   },
 
   render: function() {
-    return <User user={ this.state.user }/>;
+    return (
+      <User
+        user={ this.state.user }
+        opinions={ this.state.opinions }
+        parkings={ this.state.parkings }/>
+    );
   }
 });
 

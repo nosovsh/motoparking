@@ -1,9 +1,8 @@
 var React = require("react/addons");
 
 var Router = require("react-router");
-var Link = Router.Link;
 
-var StatusCover = require("./StatusCover/StatusCover");
+var StatusCover = require("./StatusCover/StatusCover").StatusCover;
 var MyOpinion = require("./MyOpinion/MyOpinion");
 var Icon = require("../Icon/Icon");
 var Comments = require("../Comments/Comments");
