@@ -33,7 +33,7 @@ var User = React.createClass({
                   <Icon name={socialConnection.provider.toLowerCase()} />
                 </a>
               );
-            }.bind(this)) }
+            }) }
           </div>
         ) : <div>Loading...</div> }
       </div>
