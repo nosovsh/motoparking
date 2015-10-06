@@ -10,7 +10,7 @@ var Icon = React.createClass({
     name: React.PropTypes.string.isRequired,
     additionalClasses: React.PropTypes.array,
     animation: React.PropTypes.string,
-    isExpandOnHover: React.PropTypes.boolean
+    isExpandOnHover: React.PropTypes.bool
   },
 
   render: function() {

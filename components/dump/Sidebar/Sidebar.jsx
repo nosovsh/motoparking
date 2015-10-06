@@ -18,7 +18,7 @@ require("./Sidebar.css");
 var Sidebar = React.createClass({
   propTypes: {
     children: React.PropTypes.node,
-    location: React.PropTypes.string
+    location: React.PropTypes.object
   },
 
   mixins: [History],
@@ -50,14 +50,14 @@ var Sidebar = React.createClass({
           { this.state.pathStack.length && (
           <a style={ {color: "#FFF"} } onClick={ this.goBack }>
             <div className="close-wrapper" style={{right: "inherit", left: 6}}>
-              <Icon name="back" />
+              <Icon name="back" isExpandOnHover/>
             </div>
           </a>
           ) || null}
 
         <Link to="/" style={ {color: "#FFF"} }>
           <div className="close-wrapper">
-            <Icon name="close" />
+            <Icon name="close" isExpandOnHover/>
           </div>
         </Link>
 
