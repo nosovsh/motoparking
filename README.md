@@ -21,7 +21,7 @@ Create heroku config vars: `PROD_MONGODB`, `MONGODB_DB`, `SECRET_KEY`, `SECURITY
 Deploy the code: `git push heroku master`
 
 ## Frontend
-Frontend is writen using React.js, Fluxxor, Webpack, Leaflet.js, Babel and others.
+Frontend is writen using React.js, Fluxxor, Webpack, Leaflet.js, Babel, postCSS
 
 ### File structure
 `components/` – React components. 
@@ -60,5 +60,11 @@ All code is inside `server/motoparking/` directory.
 - refactor map components and store to make them more reactive
 - make stores more functional, without side effects to make migration to Redux more easy 
 - refactor server side code
+ 
+
+## And yes I'm looking for the next React.js project ;)
+Do you have one?
+
+trashgenerator@gmail.com
 
   
