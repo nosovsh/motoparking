@@ -34,7 +34,7 @@ var User = React.createClass({
               { this.props.user.socialConnections.map(function(socialConnection) {
                 return (
                   <a href={socialConnection.profileUrl} target="_blank">
-                    <Icon name={socialConnection.provider.toLowerCase()} />
+                    <Icon name={socialConnection.provider.toLowerCase()} isExpandOnHover/>
                   </a>
                 );
               }) }

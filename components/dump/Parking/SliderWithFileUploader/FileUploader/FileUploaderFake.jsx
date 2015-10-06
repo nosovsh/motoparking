@@ -10,7 +10,7 @@ var FileUploaderFake = React.createClass({
     return (
       <div className="FileUploader">
         <label className="FileUploader__label" onClick={ this.props.onAuthorizationRequired }>
-          <Icon name="add-image" />
+          <Icon name="add-image" isExpandOnHover/>
         </label>
       </div>
     );

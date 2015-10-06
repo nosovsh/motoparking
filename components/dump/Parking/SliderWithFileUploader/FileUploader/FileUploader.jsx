@@ -86,7 +86,7 @@ var FileUploader = React.createClass({
         ) : null }
         { !this.state.uploading ? (
           <label className="FileUploader__label">
-            <Icon name="add-image" />
+            <Icon name="add-image" isExpandOnHover/>
             <input type="file" ref="fileInput" name="file"/>
           </label>
         ) : null }

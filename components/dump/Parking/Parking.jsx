@@ -72,7 +72,7 @@ var Parking = React.createClass({
             <div className="InfoRow">
               <div className="Address">{ this.props.currentParking.address }&nbsp;</div>
               { this.props.currentUser && this.props.currentUser.id === this.props.currentParking.user ?
-                <Icon name="edit" additionalClasses={ ["edit-location-button"] } onClick={ this.props.onEditLocation }/> :
+                <Icon name="edit" additionalClasses={ ["edit-location-button"] } onClick={ this.props.onEditLocation } isExpandOnHover/> :
                 null }
             </div>
 
