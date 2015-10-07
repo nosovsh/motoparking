@@ -40,6 +40,10 @@ var ControlsHandler = React.createClass({
     this.history.pushState(null, "/about");
   },
 
+  onProfile: function() {
+    this.history.pushState(null, "/u/" + this.state.currentUser.id);
+  },
+
   getStateFromFlux: function() {
     var currentUserStore = this.getFlux().store("CurrentUserStore");
 
@@ -73,6 +77,7 @@ var ControlsHandler = React.createClass({
           </ControlButton>
         </Link>
         <DropDownMenu ref="menu">
+          <ButtonRow align="left" color="dark" callback={ this.onProfile }>Мой профиль</ButtonRow>
           <ButtonRow align="left" color="dark" callback={ this.onAbout }>О проекте</ButtonRow>
           <ButtonRow align="left" color="dark" callback={ this.logout }>Выйти</ButtonRow>
         </DropDownMenu>
