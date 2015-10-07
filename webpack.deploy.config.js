@@ -16,7 +16,7 @@ config.output = {
 config.module = {
   loaders: [
     // Pass *.jsx files through jsx-loader transform
-    {test: /\.jsx$/, exclude: "/node_modules/", loaders: ["react-hot", "babel-loader"]},
+    {test: /\.jsx$/, exclude: "/node_modules/", loaders: ["babel-loader"]},
     {test: /\.css$/, loader: "style!css"},
     {test: /\.png$/, loader: "file"},
     {test: /\.jpg$/, loader: "file"},
