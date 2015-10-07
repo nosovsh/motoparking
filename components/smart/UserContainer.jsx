@@ -15,7 +15,10 @@ var UserContainer = React.createClass({
   mixins: [FluxMixin, StoreWatchMixin("UserStore", "OpinionStore", "ParkingStore")],
 
   componentDidMount: function() {
-    this.getFlux().actions.loadUser(this.props.params.userId);
+    // delaying load a little bit so that animation be smooth
+    setTimeout(function() {
+      this.getFlux().actions.loadUser(this.props.params.userId);
+    }.bind(this), 200);
   },
 
   componentWillReceiveProps: function(nextProps) {
