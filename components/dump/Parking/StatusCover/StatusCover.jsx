@@ -20,8 +20,7 @@ var statusImages = {
 };
 
 var getStatusName = function(isSecure, isMoto) {
-  return "is-secure_" + isSecure +
-      (isMoto ? "_is-moto_" + isMoto : "");
+  return "is-secure_" + isSecure + "_is-moto_" + isMoto;
 };
 
 var getStatusImage = function(isSecure, isMoto) {
@@ -37,8 +36,7 @@ var StatusCover = React.createClass({
   render: function() {
     var name = getStatusName(this.props.isSecure, this.props.isMoto);
 
-    // TODO: remove hack `this.props.isSecure !== undefined`
-    var textRows = this.props.isSecure !== undefined ? texts[name].split("\n").map(function(str, i) {
+    var textRows = texts[name] ? texts[name].split("\n").map(function(str, i) {
       return (
         <span key={ i }>{ str }<br /></span>
       );

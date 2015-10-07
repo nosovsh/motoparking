@@ -3,7 +3,7 @@ var classNames = require("classnames");
 
 require("./Avatar.css");
 
-var placeholder = require("./placeholder.svg");
+var placeholder = require("./AvatarPlaceholder.svg");
 
 var Avatar = React.createClass({
   propTypes: {

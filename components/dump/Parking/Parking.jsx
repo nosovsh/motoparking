@@ -32,10 +32,13 @@ var Parking = React.createClass({
     actions: React.PropTypes.object.isRequired
   },
 
+  getDefaultProps: function() {
+    return {
+      currentParking: {}
+    };
+  },
+
   render: function() {
-    if (!this.props.currentParking) {
-      return <div>Loading...</div>;
-    }
     return (
       <div className="Parking">
       { this.props.currentUser.isSuper ? (

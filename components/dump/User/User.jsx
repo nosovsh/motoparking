@@ -16,17 +16,23 @@ var User = React.createClass({
     parkings: React.PropTypes.object
   },
 
+  getDefaultProps: function() {
+    return {
+      user: {}
+    };
+  },
+
+
   render: function() {
-    if (!this.props.user) {
-      return <div>loading</div>;
-    }
     return (
       <div className="User">
         <div className="User__Cover">
           <Avatar user={ this.props.user } size="big" border="thin"/>
-          <div className="User__Name">
-            { _.capitalize(this.props.user.firstName) } { _.capitalize(this.props.user.lastName) }
-          </div>
+          { this.props.user ? (
+            <div className="User__Name">
+              { _.capitalize(this.props.user.firstName) } { _.capitalize(this.props.user.lastName) }
+            </div>
+          ) : null }
         </div>
         { this.props.user.fullUserLoaded ? (
           <div>

@@ -4,6 +4,10 @@
     transition: all 0.5s ease;
 }
 
+.StatusCover_is-secure_undefined_is-moto_undefined {
+    background: #4D4D4D;
+}
+
 .StatusCover_is-secure_maybe_is-moto_maybe {
     background: #8A8263;
 }

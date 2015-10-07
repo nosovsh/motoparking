@@ -69,7 +69,7 @@ var Sidebar = React.createClass({
               <Icon name="back" isExpandOnHover/>
             </div>
           </a>
-          ) || null}
+          ) || null }
 
         <Link to="/" style={ {color: "#FFF"} }>
           <div className="close-wrapper">
