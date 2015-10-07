@@ -11,7 +11,8 @@ var EditLocation = require("../dump/EditLocation/EditLocation");
 var SidebarContainer = React.createClass({
   propTypes: {
     children: React.PropTypes.node,
-    location: React.PropTypes.object
+    location: React.PropTypes.object,
+    routes: React.PropTypes.array
   },
 
   mixins: [FluxMixin, StoreWatchMixin("ParkingStore")],
@@ -47,7 +48,9 @@ var SidebarContainer = React.createClass({
       );
     }
     return (
-      <Sidebar location={ this.props.location }>
+      <Sidebar
+        location={ this.props.location }
+        routes={ this.props.routes }>
         { this.props.children}
       </Sidebar>
     );
