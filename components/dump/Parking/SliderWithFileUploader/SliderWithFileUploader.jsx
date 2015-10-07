@@ -1,6 +1,6 @@
 var React = require("react/addons");
 var $ = require("jquery");
-var SliderSlick = require("react-slick");
+var Carousel = require("nuka-carousel");
 
 var Photo = require("../../Photo/Photo");
 var FileUploader = require("./FileUploader/FileUploader");
@@ -20,6 +20,20 @@ var SliderWithFileUploader = React.createClass({
     currentParkingId: React.PropTypes.string,
     cloudinaryConfig: React.PropTypes.object.isRequired
   },
+
+  getInitialState: function() {
+    return {
+      fakeSlider: true
+    };
+  },
+
+  componentDidMount: function() {
+    // enable gallery in some time because of strange bug in sidebar animation
+    setTimeout(function() {
+      this.setState({fakeSlider: false});
+    }.bind(this), 200);
+  },
+
 
   onAfterChange: function(index) {
     this.props.onSlideParkingImage(index === this.props.parkingImages.length ? "new" : index);
@@ -46,18 +60,15 @@ var SliderWithFileUploader = React.createClass({
         );
       }).concat(addImage);
 
+      if (this.state.fakeSlider) {
+        return (
+          slides[0]
+        );
+      }
       return (
-        <SliderSlick
-          className="Slider"
-          afterChange={ this.onAfterChange }
-          infinite={ false }
-          speed={ 500 }
-          slidesToShow={ 1 }
-          slidesToScroll={ 1 }
-          arrows
-          dots>
+        <Carousel>
           { slides }
-        </SliderSlick>
+        </Carousel>
       );
     }
     return addImage;
