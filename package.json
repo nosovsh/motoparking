@@ -43,7 +43,7 @@
     "slick-carousel": "^1.5.2",
     "source-map": "^0.4.0",
     "style-loader": "^0.8.3",
-    "webpack": "^1.8.9",
+    "webpack": "^1.12.2",
     "babel-core": "^5.1.10",
     "babel-loader": "^5.0.0"
   },
