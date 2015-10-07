@@ -6,7 +6,7 @@
 .User__Cover {
     width: 100%;
     height: 185px;
-    background: linear-gradient(0deg, #FFFFFF 85px, rgba(77, 77, 77, 0.76) 85px);
+    background: linear-gradient(0deg, #FFFFFF 85px, #4D4D4D 85px);
     text-align: center;
     padding-top: 50px;
 }
