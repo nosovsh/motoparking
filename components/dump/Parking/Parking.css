@@ -2,6 +2,13 @@
     position: absolute;
     width: 332px;
 }
+
+@media only screen and (max-device-width: 480px) {
+    .Parking {
+        width: 100%;
+    }
+}
+
 .loading {
     height: 300px;
     text-align: center;

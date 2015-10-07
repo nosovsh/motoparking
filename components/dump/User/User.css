@@ -3,6 +3,12 @@
     width: 332px;
 }
 
+@media only screen and (max-device-width: 480px) {
+    .User {
+        width: 100%;
+    }
+}
+
 .User__Cover {
     width: 100%;
     height: 185px;
