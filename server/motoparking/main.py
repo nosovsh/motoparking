@@ -407,7 +407,7 @@ class Comment(db.Document):
 
 class UserResource(ProResource):
     document = User
-    fields = ["id", "first_name", "last_name", "image", "gender", "social_connections", "opinions"]
+    fields = ["id", "first_name", "last_name", "image", "gender", "social_connections", "opinions", "stats"]
     rename_fields = {
         "first_name": "firstName",
         "last_name": "lastName",
@@ -420,6 +420,11 @@ class UserResource(ProResource):
         obj.social_connections = [{"provider": sc.provider, "profileUrl": sc.profile_url} for sc in social_connections]
         opinions = Opinion.objects(user=pk).order_by("-updated")
         obj.opinions = [OpinionResource().serialize(o, {"_fields": "id,parking,isSecure,isMoto,updated,pricePerDay,pricePerMonth"}) for o in opinions]
+        obj.stats = {}
+        obj.stats["opinionsCount"] = len(obj.opinions)
+        obj.stats["parkingsCount"] = Parking.objects(user=pk).count()
+        obj.stats["commentsCount"] = Comment.objects(user=pk).count()
+        obj.stats["parkingImagesCount"] = ParkingImage.objects(user=pk).count()
         return obj
 
 class ParkingResource(ProResource):

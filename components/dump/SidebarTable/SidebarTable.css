@@ -1,0 +1,24 @@
+.SidebarTable {
+    display: table;
+    content: " ";
+    width: 100%;
+    padding: 17px 13px 0 11px;
+    font-family: "Roboto", Arial, "Lucida Grande", sans-serif;
+    font-weight: 100;
+}
+
+.SidebarTable__Cell {
+    width: 50%;
+    float: left;
+    position: relative;
+    text-align: center;
+}
+
+.SidebarTable__Cell__Label {
+    color: rgba(77, 77, 77, 0.7);
+    font-size: 19px;
+}
+
+.SidebarTable__Cell__Value {
+    font-size: 29px;
+}

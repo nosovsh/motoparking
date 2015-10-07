@@ -1,10 +1,9 @@
 var React = require("react/addons");
-var ReactRouter = require("react-router");
-var Link = ReactRouter.Link;
 
 var Avatar = require("../Avatar/Avatar");
 var Icon = require("../Icon/Icon");
 var Opinion = require("../Parking/Opinion/Opinion");
+var SidebarTable = require("../SidebarTable/SidebarTable");
 
 require("./User.css");
 
@@ -45,6 +44,25 @@ var User = React.createClass({
                 );
               }) }
             </div>
+
+            <SidebarTable
+              data={[{
+                "label": "Добавлено парковок",
+                "value": this.props.user.stats.parkingsCount
+              }, {
+                "label": "Оставлено мнений",
+                "value": this.props.user.stats.opinionsCount
+              }]} />
+
+            <SidebarTable
+              data={[{
+                "label": "Комментариев",
+                "value": this.props.user.stats.commentsCount
+              }, {
+                "label": "Фотографий",
+                "value": this.props.user.stats.parkingImagesCount
+              }]} />
+            <br/>
             { this.props.user.opinionIds ? (
               <div>
                 <div className="User__Header">Последние мнения</div>
