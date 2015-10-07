@@ -4,6 +4,9 @@ var Avatar = require("../../Avatar/Avatar");
 var Icon = require("../../Icon/Icon");
 var ButtonRow = require("../../ButtonRow/ButtonRow");
 
+var Router = require("react-router");
+var Link = Router.Link;
+
 require("./CommentForm.css");
 
 
@@ -52,7 +55,9 @@ var CommentForm = React.createClass({
         <div className="Comment">
           { this.props.currentUserIsAuthorized ? (
             <div className="Comment__AvatarWrapper">
-              <Avatar user={ this.props.currentUser } />
+              <Link to={ "/u/" + this.props.currentUser.id}>
+                <Avatar user={ this.props.currentUser } />
+              </Link>
             </div>
           ) : null }
         <div className={ commentWrapperClass }>

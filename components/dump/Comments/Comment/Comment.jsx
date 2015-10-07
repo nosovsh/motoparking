@@ -2,6 +2,9 @@ var React = require("react");
 var _ = require("lodash");
 var moment = require("moment");
 
+var Router = require("react-router");
+var Link = Router.Link;
+
 var Avatar = require("../../Avatar/Avatar");
 
 require("./Comment.css");
@@ -16,7 +19,9 @@ var Comment = React.createClass({
     return (
       <div className="Comment">
         <div className="Comment__AvatarWrapper">
-          <Avatar user={ this.props.comment.user } />
+          <Link to={ "/u/" + this.props.comment.user.id}>
+            <Avatar user={ this.props.comment.user } />
+          </Link>
         </div>
         <div className="Comment__Data">
           <div className="Comment__Username">
