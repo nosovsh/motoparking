@@ -27,7 +27,7 @@ module.exports = {
   module: {
     loaders: [
       // Pass *.jsx files through jsx-loader transform
-      {test: /\.jsx$/, loaders: ["react-hot", "jsx"]},
+      {test: /\.jsx$/, exclude: "/node_modules/", loaders: ["react-hot", "babel-loader"]},
       {test: /\.css$/, loader: "style-loader!css-loader!postcss-loader"},
       {test: /\.png$/, loader: "file"},
       {test: /\.jpg$/, loader: "file"},

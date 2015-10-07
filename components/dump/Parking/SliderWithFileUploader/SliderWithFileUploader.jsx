@@ -5,6 +5,7 @@ var Carousel = require("nuka-carousel");
 var Photo = require("../../Photo/Photo");
 var FileUploader = require("./FileUploader/FileUploader");
 var FileUploaderFake = require("./FileUploader/FileUploaderFake");
+var decorators = require("./decorators");
 
 require("./SliderWithFileUploader.css");
 require("slick-carousel/slick/slick.css");
@@ -66,7 +67,7 @@ var SliderWithFileUploader = React.createClass({
         );
       }
       return (
-        <Carousel>
+        <Carousel decorators={ decorators }>
           { slides }
         </Carousel>
       );

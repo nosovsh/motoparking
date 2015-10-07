@@ -2,7 +2,7 @@ var React = require("react");
 var Fluxxor = require("fluxxor");
 
 var L = require("leaflet");
-leafletProviders = require("leaflet-providers");
+var leafletProviders = require("leaflet-providers");
 require("leaflet/dist/leaflet.css");
 
 var Router = require("react-router");

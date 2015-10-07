@@ -6,7 +6,7 @@ var Icon = require("../../../Icon/Icon");
 require("./style.css");
 require("imports?define=>false!blueimp-file-upload/js/jquery.fileupload");
 require("./jquery.cloudinary");
-$ = require("jquery");
+var $ = require("jquery");
 // TODO: move to config
 $.cloudinary.config({cloud_name: "motoparking", api_key: "666287416361873"});
 

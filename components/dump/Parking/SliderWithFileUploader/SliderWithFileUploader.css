@@ -22,6 +22,7 @@
 .Slider .slick-next {
     right: 10px;
     background-image: url("images/arrow-next.svg");
+    background-repeat: no-repeat;
 }
 
 .Slider .slick-prev {
