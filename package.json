@@ -23,7 +23,7 @@
     "leaflet": "^0.7.3",
     "leaflet-providers": "1.0.27",
     "loader-utils": "^0.2.7",
-    "lodash": "^3.7.0",
+    "lodash": "^3.10.1",
     "moment": "^2.10.2",
     "node-sass": "^3.3.3",
     "normalize.css": "^3.0.2",
