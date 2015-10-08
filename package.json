@@ -27,7 +27,7 @@
     "moment": "^2.10.2",
     "node-sass": "^3.3.3",
     "normalize.css": "^3.0.2",
-    "nuka-carousel": "0.0.19",
+    "nuka-carousel": "1.0.0",
     "photoswipe": "^4.0.7",
     "postcss": "^5.0.8",
     "postcss-loader": "^0.6.0",
