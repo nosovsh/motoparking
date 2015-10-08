@@ -69,7 +69,7 @@
             <script src='http://localhost:3005/build/main.js'></script>
         {% else %}
             <script src='/static/build/main.js'></script>
-            {#            <link rel="stylesheet" href="/static/build/main.css" />#}
+            <link rel="stylesheet" href="/static/build/styles.css" />
         {% endif %}
         <script>
             flux.actions.manualUpdateCurrentUser({{ current_user_json_str|safe }});
