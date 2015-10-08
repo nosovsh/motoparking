@@ -8,7 +8,6 @@ var FileUploaderFake = require("./FileUploader/FileUploaderFake");
 var decorators = require("./decorators");
 
 require("./SliderWithFileUploader.css");
-require("slick-carousel/slick/slick.css");
 
 
 var SliderWithFileUploader = React.createClass({
