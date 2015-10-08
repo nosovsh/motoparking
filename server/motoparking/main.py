@@ -49,7 +49,7 @@ app.config['MONGODB_SETTINGS'] = {
     'db': 'motoparking',
     'host': 'mongodb://localhost:27017/motoparking'
 }
-app.config['DEBUG'] = False
+app.config['DEBUG'] = True
 
 app.config['SECRET_KEY'] = 'super-secret'
 app.config['SECURITY_PASSWORD_HASH'] = 'pbkdf2_sha512'
@@ -678,7 +678,7 @@ def current_user_json(user):
 
 
 if __name__ == '__main__':
-    # app.debug = True
+    app.debug = True
     app.run(
         host="0.0.0.0"
     )
