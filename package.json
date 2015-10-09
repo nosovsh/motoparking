@@ -54,7 +54,7 @@
     "eslint": "^1.5.1",
     "eslint-config-airbnb-es5": "^1.0.8",
     "eslint-plugin-react": "^3.4.2",
-    "express": "^4.12.3",
+    "express": "^4.13.3",
     "react-hot-loader": "^1.2.5",
     "webpack-dev-server": "^1.7.0"
   },
