@@ -68,11 +68,15 @@ var User = React.createClass({
                 <div className="User__Header">Последние мнения</div>
                 { this.props.user.opinionIds.map(function(opinionId) {
                   return (
-                    <Opinion
-                      user={ this.props.user }
-                      opinion={ this.props.opinions[opinionId] }
-                      parking={ this.props.parkings[this.props.opinions[opinionId].parking] }
-                      />
+                    <span>
+                      { this.props.user && this.props.opinions[opinionId] && this.props.parkings[this.props.opinions[opinionId].parking] ? (
+                        <Opinion
+                          user={ this.props.user }
+                          opinion={ this.props.opinions[opinionId] }
+                          parking={ this.props.parkings[this.props.opinions[opinionId].parking] }
+                          />
+                      ) : null }
+                    </span>
                   );
                 }.bind(this)) }
               </div>
