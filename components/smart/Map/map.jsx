@@ -141,6 +141,8 @@ var Map = React.createClass({
           .addTo(this.map);
       }
     }.bind(this));
+    // hack to rerender map because sometimes only part of map is rendered
+    this.map._onResize();
   },
 
   /**
