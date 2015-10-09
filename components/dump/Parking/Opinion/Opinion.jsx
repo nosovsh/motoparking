@@ -25,6 +25,14 @@ var Opinion = React.createClass({
 
   mixins: [History],
 
+  getDefaultProps: function() {
+    return {
+      user: {},
+      opinion: {},
+      parking: {}
+    };
+  },
+
   goToParking: function() {
     this.history.pushState(null, "/p/" + this.props.parking.id);
   },
