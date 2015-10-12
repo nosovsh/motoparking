@@ -35,7 +35,7 @@
     "postcss-loader": "^0.6.0",
     "precss": "^1.2.3",
     "progressbar.js": "^0.7.4",
-    "rc-tooltip": "^2.8.0",
+    "rc-tooltip": "^2.10.0",
     "react": "^0.13.3",
     "react-components": "^0.2.0",
     "react-router": "^1.0.0-rc1",
