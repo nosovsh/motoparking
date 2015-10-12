@@ -31,7 +31,7 @@
     "normalize.css": "^3.0.2",
     "nuka-carousel": "0.0.19",
     "photoswipe": "^4.0.7",
-    "postcss": "^5.0.8",
+    "postcss": "^5.0.9",
     "postcss-loader": "^0.6.0",
     "precss": "^1.2.3",
     "progressbar.js": "^0.7.4",
