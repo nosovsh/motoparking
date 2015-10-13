@@ -28,7 +28,7 @@
     "lodash": "^3.10.1",
     "moment": "^2.10.2",
     "node-sass": "^3.3.3",
-    "normalize.css": "^3.0.2",
+    "normalize.css": "^3.0.3",
     "nuka-carousel": "0.0.19",
     "photoswipe": "^4.0.7",
     "postcss": "^5.0.9",
