@@ -39,7 +39,7 @@
     "react": "^0.13.3",
     "react-components": "^0.2.0",
     "react-router": "^1.0.0-rc1",
-    "react-tap-event-plugin": "^0.1.7",
+    "react-tap-event-plugin": "^0.2.1",
     "sass-loader": "^2.0.1",
     "source-map": "^0.4.0",
     "style-loader": "^0.8.3",
