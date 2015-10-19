@@ -1,4 +1,4 @@
-var React = require("react/addons");
+var React = require("react");
 var TimeoutTransitionGroup = require("react-components/js/timeout-transition-group");
 
 var Toast = require("./Toast/Toast");

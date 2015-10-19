@@ -1,4 +1,4 @@
-var React = require("react/addons");
+var React = require("react");
 var Events = require("utils/events");
 
 require("./DropDownMenu.css");

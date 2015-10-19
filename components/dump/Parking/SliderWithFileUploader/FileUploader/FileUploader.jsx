@@ -1,4 +1,4 @@
-var React = require("react/addons");
+var React = require("react");
 var ProgressBar = require("progressbar.js");
 
 var Icon = require("../../../Icon/Icon");
@@ -28,7 +28,7 @@ var FileUploader = React.createClass({
     // TODO: add error handling
     var options = {};
 
-    var fileInput = this.refs.fileInput.getDOMNode();
+    var fileInput = this.refs.fileInput;
     $(fileInput).unsigned_cloudinary_upload(
       this.props.cloudinaryConfig.uploadPreset,
       this.props.cloudinaryConfig.uploadParams,
@@ -39,7 +39,7 @@ var FileUploader = React.createClass({
         uploading: true
       });
 
-      var circleNode = this.refs.progressbar.getDOMNode();
+      var circleNode = this.refs.progressbar;
       this.circle = new ProgressBar.Circle(circleNode, {
         color: "#979797",
         strokeWidth: 1

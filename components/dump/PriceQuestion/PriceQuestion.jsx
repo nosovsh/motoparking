@@ -1,4 +1,4 @@
-var React = require("react/addons");
+var React = require("react");
 
 var TextInput = require("../TextInput/TextInput");
 var Icon = require("../../dump/Icon/Icon");

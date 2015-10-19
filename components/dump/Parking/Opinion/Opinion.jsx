@@ -1,4 +1,4 @@
-var React = require("react/addons");
+var React = require("react");
 var ReactRouter = require("react-router");
 var History = ReactRouter.History;
 var _ = require("lodash");

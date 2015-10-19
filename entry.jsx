@@ -1,4 +1,5 @@
 var React = require("react");
+var ReactDOM = require("react-dom");
 var routes = require("./routes");
 
 var ReactRouter = require("react-router");
@@ -29,4 +30,4 @@ function createElement(Component, props) {
   return <Component {...props} flux={flux} />;
 }
 
-React.render(<Router history={ history } createElement={ createElement } onUpdate={ onUpdate }>{ routes }</Router>, document.body);
+ReactDOM.render(<Router history={ history } createElement={ createElement } onUpdate={ onUpdate }>{ routes }</Router>, document.body);

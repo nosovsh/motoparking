@@ -1,4 +1,5 @@
 var React = require("react");
+var ReactDOM = require("react-dom");
 var Fluxxor = require("fluxxor");
 
 var L = require("leaflet");
@@ -74,7 +75,7 @@ var Map = React.createClass({
   },
 
   componentDidMount: function() {
-    this.map = L.map(this.getDOMNode(), {
+    this.map = L.map(ReactDOM.findDOMNode(this), {
       center: [55.7522200, 37.6155600],
       zoom: 12,
       minZoom: 2,

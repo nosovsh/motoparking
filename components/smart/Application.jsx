@@ -1,4 +1,4 @@
-var React = require("react/addons");
+var React = require("react");
 var Fluxxor = require("fluxxor");
 var TimeoutTransitionGroup = require("react-components/js/timeout-transition-group");
 var Router = require("react-router");

@@ -1,4 +1,4 @@
-var React = require("react/addons");
+var React = require("react");
 
 var Avatar = require("../Avatar/Avatar");
 var Icon = require("../Icon/Icon");

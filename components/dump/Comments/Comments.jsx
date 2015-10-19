@@ -1,4 +1,4 @@
-var React = require("react/addons");
+var React = require("react");
 
 var Comment = require("./Comment/Comment");
 var CommentForm = require("./CommentForm/CommentForm");
