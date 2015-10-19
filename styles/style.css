@@ -8,7 +8,7 @@ body {
     padding: 0;
 }
 
-body > div {
+body > div, body > div > div {
     width: 100%;
     height: 100%;
 }
