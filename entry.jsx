@@ -30,4 +30,7 @@ function createElement(Component, props) {
   return <Component {...props} flux={flux} />;
 }
 
-ReactDOM.render(<Router history={ history } createElement={ createElement } onUpdate={ onUpdate }>{ routes }</Router>, document.body);
+ReactDOM.render(
+  <Router history={ history } createElement={ createElement } onUpdate={ onUpdate }>{ routes }</Router>,
+  document.getElementById('content')
+);
