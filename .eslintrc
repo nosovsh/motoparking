@@ -13,7 +13,8 @@
     "prefer-const": 0,
 
     "vars-on-top": 0,                  // easy to move to ES6 some day
-    "comma-dangle": [2, "never"]
+    "comma-dangle": [2, "never"],
+    "id-length": 0
   }
 
 }

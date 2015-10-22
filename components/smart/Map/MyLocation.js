@@ -1,3 +1,4 @@
+var L = require("leaflet");
 var LOCATION_TIMEOUT = 1 * 60 * 1000;
 
 /**

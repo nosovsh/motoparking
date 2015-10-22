@@ -1,3 +1,4 @@
+var _ = require("lodash");
 var ParkingConstants = require("./ParkingConstants");
 var ParkingClient = require("./ParkingClient");
 var OpinionConstants = require("../opinion/OpinionConstants");

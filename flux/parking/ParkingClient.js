@@ -1,3 +1,4 @@
+/* global YANDEX_API_KEY */
 var _ = require("lodash");
 var $ = require("jquery");
 
