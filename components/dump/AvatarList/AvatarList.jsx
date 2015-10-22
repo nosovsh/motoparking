@@ -52,11 +52,9 @@ var AvatarList = React.createClass({
       };
       return (
         <div className="AvatarList__Object" style={ style } key={ user.id }>
-          <Tooltip placement="bottom" trigger={["hover"]} overlay={<span>{ user.firstName } { user.lastName }</span>}>
-            <Link to={ "/u/" + user.id}>
-              <Avatar user={ user } />
-            </Link>
-          </Tooltip>
+          <Link to={ "/u/" + user.id}>
+            <Avatar user={ user } />
+          </Link>
         </div>
       );
     }.bind(this));
