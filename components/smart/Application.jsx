@@ -27,7 +27,8 @@ var Application = React.createClass({
   getKey: function() {
     var sidebarPaths = [
       "/p/:id",
-      "/u/:userId"
+      "/u/:userId",
+      "/u",
     ];
     var path = this.props.routes[this.props.routes.length - 1].path;
     if (sidebarPaths.indexOf(path) !== -1) {

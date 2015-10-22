@@ -9,6 +9,17 @@ var UserClient = {
       success: success,
       error: failure
     });
+  },
+  loadUsers: function(success, failure) {
+    $.ajax({
+      dataType: "json",
+      url: "/api/users/",
+      data: {},
+      success: function(ret) {
+        success(ret.data);
+      },
+      error: failure
+    });
   }
 };
 

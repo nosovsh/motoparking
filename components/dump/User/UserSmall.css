@@ -1,0 +1,20 @@
+.UserSmall {
+    display: table;
+    margin: 0;
+    padding: 14px 11px 14px 11px;
+    width: 100%;
+}
+
+.UserSmall:last-child {
+    border-bottom: none;
+}
+
+.UserSmall__AvatarWrapper {
+    float: left;
+    width: 65px;
+}
+
+.UserSmall__Data {
+    margin-top: 15px;
+    margin-left: 65px;
+}

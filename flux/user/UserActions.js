@@ -10,6 +10,15 @@ var UserActions = {
     }.bind(this), function(error) {
       this.dispatch(UserConstants.LOAD_USER_FAIL, {userId: userId, error: error});
     }.bind(this));
+  },
+  loadUsers: function() {
+    this.dispatch(UserConstants.LOAD_USERS, {});
+
+    UserClient.loadUsers(function(users) {
+      this.dispatch(UserConstants.LOAD_USERS_SUCCESS, {users: users});
+    }.bind(this), function(error) {
+      this.dispatch(UserConstants.LOAD_USERS_FAIL, {error: error});
+    }.bind(this));
   }
 };
 

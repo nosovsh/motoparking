@@ -1,0 +1,10 @@
+.Users {
+    position: absolute;
+    width: 332px;
+}
+
+@media only screen and (max-device-width: 480px) {
+    .Users {
+        width: 100%;
+    }
+}
