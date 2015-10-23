@@ -14,6 +14,7 @@ var Users = React.createClass({
   render: function() {
     return (
       <div className="Users">
+        <div className="Users__Topbar" />
         { this.props.usersIds.length ? (
           <div>
             { this.props.usersIds.map(function(userId) {

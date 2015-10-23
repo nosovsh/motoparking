@@ -8,3 +8,8 @@
         width: 100%;
     }
 }
+
+.Users__Topbar {
+    background: #4D4D4D;
+    height: 39px;
+}
