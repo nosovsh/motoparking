@@ -40,7 +40,7 @@
     "react-components": "^0.4.0",
     "react-dom": "^0.14.0",
     "react-router": "^1.0.0-rc1",
-    "sass-loader": "^2.0.1",
+    "sass-loader": "^3.1.1",
     "source-map": "^0.5.2",
     "style-loader": "^0.13.0",
     "webpack": "^1.12.2"
